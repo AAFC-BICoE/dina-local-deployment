@@ -1,0 +1,3 @@
+[submodule "object-store-api"]
+	path = object-store-api
+	url = https://github.com/AAFC-BICoE/object-store-api
