@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  object-store-api:
+    environment:
+      keycloak.enabled: "true"
+      KEYCLOAK_HOST_IP: ${KEYCLOAK_IP}
+    networks:
+      dina:

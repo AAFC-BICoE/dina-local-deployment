@@ -1,0 +1,22 @@
+version: "3.7"
+networks:
+  dina:
+    ipam:
+      config:
+        - subnet: ${SUBNET}
+services:
+  keycloak:
+    image: jboss/keycloak:9.0.3
+    user: root
+    command: ["-Djboss.http.port=80"]
+    expose: [80]
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /keycloak-realm.json
+    volumes:
+      - "./keycloak-dina-starter-realm.json:/keycloak-realm.json"
+    networks:
+      dina:
+        # Here we set the IP for Keycloak
+        ipv4_address: ${KEYCLOAK_IP}

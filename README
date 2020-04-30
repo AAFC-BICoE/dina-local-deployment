@@ -1,0 +1,12 @@
+# Setup
+
+## Git Submodules
+
+## Setup script
+
+# How to run
+
+Note: first docker-compose file will represent the "root" of relative paths so docker-compose.base.yml should be used. 
+
+docker-compose -f docker-compose.base.yml -f object-store-api/docker-compose.yml -f docker-compose.local.yml up
+
