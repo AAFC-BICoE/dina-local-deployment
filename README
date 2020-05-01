@@ -1,8 +1,15 @@
+# dina-local-deployment
+
+Warning: still very experimental
+
 # Setup
+
+## Setup script
+
+setup script is used to assemble the different docker-compose from the different modules.  
 
 ## Git Submodules
 
-## Setup script
 
 # How to run
 
