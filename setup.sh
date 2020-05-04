@@ -3,14 +3,13 @@
 # start with a fresh .env
 cat base.env > .env
 
-# $1 = folder of the module
+# $1 = folder of the module , $2 Variable name used to define the path to main compose file
 copyDockerComposeFiles()
 {
     cp $1/local/docker-compose.yml.example $1/docker-compose.yml
     cp $1/local/*.env $1/
-    # won't work with more than 1 module. Prefix it ?
-    echo "PATH_FROM_COMPOSE="./$1 >> .env
+    echo "$2="./$1 >> .env
 }
 
-copyDockerComposeFiles object-store-api
+copyDockerComposeFiles object-store-api BASE_PATH_TO_OBJECT_STORE
 #copyDockerComposeFiles agent-api

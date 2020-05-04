@@ -1,19 +1,31 @@
 # dina-local-deployment
 
-Warning: still very experimental
+Warning: still experimental
+
+# Goal
+
+Repository where we can easily start the DINA system or parts of it while reusing the deployment defined by the modules to ensure they are 
+running the way it was defined. It also ensures module isolation since they will all keep their default network so module's internals won't be exposed 
+to other modules.
 
 # Setup
 
+## Git Submodules
+
+To get the different files from the different modules, [git-submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) are used. They are currently configured to
+point to the `dev` branches.
+
+To update submodules: `git submodule update --remote`
+
 ## Setup script
 
-setup script is used to assemble the different docker-compose from the different modules.  
-
-## Git Submodules
+`setup.sh` script is used to assemble the different docker-compose from the different modules.
 
 
 # How to run
 
-Note: first docker-compose file will represent the "root" of relative paths so docker-compose.base.yml should be used. 
+Note: first docker-compose file will represent the "root" of relative paths so `docker-compose.base.yml` should be used. 
 
-docker-compose -f docker-compose.base.yml -f object-store-api/docker-compose.yml -f docker-compose.local.yml up
+To run:
+`docker-compose -f docker-compose.base.yml -f object-store-api/docker-compose.yml -f docker-compose.local.yml up`
 
