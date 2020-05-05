@@ -8,8 +8,9 @@ services:
   keycloak:
     image: jboss/keycloak:9.0.3
     user: root
-    command: ["-Djboss.http.port=80"]
-    expose: [80]
+    command: ["-Djboss.http.port=${KEYCLOAK_PORT}"]
+    expose: 
+      - ${KEYCLOAK_PORT}
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin

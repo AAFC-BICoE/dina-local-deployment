@@ -3,6 +3,8 @@ services:
   object-store-api:
     environment:
       keycloak.enabled: "true"
-      KEYCLOAK_HOST_IP: ${KEYCLOAK_IP}
+      KEYCLOAK_AUTH_URL: "http://${KEYCLOAK_IP}:${KEYCLOAK_PORT}/auth"
+      # if keycloak.auth-server-url is set to ${KEYCLOAK_AUTH_URL} in application.yml, the next line can be removed
+      keycloak.auth-server-url: http://${KEYCLOAK_IP}:${KEYCLOAK_PORT}/auth
     networks:
       - dina
