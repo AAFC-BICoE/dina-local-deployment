@@ -17,8 +17,9 @@ point to the `dev` branches.
 
 When cloning the projet:
 
-* `git submodule init`
-* Update submodules: `git submodule update --remote`
+* `git submodule init` (init all submodules)
+* `git submodule update --remote` (update all submodules)
+* `git submodule foreach --recursive git checkout dev` (put all submodules on dev branch)  
 
 ## Setup script
 
@@ -31,4 +32,3 @@ Note: first docker-compose file will represent the "root" of relative paths so `
 
 To run:
 `docker-compose -f docker-compose.base.yml -f object-store-api/docker-compose.yml -f docker-compose.local.yml up`
-
