@@ -15,7 +15,10 @@ to other modules.
 To get the different files from the different modules, [git-submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) are used. They are currently configured to
 point to the `dev` branches.
 
-To update submodules: `git submodule update --remote`
+When cloning the projet:
+
+* `git submodule init`
+* Update submodules: `git submodule update --remote`
 
 ## Setup script
 
