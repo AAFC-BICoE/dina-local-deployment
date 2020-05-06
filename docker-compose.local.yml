@@ -5,6 +5,8 @@ services:
       keycloak.enabled: "true"
       KEYCLOAK_AUTH_URL: "http://${KEYCLOAK_IP}:${KEYCLOAK_PORT}/auth"
       # if keycloak.auth-server-url is set to ${KEYCLOAK_AUTH_URL} in application.yml, the next line can be removed
-      keycloak.auth-server-url: http://${KEYCLOAK_IP}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
     networks:
       - dina
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
