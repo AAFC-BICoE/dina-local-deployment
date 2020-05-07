@@ -11,6 +11,9 @@
       "directAccessGrantsEnabled": true,
       "publicClient": true,
       "redirectUris": ["*"],
+      "defaultClientScopes": [
+        "dina-agent"
+      ],
       "webOrigins": ["*"]
     }
   ],
@@ -27,18 +30,61 @@
     ]
   },
   "defaultRoles": ["user"],
+  "clientScopes": [
+    {
+      "id": "5b3d37dd-6615-44ea-851e-0f52111a50da",
+      "name": "dina-agent",
+      "description": "",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true"
+      },
+      "protocolMappers": [
+        {
+          "id": "cd43bfa6-215f-4e3f-b0b9-60e6078eb174",
+          "name": "agent-identifier",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "agentId",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "agent-identifier",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    }
+  ],
+  "scopeMappings": [
+    {
+      "clientScope": "dina-agent",
+      "roles": [
+        "user"
+      ]
+    }
+  ],
   "users": [
     {
       "username": "admin",
       "enabled": true,
       "realmRoles": ["admin", "user"],
-      "credentials": [{ "type": "password", "value": "admin" }]
+      "credentials": [{ "type": "password", "value": "admin" }],
+      "attributes": {
+        "agentId": "abcd"
+      }
     },
     {
       "username": "user",
       "enabled": true,
       "realmRoles": ["user"],
-      "credentials": [{ "type": "password", "value": "user" }]
+      "credentials": [{ "type": "password", "value": "user" }],
+      "attributes": {
+        "agentId": "efgh"
+      }
     }
   ]
 }
