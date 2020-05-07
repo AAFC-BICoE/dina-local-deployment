@@ -8,3 +8,6 @@
 	url = https://github.com/AAFC-BICoE/agent-api
 	branch = dev
         update = merge
+[submodule "dina-ui"]
+	path = dina-ui
+	url = https://github.com/AAFC-BICoE/dina-ui

@@ -10,3 +10,15 @@ services:
       - dina
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
+
+  object-store-ui:
+    build:
+      context: ./dina-ui
+      dockerfile: objectstore-ui.Dockerfile
+    environment:
+      OBJECTSTORE_API_ADDRESS: object-store-api:8081
+      KEYCLOAK_CLIENTID: objectstore
+      KEYCLOAK_REALM: dina
+      KEYCLOAK_PUBLIC_URL: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+
+
