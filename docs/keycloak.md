@@ -1,6 +1,6 @@
-= Keycloak
+# Keycloak
 
-=== 1. Get a Bearer token
+## 1. Get a Bearer token
 
 You can use the following script:
 https://github.com/akoserwal/keycloak-integrations/blob/master/curl-post-request/keycloak-curl.sh[keycloak-curl.sh]
@@ -18,7 +18,7 @@ The token will be printed in the console.
 
 NOTE: The scripts assumes https which may not be available on local setup, in that case the script has to be modified to use http.
 
-=== 2. Use the Bearer token
+## 2. Use the Bearer token
 
 `curl -v -H "Authorization: Bearer <TOKEN>" localhost:8081/api/v1`
 
