@@ -1,5 +1,11 @@
 # Keycloak
 
+## 0. Prerequisites
+
+Add an entry for keycloak in your `hosts` file. In Linux and Mac OSX, this is located at `/etc/hosts`, and in Windows it's `c:\windows\system32\drivers\etc\hosts`. You should have an entry that matches the host name and IP in base.env:
+
+`172.33.33.10	keycloak.local`
+
 ## 1. Get a Bearer token
 
 You can use the following script:
@@ -11,7 +17,7 @@ The script usage is `./keycloak-curl.sh hostname realm username clientid`
 
 Usage with the object-store docker-compose:
 
-`./keycloak-curl.sh keycloak:8080 dina user objectstore`
+`./keycloak-curl.sh keycloak.local:8080 dina user objectstore`
 
 You will have a enter a password ('user').
 The token will be printed in the console.
