@@ -16,9 +16,13 @@ services:
       context: ./dina-ui
       dockerfile: objectstore-ui.Dockerfile
     environment:
-      OBJECTSTORE_API_ADDRESS: object-store-api:8081
+      OBJECTSTORE_API_ADDRESS: object-store-api:8080
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
       KEYCLOAK_PUBLIC_URL: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+    networks:
+      - dina
+    ports:
+      - "2015:80"
 
 
