@@ -22,6 +22,12 @@ When cloning the projet:
 
 Note: git submodules are real git project. You can go in the folder and run any git command.
 
+## Host file
+
+An entry for Keycloak in your hosts file is required. In Linux and Mac OSX, this is located at `/etc/hosts`, and in Windows it's `c:\windows\system32\drivers\etc\hosts`. You should have an entry that matches the host name and IP in base.env:
+
+`172.33.33.10 keycloak.local`
+
 ## Setup script
 
 `setup.sh` script is used to assemble the different docker-compose from the different modules. The Docker Compose command of that project only works if the setup script is used to prepare all the required files.
