@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  object-store-api:
+    environment:
+      keycloak.enabled: "true"
+      KEYCLOAK_AUTH_URL: "http://${KEYCLOAK_IP}:${KEYCLOAK_PORT}/auth"
+      # if keycloak.auth-server-url is set to ${KEYCLOAK_AUTH_URL} in application.yml, the next line can be removed
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+    networks:
+      - dina
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
+
+  object-store-ui:
+    build:
+      context: ./dina-ui
+      dockerfile: objectstore-ui.Dockerfile
+    environment:
+      OBJECTSTORE_API_ADDRESS: object-store-api:8080
+      KEYCLOAK_CLIENTID: objectstore
+      KEYCLOAK_REALM: dina
+      KEYCLOAK_PUBLIC_URL: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+    networks:
+      - dina
+    ports:
+      - "2015:80"
+
+
