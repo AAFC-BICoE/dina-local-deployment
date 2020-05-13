@@ -2,7 +2,7 @@
 
 ## 0. Prerequisites
 
-Add an entry for keycloak in your `hosts` file. In Linux and Mac OSX, this is located at `/etc/hosts`, and in Windows it's `c:\windows\system32\drivers\etc\hosts`. You should have an entry that matches the host name and IP in base.env:
+An entry for Keycloak in your `hosts` file:
 
 `172.33.33.10	keycloak.local`
 
