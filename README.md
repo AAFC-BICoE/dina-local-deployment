@@ -22,7 +22,7 @@ When cloning the projet:
 
 Note: git submodules are real git project. You can go in the folder and run any git command.
 
-## Host file
+## Hosts file
 
 An entry for Keycloak in your hosts file is required. In Linux and Mac OSX, this is located at `/etc/hosts`, and in Windows it's `c:\windows\system32\drivers\etc\hosts`. You should have an entry that matches the host name and IP in base.env:
 
