@@ -1,0 +1,6 @@
+version: "3.7"
+services:
+  object-store-api:
+    ports:
+      - "5005:5005"
+    entrypoint: ["java","-XX:+UnlockExperimentalVMOptions","-XX:+UseCGroupMemoryLimitForHeap","-Xdebug","-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005","-jar","/object-store-api.jar"]
