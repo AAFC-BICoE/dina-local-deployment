@@ -42,5 +42,13 @@ To run:
 
 After all the components have finished initializing, the UI will be available at `http://localhost:2015`. By default, there are two users included: `user` and `admin`. The password is the same as the username for both.
 
+# How to debug
+
+`docker-compose -f docker-compose.base.yml -f object-store-api/docker-compose.yml -f docker-compose.local.yml -f docker-compose.dev.yml up`
+
+This will expose `localhost:5005` for remote debugging.
+
+Note: docker-compose.dev.yml currently includes the object-store only. When new modules will be available this will probably be changed to be per module (e.g. docker-compose-object-store-api.dev.yml) to avoid starting all modules in debug mode.
+
 # Documentation
 * DINA [Keycloak testing](docs/keycloak.md)
