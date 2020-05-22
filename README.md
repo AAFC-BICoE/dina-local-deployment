@@ -30,8 +30,8 @@ An entry for Keycloak in your hosts file is required. In Linux and Mac OSX, this
 
 Additionally, you may also want to add entries for the other IP/hostname pairs in base.env:
 
-- `172.11.11.11	dina.local` (DINA\_UI) will allow you to access the UI at `http://dina.local`; it uses port 80 so no port number is necessary in this case
-- `172.11.11.12	api.dina.local` (OBJECT\_STORE\_API) will allow you to directly query the API (using CURL, Postman or other tools) at `api.dina.local:8080`
+- `172.33.33.11	dina.local` (DINA\_UI) will allow you to access the UI at `http://dina.local`; it uses port 80 so no port number is necessary in this case
+- `172.33.33.12	api.dina.local` (OBJECT\_STORE\_API) will allow you to directly query the API (using CURL, Postman or other tools) at `api.dina.local:8080`
 
 ## Setup script
 

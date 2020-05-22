@@ -1,11 +1,5 @@
 version: "3.7"
 
-networks:
-  localdomains:
-    ipam:
-      config:
-        - subnet: ${LOCAL_DOMAIN_SUBNET}
-
 services:
   object-store-api:
     environment:
@@ -15,7 +9,6 @@ services:
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
     networks:
       dina:
-      localdomains:
         ipv4_address: ${OBJECT_STORE_API_IP}
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
@@ -31,7 +24,6 @@ services:
       KEYCLOAK_PUBLIC_URL: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
     networks:
       dina:
-      localdomains:
         ipv4_address: ${DINA_UI_IP}
     extra_hosts:
       - ${OBJECT_STORE_API_HOSTNAME}:${OBJECT_STORE_API_IP}
