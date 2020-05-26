@@ -435,7 +435,7 @@
       "realmRoles": ["admin", "user"],
       "credentials": [{ "type": "password", "value": "admin" }],
       "attributes": {
-        "agentId": "abcd"
+        "agentId": "fdb72d9d-4ea1-4edf-baf2-6feafb90fd12"
       }
     },
     {
@@ -444,7 +444,7 @@
       "realmRoles": ["user"],
       "credentials": [{ "type": "password", "value": "user" }],
       "attributes": {
-        "agentId": "efgh"
+        "agentId": "9c403c4b-c849-43c4-bbc1-8bd10b1997e1"
       }
     }
   ]
