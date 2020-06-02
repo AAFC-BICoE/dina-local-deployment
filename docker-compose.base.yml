@@ -34,12 +34,17 @@ services:
       - "--api.insecure=true"
       # access logs: use "docker logs --follow [traefik container]"
       - "--accesslog=true"
+      # debug logging: enable the traefik.log volume to use these
+      # - "--log.filePath=/traefik.log"
+      # - "--log.level=DEBUG"
     ports:
       # - "80:80" # Traefik-connected services
       - "8999:9090" # Traefik web UI
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
+      # Allow Traefik to log to a local file
+      # - ./traefik.log:/traefik.log
     networks:
       dina:
         ipv4_address: ${TRAEFIK_IP}
