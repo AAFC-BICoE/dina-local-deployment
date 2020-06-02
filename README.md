@@ -24,9 +24,11 @@ Note: git submodules are real git project. You can go in the folder and run any 
 
 ## Hosts file
 
-An entry for Keycloak in your hosts file is required. In Linux and Mac OSX, this is located at `/etc/hosts`, and in Windows it's `c:\windows\system32\drivers\etc\hosts`. You should have an entry that matches the host name and IP in base.env:
+The hosts file must be updated with the hostnames used in the local deployment. In Linux and Mac OSX, this is located at `/etc/hosts`, and in Windows it's `c:\windows\system32\drivers\etc\hosts`. You should have the following entries, all pointing to the fixed IP of the Traefik container:
 
-`172.33.33.10 keycloak.local`
+`172.33.33.9 keycloak.local`
+`172.33.33.9 dina.local`
+`172.33.33.9 api.dina.local`
 
 ## Setup script
 
@@ -40,7 +42,7 @@ To run:
 
 `docker-compose -f docker-compose.base.yml -f object-store-api/docker-compose.yml -f docker-compose.local.yml up`
 
-After all the components have finished initializing, the UI will be available at `http://localhost:2015`. By default, there are two users included: `user` and `admin`. The password is the same as the username for both.
+After all the components have finished initializing, the UI will be available at `http://dina.local/`. By default, there are two users included: `user` and `admin`. The password is the same as the username for both.
 
 # How to debug
 
