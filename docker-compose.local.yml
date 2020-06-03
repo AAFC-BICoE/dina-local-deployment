@@ -3,20 +3,24 @@ services:
   object-store-api:
     environment:
       keycloak.enabled: "true"
-      KEYCLOAK_AUTH_URL: "http://${KEYCLOAK_IP}:${KEYCLOAK_PORT}/auth"
-      # if keycloak.auth-server-url is set to ${KEYCLOAK_AUTH_URL} in application.yml, the next line can be removed
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
     networks:
       - dina
     extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+    labels:
+      # maps api.dina.local/objectstore/api/v1/... -> object_store_api/api/v1
+      - "traefik.http.middlewares.stripobjectstore.stripprefix.prefixes=${OBJECT_STORE_API_PREFIX}"
+      - "traefik.http.routers.objectstoreapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${OBJECT_STORE_API_PREFIX}/`)"
+      - "traefik.http.routers.objectstoreapi.middlewares=stripobjectstore@docker"
+      # maps dina.local/api/v1/... -> object_store_api/api/v1
+      - "traefik.http.routers.objectstoreapifromui.rule=Host(`${OBJECT_STORE_UI_HOSTNAME}`) && PathPrefix(`/api/`)"
 
   object-store-ui:
     build:
       context: ./dina-ui
       dockerfile: objectstore-ui.Dockerfile
     environment:
-      OBJECTSTORE_API_ADDRESS: object-store-api:8080
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
       KEYCLOAK_PUBLIC_URL: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -24,5 +28,6 @@ services:
       - dina
     ports:
       - "2015:80"
-
+    labels:
+      - "traefik.http.routers.ui.rule=Host(`${OBJECT_STORE_UI_HOSTNAME}`)"
 

@@ -19,5 +19,33 @@ services:
       - "./keycloak-dina-starter-realm.json:/keycloak-realm.json"
     networks:
       dina:
-        # Here we set the IP for Keycloak
-        ipv4_address: ${KEYCLOAK_IP}
+    labels:
+      - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`)"
+
+  traefik:
+    image: traefik:v2.2.0
+    command:
+      - "--providers.docker=true"
+      - "--entrypoints.traefik.address=:9090"
+      - "--entrypoints.dockerweb.address=:8080"
+      - "--entrypoints.http.address=:80"
+      # debug flags - may be commented or removed
+      # Traefik dashboard: access localhost:8999 in browser
+      - "--api.insecure=true"
+      # access logs: use "docker logs --follow [traefik container]"
+      - "--accesslog=true"
+      # debug logging: enable the traefik.log volume to use these
+      # - "--log.filePath=/traefik.log"
+      # - "--log.level=DEBUG"
+    ports:
+      # - "80:80" # Traefik-connected services
+      - "8999:9090" # Traefik web UI
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Allow Traefik to log to a local file
+      # - ./traefik.log:/traefik.log
+    networks:
+      dina:
+        ipv4_address: ${TRAEFIK_IP}
+      default:
