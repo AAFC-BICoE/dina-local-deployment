@@ -12,4 +12,4 @@ copyDockerComposeFiles()
 }
 
 copyDockerComposeFiles object-store-api BASE_PATH_TO_OBJECT_STORE
-#copyDockerComposeFiles agent-api
+copyDockerComposeFiles agent-api BASE_PATH_TO_AGENT

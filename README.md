@@ -40,7 +40,13 @@ Note: first docker-compose file will represent the "root" of relative paths so `
 
 To run:
 
-`docker-compose -f docker-compose.base.yml -f object-store-api/docker-compose.yml -f docker-compose.local.yml up`
+```
+docker-compose \
+-f docker-compose.base.yml \
+-f object-store-api/docker-compose.yml \
+-f agent-api/docker-compose.yml \
+-f docker-compose.local.yml up
+```
 
 After all the components have finished initializing, the UI will be available at `http://dina.local/`. By default, there are two users included: `user` and `admin`. The password is the same as the username for both.
 
