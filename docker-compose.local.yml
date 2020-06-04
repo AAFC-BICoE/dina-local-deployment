@@ -31,3 +31,11 @@ services:
     labels:
       - "traefik.http.routers.ui.rule=Host(`${OBJECT_STORE_UI_HOSTNAME}`)"
 
+  agent-api:
+    networks:
+      - dina
+    labels:
+      # Opens http://api.dina.local/agent/api/v1/ module endpoint
+      - "traefik.http.middlewares.stripagent.stripprefix.prefixes=${AGENT_API_PREFIX}"
+      - "traefik.http.routers.agentapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${AGENT_API_PREFIX}/`)"
+      - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
