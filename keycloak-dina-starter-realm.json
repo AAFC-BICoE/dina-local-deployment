@@ -45,8 +45,8 @@
     },
     {
       "id": "2b4549e9-9a95-489f-8e30-74c2d877d8a8",
-      "name": "entomology",
-      "path": "/entomology",
+      "name": "cnc",
+      "path": "/cnc",
       "attributes": {},
       "realmRoles": [],
       "clientRoles": {},
@@ -54,8 +54,8 @@
     },
     {
       "id": "b2366903-df67-4f68-b00f-ce41ddc64861",
-      "name": "mycology",
-      "path": "/mycology",
+      "name": "dao",
+      "path": "/dao",
       "attributes": {},
       "realmRoles": [],
       "clientRoles": {},
