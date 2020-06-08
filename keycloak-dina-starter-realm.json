@@ -485,7 +485,7 @@
       "username": "user",
       "enabled": true,
       "realmRoles": ["user"],
-      "groups": ["aafc", "entomology"],
+      "groups": ["aafc", "cnc"],
       "credentials": [{ "type": "password", "value": "user" }],
       "attributes": {
         "agentId": "9c403c4b-c849-43c4-bbc1-8bd10b1997e1"
