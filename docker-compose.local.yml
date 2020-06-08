@@ -24,6 +24,8 @@ services:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
       KEYCLOAK_PUBLIC_URL: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      OBJECTSTORE_API_ADDRESS: object-store-api:8080
+      AGENT_API_ADDRESS: agent-api:8080
     networks:
       - dina
     ports:
