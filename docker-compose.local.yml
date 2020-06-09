@@ -30,8 +30,13 @@ services:
       - "traefik.http.routers.ui.rule=Host(`${OBJECT_STORE_UI_HOSTNAME}`)"
 
   agent-api:
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
     networks:
       - dina
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     labels:
       # Opens http://api.dina.local/agent/api/v1/ module endpoint
       - "traefik.http.middlewares.stripagent.stripprefix.prefixes=${AGENT_API_PREFIX}"
