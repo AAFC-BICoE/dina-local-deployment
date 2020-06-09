@@ -30,6 +30,9 @@ services:
       - "traefik.http.routers.ui.rule=Host(`${OBJECT_STORE_UI_HOSTNAME}`)"
 
   agent-api:
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
     networks:
       - dina
     labels:
