@@ -35,6 +35,8 @@ services:
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
     networks:
       - dina
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     labels:
       # Opens http://api.dina.local/agent/api/v1/ module endpoint
       - "traefik.http.middlewares.stripagent.stripprefix.prefixes=${AGENT_API_PREFIX}"
