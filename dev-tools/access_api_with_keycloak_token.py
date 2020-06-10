@@ -2,6 +2,7 @@ import argparse
 import json
 from keycloak import KeycloakOpenID
 import logging
+import os
 import requests
 import yaml
 
@@ -13,9 +14,10 @@ def _parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-u', '--url', required = True, help='API URL of request')
     parser.add_argument('-d', '--data', required=False, 
-        help='Python dictionary, e.g. \'{"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}\'')
+        help='Python string representation of a dictionary')
     parser.add_argument('-f', '--json_file', required=False)
-    parser.add_argument('-H', '--headers')
+    parser.add_argument('-H', '--headers', 
+        help='Python dictionary, e.g. \'{"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}\'')
     parser.add_argument('-X', '--request', default='get', 
         choices=['get', 'post', 'patch', 'delete', 'GET', 'POST', 'PATCH', 'DELETE'])
     
@@ -61,31 +63,37 @@ def main():
          headers = json.loads(args.headers)
     else:
         headers = {}
-    headers.update({"Authorization": authorization_string})
+    headers.update({"Authorization": authorization_string}) 
 
     # Handle request
     if method == 'GET':
         res = requests.get(url, headers=headers)
 
     else:
-        if args.json_file:
-            data = open(args.file)
-        elif args.data:
-            data = args.data
+        data = args.data
+        if args.json_file is not None:
+            file = args.json_file
+            if os.path.isfile(file) and file.endswith('.json'):
+                with open(file, 'r') as f:
+                       json_data = file.load(f)
+            else:
+                print('Expecting json filetype.')
+                exit(1)
         else:
-            print("This request requires data")
-            exit(1)
+            json_data = None
+        
+        if not "Content-Type" in headers.keys():
+            headers.update({"Content-Type":"application/vnd.api+json"})
 
         if method == 'POST':
-            res = requests.post(url, data=data, headers=headers)
+            res = requests.post(url, data=data, json=json_data, headers=headers)
 
         elif method == 'PATCH':
-            res = requests.patch(url, data=data, headers=headers)
+            res = requests.patch(rl, data=data, json=json_data, headers=headers)
         
         elif method == 'DELETE':
-            res = requests.delete(url, data=data, headers=headers)
+            res = requests.delete(url, data=data, json=json_data, headers=headers)
 
-    print(res.text)
 
 if __name__ == '__main__':
     main()

@@ -30,15 +30,14 @@ cp keycloak-config.yml.sample keycloak-config.yml
 
 ## Run ##
 ```
-python access_api_with_keycloak_token.py [-h] -a API_URL [-d DATA] [-f JSON_FILE] [-X {GET,POST,PATCH,DELETE}] [-H HEADERS]
-optional arguments:
-  -h    --help              show this help message and exit
-  -a    --api_url           API URL of request
-  -d    --data              json object
-  ~-f    --json_file        JSON_FILE~
-  -H    --headers HEADERS   String representation of a json object
-  -X    --request           {GET,POST,PATCH,DELETE}. Default GET.
-   
+python access_api_with_keycloak_token.py [-h] -u URL [-d DATA] [-f JSON_FILE] [-H HEADERS] [-X {GET,POST,PATCH,DELETE}]
+
+  -h,   --help              show this help message and exit
+  -u    --url URL           API URL of request
+  -d    --data              Python string representation of a dictionary
+  -f    --json_file         json filepath
+  -H    --headers           Python dictionary, e.g. '{"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}'
+  -X    --request           {get,post,patch,delete,GET,POST,PATCH,DELETE}. Default = GET
 ```
 Usage examples:
 
@@ -48,7 +47,11 @@ python access_api_with_keycloak_token.py --url http://api.dina.local/agent/api/v
 ```
 Post:
 ```
-python access_api_with_keycloak_token.py -X POST -a http://api.dina.local/agent/api/v1/agent -H '{"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}' --data '{"data": {"type": "agent", "attributes": {"displayName": "Samah Hassan", "email": "samah@email.com"}}}'
+python access_api_with_keycloak_token.py -X POST -url http://api.dina.local/agent/api/v1/agent -H '{"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}' --data '{"data": {"type": "agent", "attributes": {"displayName": "Samah Hassan", "email": "samah@email.com"}}}'
+```
+
+```
+python access_api_with_keycloak_token.py --url http://api.dina.local/agent/api/v1/agent -X post -d ../../agent_import.json
 ```
 
 ## Deactivate Environment ##
@@ -64,3 +67,5 @@ conda deactivate
 ```
 source .env/bin/deactivate
 ```
+
+Note: To use subsequent times, simply reactivate environement (`conda activate dina` or `source .env/bin/activate`), and run.
