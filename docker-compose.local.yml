@@ -22,6 +22,8 @@ services:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
       KEYCLOAK_PUBLIC_URL: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      OBJECTSTORE_API_ADDRESS: dina.local/objectstore
+      AGENT_API_ADDRESS: dina.local/agent    
     networks:
       - dina
     ports:
@@ -42,3 +44,4 @@ services:
       - "traefik.http.middlewares.stripagent.stripprefix.prefixes=${AGENT_API_PREFIX}"
       - "traefik.http.routers.agentapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${AGENT_API_PREFIX}/`)"
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
+      - "traefik.http.routers.agentapifromui.rule=Host(`${AGENT_UI_HOSTNAME}`) && PathPrefix(`/api/`)"
