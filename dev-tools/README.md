@@ -1,6 +1,8 @@
 ## Requirements ##
   * Python 3.7 or 3.8
-  * Conda 4.8+ (optional)
+  * Conda 4.8+ (recommended)
+
+Note: If you are not using conda, you may have to replace the `python` command with `python3` in the instructions below.
 
 ## Initial Setup ##
 
