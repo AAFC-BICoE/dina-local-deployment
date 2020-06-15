@@ -75,9 +75,9 @@ def main():
             file = args.json_file
             if os.path.isfile(file) and file.endswith('.json'):
                 with open(file, 'r') as f:
-                       json_data = file.load(f)
+                       json_data = json.load(f)
             else:
-                print('Expecting json filetype.')
+                print('File not found or wrong filetype.')
                 exit(1)
         else:
             json_data = None
