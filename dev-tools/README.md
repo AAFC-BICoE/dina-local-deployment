@@ -43,15 +43,15 @@ Usage examples:
 
 Get: 
 ```
-python access_api_with_keycloak_token.py --url http://api.dina.local/agent/api/v1/agent
+python access_api_with_keycloak_token.py -u http://api.dina.local/agent/api/v1/agent
 ```
 Post:
 ```
-python access_api_with_keycloak_token.py -X POST -url http://api.dina.local/agent/api/v1/agent -H '{"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}' --data '{"data": {"type": "agent", "attributes": {"displayName": "Samah Hassan", "email": "samah@email.com"}}}'
+python access_api_with_keycloak_token.py -X POST -u http://api.dina.local/agent/api/v1/agent -H '{"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}' -d '{"data": {"type": "agent", "attributes": {"displayName": "Samah Hassan", "email": "samah@email.com"}}}'
 ```
 
 ```
-python access_api_with_keycloak_token.py --url http://api.dina.local/agent/api/v1/agent -X post -d ../../agent_import.json
+python access_api_with_keycloak_token.py -u http://api.dina.local/agent/api/v1/agent -X post -f path/to/file.json
 ```
 
 ## Deactivate Environment ##

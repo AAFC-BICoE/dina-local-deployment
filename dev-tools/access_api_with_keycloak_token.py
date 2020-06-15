@@ -89,10 +89,11 @@ def main():
             res = requests.post(url, data=data, json=json_data, headers=headers)
 
         elif method == 'PATCH':
-            res = requests.patch(rl, data=data, json=json_data, headers=headers)
+            res = requests.patch(url, data=data, json=json_data, headers=headers)
         
         elif method == 'DELETE':
             res = requests.delete(url, data=data, json=json_data, headers=headers)
+    print(res.text)
 
 
 if __name__ == '__main__':
