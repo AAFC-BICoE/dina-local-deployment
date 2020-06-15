@@ -1,0 +1,7 @@
+url: http://keycloak.local:8080/auth/
+username: user
+password: user
+realm_name: dina
+client_id: objectstore
+secure: False           #Change to True if using https protocol 
+ 

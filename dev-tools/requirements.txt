@@ -1,0 +1,2 @@
+python_keycloak>=0.20
+PyYAML>=5.3
