@@ -17,7 +17,7 @@ services:
   object-store-ui:
     build:
       context: ./dina-ui
-      dockerfile: objectstore-ui.Dockerfile
+      dockerfile: Dockerfile
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
