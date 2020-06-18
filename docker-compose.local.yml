@@ -28,7 +28,7 @@ services:
     ports:
       - "2015:80"
     labels:
-      - "traefik.http.routers.ui.rule=Host(`${OBJECT_STORE_UI_HOSTNAME}`)"
+      - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
 
   agent-api:
     environment:
