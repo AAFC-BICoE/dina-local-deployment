@@ -17,6 +17,8 @@ services:
       KEYCLOAK_IMPORT: /keycloak-realm.json
     volumes:
       - "./keycloak-dina-starter-realm.json:/keycloak-realm.json"
+      - "./keycloak-themes/standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml"
+      - "./keycloak-themes/themes/dina:/opt/jboss/keycloak/themes/dina"
     networks:
       dina:
     labels:
