@@ -1,6 +1,15 @@
 {
   "id": "dina",
   "realm": "dina",
+  "displayName": "DINA",
+  "displayNameHtml": "<div class=\"kc-logo-text\"><span>DINA</span></div>",
+  "loginTheme": "dina",
+  "internationalizationEnabled": true,
+  "supportedLocales": [
+    "en",
+    "fr"
+  ],
+  "defaultLocale": "en",
   "enabled": true,
   "sslRequired": "none",
   "clients": [

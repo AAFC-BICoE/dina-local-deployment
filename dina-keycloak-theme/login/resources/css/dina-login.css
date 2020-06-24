@@ -1,0 +1,14 @@
+.login-pf body {
+    background: white;
+    height: 100%;
+}
+
+div.kc-logo-text {
+    background-image: url(../img/dina-tr-1344-1184.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 10em;
+    width: 100%;
+    margin: 0 auto;
+}
