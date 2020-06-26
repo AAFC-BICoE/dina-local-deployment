@@ -553,6 +553,26 @@
       "attributes": {
         "agentId": "9c403c4b-c849-43c4-bbc1-8bd10b1997e1"
       }
+    },
+    {
+      "username": "cnc-cm",
+      "enabled": true,
+      "realmRoles": ["user"],
+      "groups": ["cnc/collection-manager"],
+      "credentials": [{ "type": "password", "value": "cnc-cm" }],
+      "attributes": {
+        "agentId": "ba05d46b-6c75-4c92-82d6-e72237d9982f"
+      }
+    },
+    {
+      "username": "cnc-staff",
+      "enabled": true,
+      "realmRoles": ["user"],
+      "groups": ["cnc/staff"],
+      "credentials": [{ "type": "password", "value": "cnc-staff" }],
+      "attributes": {
+        "agentId": "34e1de96-cc79-4ce1-8cf6-d0be70ec7bed"
+      }
     }
   ]
 }
