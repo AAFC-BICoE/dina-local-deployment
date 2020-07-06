@@ -48,7 +48,14 @@ docker-compose \
 -f docker-compose.local.yml up
 ```
 
-After all the components have finished initializing, the UI will be available at `http://dina.local/`. By default, there are two users included: `user` and `admin`. The password is the same as the username for both.
+After all the components have finished initializing, the UI will be available at `http://dina.local/`. By default, the following users are included:
+
+* `admin`: admin in the realm but not in any groups
+* `user`: in the `aafc`, `cnc` groups (no roles)
+* `cnc-cm`: `collection-manager` in the cnc group
+* `cnc-staff: a `staff` in the `cnc` group
+
+The password is the same as the username for both.
 
 # How to debug
 
