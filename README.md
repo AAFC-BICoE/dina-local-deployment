@@ -55,7 +55,7 @@ After all the components have finished initializing, the UI will be available at
 * `cnc-cm`: `collection-manager` in the `cnc` group
 * `cnc-staff`: a `staff` in the `cnc` group
 
-The password is the same as the username for both.
+The password is the same as the username for all users.
 
 # How to debug
 
