@@ -29,6 +29,7 @@ services:
       - "2015:80"
     labels:
       - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
+      - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
   agent-api:
     environment:
