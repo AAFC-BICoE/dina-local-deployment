@@ -6,7 +6,7 @@ networks:
         - subnet: ${SUBNET}
 services:
   keycloak:
-    image: jboss/keycloak:9.0.3
+    image: jboss/keycloak:11.0.0
     user: root
     command: ["-Djboss.http.port=${KEYCLOAK_PORT}"]
     expose: 
