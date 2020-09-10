@@ -4,7 +4,7 @@
 
 An entry for Keycloak in your `hosts` file:
 
-`172.33.33.10	keycloak.local`
+`172.19.33.10	keycloak.local`
 
 ## 1. Get a Bearer token
 
