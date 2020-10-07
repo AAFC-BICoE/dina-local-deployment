@@ -2,16 +2,16 @@
 
 ## 0. Prerequisites
 
-An entry for Keycloak in your `hosts` file:
+If Keycloak is running locally, add an entry for Keycloak in your `hosts` file:
 
 `172.33.33.10	keycloak.local`
 
 ## 1. Get a Bearer token
 
 You can use the following script:
-https://github.com/akoserwal/keycloak-integrations/blob/master/curl-post-request/keycloak-curl.sh[keycloak-curl.sh]
+[keycloak-curl.sh](https://github.com/akoserwal/keycloak-integrations/blob/master/curl-post-request/keycloak-curl.sh)
 
-The script has to parse the json response so https://stedolan.github.io/jq/download/[jq] should be installed.
+The script has to parse the json response so [jq](https://stedolan.github.io/jq/download/) should be installed.
 
 The script usage is `./keycloak-curl.sh hostname realm username clientid`
 
