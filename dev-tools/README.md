@@ -1,8 +1,8 @@
 ## Requirements ##
-  * Python 3.7 or 3.8
+  * Python 3.8 or 3.9
   * Conda 4.8+ (recommended)
 
-Note: If you are not using conda, you may have to replace the `python` command with `python3` in the instructions below.
+Note: If not using Conda, then depending on the way you installed Python, you may have to replace the call to `python3.8` by `python3` or `python`.  I followed these instructions to install python 3.8: https://tecadmin.net/install-python-3-8-ubuntu/.
 
 ## Initial Setup ##
 
@@ -10,14 +10,13 @@ Note: If you are not using conda, you may have to replace the `python` command w
 * If you have conda installed:
 ```
 conda create --name dina python=3.8
-conda activate dina
+conda activate dina-test-env
 ```
 
 * OR with venv (untested)
 ```
-mkdir .env
-python -m venv .env
-source .env/bin/activate
+python3.8 -m venv dina-test-env
+source dina-test-env/bin/activate
 ```
 
 2. Install requirements
