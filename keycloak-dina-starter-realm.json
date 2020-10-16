@@ -86,7 +86,17 @@
       },
       {
         "id": "62f69b76-740e-42f2-ba99-8adf42d8edd4",
-        "name": "collection-manager"
+        "name": "collection-manager",
+        "composites": {
+          "client": {
+            "realm-management": [
+              "view-users",
+              "manage-users",
+              "query-groups",
+              "query-users"
+            ]
+          }
+        }
       },
       {
         "id": "bf8685f9-8a74-40f2-a4bc-746f239e230c",
