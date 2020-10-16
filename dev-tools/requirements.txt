@@ -1,2 +1,2 @@
-python_keycloak>=0.20
+python_keycloak==0.22
 PyYAML>=5.3
