@@ -9,11 +9,11 @@ Note: If not using Conda, then depending on the way you installed Python, you ma
 1. Create and activate your virtual environment
 * If you have conda installed:
 ```
-conda create --name dina python=3.8
+conda create --name dina-test-env python=3.8
 conda activate dina-test-env
 ```
 
-* OR with venv (untested)
+* OR with venv
 ```
 python3.8 -m venv dina-test-env
 source dina-test-env/bin/activate
@@ -42,9 +42,11 @@ python access_api_with_keycloak_token.py [-h] -u URL [-d DATA] [-f JSON_FILE] [-
 ```
 Usage examples:
 
+**Refer to https://github.com/DINA-Web/object-store-specs to see current API specifications**
+
 Get: 
 ```
-python access_api_with_keycloak_token.py -u http://api.dina.local/agent/api/v1/agent
+python access_api_with_keycloak_token.py -u http://api.dina.local/objectstore/api/v1/object-subtype
 ```
 Post:
 ```
@@ -64,9 +66,7 @@ When finished using the script, deactivate the Python virtual environement
 conda deactivate
 ```
 
-* If using venv:
+* Otherwise:
 ```
-source .env/bin/deactivate
+deactivate
 ```
-
-Note: To use subsequent times, simply reactivate environement (`conda activate dina` or `source .env/bin/activate`), and run.
