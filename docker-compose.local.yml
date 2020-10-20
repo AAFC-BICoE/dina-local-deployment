@@ -44,3 +44,18 @@ services:
       - "traefik.http.middlewares.stripagent.stripprefix.prefixes=${AGENT_API_PREFIX}"
       - "traefik.http.routers.agentapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${AGENT_API_PREFIX}/`)"
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
+
+  dina-user-api:
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+    networks:
+      - dina
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+    labels:
+      # Opens http://api.dina.local/dinauser/api/v1/ module endpoint
+      - "traefik.http.middlewares.stripdinauser.stripprefix.prefixes=${DINA_USER_API_PREFIX}"
+      - "traefik.http.routers.dinauserapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${DINA_USER_API_PREFIX}/`)"
+      - "traefik.http.routers.dinauserapi.middlewares=stripdinauser@docker"
+      - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
