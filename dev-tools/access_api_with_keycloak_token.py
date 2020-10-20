@@ -12,10 +12,10 @@ KEYCLOAK_CONFIG_PATH = './keycloak-config.yml'
 
 def _parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-u', '--url', required = True, help='API URL of request')
+    parser.add_argument('-u', '--url', required=True, help='API URL of request')
     parser.add_argument('-d', '--data', required=False, 
         help='Python string representation of a dictionary')
-    parser.add_argument('-f', '--json_file', required=False)
+    parser.add_argument('-f', '--json_file', default=None)
     parser.add_argument('-H', '--headers', 
         help='Python dictionary, e.g. \'{"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}\'')
     parser.add_argument('-X', '--request', default='get', 
@@ -37,10 +37,10 @@ def load_configuration(config_path=KEYCLOAK_CONFIG_PATH):
 
 
 def get_keycloak_token(configs):
-    """Retrieves Keycolak bearer token"""
+    """Retrieves Keycloak bearer token"""
     keycloak_openid = KeycloakOpenID(
         server_url=configs['url'], 
-        client_id='objectstore',
+        client_id=configs['client_id'],
         realm_name=configs['realm_name'],
         client_secret_key=None,
         verify=configs['secure'])
@@ -48,15 +48,29 @@ def get_keycloak_token(configs):
     return keycloak_openid.token(configs['username'], configs['password'])
 
 
+def load_json_data(file):
+    if not file:
+        return None
+    if os.path.isfile(file) and file.endswith('.json'):
+        with open(file, 'r') as f:
+            json_data = json.load(f)
+            return json_data
+    elif not os.path.isfile(file):
+        raise FileNotFoundError('File not found.')
+    else:
+        raise TypeError('Invalid filetype. Must be json file.')
+
+
 def main():
     # Load arguments
     args = _parse_args()
     url = args.url
+    json_file = args.json_file
     method = args.request.upper()
 
     configs = load_configuration()
     token = get_keycloak_token(configs)
-    authorization_string = "Bearer {}".format(token)
+    authorization_string = "Bearer {}".format(token['access_token'])
 
     # Handle headers
     if args.headers:
@@ -68,20 +82,17 @@ def main():
     # Handle request
     if method == 'GET':
         res = requests.get(url, headers=headers)
-
+        if not res.ok:
+            res.raise_for_status()
     else:
         data = args.data
-        if args.json_file is not None:
-            file = args.json_file
-            if os.path.isfile(file) and file.endswith('.json'):
-                with open(file, 'r') as f:
-                       json_data = json.load(f)
-            else:
-                print('File not found or wrong filetype.')
-                exit(1)
-        else:
-            json_data = None
-        
+ 
+        try:
+            json_data = load_json_data(args.json_file)
+        except (FileNotFoundError, TypeError) as e:
+            print('Error encountered loading json file {}:\n{}'.format(json_file, e))
+            return
+
         if not "Content-Type" in headers.keys():
             headers.update({"Content-Type":"application/vnd.api+json"})
 
@@ -93,6 +104,10 @@ def main():
         
         elif method == 'DELETE':
             res = requests.delete(url, data=data, json=json_data, headers=headers)
+    
+    if not res.ok:
+        res.raise_for_status()
+    
     print(res.text)
 
 
