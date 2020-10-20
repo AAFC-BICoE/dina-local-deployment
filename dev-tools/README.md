@@ -2,7 +2,11 @@
   * Python 3.8 or 3.9
   * Conda 4.8+ (recommended)
 
-Note: If not using Conda, then depending on the way you installed Python, you may have to replace the call to `python3.8` by `python3` or `python`.  I followed these instructions to install python 3.8: https://tecadmin.net/install-python-3-8-ubuntu/.
+Note: If not using Conda, then depending on the way you installed Python, you may have to replace the call to `python3.8` by `python3` or `python`.
+
+Instructions to install Python 3.8:
+* From [PPA](https://linuxize.com/post/how-to-install-python-3-8-on-ubuntu-18-04/) (you will also need to install the package `python3.8-venv`)
+* From [source](https://tecadmin.net/install-python-3-8-ubuntu/)
 
 ## Initial Setup ##
 
