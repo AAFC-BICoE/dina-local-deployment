@@ -101,6 +101,14 @@
       {
         "id": "bf8685f9-8a74-40f2-a4bc-746f239e230c",
         "name": "staff"
+      },
+      {
+        "id": "17bf4eea-1796-4474-b0f8-4e5d52357664",
+        "name": "student"
+      },
+      {
+        "id": "2a806ec6-f09e-44b0-aa32-19640fbbd2ab",
+        "name": "dina-admin"
       }
     ],
     "client": {
@@ -348,6 +356,17 @@
           "subGroups": []
         },
         {
+          "id": "5d63b940-3bff-4946-bab3-55b6ac8ecee7",
+          "name": "student",
+          "path": "/cnc/student",
+          "attributes": {},
+          "realmRoles": [
+            "student"
+          ],
+          "clientRoles": {},
+          "subGroups": []
+        },
+        {
           "id": "0b10b8c4-897d-4668-a3cc-446003418fa4",
           "name": "collection-manager",
           "path": "/cnc/collection-manager",
@@ -375,6 +394,17 @@
           "attributes": {},
           "realmRoles": [
             "collection-manager"
+          ],
+          "clientRoles": {},
+          "subGroups": []
+        },
+        {
+          "id": "7d02cbb3-cf25-4b65-9afe-7aa1cfcfe866",
+          "name": "student",
+          "path": "/dao/student",
+          "attributes": {},
+          "realmRoles": [
+            "student"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -820,6 +850,26 @@
       "credentials": [{ "type": "password", "value": "user" }],
       "attributes": {
         "agentId": "9c403c4b-c849-43c4-bbc1-8bd10b1997e1"
+      }
+    },
+    {
+      "username": "cnc-student",
+      "enabled": true,
+      "realmRoles": ["user"],
+      "groups": ["cnc/student"],
+      "credentials": [{ "type": "password", "value": "cnc-student" }],
+      "attributes": {
+        "agentId": "21d4f7ef-98b8-4f46-9963-d843f2fdf65a"
+      }
+    },
+    {
+      "username": "dina-admin",
+      "enabled": true,
+      "realmRoles": ["user", "dina-admin"],
+      "groups": [],
+      "credentials": [{ "type": "password", "value": "dina-admin" }],
+      "attributes": {
+        "agentId": "3c47203f-9833-4945-b673-ece4e3bd4f9a"
       }
     },
     {
