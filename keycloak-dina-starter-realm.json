@@ -450,6 +450,49 @@
       ]
     },
     {
+      "id": "795e9546-6574-4db7-aa96-0653c49eb49b",
+      "name": "cpvc",
+      "path": "/cpvc",
+      "attributes": {},
+      "realmRoles": [],
+      "clientRoles": {},
+      "subGroups": [
+        {
+          "id": "f5b6073e-1b33-48a0-9acb-837cf26d7765",
+          "name": "staff",
+          "path": "/cpvc/staff",
+          "attributes": {},
+          "realmRoles": [
+            "staff"
+          ],
+          "clientRoles": {},
+          "subGroups": []
+        },
+        {
+          "id": "df2338b2-a240-4038-90a2-4307d34ee7c5",
+          "name": "student",
+          "path": "/cpvc/student",
+          "attributes": {},
+          "realmRoles": [
+            "student"
+          ],
+          "clientRoles": {},
+          "subGroups": []
+        },
+        {
+          "id": "b1b8651f-322a-4973-9a99-affc9958d8d0",
+          "name": "collection-manager",
+          "path": "/cpvc/collection-manager",
+          "attributes": {},
+          "realmRoles": [
+            "collection-manager"
+          ],
+          "clientRoles": {},
+          "subGroups": []
+        }
+      ]
+    },
+    {
       "id": "b2366903-df67-4f68-b00f-ce41ddc64861",
       "name": "dao",
       "path": "/dao",
