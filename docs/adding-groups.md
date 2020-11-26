@@ -29,3 +29,5 @@ The simplest way to create a new DINA group is to copy one of the existing group
 The realm JSON, including groups, can be partially imported usign the Import funtion in the sidebar menu. First, select the json file. Once it's selected, you have an opportunity to review it and specify some settings before importing. For this task, we want only the groups toggle turned on, and the "If resource exists" dropdown set to "skip".
 
 After importing, you will see a results screen that should have the existing top-level groups marked as "skipped", along with the imported group marked "added". It will only show and count top-level groups (e.g. "aafc", "dao"), but the subgroups defined within them will still be imported and will show up in the groups list.
+
+When an imported top-level group already exists, Keycloak will not process that group at all, so subgroups can't be imported in this way. Importing with the "overwrite" option will allow the groups to be imported, but doing so will remove all existing group memberships in that group.
