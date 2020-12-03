@@ -45,6 +45,7 @@ docker-compose \
 -f docker-compose.base.yml \
 -f object-store-api/docker-compose.yml \
 -f agent-api/docker-compose.yml \
+-f seqdb-api/docker-compose.yml \
 -f docker-compose.local.yml up
 ```
 
