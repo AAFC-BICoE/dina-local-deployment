@@ -16,3 +16,6 @@
 	url = https://github.com/AAFC-BICoE/dina-user-api
 	branch = dev
 	    update = merge
+[submodule "seqdb-api"]
+	path = seqdb-api
+	url = https://github.com/AAFC-BICoE/seqdb-api.git
