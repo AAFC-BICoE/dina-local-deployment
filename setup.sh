@@ -14,3 +14,4 @@ copyDockerComposeFiles()
 copyDockerComposeFiles object-store-api BASE_PATH_TO_OBJECT_STORE
 copyDockerComposeFiles agent-api BASE_PATH_TO_AGENT
 copyDockerComposeFiles dina-user-api BASE_PATH_TO_USER
+copyDockerComposeFiles seqdb-api BASE_PATH_TO_SEQDB
