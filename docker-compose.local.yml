@@ -24,7 +24,7 @@ services:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     labels:
       # Opens http://api.dina.local/seqdb/api/ module endpoint
-      - "traefik.http.middlewares.stripseqdb.stripprefix.prefixes=${SEQDB_API_PREFIX:}"
+      - "traefik.http.middlewares.stripseqdb.stripprefix.prefixes=${SEQDB_API_PREFIX}"
       - "traefik.http.routers.seqdbapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEQDB_API_PREFIX}/`)"
       - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
 
