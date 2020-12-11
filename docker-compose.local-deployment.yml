@@ -1,0 +1,127 @@
+version: "3.7"
+services:
+
+  # --------------------------------
+  # object store api service section
+  # --------------------------------
+  object-store-db:
+    image: "postgres:10"
+    env_file:
+      - ./config/databases/object-store-api-pg.env
+    volumes:
+      - ./config/databases/create-test-users.sql:/docker-entrypoint-initdb.d/1-init-schema.sql
+
+  minio:
+    image: minio/minio
+    volumes:
+      - ./minio-data:/data
+    env_file:
+      - ./config/environment/minio.env
+    command: server /data
+
+  object-store-api:
+    image: aafcbicoe/object-store-api:${OBJECT_STORE_API_VERSION}
+    env_file:
+      - ./config/environment/object-store-api.env
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+    depends_on:
+      - object-store-db
+      - minio
+    networks:
+      - dina
+      - default
+    ports:
+      - "8081:8080"
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+    labels:
+      # maps api.dina.local/objectstore/api/v1/... -> object_store_api/api/v1
+      - "traefik.http.middlewares.stripobjectstore.stripprefix.prefixes=${OBJECT_STORE_API_PREFIX}"
+      - "traefik.http.routers.objectstoreapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${OBJECT_STORE_API_PREFIX}/`)"
+      - "traefik.http.routers.objectstoreapi.middlewares=stripobjectstore@docker"
+
+  dina-ui:
+    build:
+      context: ./dina-ui
+    environment:
+      KEYCLOAK_CLIENTID: objectstore
+      KEYCLOAK_REALM: dina
+      KEYCLOAK_PUBLIC_URL: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      OBJECTSTORE_API_ADDRESS: object-store-api:8080
+      AGENT_API_ADDRESS: agent-api:8080  
+    networks:
+      - dina
+    ports:
+      - "2015:80"
+    labels:
+      - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
+      - "traefik.http.services.ui.loadbalancer.server.port=8080"
+
+  # --------------------------------
+  # agent api service section
+  # --------------------------------
+  agent-db:
+    image: postgres:9.6.15-alpine
+    env_file:
+      - ./config/databases/agent-api-pg.env
+    volumes:
+      - ./config/databases/init-agent-module.sql:/docker-entrypoint-initdb.d/1-init-schema.sql
+
+  agent-api:
+    image: aafcbicoe/agent-api:${AGENT_API_VERSION}
+    env_file:
+      - ./config/environment/agent-api.env
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+    depends_on:
+      - agent-db
+    networks:
+      - dina
+      - default
+    ports:
+      - "8082:8080"
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+    labels:
+      # Opens http://api.dina.local/agent/api/v1/ module endpoint
+      - "traefik.http.middlewares.stripagent.stripprefix.prefixes=${AGENT_API_PREFIX}"
+      - "traefik.http.routers.agentapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${AGENT_API_PREFIX}/`)"
+      - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
+
+  # --------------------------------
+  # dina api service section
+  # --------------------------------
+  dina-user-db:
+    image: postgres:9.6.15-alpine
+    env_file:
+      - ./config/databases/dina-user-api-pg.env
+    volumes:
+      - ./config/databases/init-user-module.sql:/docker-entrypoint-initdb.d/1-init-schema.sql
+
+  dina-user-api:
+    build:
+      context: ${BASE_PATH_TO_USER:-.}
+    env_file:
+      - ./config/environment/dina-user-api.env
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+    depends_on:
+      - dina-user-db
+    networks:
+      - dina
+      - default
+    ports:
+      - "8083:8080"
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+    labels:
+      # Opens http://api.dina.local/dinauser/api/v1/ module endpoint
+      - "traefik.http.middlewares.stripdinauser.stripprefix.prefixes=${DINA_USER_API_PREFIX}"
+      - "traefik.http.routers.dinauserapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${DINA_USER_API_PREFIX}/`)"
+      - "traefik.http.routers.dinauserapi.middlewares=stripdinauser@docker"
+      - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
+
