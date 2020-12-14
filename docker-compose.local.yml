@@ -29,8 +29,7 @@ services:
       - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
 
   dina-ui:
-    build:
-      context: ./dina-ui
+    image: aafcbicoe/dina-ui:0.15.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
