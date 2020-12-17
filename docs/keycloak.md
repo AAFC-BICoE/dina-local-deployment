@@ -4,7 +4,7 @@
 
 If Keycloak is running locally, add an entry for Keycloak in your `hosts` file:
 
-`172.19.33.10	keycloak.local`
+`172.19.33.9	keycloak.local`
 
 ## 1. Get a Bearer token
 
