@@ -28,6 +28,20 @@ services:
       - "traefik.http.routers.seqdbapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEQDB_API_PREFIX}/`)"
       - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
 
+  collection-api:
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+    networks:
+      - dina
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+    labels:
+      # Opens http://api.dina.local/collection/api/v1 module endpoint
+      - "traefik.http.middlewares.stripcollection.stripprefix.prefixes=${COLLECTION_API_PREFIX}"
+      - "traefik.http.routers.collectionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${COLLECTION_API_PREFIX}/`)"
+      - "traefik.http.routers.collectionapi.middlewares=stripcollection@docker"
+
   dina-ui:
     image: aafcbicoe/dina-ui:0.15.0
     environment:
@@ -37,6 +51,7 @@ services:
       OBJECTSTORE_API_ADDRESS: object-store-api:8080
       AGENT_API_ADDRESS: agent-api:8080  
       SEQDB_API_ADDRESS: seqdb-api:8080
+      COLLECTION_API_ADDRESS: collection-api:8080
     networks:
       - dina
     ports:
