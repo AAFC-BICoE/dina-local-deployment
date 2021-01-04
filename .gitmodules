@@ -15,4 +15,8 @@
 	    update = merge
 [submodule "seqdb-api"]
 	path = seqdb-api
-	url = https://github.com/AAFC-BICoE/seqdb-api.git
+	url = https://github.com/AAFC-BICoE/seqdb-api
+
+[submodule "natural-history-collection-api"]
+	path = natural-history-collection-api
+	url = https://github.com/AAFC-BICoE/natural-history-collection-api.git
