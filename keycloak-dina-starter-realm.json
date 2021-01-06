@@ -402,10 +402,10 @@
       "name": "aafc",
       "path": "/aafc",
       "attributes": {
-        "groupLabelEn": [
+        "groupLabel-en": [
           "AAFC"
         ],
-        "groupLabelFr": [
+        "groupLabel-fr": [
           "AAC"
         ]
       },
@@ -452,11 +452,8 @@
       "name": "amf",
       "path": "/amf",
       "attributes": {
-        "groupLabelEn": [
+        "groupLabel-en": [
           "AMF"
-        ],
-        "groupLabelFr": [
-          "*AMF"
         ]
       },
       "realmRoles": [],
@@ -502,11 +499,8 @@
       "name": "ccfc",
       "path": "/ccfc",
       "attributes": {
-        "groupLabelEn": [
+        "groupLabel-en": [
           "CCFC"
-        ],
-        "groupLabelFr": [
-          "*CCFC"
         ]
       },
       "realmRoles": [],
@@ -552,11 +546,8 @@
       "name": "cnc",
       "path": "/cnc",
       "attributes": {
-        "groupLabelEn": [
+        "groupLabel-en": [
           "CNC"
-        ],
-        "groupLabelFr": [
-          "*CNC"
         ]
       },
       "realmRoles": [],
@@ -602,11 +593,8 @@
       "name": "cpvc",
       "path": "/cpvc",
       "attributes": {
-        "groupLabelEn": [
+        "groupLabel-en": [
           "CPVC"
-        ],
-        "groupLabelFr": [
-          "*CPVC"
         ]
       },
       "realmRoles": [],
@@ -652,11 +640,8 @@
       "name": "dao",
       "path": "/dao",
       "attributes": {
-        "groupLabelEn": [
+        "groupLabel-en": [
           "DAO"
-        ],
-        "groupLabelFr": [
-          "*DAO"
         ]
       },
       "realmRoles": [],
@@ -702,11 +687,8 @@
       "name": "ml",
       "path": "/ml",
       "attributes": {
-        "groupLabelEn": [
+        "groupLabel-en": [
           "ML"
-        ],
-        "groupLabelFr": [
-          "*ML"
         ]
       },
       "realmRoles": [],
