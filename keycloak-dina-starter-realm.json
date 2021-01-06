@@ -401,7 +401,14 @@
       "id": "bdb5572b-2352-4926-90e5-4594d21e6df0",
       "name": "aafc",
       "path": "/aafc",
-      "attributes": {},
+      "attributes": {
+        "groupLabel-en": [
+          "AAFC"
+        ],
+        "groupLabel-fr": [
+          "AAC"
+        ]
+      },
       "realmRoles": [],
       "clientRoles": {},
       "subGroups": [
@@ -444,7 +451,11 @@
       "id": "1ba044f5-e341-4e7b-a7a7-daf904884ccb",
       "name": "amf",
       "path": "/amf",
-      "attributes": {},
+      "attributes": {
+        "groupLabel-en": [
+          "AMF"
+        ]
+      },
       "realmRoles": [],
       "clientRoles": {},
       "subGroups": [
@@ -487,7 +498,11 @@
       "id": "5f5977f8-1d71-4514-bc81-cd954cfb74fc",
       "name": "ccfc",
       "path": "/ccfc",
-      "attributes": {},
+      "attributes": {
+        "groupLabel-en": [
+          "CCFC"
+        ]
+      },
       "realmRoles": [],
       "clientRoles": {},
       "subGroups": [
@@ -530,7 +545,11 @@
       "id": "2b4549e9-9a95-489f-8e30-74c2d877d8a8",
       "name": "cnc",
       "path": "/cnc",
-      "attributes": {},
+      "attributes": {
+        "groupLabel-en": [
+          "CNC"
+        ]
+      },
       "realmRoles": [],
       "clientRoles": {},
       "subGroups": [
@@ -573,7 +592,11 @@
       "id": "795e9546-6574-4db7-aa96-0653c49eb49b",
       "name": "cpvc",
       "path": "/cpvc",
-      "attributes": {},
+      "attributes": {
+        "groupLabel-en": [
+          "CPVC"
+        ]
+      },
       "realmRoles": [],
       "clientRoles": {},
       "subGroups": [
@@ -616,7 +639,11 @@
       "id": "b2366903-df67-4f68-b00f-ce41ddc64861",
       "name": "dao",
       "path": "/dao",
-      "attributes": {},
+      "attributes": {
+        "groupLabel-en": [
+          "DAO"
+        ]
+      },
       "realmRoles": [],
       "clientRoles": {},
       "subGroups": [
@@ -659,7 +686,11 @@
       "id": "1ef6f106-ed51-4651-a0a2-681b3c4663cb",
       "name": "ml",
       "path": "/ml",
-      "attributes": {},
+      "attributes": {
+        "groupLabel-en": [
+          "ML"
+        ]
+      },
       "realmRoles": [],
       "clientRoles": {},
       "subGroups": [
