@@ -44,7 +44,7 @@ services:
       - "traefik.http.routers.collectionapi.middlewares=stripcollection@docker"
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.21.0
+    image: aafcbicoe/dina-ui:0.23.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
