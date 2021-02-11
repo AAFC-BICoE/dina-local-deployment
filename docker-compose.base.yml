@@ -50,3 +50,49 @@ services:
       dina:
         ipv4_address: ${TRAEFIK_IP}
       default:
+
+  dina-db:
+    image: "postgres:10"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+
+  init-db:
+    image: "aafcbicoe/dina-db-init-container:0.1"
+    environment:
+      POSTGRES_HOST: dina-db
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+
+      DINA_DB: agent collection dina_user object_store seqdb
+
+      MIGRATION_USER_agent: ${AGENT_MIGRATION_USER}
+      MIGRATION_USER_PW_agent: ${AGENT_MIGRATION_USER_PW}
+      WEB_USER_agent: ${AGENT_WEB_USER}
+      WEB_USER_PW_agent: ${AGENT_WEB_USER_PW}
+
+      MIGRATION_USER_collection: ${COLL_MIGRATION_USER}
+      MIGRATION_USER_PW_collection: ${COLL_MIGRATION_USER_PW}
+      WEB_USER_collection: ${COLL_WEB_USER}
+      WEB_USER_PW_collection: ${COLL_WEB_USER_PW}
+
+      MIGRATION_USER_dina_user: ${DINA_USER_MIGRATION_USER}
+      MIGRATION_USER_PW_dina_user: ${DINA_USER_MIGRATION_USER_PW}
+      WEB_USER_dina_user: ${DINA_USER_WEB_USER}
+      WEB_USER_PW_dina_user: ${DINA_USER_WEB_USER_PW}
+
+      MIGRATION_USER_object_store: ${OBJ_STORE_MIGRATION_USER}
+      MIGRATION_USER_PW_object_store: ${OBJ_STORE_MIGRATION_USER_PW}
+      WEB_USER_object_store: ${OBJ_STORE_WEB_USER}
+      WEB_USER_PW_object_store: ${OBJ_STORE_WEB_USER_PW}
+
+      MIGRATION_USER_seqdb: ${SEQDB_MIGRATION_USER}
+      MIGRATION_USER_PW_seqdb: ${SEQDB_MIGRATION_USER_PW}
+      WEB_USER_seqdb: ${SEQDB_WEB_USER}
+      WEB_USER_PW_seqdb: ${SEQDB_WEB_USER_PW}
+
+    depends_on:
+      - "dina-db"
+
