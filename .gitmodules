@@ -1,8 +1,0 @@
-[submodule "object-store-api"]
-	path = object-store-api
-	url = https://github.com/AAFC-BICoE/object-store-api
-	branch = dev
-        update = merge
-[submodule "seqdb-api"]
-	path = seqdb-api
-	url = https://github.com/AAFC-BICoE/seqdb-api

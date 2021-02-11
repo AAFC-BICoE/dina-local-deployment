@@ -88,4 +88,40 @@ services:
       - "traefik.http.routers.dinauserapi.middlewares=stripdinauser@docker"
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
 
+  object-store-api:
+    image: aafcbicoe/object-store-api:0.16
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      dev-user.enabled: "false"
+      spring.datasource.url: jdbc:postgresql://dina-db/object_store?currentSchema=object_store
+      spring.liquibase.user: ${OBJ_STORE_MIGRATION_USER}
+      spring.liquibase.password: ${OBJ_STORE_MIGRATION_USER_PW}
+      spring.datasource.username: ${OBJ_STORE_WEB_USER}
+      spring.datasource.password: ${OBJ_STORE_WEB_USER_PW}
+      spring.servlet.multipart.max-file-size: 1GB
+      spring.servlet.multipart.max-request-size: 1GB
+      minio.host: minio
+      minio.accessKey: ${MINIO_ACCESS_KEY}
+      minio.secretKey: ${MINIO_SECRET_KEY}
+    networks:
+      - dina
+      - default
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+    labels:
+      # maps api.dina.local/objectstore/api/v1/... -> object_store_api/api/v1
+      - "traefik.http.middlewares.stripobjectstore.stripprefix.prefixes=${OBJECT_STORE_API_PREFIX}"
+      - "traefik.http.routers.objectstoreapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${OBJECT_STORE_API_PREFIX}/`)"
+      - "traefik.http.routers.objectstoreapi.middlewares=stripobjectstore@docker"
+
+  minio:
+    image: minio/minio
+    volumes:
+      - ./minio-data:/data
+    environment:
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+    command: server /data
+
 
