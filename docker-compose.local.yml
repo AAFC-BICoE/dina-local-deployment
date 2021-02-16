@@ -2,7 +2,7 @@ version: "3.7"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.24.0
+    image: aafcbicoe/dina-ui:0.25.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -43,7 +43,7 @@ services:
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.3.1
+    image: aafcbicoe/natural-history-collection-api:0.4
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -89,7 +89,7 @@ services:
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.16
+    image: aafcbicoe/object-store-api:0.17
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
