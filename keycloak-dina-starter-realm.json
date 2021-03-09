@@ -683,6 +683,56 @@
       ]
     },
     {
+      "id": "80edca24-9556-4072-8950-23d6f1f2a652",
+      "name": "daom",
+      "path": "/daom",
+      "attributes": {
+        "groupLabel-en": [
+          "DAOM"
+        ],
+        "groupLabel-fr": [
+          "DAOM"
+        ]
+      },
+      "realmRoles": [],
+      "clientRoles": {},
+      "subGroups": [
+        {
+          "id": "486c5b8b-da57-4b30-9891-f3a801a8d64c",
+          "name": "collection-manager",
+          "path": "/daom/collection-manager",
+          "attributes": {},
+          "realmRoles": [
+            "collection-manager"
+          ],
+          "clientRoles": {},
+          "subGroups": []
+        },
+        {
+          "id": "f321f05d-a161-4949-a370-b115eeea7cb6",
+          "name": "staff",
+          "path": "/daom/staff",
+          "attributes": {},
+          "realmRoles": [
+            "staff"
+          ],
+          "clientRoles": {},
+          "subGroups": []
+        },
+        {
+          "id": "a03428f5-1096-46ac-ab23-7859be98a313",
+          "name": "student",
+          "path": "/daom/student",
+          "attributes": {},
+          "realmRoles": [
+            "student"
+          ],
+          "clientRoles": {},
+          "subGroups": []
+        }
+      ]
+    },
+    {
       "id": "1ef6f106-ed51-4651-a0a2-681b3c4663cb",
       "name": "ml",
       "path": "/ml",
