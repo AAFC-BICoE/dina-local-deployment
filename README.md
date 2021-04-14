@@ -1,7 +1,8 @@
 # dina-local-deployment
 
-* local deployment: start the DINA ecosystem with Keycloak using Docker Compose
-* developement deployement (not available yet)
+This project help to start the DINA ecosystem with Keycloak using Docker Compose.
+
+Tested on Ubuntu hosts.
 
 # Goal
 
