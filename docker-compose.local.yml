@@ -30,10 +30,11 @@ services:
       spring.liquibase.password: ${AGENT_MIGRATION_USER_PW}
       spring.datasource.username: ${AGENT_WEB_USER}
       spring.datasource.password: ${AGENT_WEB_USER_PW}
-
     networks:
       - default
       - dina
+    ports:
+      - "8082:8080"
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     labels:
@@ -75,7 +76,6 @@ services:
       spring.liquibase.password: ${DINA_USER_MIGRATION_USER_PW}
       spring.datasource.username: ${DINA_USER_WEB_USER}
       spring.datasource.password: ${DINA_USER_WEB_USER_PW}
-
     networks:
       - default
       - dina
@@ -107,6 +107,8 @@ services:
     networks:
       - dina
       - default
+    ports:
+      - "8081:8080"
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     labels:
@@ -124,4 +126,39 @@ services:
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
     command: server /data
 
+  # Elasticsearch Docker Images: https://www.docker.elastic.co/
+  elasticsearch-dina:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+
+  search-ws:
+    image: aafcbicoe/dina-search-ws:0.1 # aafcbicoe/dina-search-ws # aafcbicoe/dina-search-ws:dev # Should match the name used locally to build the image
+    networks:
+      - dina
+      - default
+    ports:
+      - 8085:8085
+
+volumes:
+  elasticsearch-data:
+    driver: local
+  elastic-configurator-settings:
+    driver: local      
 
