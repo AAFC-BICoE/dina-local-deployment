@@ -155,7 +155,7 @@ services:
       - "traefik.http.routers.elasticsearch.rule=Host(`elasticsearch-dina.localhost`)"
 
   # Addition of Kibana, for development purpose or browsing through the dina indices.
-  kibana-dina2:
+  kibana-dina:
     image: docker.elastic.co/kibana/kibana:7.4.0
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch-dina:9200
