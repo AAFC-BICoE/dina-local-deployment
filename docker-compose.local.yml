@@ -33,8 +33,6 @@ services:
     networks:
       - default
       - dina
-    ports:
-      - "8082:8080"
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     labels:
@@ -107,8 +105,6 @@ services:
     networks:
       - dina
       - default
-    ports:
-      - "8081:8080"
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     labels:
@@ -193,8 +189,10 @@ services:
     networks:
       - dina
       - default
-    ports:
-      - 8085:8085
+    labels:
+      # maps api.dina.local/search... -> /search
+      - "traefik.http.middlewares.stripsearchws.stripprefix.prefixes=${SEARCH_API_PREFIX}"
+      - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
 
 volumes:
   elasticsearch-data:
