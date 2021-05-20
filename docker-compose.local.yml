@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.9"
 services:
 
   dina-ui:
@@ -30,7 +30,6 @@ services:
       spring.liquibase.password: ${AGENT_MIGRATION_USER_PW}
       spring.datasource.username: ${AGENT_WEB_USER}
       spring.datasource.password: ${AGENT_WEB_USER_PW}
-
     networks:
       - default
       - dina
@@ -75,7 +74,6 @@ services:
       spring.liquibase.password: ${DINA_USER_MIGRATION_USER_PW}
       spring.datasource.username: ${DINA_USER_WEB_USER}
       spring.datasource.password: ${DINA_USER_WEB_USER_PW}
-
     networks:
       - default
       - dina
@@ -124,4 +122,81 @@ services:
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
     command: server /data
 
+  # Elasticsearch Docker Images: https://www.docker.elastic.co/
+  elasticsearch-dina:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+    profiles: ["search_api"]
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+    networks:
+      - dina
+      - default
+    ports:
+      - 9200:9200
+      - 9300:9300
+    labels:
+      - "traefik.http.routers.elasticsearch.rule=Host(`elasticsearch-dina.localhost`)"
+
+  # Addition of Kibana, for development purpose or browsing through the dina indices.
+  kibana-dina:
+    image: docker.elastic.co/kibana/kibana:7.4.0
+    profiles: ["search_api"]
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch-dina:9200
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+    networks:
+      - dina
+      - default
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch-dina
+
+  # Check the status of elasticsearch and configure indices if not already present.
+  elastic-configurator:
+    image: aafcbicoe/es-init-container:0.2
+    profiles: ["search_api"]
+    environment:
+      ELASTIC_SERVER_URL: $ELASTIC_SERVER_URL
+      INDEX_CREATE_CMD: $INDEX_CREATE_CMD
+      DINA_DOCUMENT_INDEX_NAME: $DINA_DOCUMENT_INDEX_NAME 
+      DINA_AGENT_INDEX_NAME: $DINA_AGENT_INDEX_NAME 
+      DINA_DOCUMENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/default-document-index/dina_document_index_settings.json
+      DINA_AGENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/agent-index/dina_agent_index_settings.json
+    volumes:
+      - ./elastic-configurator-settings:/usr/share/elastic-configurator/settings
+    depends_on:
+      - elasticsearch-dina
+
+  search-ws:
+    image: aafcbicoe/dina-search-ws:0.1
+    profiles: ["search_api"]
+    networks:
+      - dina
+      - default
+    labels:
+      # maps api.dina.local/search... -> /search
+      - "traefik.http.middlewares.stripsearchws.stripprefix.prefixes=${SEARCH_API_PREFIX}"
+      - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
+
+volumes:
+  elasticsearch-data:
+    driver: local
+  elastic-configurator-settings:
+    driver: local      
 
