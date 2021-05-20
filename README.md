@@ -2,7 +2,7 @@
 
 This project help to start the DINA ecosystem with Keycloak using Docker Compose.
 
-Tested on Ubuntu hosts.
+Tested with Docker-Compose 1.28 and Ubuntu hosts.
 
 # Goal
 
@@ -30,9 +30,9 @@ docker-compose \
 
 ## Profiles Support
 
-Profiles have been added to support the deployment of non-mandatory components defined under a specific profile keyword.
+Profiles have been added to support the deployment of non-mandatory components defined under a specific profile keyword (requires Docker-Compsoe >= 1.28.0).
 
-Search API components are classify under the profile name `search_api` to have a deployment with these additional components you just have to inke the following command:
+Search API components are classify under the profile name `search_api` to have a deployment with these additional components you just have to use the following command:
 
 ```
 docker-compose --profile search_api -f docker-compose.base.yml -f docker-compose.local.yml up
