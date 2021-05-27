@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.46.0
+    image: aafcbicoe/dina-ui:0.47.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -87,7 +87,7 @@ services:
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.23
+    image: aafcbicoe/object-store-api:0.24
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
