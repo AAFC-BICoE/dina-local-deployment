@@ -194,6 +194,23 @@ services:
       - "traefik.http.middlewares.stripsearchws.stripprefix.prefixes=${SEARCH_API_PREFIX}"
       - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
 
+  search-cli:
+    image: aafcbicoe/dina-search-cli:0.2 # aafcbicoe/dina-search-cli:dev # Should match the name used locally to build the image
+    profiles: ["search_api"]
+    environment:
+      ELASTICSEARCH_URL: elasticsearch-dina
+      MATERIAL_SAMPLE_URL: http://api.dina.local/collection/api/v1/material-sample
+      METADATA_URL: http://api.dina.local/objectstore/api/v1/metadata
+      ORGANIZATION_URL: http://api.dina.local/agent/api/v1/organization
+      PERSON_URL: http://api.dina.local/agent/api/v1/person
+      MANAGED_ATTRIBUTE_URL: http://api.dina.local/api/v1
+    stdin_open: true
+    tty: true
+    networks:
+      - dina
+      - default
+
+
 volumes:
   elasticsearch-data:
     driver: local
