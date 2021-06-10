@@ -199,6 +199,7 @@ services:
     profiles: ["search_api"]
     environment:
       ELASTICSEARCH_URL: elasticsearch-dina
+      MATERIAL_SAMPLE_URL: http://api.dina.local/collection/api/v1/material-sample
       METADATA_URL: http://api.dina.local/objectstore/api/v1/metadata
       ORGANIZATION_URL: http://api.dina.local/agent/api/v1/organization
       PERSON_URL: http://api.dina.local/agent/api/v1/person
