@@ -195,7 +195,7 @@ services:
       - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:dev # aafcbicoe/dina-search-cli:0.1 # aafcbicoe/dina-search-cli:dev # Should match the name used locally to build the image
+    image: aafcbicoe/dina-search-cli:0.1 # aafcbicoe/dina-search-cli:dev # Should match the name used locally to build the image
     profiles: ["search_api"]
     environment:
       ELASTICSEARCH_URL: elasticsearch-dina
