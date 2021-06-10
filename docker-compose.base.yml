@@ -59,7 +59,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
 
   init-db:
-    image: "aafcbicoe/dina-db-init-container:0.1"
+    image: "aafcbicoe/dina-db-init-container:0.2"
     environment:
       POSTGRES_HOST: dina-db
       POSTGRES_DB: ${POSTGRES_DB}
@@ -92,6 +92,7 @@ services:
       MIGRATION_USER_PW_seqdb: ${SEQDB_MIGRATION_USER_PW}
       WEB_USER_seqdb: ${SEQDB_WEB_USER}
       WEB_USER_PW_seqdb: ${SEQDB_WEB_USER_PW}
+      PG_EXTENSION_seqdb: pgcrypto
 
     depends_on:
       - "dina-db"
