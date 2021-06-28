@@ -32,14 +32,18 @@ docker-compose \
 
 Profiles have been added to support the deployment of non-mandatory components defined under a specific profile keyword (requires Docker-Compsoe >= 1.28.0).
 
-Search API components are classify under the profile name `search_api` to have a deployment with these additional components you just have to use the following command:
+Available profiles:
+
+* object_store_api
+* search_api
+ 
+Example command using profile:
 
 ```
 docker-compose --profile search_api -f docker-compose.base.yml -f docker-compose.local.yml up
 ```
 
-Notes: If you only want to start some services, you can create your own file based on docker-compose.local.yml and replace the command above with your file on top of the base file.
-
+## Users and groups
 
 After all the components have finished initializing, the UI will be available at `http://dina.local/`. By default, the following users are included:
 
