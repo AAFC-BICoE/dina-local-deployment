@@ -88,6 +88,7 @@ services:
 
   object-store-api:
     image: aafcbicoe/object-store-api:0.24
+    profiles: ["object_store_api"]
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -115,6 +116,7 @@ services:
 
   minio:
     image: minio/minio
+    profiles: ["object_store_api"]
     volumes:
       - ./minio-data:/data
     environment:
