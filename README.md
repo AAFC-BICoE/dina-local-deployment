@@ -30,7 +30,7 @@ docker-compose \
 
 ## Profiles Support
 
-Profiles have been added to support the deployment of non-mandatory components defined under a specific profile keyword (requires Docker-Compsoe >= 1.28.0).
+Profiles have been added to support the deployment of non-mandatory components defined under a specific profile keyword (requires Docker-Compose >= 1.28.0).
 
 Available profiles:
 
