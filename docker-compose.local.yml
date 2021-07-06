@@ -21,7 +21,7 @@ services:
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api
+    image: aafcbicoe/seqdb-api:2.1.1
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
@@ -32,6 +32,7 @@ services:
       spring.datasource.username: ${SEQDB_WEB_USER}
       spring.datasource.password: ${SEQDB_WEB_USER_PW}
     networks:
+      - default
       - dina
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
