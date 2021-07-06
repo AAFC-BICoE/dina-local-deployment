@@ -20,6 +20,28 @@ services:
       - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
+  seqdb-api:
+    image: aafcbicoe/seqdb-api:2.1.1
+    profiles: ["seqdb_api"]
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      spring.datasource.url: jdbc:postgresql://dina-db/seqdb?currentSchema=seqdb
+      spring.liquibase.user: ${SEQDB_MIGRATION_USER}
+      spring.liquibase.password: ${SEQDB_MIGRATION_USER_PW}
+      spring.datasource.username: ${SEQDB_WEB_USER}
+      spring.datasource.password: ${SEQDB_WEB_USER_PW}
+    networks:
+      - default
+      - dina
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+    labels:
+      # Opens http://api.dina.local/seqdb/api/ module endpoint
+      - "traefik.http.middlewares.stripseqdb.stripprefix.prefixes=${SEQDB_API_PREFIX}"
+      - "traefik.http.routers.seqdbapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEQDB_API_PREFIX}/`)"
+      - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
+
   agent-api:
     image: aafcbicoe/agent-api:0.12
     environment:
