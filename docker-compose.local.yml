@@ -22,6 +22,7 @@ services:
 
   seqdb-api:
     image: aafcbicoe/seqdb-api
+    profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
