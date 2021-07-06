@@ -64,7 +64,7 @@ services:
       - "traefik.http.routers.collectionapi.middlewares=stripcollection@docker"
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.5
+    image: aafcbicoe/dina-user-api:0.6
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
