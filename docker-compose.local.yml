@@ -211,9 +211,26 @@ services:
       - dina
       - default
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    profiles: ["search_api"]
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - dina_rabbitmq_net
+
 volumes:
   elasticsearch-data:
     driver: local
   elastic-configurator-settings:
     driver: local      
+
+networks:
+  dina_rabbitmq_net:
+    driver: bridge  
 
