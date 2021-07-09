@@ -206,7 +206,6 @@ services:
       ORGANIZATION_URL: http://api.dina.local/agent/api/v1/organization
       PERSON_URL: http://api.dina.local/agent/api/v1/person
       RABBITMQ_HOSTNAME: rabbitmq-dina
-      IS_MESSAGE_CONSUMER: ${IS_MESSAGE_CONSUMER_SETTING_VALUE}
       IS_MESSAGE_PRODUCER: ${IS_MESSAGE_PRODUCER_SETTING_VALUE}
     stdin_open: true
     tty: true
