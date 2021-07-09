@@ -219,7 +219,7 @@ services:
       - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.2 # aafcbicoe/dina-search-cli:dev # Should match the name used locally to build the image
+    image: aafcbicoe/dina-search-cli:0.2  # Should match the name used locally to build the image
     profiles: ["search_api"]
     environment:
       ELASTICSEARCH_URL: elasticsearch-dina
@@ -227,15 +227,36 @@ services:
       METADATA_URL: http://api.dina.local/objectstore/api/v1/metadata
       ORGANIZATION_URL: http://api.dina.local/agent/api/v1/organization
       PERSON_URL: http://api.dina.local/agent/api/v1/person
+      messaging.isConsumer: "true"
+      messaging.isProducer: "true"
+      rabbitmq.host: rabbitmq-dina
     stdin_open: true
     tty: true
     networks:
       - dina
+      - dina_rabbitmq_net
       - default
+
+  rabbitmq-dina:
+    image: rabbitmq:3-management-alpine
+    profiles: ["search_api"]
+    container_name: 'rabbitmq-dina'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - dina_rabbitmq_net
 
 volumes:
   elasticsearch-data:
     driver: local
   elastic-configurator-settings:
     driver: local      
+
+networks:
+  dina_rabbitmq_net:
+    driver: bridge  
 
