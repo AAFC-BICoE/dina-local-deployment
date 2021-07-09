@@ -205,8 +205,8 @@ services:
       METADATA_URL: http://api.dina.local/objectstore/api/v1/metadata
       ORGANIZATION_URL: http://api.dina.local/agent/api/v1/organization
       PERSON_URL: http://api.dina.local/agent/api/v1/person
-      messaging.isConsumer: true
-      messaging.isProducer: true
+      messaging.isConsumer: "true"
+      messaging.isProducer: "true"
       rabbitmq.host: rabbitmq-dina
     stdin_open: true
     tty: true
