@@ -20,8 +20,30 @@ services:
       - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
+  seqdb-api:
+    image: aafcbicoe/seqdb-api:2.1.1
+    profiles: ["seqdb_api"]
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      spring.datasource.url: jdbc:postgresql://dina-db/seqdb?currentSchema=seqdb
+      spring.liquibase.user: ${SEQDB_MIGRATION_USER}
+      spring.liquibase.password: ${SEQDB_MIGRATION_USER_PW}
+      spring.datasource.username: ${SEQDB_WEB_USER}
+      spring.datasource.password: ${SEQDB_WEB_USER_PW}
+    networks:
+      - default
+      - dina
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+    labels:
+      # Opens http://api.dina.local/seqdb/api/ module endpoint
+      - "traefik.http.middlewares.stripseqdb.stripprefix.prefixes=${SEQDB_API_PREFIX}"
+      - "traefik.http.routers.seqdbapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEQDB_API_PREFIX}/`)"
+      - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
+
   agent-api:
-    image: aafcbicoe/agent-api:0.12
+    image: aafcbicoe/agent-api:0.13
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -197,7 +219,7 @@ services:
       - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.2 # aafcbicoe/dina-search-cli:dev # Should match the name used locally to build the image
+    image: aafcbicoe/dina-search-cli:0.2  # Should match the name used locally to build the image
     profiles: ["search_api"]
     environment:
       ELASTICSEARCH_URL: elasticsearch-dina
@@ -205,16 +227,20 @@ services:
       METADATA_URL: http://api.dina.local/objectstore/api/v1/metadata
       ORGANIZATION_URL: http://api.dina.local/agent/api/v1/organization
       PERSON_URL: http://api.dina.local/agent/api/v1/person
+      messaging.isConsumer: "true"
+      messaging.isProducer: "true"
+      rabbitmq.host: rabbitmq-dina
     stdin_open: true
     tty: true
     networks:
       - dina
+      - dina_rabbitmq_net
       - default
 
-  rabbitmq:
+  rabbitmq-dina:
     image: rabbitmq:3-management-alpine
     profiles: ["search_api"]
-    container_name: 'rabbitmq'
+    container_name: 'rabbitmq-dina'
     ports:
         - 5672:5672
         - 15672:15672
