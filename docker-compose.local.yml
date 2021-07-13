@@ -109,7 +109,7 @@ services:
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.25
+    image: aafcbicoe/object-store-api:0.26
     profiles: ["object_store_api"]
     environment:
       keycloak.enabled: "true"
