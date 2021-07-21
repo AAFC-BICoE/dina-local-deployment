@@ -4,6 +4,8 @@ This project help to start the DINA ecosystem with Keycloak using Docker Compose
 
 Tested with Docker-Compose 1.28 and Ubuntu hosts.
 
+For development setup see [dina-dev](https://github.com/AAFC-BICoE/dina-dev) (private repo).
+
 # Goal
 
 Repository where we can easily start the DINA system for demonstration and/or test purpose.
