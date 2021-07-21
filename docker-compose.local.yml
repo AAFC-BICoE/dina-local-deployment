@@ -259,5 +259,7 @@ volumes:
 
 networks:
   dina_rabbitmq_net:
-    driver: bridge  
-
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${SUBNET}
