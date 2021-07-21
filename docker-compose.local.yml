@@ -32,7 +32,6 @@ services:
       spring.datasource.username: ${SEQDB_WEB_USER}
       spring.datasource.password: ${SEQDB_WEB_USER_PW}
     networks:
-      - default
       - dina
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
@@ -54,7 +53,6 @@ services:
       spring.datasource.username: ${AGENT_WEB_USER}
       spring.datasource.password: ${AGENT_WEB_USER_PW}
     networks:
-      - default
       - dina
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
@@ -76,7 +74,6 @@ services:
       spring.datasource.password: ${COLL_WEB_USER_PW}
 
     networks:
-      - default
       - dina
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
@@ -98,7 +95,6 @@ services:
       spring.datasource.username: ${DINA_USER_WEB_USER}
       spring.datasource.password: ${DINA_USER_WEB_USER_PW}
     networks:
-      - default
       - dina
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
@@ -128,7 +124,6 @@ services:
       minio.secretKey: ${MINIO_SECRET_KEY}
     networks:
       - dina
-      - default
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     labels:
@@ -146,6 +141,8 @@ services:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
     command: server /data
+    networks:
+      - dina
 
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch-dina:
@@ -169,7 +166,6 @@ services:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     networks:
       - dina
-      - default
     ports:
       - 9200:9200
       - 9300:9300
@@ -186,7 +182,6 @@ services:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     networks:
       - dina
-      - default
     ports:
       - 5601:5601
     depends_on:
@@ -207,13 +202,14 @@ services:
       - ./elastic-configurator-settings:/usr/share/elastic-configurator/settings
     depends_on:
       - elasticsearch-dina
+    networks:
+      - dina
 
   search-ws:
     image: aafcbicoe/dina-search-ws:0.2
     profiles: ["search_api"]
     networks:
       - dina
-      - default
     labels:
       # maps api.dina.local/search... -> /search
       - "traefik.http.middlewares.stripsearchws.stripprefix.prefixes=${SEARCH_API_PREFIX}"
@@ -236,7 +232,6 @@ services:
     networks:
       - dina
       - dina_rabbitmq_net
-      - default
 
   rabbitmq-dina:
     image: rabbitmq:3-management-alpine
@@ -262,4 +257,4 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: ${SUBNET}
+        - subnet: 10.103.0.1/16
