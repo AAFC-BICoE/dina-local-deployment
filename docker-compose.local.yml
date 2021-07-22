@@ -72,7 +72,6 @@ services:
       spring.liquibase.password: ${COLL_MIGRATION_USER_PW}
       spring.datasource.username: ${COLL_WEB_USER}
       spring.datasource.password: ${COLL_WEB_USER_PW}
-
     networks:
       - dina
     extra_hosts:
