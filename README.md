@@ -18,6 +18,19 @@ The hosts file must be updated with the hostnames used in the local deployment. 
 `192.19.33.9 dina.local`
 `192.19.33.9 api.dina.local`
 
+## KeyCloak Provider Url
+
+If you are running a local instance for testing purposes, you will not need to change the keycloak provider url.
+
+The public facing URL of the keycloak provider is required for the keycloak container and the UI. This allows the UI and keycloak container to serve the appropriate keycloak urls for users in the browser. By default the URL provider is set to point to a local instance with Host `keycloak.local` and port `8080`. 
+
+In the `.env` file you can set the `KEYCLOAK_EXTERNAL_URL` to point to the appropriate url.
+
+```properties
+KEYCLOAK_EXTERNAL_URL=http://My.Keycloak.Server:3239/auth
+```
+
+
 # How to run
 
 To run:
