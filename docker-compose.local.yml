@@ -257,4 +257,4 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 10.103.0.1/16
+        - subnet: ${RABBIT_SUBNET}
