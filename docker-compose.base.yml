@@ -15,7 +15,7 @@ services:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
       KEYCLOAK_IMPORT: /keycloak-realm.json
-      KEYCLOAK_FRONTEND_URL: http://${KEYCLOAK_EXTERNAL_URL}:${KEYCLOAK_PORT}/auth
+      KEYCLOAK_FRONTEND_URL: ${KEYCLOAK_EXTERNAL_URL}
     volumes:
       - "./keycloak-dina-starter-realm.json:/keycloak-realm.json"
       - "./dina-keycloak-theme:/opt/jboss/keycloak/themes/dina"
