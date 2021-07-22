@@ -14,9 +14,9 @@ Repository where we can easily start the DINA system for demonstration and/or te
 
 The hosts file must be updated with the hostnames used in the local deployment. In Linux and Mac OSX, this is located at `/etc/hosts`, and in Windows it's `c:\windows\system32\drivers\etc\hosts`. You should have the following entries, all pointing to the fixed IP of the Traefik container:
 
-`172.19.33.9 keycloak.local`
-`172.19.33.9 dina.local`
-`172.19.33.9 api.dina.local`
+`192.19.33.9 keycloak.local`
+`192.19.33.9 dina.local`
+`192.19.33.9 api.dina.local`
 
 # How to run
 
