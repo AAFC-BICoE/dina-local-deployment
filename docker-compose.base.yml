@@ -79,6 +79,7 @@ services:
       MIGRATION_USER_PW_collection: ${COLL_MIGRATION_USER_PW}
       WEB_USER_collection: ${COLL_WEB_USER}
       WEB_USER_PW_collection: ${COLL_WEB_USER_PW}
+      PG_EXTENSION_collection: postgis
 
       MIGRATION_USER_dina_user: ${DINA_USER_MIGRATION_USER}
       MIGRATION_USER_PW_dina_user: ${DINA_USER_MIGRATION_USER_PW}
