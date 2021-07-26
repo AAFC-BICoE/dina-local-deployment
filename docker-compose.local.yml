@@ -2,11 +2,11 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.51.0
+    image: aafcbicoe/dina-ui:0.53.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
-      KEYCLOAK_PUBLIC_URL: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      KEYCLOAK_PUBLIC_URL: ${KEYCLOAK_EXTERNAL_URL}
       OBJECTSTORE_API_ADDRESS: object-store-api:8080
       AGENT_API_ADDRESS: agent-api:8080
       SEQDB_API_ADDRESS: seqdb-api:8080
@@ -20,8 +20,30 @@ services:
       - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
+  seqdb-api:
+    image: aafcbicoe/seqdb-api:2.1.2
+    profiles: ["seqdb_api"]
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      spring.datasource.url: jdbc:postgresql://dina-db/seqdb?currentSchema=seqdb
+      spring.liquibase.user: ${SEQDB_MIGRATION_USER}
+      spring.liquibase.password: ${SEQDB_MIGRATION_USER_PW}
+      spring.datasource.username: ${SEQDB_WEB_USER}
+      spring.datasource.password: ${SEQDB_WEB_USER_PW}
+    networks:
+      - dina
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+    labels:
+      # Opens http://api.dina.local/seqdb/api/ module endpoint
+      - "traefik.http.middlewares.stripseqdb.stripprefix.prefixes=${SEQDB_API_PREFIX}"
+      - "traefik.http.routers.seqdbapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEQDB_API_PREFIX}/`)"
+      - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
+
+
   agent-api:
-    image: aafcbicoe/agent-api:0.12
+    image: aafcbicoe/agent-api:0.13.1
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -31,7 +53,6 @@ services:
       spring.datasource.username: ${AGENT_WEB_USER}
       spring.datasource.password: ${AGENT_WEB_USER_PW}
     networks:
-      - default
       - dina
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
@@ -42,7 +63,7 @@ services:
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.21
+    image: aafcbicoe/natural-history-collection-api:0.23
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -51,9 +72,7 @@ services:
       spring.liquibase.password: ${COLL_MIGRATION_USER_PW}
       spring.datasource.username: ${COLL_WEB_USER}
       spring.datasource.password: ${COLL_WEB_USER_PW}
-
     networks:
-      - default
       - dina
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
@@ -75,7 +94,6 @@ services:
       spring.datasource.username: ${DINA_USER_WEB_USER}
       spring.datasource.password: ${DINA_USER_WEB_USER_PW}
     networks:
-      - default
       - dina
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
@@ -87,7 +105,7 @@ services:
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.25
+    image: aafcbicoe/object-store-api:0.26
     profiles: ["object_store_api"]
     environment:
       keycloak.enabled: "true"
@@ -105,7 +123,6 @@ services:
       minio.secretKey: ${MINIO_SECRET_KEY}
     networks:
       - dina
-      - default
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     labels:
@@ -123,10 +140,12 @@ services:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
     command: server /data
+    networks:
+      - dina
 
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch-dina:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.3
     profiles: ["search_api"]
     environment:
       - xpack.security.enabled=false
@@ -146,7 +165,6 @@ services:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     networks:
       - dina
-      - default
     ports:
       - 9200:9200
       - 9300:9300
@@ -155,7 +173,7 @@ services:
 
   # Addition of Kibana, for development purpose or browsing through the dina indices.
   kibana-dina:
-    image: docker.elastic.co/kibana/kibana:7.4.0
+    image: docker.elastic.co/kibana/kibana:7.13.3
     profiles: ["search_api"]
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch-dina:9200
@@ -163,7 +181,6 @@ services:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     networks:
       - dina
-      - default
     ports:
       - 5601:5601
     depends_on:
@@ -184,20 +201,21 @@ services:
       - ./elastic-configurator-settings:/usr/share/elastic-configurator/settings
     depends_on:
       - elasticsearch-dina
+    networks:
+      - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.1
+    image: aafcbicoe/dina-search-ws:0.2
     profiles: ["search_api"]
     networks:
       - dina
-      - default
     labels:
       # maps api.dina.local/search... -> /search
       - "traefik.http.middlewares.stripsearchws.stripprefix.prefixes=${SEARCH_API_PREFIX}"
       - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.1 # aafcbicoe/dina-search-cli:dev # Should match the name used locally to build the image
+    image: aafcbicoe/dina-search-cli:0.2  # Should match the name used locally to build the image
     profiles: ["search_api"]
     environment:
       ELASTICSEARCH_URL: elasticsearch-dina
@@ -205,11 +223,27 @@ services:
       METADATA_URL: http://api.dina.local/objectstore/api/v1/metadata
       ORGANIZATION_URL: http://api.dina.local/agent/api/v1/organization
       PERSON_URL: http://api.dina.local/agent/api/v1/person
+      RABBITMQ_HOSTNAME: rabbitmq-dina
+      IS_MESSAGE_CONSUMER: "true"
+      IS_MESSAGE_PRODUCER: "true"
     stdin_open: true
     tty: true
     networks:
       - dina
-      - default
+      - dina_rabbitmq_net
+
+  rabbitmq-dina:
+    image: rabbitmq:3-management-alpine
+    profiles: ["search_api"]
+    container_name: 'rabbitmq-dina'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - dina_rabbitmq_net
 
 volumes:
   elasticsearch-data:
@@ -217,3 +251,9 @@ volumes:
   elastic-configurator-settings:
     driver: local      
 
+networks:
+  dina_rabbitmq_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${RABBIT_SUBNET}

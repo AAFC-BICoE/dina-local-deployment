@@ -5,7 +5,7 @@
       "number_of_replicas": "1"
     }
   },
-  "mappings": {
+  "mapping": {
     "properties": {
       "data": {
         "properties": {
@@ -33,6 +33,24 @@
                 }
               },
               "acHashValue": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "acTags": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "aliases": {
                 "type": "text",
                 "fields": {
                   "keyword": {
@@ -92,6 +110,46 @@
                   }
                 }
               },
+              "displayName": {
+                "type": "text",
+                "fields": {
+                  "autocomplete": {
+                    "type": "search_as_you_type",
+                    "max_shingle_size": 3
+                  },
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcCatalogNumber": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "email": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "familyNames": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
               "fileExtension": {
                 "type": "text",
                 "fields": {
@@ -110,7 +168,25 @@
                   }
                 }
               },
+              "givenNames": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
               "group": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "materialSampleName": {
                 "type": "text",
                 "fields": {
                   "keyword": {
@@ -200,6 +276,58 @@
                   }
                 }
               },
+              "attachment": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "id": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
+                      },
+                      "type": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "collectingEvent": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "id": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
+                      },
+                      "type": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
               "dcCreator": {
                 "properties": {
                   "data": {
@@ -251,6 +379,64 @@
                     }
                   }
                 }
+              },
+              "materialSampleChildren": {
+                "type": "object"
+              },
+              "organizations": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "id": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
+                      },
+                      "type": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "parentMaterialSample": {
+                "type": "object"
+              },
+              "preparationType": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "id": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
+                      },
+                      "type": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           },
@@ -269,7 +455,52 @@
         "properties": {
           "attributes": {
             "properties": {
+              "acCaption": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "acHashFunction": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "acHashValue": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "acTags": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
               "aliases": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "bucket": {
                 "type": "text",
                 "fields": {
                   "keyword": {
@@ -287,8 +518,38 @@
                   }
                 }
               },
+              "createdDate": {
+                "type": "date"
+              },
               "createdOn": {
                 "type": "date"
+              },
+              "dcFormat": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dcRights": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dcType": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
               },
               "displayName": {
                 "type": "text",
@@ -297,6 +558,51 @@
                     "type": "search_as_you_type",
                     "max_shingle_size": 3
                   },
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcRecordNumber": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcRecordedBy": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcVerbatimCoordinateSystem": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcVerbatimLocality": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcVerbatimSRS": {
+                "type": "text",
+                "fields": {
                   "keyword": {
                     "type": "keyword",
                     "ignore_above": 256
@@ -312,51 +618,170 @@
                   }
                 }
               },
-              "values": {
+              "familyNames": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "fileExtension": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "fileIdentifier": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "geoReferenceAssertions": {
                 "properties": {
-                  "4a208aad-f7c3-454b-b134-1a425f10e6aa": {
-                    "properties": {
-                      "name": {
-                        "type": "text",
-                        "fields": {
-                          "keyword": {
-                            "type": "keyword",
-                            "ignore_above": 256
-                          }
-                        }
-                      },
-                      "value": {
-                        "type": "text",
-                        "fields": {
-                          "keyword": {
-                            "type": "keyword",
-                            "ignore_above": 256
-                          }
-                        }
+                  "createdOn": {
+                    "type": "date"
+                  },
+                  "dwcGeoreferenceVerificationStatus": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
                       }
                     }
                   },
-                  "8c816ebe-e2b9-45e7-b955-3ff555de276e": {
-                    "properties": {
-                      "name": {
-                        "type": "text",
-                        "fields": {
-                          "keyword": {
-                            "type": "keyword",
-                            "ignore_above": 256
-                          }
-                        }
-                      },
-                      "value": {
-                        "type": "text",
-                        "fields": {
-                          "keyword": {
-                            "type": "keyword",
-                            "ignore_above": 256
-                          }
-                        }
+                  "georeferencedBy": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
                       }
                     }
+                  },
+                  "isPrimary": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "givenNames": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "group": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "habitat": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "names": {
+                "properties": {
+                  "languageCode": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  },
+                  "name": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  }
+                }
+              },
+              "originalFilename": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "publiclyReleasable": {
+                "type": "boolean"
+              },
+              "startEventDateTime": {
+                "type": "date"
+              },
+              "verbatimEventDateTime": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "xmpMetadataDate": {
+                "type": "date"
+              },
+              "xmpRightsOwner": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "xmpRightsUsageTerms": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "xmpRightsWebStatement": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
                   }
                 }
               }
