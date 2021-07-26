@@ -52,7 +52,7 @@ services:
         ipv4_address: ${TRAEFIK_IP}
 
   dina-db:
-    image: "postgres:12"
+    build: ./postgis-configuration
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
