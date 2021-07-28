@@ -1,7 +1,7 @@
 services:
   keycloak:
     environment:
-      DB_ADDR: keycloak-db:5433
+      DB_ADDR: keycloak-db:5433 # should match service name and port
       DB_USER: keycloak_user
       DB_PASSWORD: keycloak_user
       DB_DATABASE: keycloak_db
