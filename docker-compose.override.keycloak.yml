@@ -4,7 +4,7 @@ services:
   keycloak:
     environment:
       DB_VENDOR: postgres
-      DB_ADDR: keycloak-db # should match service name and port
+      DB_ADDR: keycloak-db # should match service name
       DB_USER: keycloak_user
       DB_PORT: 5433
       DB_PASSWORD: keycloak_user
@@ -23,4 +23,5 @@ services:
     volumes:
       - ./keycloak-data:/var/lib/postgresql/data
     expose:
-      - "5433:5432"
+      - "5433"
+    command: -p 5433 # set the port
