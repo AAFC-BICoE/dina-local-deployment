@@ -3,6 +3,7 @@ version: "3.9"
 services:
   keycloak:
     environment:
+      DB_VENDOR: postgres
       DB_ADDR: keycloak-db:5433 # should match service name and port
       DB_USER: keycloak_user
       DB_PASSWORD: keycloak_user
