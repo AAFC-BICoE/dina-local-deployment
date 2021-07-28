@@ -17,6 +17,6 @@ services:
     networks:
       - dina
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - ./keycloak-data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
