@@ -5,6 +5,8 @@ services:
       DB_USER: keycloak_user
       DB_PASSWORD: keycloak_user
       DB_DATABASE: keycloak_db
+    depends_on:
+      - "keycloak-db"
 
   keycloak-db:
     image: "postgres:12"
