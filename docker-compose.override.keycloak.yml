@@ -22,5 +22,5 @@ services:
       - dina
     volumes:
       - ./keycloak-data:/var/lib/postgresql/data
-    ports:
+    expose:
       - "5433:5432"
