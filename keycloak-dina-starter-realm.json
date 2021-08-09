@@ -1261,6 +1261,26 @@
       }
     },
     {
+      "username": "ccfc-cm",
+      "enabled": true,
+      "realmRoles": ["user"],
+      "groups": ["ccfc/collection-manager"],
+      "credentials": [{ "type": "password", "value": "ccfc-cm" }],
+      "attributes": {
+        "agentId": "4851a8af-705f-4415-a9b6-b661382d4da5"
+      }
+    },
+    {
+      "username": "dao-cm",
+      "enabled": true,
+      "realmRoles": ["user"],
+      "groups": ["dao/collection-manager"],
+      "credentials": [{ "type": "password", "value": "dao-cm" }],
+      "attributes": {
+        "agentId": "b5e79585-ce26-44d2-95e5-6272c3799581"
+      }
+    },
+    {
       "username": "service-account-user-svc",
       "enabled": true,
       "serviceAccountClientId": "user-svc",
