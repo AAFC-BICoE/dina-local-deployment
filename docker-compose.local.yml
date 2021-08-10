@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.53.0
+    image: aafcbicoe/dina-ui:0.55.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -63,7 +63,7 @@ services:
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.23
+    image: aafcbicoe/natural-history-collection-api:0.24
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -168,6 +168,10 @@ services:
     ports:
       - 9200:9200
       - 9300:9300
+    deploy:
+      resources:
+        limits:
+          memory: 2000M
     labels:
       - "traefik.http.routers.elasticsearch.rule=Host(`elasticsearch-dina.localhost`)"
 
