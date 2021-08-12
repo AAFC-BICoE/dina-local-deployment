@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  keycloak:
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: keycloak-db # should match service name
+      DB_USER: keycloak_user
+      DB_PORT: 5433
+      DB_PASSWORD: keycloak_user
+      DB_DATABASE: keycloak_db
+    depends_on:
+      - "keycloak-db"
+
+  keycloak-db:
+    image: "postgres:12"
+    environment:
+      POSTGRES_DB: keycloak_db
+      POSTGRES_PASSWORD: keycloak_user
+      POSTGRES_USER: keycloak_user
+    networks:
+      - dina
+    volumes:
+      - ./keycloak-data:/var/lib/postgresql/data
+    expose:
+      - "5433"
+    command: -p 5433 # set the port
