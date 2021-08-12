@@ -237,7 +237,7 @@ services:
       - dina_rabbitmq_net
 
   rabbitmq-dina:
-    image: 3.8.16-management-alpine
+    image: rabbitmq:3.8.16-management-alpine
     profiles: ["search_api"]
     container_name: 'rabbitmq-dina'
     ports:
