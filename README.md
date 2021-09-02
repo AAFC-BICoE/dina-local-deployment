@@ -16,9 +16,11 @@ Repository where we can start the DINA system for demonstration and/or test purp
 
 The hosts file must be updated with the hostnames used in the local deployment. In Linux and Mac OSX, this is located at `/etc/hosts`. You should have the following entries, all pointing to the fixed IP of the Traefik container:
 
-`192.19.33.9 keycloak.local`
-`192.19.33.9 dina.local`
-`192.19.33.9 api.dina.local`
+```
+192.19.33.9 keycloak.local
+192.19.33.9 dina.local
+192.19.33.9 api.dina.local
+```
 
 ## KeyCloak Provider Url
 
