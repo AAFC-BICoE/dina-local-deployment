@@ -52,13 +52,16 @@ services:
         ipv4_address: ${TRAEFIK_IP}
 
   dina-db:
-    image: "postgres:10"
+    image: "postgis/postgis:10-3.1-alpine"
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
     networks:
       - dina
+    volumes:
+      # Over write https://github.com/postgis/docker-postgis/blob/master/10-3.1/Dockerfile#L16
+      - ./skipPostGisExtensions.sh:/docker-entrypoint-initdb.d/10_postgis.sh
 
   init-db:
     image: "aafcbicoe/dina-db-init-container:0.2"
@@ -79,6 +82,7 @@ services:
       MIGRATION_USER_PW_collection: ${COLL_MIGRATION_USER_PW}
       WEB_USER_collection: ${COLL_WEB_USER}
       WEB_USER_PW_collection: ${COLL_WEB_USER_PW}
+      PG_EXTENSION_collection: postgis
 
       MIGRATION_USER_dina_user: ${DINA_USER_MIGRATION_USER}
       MIGRATION_USER_PW_dina_user: ${DINA_USER_MIGRATION_USER_PW}
