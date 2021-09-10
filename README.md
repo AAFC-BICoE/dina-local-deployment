@@ -1,6 +1,6 @@
 # dina-local-deployment
 
-This project help to start the DINA ecosystem with Keycloak using Docker Compose.
+This project helps to start the DINA ecosystem with Keycloak using Docker Compose.
 
 Tested with Docker-Compose 1.28 and Ubuntu hosts.
 
@@ -8,17 +8,19 @@ For development setup see [dina-dev](https://github.com/AAFC-BICoE/dina-dev) (pr
 
 # Goal
 
-Repository where we can easily start the DINA system for demonstration and/or test purpose.
+Repository where we can start the DINA system for demonstration and/or test purpose.
 
 # Setup
 
 ## Hosts file
 
-The hosts file must be updated with the hostnames used in the local deployment. In Linux and Mac OSX, this is located at `/etc/hosts`, and in Windows it's `c:\windows\system32\drivers\etc\hosts`. You should have the following entries, all pointing to the fixed IP of the Traefik container:
+The hosts file must be updated with the hostnames used in the local deployment. In Linux and Mac OSX, this is located at `/etc/hosts`. You should have the following entries, all pointing to the fixed IP of the Traefik container:
 
-`192.19.33.9 keycloak.local`
-`192.19.33.9 dina.local`
-`192.19.33.9 api.dina.local`
+```
+192.19.33.9 keycloak.local
+192.19.33.9 dina.local
+192.19.33.9 api.dina.local
+```
 
 ## KeyCloak Provider Url
 
@@ -32,7 +34,6 @@ In the `.env` file you can set the `KEYCLOAK_EXTERNAL_URL` to point to the appro
 KEYCLOAK_EXTERNAL_URL=http://My.Keycloak.Server:3239/auth
 ```
 
-
 # How to run
 
 To run:
@@ -42,6 +43,7 @@ docker-compose \
 -f docker-compose.base.yml \
 -f docker-compose.local.yml up
 ```
+Note: By default, a lot of modules won't be started. See Profiles Support section.
 
 ## Profiles Support
 

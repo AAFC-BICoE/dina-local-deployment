@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.53.0
+    image: aafcbicoe/dina-ui:0.61.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -43,7 +43,7 @@ services:
 
 
   agent-api:
-    image: aafcbicoe/agent-api:0.13.1
+    image: aafcbicoe/agent-api:0.14
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -63,7 +63,7 @@ services:
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.23
+    image: aafcbicoe/natural-history-collection-api:0.28
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -105,7 +105,7 @@ services:
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.26
+    image: aafcbicoe/object-store-api:0.27
     profiles: ["object_store_api"]
     environment:
       keycloak.enabled: "true"
@@ -237,7 +237,7 @@ services:
       - dina_rabbitmq_net
 
   rabbitmq-dina:
-    image: rabbitmq:3-management-alpine
+    image: rabbitmq:3.8.20-management-alpine
     profiles: ["search_api"]
     container_name: 'rabbitmq-dina'
     ports:
