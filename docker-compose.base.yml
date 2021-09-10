@@ -61,7 +61,7 @@ services:
       - dina
     volumes:
       # Over write https://github.com/postgis/docker-postgis/blob/master/10-3.1/Dockerfile#L16
-      - skipPostGisExtensions.sh:/docker-entrypoint-initdb.d/10_postgis.sh
+      - ./skipPostGisExtensions.sh:/docker-entrypoint-initdb.d/10_postgis.sh
 
   init-db:
     image: "aafcbicoe/dina-db-init-container:0.2"
