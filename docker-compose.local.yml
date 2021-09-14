@@ -56,6 +56,7 @@ services:
       RABBITMQ_HOSTNAME: rabbitmq-dina
     networks:
       - dina
+      - dina_rabbitmq_net
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     labels:
