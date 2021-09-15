@@ -52,7 +52,6 @@ services:
       spring.liquibase.password: ${AGENT_MIGRATION_USER_PW}
       spring.datasource.username: ${AGENT_WEB_USER}
       spring.datasource.password: ${AGENT_WEB_USER_PW}
-      messaging.isProducer: "true"
       RABBITMQ_HOSTNAME: rabbitmq-dina
     networks:
       - dina
