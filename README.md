@@ -84,3 +84,12 @@ Note: docker-compose.dev.yml currently includes the object-store only. When new 
 # Documentation
 * DINA [Keycloak testing](docs/keycloak.md)
 
+# Elasticsearch Messaging
+
+```
+docker-compose \
+--profile search_api \
+-f docker-compose.base.yml \
+-f message-producing-override/docker-compose.override.messageProducer.yml \
+-f docker-compose.local.yml up
+```
