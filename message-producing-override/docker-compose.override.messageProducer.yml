@@ -1,0 +1,6 @@
+version: "3.9"
+
+services:
+  agent-api:
+    environment:
+      messaging.isProducer: "true"
