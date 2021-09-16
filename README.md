@@ -84,3 +84,15 @@ Note: docker-compose.dev.yml currently includes the object-store only. When new 
 # Documentation
 * DINA [Keycloak testing](docs/keycloak.md)
 
+# RabbitMQ Messaging
+
+To enable Messaging using RabbitMQ, combine the `--profile search_api` with the override file `message-producing-override/docker-compose.override.messageProducer.yml`.
+
+```
+docker-compose \
+--profile search_api \
+-f docker-compose.base.yml \
+-f docker-compose.local.yml \
+-f message-producing-override/docker-compose.override.messageProducer.yml \
+up -d
+```
