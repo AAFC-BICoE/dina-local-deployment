@@ -4,3 +4,6 @@ services:
   agent-api:
     environment:
       messaging.isProducer: "true"
+      RABBITMQ_HOSTNAME: rabbitmq-dina
+    networks:
+      - dina_rabbitmq_net
