@@ -86,6 +86,8 @@ Note: docker-compose.dev.yml currently includes the object-store only. When new 
 
 # Elasticsearch Messaging
 
+To enable elastic search, combine the `--profile search_api` with the override file `message-producing-override/docker-compose.override.messageProducer.yml`.
+
 ```
 docker-compose \
 --profile search_api \
