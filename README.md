@@ -90,6 +90,7 @@ Note: docker-compose.dev.yml currently includes the object-store only. When new 
 docker-compose \
 --profile search_api \
 -f docker-compose.base.yml \
+-f docker-compose.local.yml \
 -f message-producing-override/docker-compose.override.messageProducer.yml \
--f docker-compose.local.yml up
+up -d
 ```
