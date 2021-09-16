@@ -84,9 +84,9 @@ Note: docker-compose.dev.yml currently includes the object-store only. When new 
 # Documentation
 * DINA [Keycloak testing](docs/keycloak.md)
 
-# Elasticsearch Messaging
+# RabbitMQ Messaging
 
-To enable elastic search, combine the `--profile search_api` with the override file `message-producing-override/docker-compose.override.messageProducer.yml`.
+To enable Messaging using RabbitMQ, combine the `--profile search_api` with the override file `message-producing-override/docker-compose.override.messageProducer.yml`.
 
 ```
 docker-compose \
