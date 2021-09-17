@@ -103,7 +103,7 @@ An optional override file is provided to allow the dina-db service to persist vo
 ```
 docker-compose \
 -f docker-compose.base.yml \
--f dina-db-data-persistence/docker-compose.override.dinaDbPersistence.yml \
+-f keycloak-override/docker-compose.override.keycloak.yml \
 -f docker-compose.local.yml \
 up -d
 ```
