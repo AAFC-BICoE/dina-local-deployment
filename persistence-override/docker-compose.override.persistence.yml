@@ -25,3 +25,7 @@ services:
     expose:
       - "5433"
     command: -p 5433 # set the port
+
+  dina-db:
+    volumes:
+      - ./dina-db-data:/var/lib/postgresql/data
