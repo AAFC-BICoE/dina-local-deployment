@@ -95,3 +95,15 @@ docker-compose \
 -f message-producing-override/docker-compose.override.messageProducer.yml \
 up -d
 ```
+
+# Persist dina-db data between containers
+
+An optional override file is provided to allow the dina-db service to persist volumes between containers.
+
+```
+docker-compose \
+-f docker-compose.base.yml \
+-f dina-db-data-persistence/docker-compose.override.dinaDbPersistence.yml \
+-f docker-compose.local.yml \
+up -d
+```
