@@ -73,13 +73,12 @@ After all the components have finished initializing, the UI will be available at
 
 The password is the same as the username for all users.
 
-# How to debug
+# FAQ
 
-`docker-compose -f docker-compose.base.yml -f object-store-api/docker-compose.yml -f docker-compose.local.yml -f docker-compose.dev.yml up`
+Q. I get ```ERROR: for traefik  Cannot start service traefik: Address already in use``` on start
 
-This will expose `localhost:5005` for remote debugging.
+A. It's very likely that a previous run was not terminated correctly. Run the docker-compose `down` command again to make sure everything is stopped.
 
-Note: docker-compose.dev.yml currently includes the object-store only. When new modules will be available this will probably be changed to be per module (e.g. docker-compose-object-store-api.dev.yml) to avoid starting all modules in debug mode.
 
 # Documentation
 * DINA [Keycloak testing](docs/keycloak.md)
