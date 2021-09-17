@@ -1,0 +1,6 @@
+version: "3.9"
+
+services:
+  dina-db:
+    volumes:
+      - ./dina-db-data:/var/lib/postgresql/data
