@@ -238,7 +238,7 @@ services:
       - dina_rabbitmq_net
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
-
+      - api.dina.local:${TRAEFIK_IP}
   rabbitmq-dina:
     image: rabbitmq:3.8.20-management-alpine
     profiles: ["search_api"]
