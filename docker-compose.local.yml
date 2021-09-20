@@ -222,6 +222,7 @@ services:
     image: aafcbicoe/dina-search-cli:0.3
     profiles: ["search_api"]
     environment:
+      keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
       ELASTICSEARCH_URL: elasticsearch-dina
       MATERIAL_SAMPLE_URL: http://api.dina.local/collection/api/v1/material-sample
       METADATA_URL: http://api.dina.local/objectstore/api/v1/metadata
@@ -235,6 +236,9 @@ services:
     networks:
       - dina
       - dina_rabbitmq_net
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+      - api.dina.local:${TRAEFIK_IP}
 
   rabbitmq-dina:
     image: rabbitmq:3.8.20-management-alpine
