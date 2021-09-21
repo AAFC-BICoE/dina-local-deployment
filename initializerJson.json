@@ -1,0 +1,15 @@
+[
+  {
+    "httpRequest" : {
+      "method" : "GET",
+      "path" : "/search/auto-complete?prefix=Jim&autoCompleteField=data.attributes.displayName&additionalField=data.attributes.aliases&indexName=dina_document_index",
+      "queryStringParameters" : {
+        "code" : ["10969"]
+    }
+  },
+    "httpResponse" : {
+      "body" : "{\"wheather\": 20.5}",
+      "statusCode": 200
+    }
+  }
+]
