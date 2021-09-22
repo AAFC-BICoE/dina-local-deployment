@@ -211,8 +211,6 @@ services:
   search-ws:
     image: aafcbicoe/dina-search-ws:0.3
     profiles: ["search_api"]
-    ports:
-      - 8085:8085
     networks:
       - dina
     labels:
