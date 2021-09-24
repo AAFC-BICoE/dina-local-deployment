@@ -255,6 +255,7 @@ services:
         
   mockServer:
     image: mockserver/mockserver:mockserver-5.11.1
+    profiles: ["mockServer"]
     ports:
       - 1080:1080
     environment:
