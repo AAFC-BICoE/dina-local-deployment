@@ -41,9 +41,8 @@ services:
       - "traefik.http.routers.seqdbapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEQDB_API_PREFIX}/`)"
       - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
 
-
   agent-api:
-    image: aafcbicoe/agent-api:0.15
+    image: aafcbicoe/agent-api:0.16
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -209,7 +208,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.3
+    image: aafcbicoe/dina-search-ws:0.4
     profiles: ["search_api"]
     networks:
       - dina
@@ -219,7 +218,7 @@ services:
       - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.3
+    image: aafcbicoe/dina-search-cli:0.4
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
