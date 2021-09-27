@@ -29,12 +29,62 @@ Expectations are placed in the `initializerJson.json` file.
 Example:
 
 ```console
-curl http://localhost:1080/search/auto-complete?prefix=Jim&autoCompleteField=data.attributes.displayName&additionalField=data.attributes.aliases&indexName=dina_agent_index
+curl "http://localhost:1080/search/auto-complete?prefix=Jim&autoCompleteField=data.attributes.displayName&additionalField=data.attributes.aliases&indexName=dina_agent_index"
 ```
-Response:
+Expected response:
 
-```
-[1] 19404
-[2] 19405
-[3] 19406
+```json
+{
+    "internalResponse": {
+        "numReducePhases": 1,
+        "fragment": true
+    },
+    "scrollId": null,
+    "totalShards": 1,
+    "successfulShards": 1,
+    "skippedShards": 0,
+    "shardFailures": [],
+    "clusters": {
+        "total": 0,
+        "successful": 0,
+        "skipped": 0,
+        "fragment": true
+    },
+    "numReducePhases": 1,
+    "timedOut": false,
+    "terminatedEarly": null,
+    "failedShards": 0,
+    "hits": {
+        "hits": [],
+        "totalHits": {
+            "value": 0,
+            "relation": "EQUAL_TO"
+        },
+        "maxScore": "NaN",
+        "sortFields": null,
+        "collapseField": null,
+        "collapseValues": null,
+        "fragment": true
+    },
+    "aggregations": null,
+    "suggest": null,
+    "took": {
+        "seconds": 0,
+        "days": 0,
+        "hours": 0,
+        "minutes": 0,
+        "millis": 38,
+        "micros": 38000,
+        "microsFrac": 38000.0,
+        "millisFrac": 38.0,
+        "secondsFrac": 0.038,
+        "minutesFrac": 6.333333333333333E-4,
+        "hoursFrac": 1.0555555555555555E-5,
+        "daysFrac": 4.398148148148148E-7,
+        "nanos": 38000000,
+        "stringRep": "38ms"
+    },
+    "profileResults": {},
+    "fragment": false
+}
 ```
