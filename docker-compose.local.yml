@@ -259,12 +259,12 @@ services:
     ports:
       - 1080:1080
     environment:
-      MOCKSERVER_PROPERTY_FILE: /config/mockserver.properties
-      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializerJson.json
+      MOCKSERVER_PROPERTY_FILE: /usr/share/mock-server/config/mockserver.properties
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /usr/share/mock-server/config/initializerJson.json
     volumes:
       - type: bind
-        source: .
-        target: /config
+        source: ./mock-server
+        target: /usr/share/mock-server/config
 
 volumes:
   elasticsearch-data:
