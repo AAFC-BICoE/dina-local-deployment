@@ -149,6 +149,7 @@ services:
     environment:
       - xpack.security.enabled=false
       - discovery.type=single-node
+      - action.auto_create_index=false
     ulimits:
       memlock:
         soft: -1
