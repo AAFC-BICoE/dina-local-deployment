@@ -253,6 +253,19 @@ services:
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
         - dina_rabbitmq_net
+        
+  mockServer:
+    image: mockserver/mockserver:mockserver-5.11.1
+    profiles: ["mockServer"]
+    ports:
+      - 1080:1080
+    environment:
+      MOCKSERVER_PROPERTY_FILE: /usr/share/mock-server/config/mockserver.properties
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /usr/share/mock-server/config/initializerJson.json
+    volumes:
+      - type: bind
+        source: ./mock-server
+        target: /usr/share/mock-server/config
 
 volumes:
   elasticsearch-data:
