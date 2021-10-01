@@ -197,9 +197,7 @@ services:
     environment:
       ELASTIC_SERVER_URL: $ELASTIC_SERVER_URL
       INDEX_CREATE_CMD: $INDEX_CREATE_CMD
-      DINA_DOCUMENT_INDEX_NAME: $DINA_DOCUMENT_INDEX_NAME 
-      DINA_AGENT_INDEX_NAME: $DINA_AGENT_INDEX_NAME 
-      DINA_DOCUMENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/default-document-index/dina_document_index_settings.json
+      DINA_AGENT_INDEX_NAME: $DINA_AGENT_INDEX_NAME
       DINA_AGENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/agent-index/dina_agent_index_settings.json
       DINA_MATERIAL_SAMPLE_INDEX_NAME: $DINA_MATERIAL_SAMPLE_INDEX_NAME
       DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator-settings/collection-index/dina_material_sample_index_settings.json
