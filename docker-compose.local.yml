@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.64.0
+    image: aafcbicoe/dina-ui:0.65.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -42,7 +42,7 @@ services:
       - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
 
   agent-api:
-    image: aafcbicoe/agent-api:0.16
+    image: aafcbicoe/agent-api:0.17
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
