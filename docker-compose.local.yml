@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.67.0
+    image: aafcbicoe/dina-ui:0.68.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -62,13 +62,14 @@ services:
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.34
+    image: aafcbicoe/natural-history-collection-api:0.35
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
       spring.datasource.url: jdbc:postgresql://dina-db/collection?currentSchema=collection
       spring.liquibase.user: ${COLL_MIGRATION_USER}
       spring.liquibase.password: ${COLL_MIGRATION_USER_PW}
+      spring.liquibase.contexts: schema-change, initial-data, data-migration
       spring.datasource.username: ${COLL_WEB_USER}
       spring.datasource.password: ${COLL_WEB_USER_PW}
     networks:
