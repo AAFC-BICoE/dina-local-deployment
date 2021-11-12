@@ -14,3 +14,4 @@ Add to (or create) the file  `/etc/docker/daemon.json`
    ]
 }
 ```
+`bip`: Bridge IP (`bip`) must not overlap with the `default-address-pools`.
