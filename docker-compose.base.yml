@@ -8,7 +8,10 @@ services:
   keycloak:
     image: jboss/keycloak:12.0.4
     user: root
-    command: ["-Djboss.http.port=${KEYCLOAK_PORT}"]
+    command: [
+        "-Djboss.http.port=${KEYCLOAK_PORT}",
+        "-Dkeycloak.hostname.provider=fixed",
+        "-Dkeycloak.hostname.fixed.hostname=${KEYCLOAK_EXTERNAL_HOSTNAME}" ]
     expose: 
       - ${KEYCLOAK_PORT}
     environment:
