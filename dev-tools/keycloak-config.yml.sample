@@ -1,4 +1,4 @@
-url: http://keycloak.local:8080/auth/
+url: http://keycloak.local:8080/auth/  # Use only the first part of the Keycloak URL, ending after the first '/auth/' 
 username: user
 password: user
 realm_name: dina
