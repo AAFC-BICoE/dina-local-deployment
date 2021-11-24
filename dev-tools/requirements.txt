@@ -1,2 +1,2 @@
-python_keycloak==0.22
-PyYAML>=5.3
+python_keycloak==0.26.1
+PyYAML>=6.0
