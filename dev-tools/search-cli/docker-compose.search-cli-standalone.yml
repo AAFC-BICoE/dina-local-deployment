@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+
+  search-cli:
+    image: aafcbicoe/dina-search-cli:0.6
+    container_name: search-cli-standalone
+    profiles: ["search_api"]
+    environment:
+      keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
+      ELASTICSEARCH_URL: elasticsearch-dina
+      MATERIAL_SAMPLE_URL: http://${API_HOSTNAME}/collection/api/v1/material-sample
+      METADATA_URL: http://${API_HOSTNAME}/objectstore/api/v1/metadata
+      ORGANIZATION_URL: http://${API_HOSTNAME}/agent/api/v1/organization
+      PERSON_URL: http://${API_HOSTNAME}/agent/api/v1/person
+      STORAGE_UNIT_URL: http://${API_HOSTNAME}/collection/api/v1/storage-unit
+      RABBITMQ_HOSTNAME: rabbitmq-dina
+      IS_MESSAGE_PRODUCER: "true"
+    stdin_open: true
+    tty: true
+    networks:
+      - dina
+      - dina_rabbitmq_net
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+      - api.dina.local:${TRAEFIK_IP}
+
