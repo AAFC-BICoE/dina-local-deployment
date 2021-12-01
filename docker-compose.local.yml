@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.64.0
+    image: aafcbicoe/dina-ui:0.66.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -12,10 +12,16 @@ services:
       SEQDB_API_ADDRESS: seqdb-api:8080
       COLLECTION_API_ADDRESS: collection-api:8080
       USER_API_ADDRESS: dina-user-api:8080
+      HTTP_PROXY:
+      HTTPS_PROXY:
+      http_proxy:
+      https_proxy:
+      no_proxy:
+      NO_PROXY:
     networks:
       - dina
-    ports:
-      - "2015:80"
+    extra_hosts:
+      - ${KEYCLOAK_EXTERNAL_HOSTNAME}:${KEYCLOAK_IP}
     labels:
       - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
@@ -25,16 +31,23 @@ services:
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
+      keycloak.cors: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
       spring.datasource.url: jdbc:postgresql://dina-db/seqdb?currentSchema=seqdb
       spring.liquibase.user: ${SEQDB_MIGRATION_USER}
       spring.liquibase.password: ${SEQDB_MIGRATION_USER_PW}
       spring.datasource.username: ${SEQDB_WEB_USER}
       spring.datasource.password: ${SEQDB_WEB_USER_PW}
+      HTTP_PROXY:
+      HTTPS_PROXY:
+      http_proxy:
+      https_proxy:
+      no_proxy:
+      NO_PROXY:
     networks:
       - dina
     extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+      - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
     labels:
       # Opens http://api.dina.local/seqdb/api/ module endpoint
       - "traefik.http.middlewares.stripseqdb.stripprefix.prefixes=${SEQDB_API_PREFIX}"
@@ -42,49 +55,66 @@ services:
       - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
 
   agent-api:
-    image: aafcbicoe/agent-api:0.16
+    image: aafcbicoe/agent-api:0.17
     environment:
       keycloak.enabled: "true"
+      keycloak.cors: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
       spring.datasource.url: jdbc:postgresql://dina-db/agent?currentSchema=agent
       spring.liquibase.user: ${AGENT_MIGRATION_USER}
       spring.liquibase.password: ${AGENT_MIGRATION_USER_PW}
       spring.datasource.username: ${AGENT_WEB_USER}
       spring.datasource.password: ${AGENT_WEB_USER_PW}
+      HTTP_PROXY:
+      HTTPS_PROXY:
+      http_proxy:
+      https_proxy:
+      no_proxy:
+      NO_PROXY:
     networks:
       - dina
     extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+      - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
     labels:
       # Opens http://api.dina.local/agent/api/v1/ module endpoint
       - "traefik.http.middlewares.stripagent.stripprefix.prefixes=${AGENT_API_PREFIX}"
       - "traefik.http.routers.agentapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${AGENT_API_PREFIX}/`)"
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
+    hostname: "agent-api"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.32
+    image: aafcbicoe/natural-history-collection-api:0.34
     environment:
       keycloak.enabled: "true"
+      keycloak.cors: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
       spring.datasource.url: jdbc:postgresql://dina-db/collection?currentSchema=collection
       spring.liquibase.user: ${COLL_MIGRATION_USER}
       spring.liquibase.password: ${COLL_MIGRATION_USER_PW}
       spring.datasource.username: ${COLL_WEB_USER}
       spring.datasource.password: ${COLL_WEB_USER_PW}
+      HTTP_PROXY:
+      HTTPS_PROXY:
+      http_proxy:
+      https_proxy:
+      no_proxy:
+      NO_PROXY:
     networks:
       - dina
     extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+      - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
     labels:
       # Opens http://api.dina.local/collection/api/v1 module endpoint
       - "traefik.http.middlewares.stripcollection.stripprefix.prefixes=${COLLECTION_API_PREFIX}"
       - "traefik.http.routers.collectionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${COLLECTION_API_PREFIX}/`)"
       - "traefik.http.routers.collectionapi.middlewares=stripcollection@docker"
+    hostname: "collection-api"
 
   dina-user-api:
     image: aafcbicoe/dina-user-api:0.6
     environment:
       keycloak.enabled: "true"
+      keycloak.cors: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
       KEYCLOAK_USER_SVC_SECRET: 120c0b7a-5ed2-4295-9a31-29c2fcbc714f
       spring.datasource.url: jdbc:postgresql://dina-db/dina_user?currentSchema=dina_user
@@ -92,22 +122,30 @@ services:
       spring.liquibase.password: ${DINA_USER_MIGRATION_USER_PW}
       spring.datasource.username: ${DINA_USER_WEB_USER}
       spring.datasource.password: ${DINA_USER_WEB_USER_PW}
+      HTTP_PROXY:
+      HTTPS_PROXY:
+      http_proxy:
+      https_proxy:
+      no_proxy:
+      NO_PROXY:
     networks:
       - dina
     extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+      - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
     labels:
       # Opens http://api.dina.local/dinauser/api/v1/ module endpoint
       - "traefik.http.middlewares.stripdinauser.stripprefix.prefixes=${DINA_USER_API_PREFIX}"
       - "traefik.http.routers.dinauserapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${DINA_USER_API_PREFIX}/`)"
       - "traefik.http.routers.dinauserapi.middlewares=stripdinauser@docker"
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
+    hostname: "dina-user-api"
 
   object-store-api:
     image: aafcbicoe/object-store-api:0.28
     profiles: ["object_store_api"]
     environment:
       keycloak.enabled: "true"
+      keycloak.cors: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
       dev-user.enabled: "false"
       spring.datasource.url: jdbc:postgresql://dina-db/object_store?currentSchema=object_store
@@ -120,15 +158,22 @@ services:
       minio.host: minio
       minio.accessKey: ${MINIO_ACCESS_KEY}
       minio.secretKey: ${MINIO_SECRET_KEY}
+      HTTP_PROXY:
+      HTTPS_PROXY:
+      http_proxy:
+      https_proxy:
+      no_proxy:
+      NO_PROXY:
     networks:
       - dina
     extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+      - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
     labels:
       # maps api.dina.local/objectstore/api/v1/... -> object_store_api/api/v1
       - "traefik.http.middlewares.stripobjectstore.stripprefix.prefixes=${OBJECT_STORE_API_PREFIX}"
       - "traefik.http.routers.objectstoreapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${OBJECT_STORE_API_PREFIX}/`)"
       - "traefik.http.routers.objectstoreapi.middlewares=stripobjectstore@docker"
+    hostname: "object-store-api"
 
   minio:
     image: minio/minio
@@ -162,7 +207,7 @@ services:
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
     extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+      - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
     networks:
       - dina
     ports:
@@ -182,7 +227,7 @@ services:
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch-dina:9200
     extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+      - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
     networks:
       - dina
     ports:
@@ -222,6 +267,7 @@ services:
     image: aafcbicoe/dina-search-cli:0.5
     profiles: ["search_api"]
     environment:
+      #keycloak.openid_auth_server: ${KEYCLOAK_PROTOCOL}://${KEYCLOAK_EXTERNAL_HOSTNAME}:${KEYCLOAK_EXTERNAL_PORT}/auth/realms/dina/protocol/openid-connect/token
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
       ELASTICSEARCH_URL: elasticsearch-dina
       MATERIAL_SAMPLE_URL: http://api.dina.local/collection/api/v1/material-sample
@@ -237,7 +283,7 @@ services:
       - dina
       - dina_rabbitmq_net
     extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
+      - ${KEYCLOAK_HOSTNAME}:${KEYCLOAK_IP}
       - api.dina.local:${TRAEFIK_IP}
 
   rabbitmq-dina:
