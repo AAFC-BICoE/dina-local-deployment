@@ -54,6 +54,7 @@ Available profiles:
 * object_store_api
 * search_api
 * seqdb_api
+* kibana
  
 Example command using profile:
 

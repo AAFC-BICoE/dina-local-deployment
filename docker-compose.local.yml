@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.70.0
+    image: aafcbicoe/dina-ui:0.73.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -12,6 +12,7 @@ services:
       SEQDB_API_ADDRESS: seqdb-api:8080
       COLLECTION_API_ADDRESS: collection-api:8080
       USER_API_ADDRESS: dina-user-api:8080
+      SEARCH_API_ADDRESS: search-ws:8085
     networks:
       - dina
     ports:
@@ -42,7 +43,7 @@ services:
       - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
 
   agent-api:
-    image: aafcbicoe/agent-api:0.17
+    image: aafcbicoe/agent-api:0.19
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -62,7 +63,7 @@ services:
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.37
+    image: aafcbicoe/natural-history-collection-api:0.40
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -105,7 +106,7 @@ services:
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.31
+    image: aafcbicoe/object-store-api:0.32
     profiles: ["object_store_api"]
     environment:
       keycloak.enabled: "true"
@@ -179,7 +180,7 @@ services:
   # Addition of Kibana, for development purpose or browsing through the dina indices.
   kibana-dina:
     image: docker.elastic.co/kibana/kibana:7.13.3
-    profiles: ["search_api"]
+    profiles: ["kibana"]
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch-dina:9200
     extra_hosts:
@@ -193,15 +194,18 @@ services:
 
   # Check the status of elasticsearch and configure indices if not already present.
   elastic-configurator:
-    image: aafcbicoe/es-init-container:0.5
+    image: aafcbicoe/es-init-container:0.6
     profiles: ["search_api"]
     environment:
       ELASTIC_SERVER_URL: $ELASTIC_SERVER_URL
       INDEX_CREATE_CMD: $INDEX_CREATE_CMD
+      DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE
       DINA_AGENT_INDEX_NAME: $DINA_AGENT_INDEX_NAME
-      DINA_AGENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/agent-index/dina_agent_index_settings.json
+      DINA_AGENT_INDEX_SETTINGS_FILE: $DINA_AGENT_INDEX_SETTINGS_FILE
       DINA_MATERIAL_SAMPLE_INDEX_NAME: $DINA_MATERIAL_SAMPLE_INDEX_NAME
-      DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator-settings/collection-index/dina_material_sample_index_settings.json
+      DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE: $DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE
+      DINA_STORAGE_INDEX_NAME: $DINA_STORAGE_INDEX_NAME
+      DINA_STORAGE_INDEX_SETTINGS_FILE: $DINA_STORAGE_INDEX_SETTINGS_FILE
     volumes:
       - ./elastic-configurator-settings:/usr/share/elastic-configurator/settings
     depends_on:
@@ -220,15 +224,16 @@ services:
       - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.5
+    image: aafcbicoe/dina-search-cli:0.6
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
       ELASTICSEARCH_URL: elasticsearch-dina
-      MATERIAL_SAMPLE_URL: http://api.dina.local/collection/api/v1/material-sample
-      METADATA_URL: http://api.dina.local/objectstore/api/v1/metadata
-      ORGANIZATION_URL: http://api.dina.local/agent/api/v1/organization
-      PERSON_URL: http://api.dina.local/agent/api/v1/person
+      MATERIAL_SAMPLE_URL: http://${API_HOSTNAME}/collection/api/v1/material-sample
+      METADATA_URL: http://${API_HOSTNAME}/objectstore/api/v1/metadata
+      ORGANIZATION_URL: http://${API_HOSTNAME}/agent/api/v1/organization
+      PERSON_URL: http://${API_HOSTNAME}/agent/api/v1/person
+      STORAGE_UNIT_URL: http://${API_HOSTNAME}/collection/api/v1/storage-unit
       RABBITMQ_HOSTNAME: rabbitmq-dina
       IS_MESSAGE_CONSUMER: "true"
       IS_MESSAGE_PRODUCER: "true"

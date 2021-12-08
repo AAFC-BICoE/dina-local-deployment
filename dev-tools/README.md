@@ -1,19 +1,28 @@
 ## Requirements ##
-  * Python 3.8 or 3.9
-  * Conda 4.8+ (recommended)
 
-Note: If not using Conda, then depending on the way you installed Python, you may have to replace the call to `python3.8` by `python3` or `python`.
+  * Conda 4.10+ (**Recommended**)
 
-Instructions to install Python 3.8:
-* From [PPA](https://linuxize.com/post/how-to-install-python-3-8-on-ubuntu-18-04/) (you will also need to install the package `python3.8-venv`)
-* From [source](https://tecadmin.net/install-python-3-8-ubuntu/)
+    (You can install [Miniconda](https://docs.conda.io/en/latest/miniconda.html))
+
+  **OR**
+  
+  * Python 3.8+ (tested with Python 3.8.12) with 
+  * venv
+      
+      **Note**: If not using Conda, then depending on the way you installed Python, you may have to replace the call to `python3.8` by `python3` or `python`.
+
+      **Instructions for installing Python 3.8**:
+      * From [PPA](https://linuxize.com/post/how-to-install-python-3-8-on-ubuntu-18-04/) (you will also need to install the package `python3.8-venv`)
+      * From [source](https://tecadmin.net/install-python-3-8-ubuntu/)
+
+
 
 ## Initial Setup ##
 
 1. Create and activate your virtual environment
 * If you have conda installed:
 ```
-conda create --name dina-test-env python=3.8
+conda create --name dina-test-env python=3.10
 conda activate dina-test-env
 ```
 
@@ -28,7 +37,13 @@ source dina-test-env/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-3. Make a copy of keycloak-config.yml.sample and make the appropriate updates to the new file.
+* OR
+
+```
+python3.8 -m pip install -r requirements.txt
+```
+
+3. Make a copy of keycloak-config.yml.sample and make the appropriate updates to the new file. Note that the Keycloak URL included in the keycloak-config ends after the first `/auth/`.
 ```
 cp keycloak-config.yml.sample keycloak-config.yml
 ```
