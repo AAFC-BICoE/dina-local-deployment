@@ -70,6 +70,8 @@ After all the components have finished initializing, the UI will be available at
 * `user`: in the `aafc`, `cnc` groups (no roles)
 * `cnc-cm`: `collection-manager` in the `cnc` group
 * `cnc-staff`: a `staff` in the `cnc` group
+* `cnc-student`: a `student` in the `cnc` group
+* `cnc-ro`: a `read-only` user in the `cnc` group
 * `dina-admin`: a `dina-admin` in the `aafc` group
 
 The password is the same as the username for all users.
