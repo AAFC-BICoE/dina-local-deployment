@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.75.0
+    image: aafcbicoe/dina-ui:0.76.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -63,7 +63,7 @@ services:
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.43
+    image: aafcbicoe/natural-history-collection-api:0.45
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -84,7 +84,7 @@ services:
       - "traefik.http.routers.collectionapi.middlewares=stripcollection@docker"
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.7
+    image: aafcbicoe/dina-user-api:0.8
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -106,7 +106,7 @@ services:
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.34
+    image: aafcbicoe/object-store-api:0.35
     profiles: ["object_store_api"]
     environment:
       keycloak.enabled: "true"
@@ -146,7 +146,7 @@ services:
 
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch-dina:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
     profiles: ["search_api"]
     environment:
       - xpack.security.enabled=false
@@ -179,7 +179,7 @@ services:
 
   # Addition of Kibana, for development purpose or browsing through the dina indices.
   kibana-dina:
-    image: docker.elastic.co/kibana/kibana:7.16.1
+    image: docker.elastic.co/kibana/kibana:7.16.2
     profiles: ["kibana"]
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch-dina:9200
@@ -216,7 +216,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.7
+    image: aafcbicoe/dina-search-ws:0.10
     profiles: ["search_api"]
     networks:
       - dina
@@ -226,7 +226,7 @@ services:
       - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.7
+    image: aafcbicoe/dina-search-cli:0.10
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
