@@ -43,7 +43,7 @@ services:
       - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
 
   agent-api:
-    image: aafcbicoe/agent-api:0.19
+    image: aafcbicoe/agent-api:0.20
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
