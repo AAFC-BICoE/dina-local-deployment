@@ -44,6 +44,7 @@ services:
 
   agent-api:
     image: aafcbicoe/agent-api:0.19
+    mem_limit: 512m
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
