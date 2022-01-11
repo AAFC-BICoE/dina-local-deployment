@@ -62,6 +62,7 @@ services:
       - "traefik.http.middlewares.stripagent.stripprefix.prefixes=${AGENT_API_PREFIX}"
       - "traefik.http.routers.agentapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${AGENT_API_PREFIX}/`)"
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
+      - "traefik.docker.network=dina"
 
   collection-api:
     image: aafcbicoe/natural-history-collection-api:0.46
@@ -83,6 +84,7 @@ services:
       - "traefik.http.middlewares.stripcollection.stripprefix.prefixes=${COLLECTION_API_PREFIX}"
       - "traefik.http.routers.collectionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${COLLECTION_API_PREFIX}/`)"
       - "traefik.http.routers.collectionapi.middlewares=stripcollection@docker"
+      - "traefik.docker.network=dina"
 
   dina-user-api:
     image: aafcbicoe/dina-user-api:0.8
