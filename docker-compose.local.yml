@@ -110,6 +110,7 @@ services:
 
   object-store-api:
     image: aafcbicoe/object-store-api:0.36
+    mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
       keycloak.enabled: "true"
