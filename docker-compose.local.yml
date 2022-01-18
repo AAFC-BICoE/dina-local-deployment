@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.76.0
+    image: aafcbicoe/dina-ui:0.77.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -65,7 +65,7 @@ services:
       - "traefik.docker.network=dina"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.46
+    image: aafcbicoe/natural-history-collection-api:0.47
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
