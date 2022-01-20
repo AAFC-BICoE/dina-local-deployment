@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.76.0
+    image: aafcbicoe/dina-ui:0.77.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -65,7 +65,7 @@ services:
       - "traefik.docker.network=dina"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.46
+    image: aafcbicoe/natural-history-collection-api:0.47
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -88,6 +88,7 @@ services:
 
   dina-user-api:
     image: aafcbicoe/dina-user-api:0.9
+    mem_limit: 512m
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -109,7 +110,8 @@ services:
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.35
+    image: aafcbicoe/object-store-api:0.36
+    mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
       keycloak.enabled: "true"
@@ -134,6 +136,7 @@ services:
       - "traefik.http.middlewares.stripobjectstore.stripprefix.prefixes=${OBJECT_STORE_API_PREFIX}"
       - "traefik.http.routers.objectstoreapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${OBJECT_STORE_API_PREFIX}/`)"
       - "traefik.http.routers.objectstoreapi.middlewares=stripobjectstore@docker"
+      - "traefik.docker.network=dina"
 
   minio:
     image: minio/minio

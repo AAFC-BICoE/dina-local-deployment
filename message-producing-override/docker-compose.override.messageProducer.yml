@@ -14,3 +14,16 @@ services:
       rabbitmq.host: rabbitmq-dina
     networks:
       - dina_rabbitmq_net
+      
+  object-store-api:
+    environment:
+      messaging.isProducer: "true"
+      rabbitmq.host: rabbitmq-dina
+      rabbitmq.queue: dina.search.queue
+      rabbitmq.exchange: dina.search.exchange
+      rabbitmq.routingkey: dina.search.routingkey
+      rabbitmq.username: guest
+      rabbitmq.password: guest
+      rabbitmq.port: 15672
+    networks:
+      - dina_rabbitmq_net
