@@ -80,8 +80,24 @@ The password is the same as the username for all users.
 
 Q. I get ```ERROR: for traefik  Cannot start service traefik: Address already in use``` on start
 
-A. It's very likely that a previous run was not terminated correctly. Run the docker-compose `down` command again to make sure everything is stopped.
+A. It's very likely that a previous run was not terminated correctly. Run the docker-compose `down` command again to make sure everything is stopped. If you continue to get the same error, try the following:
 
+1. Stop and remove all containers.
+```bash
+docker-compose -f docker-compose.base.yml -f docker-compose.local.yml down
+```
+
+2. Start the keycloak container only.
+```bash
+docker-compose -f docker-compose.base.yml -f docker-compose.local.yml up -d keycloak
+```
+
+3. Once keycloak is running, try starting the rest of the containers.
+```bash
+docker-compose -f docker-compose.base.yml -f docker-compose.local.yml up
+```
+
+These steps can also be followed when using the search api as well, just add the `-d keycloak` after the `up`.
 
 # Documentation
 * DINA [Keycloak testing](docs/keycloak.md)
