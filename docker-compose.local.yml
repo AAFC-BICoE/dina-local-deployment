@@ -88,6 +88,7 @@ services:
 
   loan-transaction-api:
     image: aafcbicoe/loan-transaction-api:0.1
+    mem_limit: 512m
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
