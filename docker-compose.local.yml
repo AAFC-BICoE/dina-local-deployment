@@ -253,6 +253,11 @@ services:
       # maps api.dina.local/search... -> /search
       - "traefik.http.middlewares.stripsearchws.stripprefix.prefixes=${SEARCH_API_PREFIX}"
       - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
 
   search-cli:
     image: aafcbicoe/dina-search-cli:0.11
