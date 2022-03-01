@@ -1,12 +1,21 @@
 # Keycloak
 
-## 0. Prerequisites
+## FAQ
+
+### "HTTPS required" while logging in to Keycloak as admin
+
+If it's impossible to use https (Keycloak has self-certificates for localhost), you can connected to the Postgres database and run:
+
+`update REALM set ssl_required='NONE' where id = 'master';`
+
+
+## How to get a tocken
 
 If Keycloak is running locally, add an entry for Keycloak in your `hosts` file:
 
 `172.19.33.9	keycloak.local`
 
-## 1. Get a Bearer token
+### 1. Get a Bearer token
 
 You can use the following script:
 [keycloak-curl.sh](https://github.com/akoserwal/keycloak-integrations/blob/master/curl-post-request/keycloak-curl.sh)
@@ -24,7 +33,7 @@ The token will be printed in the console.
 
 NOTE: The scripts assumes https which may not be available on local setup, in that case the script has to be modified to use http.
 
-## 2. Use the Bearer token
+### 2. Use the Bearer token
 
 `curl -v -H "Authorization: Bearer <TOKEN>" localhost:8081/api/v1`
 
