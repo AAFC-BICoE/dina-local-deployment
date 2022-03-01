@@ -4,7 +4,7 @@
 
 ### "HTTPS required" while logging in to Keycloak as admin
 
-If it's impossible to use https (Keycloak has self-certificates for localhost), you can connected to the Postgres database and run:
+If it's impossible to use https (Keycloak has self-certificates for localhost), you can connect to the Postgres database and run:
 
 `update REALM set ssl_required='NONE' where id = 'master';`
 
