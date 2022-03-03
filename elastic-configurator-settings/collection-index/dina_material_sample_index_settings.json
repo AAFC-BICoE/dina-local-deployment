@@ -15,6 +15,15 @@
             "type": "keyword"
           }
         }
+      },
+      {
+        "type_as_keywords": {
+          "match_mapping_type": "string",
+          "match":   "type",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
       }
     ],
     "properties": {
@@ -197,15 +206,6 @@
               },
               "storageUnit": {
                 "type": "object"
-              }
-            }
-          },
-          "type": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
               }
             }
           }
