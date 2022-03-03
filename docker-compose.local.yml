@@ -65,7 +65,7 @@ services:
       - "traefik.docker.network=dina"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.50
+    image: aafcbicoe/natural-history-collection-api:0.51
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
