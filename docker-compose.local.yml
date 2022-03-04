@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.83.0
+    image: aafcbicoe/dina-ui:0.84.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -13,6 +13,7 @@ services:
       COLLECTION_API_ADDRESS: collection-api:8080
       USER_API_ADDRESS: dina-user-api:8080
       SEARCH_API_ADDRESS: search-ws:8085
+      LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
     networks:
       - dina
     ports:
@@ -65,7 +66,7 @@ services:
       - "traefik.docker.network=dina"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.50
+    image: aafcbicoe/natural-history-collection-api:0.51
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -245,7 +246,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.11
+    image: aafcbicoe/dina-search-ws:0.12
     profiles: ["search_api"]
     networks:
       - dina
@@ -255,7 +256,7 @@ services:
       - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.11
+    image: aafcbicoe/dina-search-cli:0.12
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
