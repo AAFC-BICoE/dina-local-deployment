@@ -111,7 +111,7 @@ services:
       - "traefik.docker.network=dina"
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.9
+    image: aafcbicoe/dina-user-api:0.10
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
