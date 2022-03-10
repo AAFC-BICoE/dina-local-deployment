@@ -246,7 +246,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.12
+    image: aafcbicoe/dina-search-ws:0.12.1
     profiles: ["search_api"]
     networks:
       - dina
