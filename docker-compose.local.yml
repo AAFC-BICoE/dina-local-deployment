@@ -247,6 +247,7 @@ services:
 
   search-ws:
     image: aafcbicoe/dina-search-ws:0.12.1
+    mem_limit: 512m
     profiles: ["search_api"]
     networks:
       - dina
