@@ -6,26 +6,24 @@ networks:
         - subnet: ${SUBNET}
 services:
   keycloak:
-    image: jboss/keycloak:15.1.1
-    user: root
-    command: [
-        "-Djboss.http.port=${KEYCLOAK_PORT}",
-        "-Dkeycloak.hostname.provider=fixed",
-        "-Dkeycloak.hostname.fixed.hostname=${KEYCLOAK_EXTERNAL_HOSTNAME}" ]
+    build:
+      context: keycloak/.
     expose: 
       - ${KEYCLOAK_PORT}
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
-      KEYCLOAK_IMPORT: /keycloak-realm.json
-      KEYCLOAK_FRONTEND_URL: ${KEYCLOAK_EXTERNAL_URL}
-    volumes:
-      - "./keycloak-dina-starter-realm.json:/keycloak-realm.json"
-      - "./dina-keycloak-theme:/opt/jboss/keycloak/themes/dina"
+      KC_DB_URL_HOST: keycloak-db
+      KC_DB_URL_DATABASE: keycloak_db
+      KC_DB_USERNAME: keycloak_user
+      KC_DB_PASSWORD: keycloak_user
+      KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
     networks:
       dina:
     labels:
       - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`)"
+    depends_on:
+      - keycloak-db
 
   traefik:
     image: traefik:v2.2.0
@@ -65,6 +63,17 @@ services:
     volumes:
       # Over write https://github.com/postgis/docker-postgis/blob/master/10-3.1/Dockerfile#L16
       - ./skipPostGisExtensions.sh:/docker-entrypoint-initdb.d/10_postgis.sh
+
+  keycloak-db:
+    image: "postgres:12"
+    environment:
+      POSTGRES_DB: keycloak_db
+      POSTGRES_PASSWORD: keycloak_user
+      POSTGRES_USER: keycloak_user
+    networks:
+      - dina
+    volumes:
+      - ./keycloak-data:/var/lib/postgresql/data
 
   init-db:
     image: "aafcbicoe/dina-db-init-container:0.2"
