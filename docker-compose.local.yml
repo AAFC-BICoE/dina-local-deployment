@@ -162,6 +162,26 @@ services:
       - "traefik.http.routers.objectstoreapi.middlewares=stripobjectstore@docker"
       - "traefik.docker.network=dina"
 
+  reports-labels-api:
+    image: mfnberlin/dina-reports-labels:v0.2-rc
+    profiles: ["report_label_api"]
+    volumes:
+      - type: bind
+        # config.ini has baseURL. Make sure if you test via Postman you have an entry in your host file
+        # for example : reports-labels-api.dina.local
+        source: ./reportslabels/config.ini
+        target: /usr/local/dina-labels/config.ini
+      - type: bind
+        source: ./reportslabels/templates
+        target: /usr/local/dina-labels/templates
+    labels:
+      # Opens http://api.dina.local/collection/api/v1 module endpoint
+      - "traefik.http.middlewares.striplabels.stripprefix.prefixes=${REPORTS_LABELS_API_PREFIX}"
+      - "traefik.http.routers.reportslabelsapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${REPORTS_LABELS_API_PREFIX}/`)"
+      - "traefik.http.routers.reportslabelsapi.middlewares=striplabels@docker"
+    networks:
+      - dina
+
   minio:
     image: minio/minio
     profiles: ["object_store_api"]
