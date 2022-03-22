@@ -134,7 +134,7 @@ services:
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.38
+    image: aafcbicoe/object-store-api:0.39
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
