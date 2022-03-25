@@ -222,6 +222,14 @@ services:
     depends_on:
       - elasticsearch-dina
 
+  prometheus:
+    image: prom/prometheus
+    profiles: ["prometheus"]
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+
   # Check the status of elasticsearch and configure indices if not already present.
   elastic-configurator:
     image: aafcbicoe/es-init-container:0.6

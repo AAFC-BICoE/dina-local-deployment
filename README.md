@@ -55,6 +55,7 @@ Available profiles:
 * search_api
 * seqdb_api
 * kibana
+* prometheus
  
 Example command using profile:
 
