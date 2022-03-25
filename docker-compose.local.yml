@@ -227,6 +227,8 @@ services:
     profiles: ["prometheus"]
     ports:
       - "9090:9090"
+    networks:
+      - dina
     volumes:
       - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
 
