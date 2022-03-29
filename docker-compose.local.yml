@@ -164,7 +164,17 @@ services:
 
   reports-labels-api:
     image: mfnberlin/dina-reports-labels:v0.2-rc
-    profiles: ["report_label_api"]
+    profiles: ["reports_labels"]
+    #build:
+    #  context: "https://github.com/MfN-Berlin/reports-labels.git#v1.0-rc"
+    #  dockerfile: Dockerfile
+    environment:
+      HTTP_PROXY:
+      HTTPS_PROXY:
+      http_proxy:
+      https_proxy:
+      no_proxy:
+      NO_PROXY:
     volumes:
       - type: bind
         # config.ini has baseURL. Make sure if you test via Postman you have an entry in your host file
@@ -181,6 +191,9 @@ services:
       - "traefik.http.routers.reportslabelsapi.middlewares=striplabels@docker"
     networks:
       - dina
+    ports:
+      # for testing via Postman this port is opened
+      - 7981:80
 
   minio:
     image: minio/minio
