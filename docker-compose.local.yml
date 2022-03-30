@@ -63,7 +63,7 @@ services:
       - "traefik.http.middlewares.stripagent.stripprefix.prefixes=${AGENT_API_PREFIX}"
       - "traefik.http.routers.agentapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${AGENT_API_PREFIX}/`)"
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
-      - "traefik.docker.network=dina"
+      - "traefik.docker.network=dina-local-deployment_dina"
 
   collection-api:
     image: aafcbicoe/natural-history-collection-api:0.53
@@ -85,7 +85,7 @@ services:
       - "traefik.http.middlewares.stripcollection.stripprefix.prefixes=${COLLECTION_API_PREFIX}"
       - "traefik.http.routers.collectionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${COLLECTION_API_PREFIX}/`)"
       - "traefik.http.routers.collectionapi.middlewares=stripcollection@docker"
-      - "traefik.docker.network=dina"
+      - "traefik.docker.network=dina-local-deployment_dina"
 
   loan-transaction-api:
     image: aafcbicoe/loan-transaction-api:0.2
@@ -108,7 +108,7 @@ services:
       - "traefik.http.middlewares.striploantransaction.stripprefix.prefixes=${LOAN_TRANSACTION_API_PREFIX}"
       - "traefik.http.routers.loantransactionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${LOAN_TRANSACTION_API_PREFIX}/`)"
       - "traefik.http.routers.loantransactionapi.middlewares=striploantransaction@docker"
-      - "traefik.docker.network=dina"
+      - "traefik.docker.network=dina-local-deployment_dina"
 
   dina-user-api:
     image: aafcbicoe/dina-user-api:0.10
@@ -160,7 +160,7 @@ services:
       - "traefik.http.middlewares.stripobjectstore.stripprefix.prefixes=${OBJECT_STORE_API_PREFIX}"
       - "traefik.http.routers.objectstoreapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${OBJECT_STORE_API_PREFIX}/`)"
       - "traefik.http.routers.objectstoreapi.middlewares=stripobjectstore@docker"
-      - "traefik.docker.network=dina"
+      - "traefik.docker.network=dina-local-deployment_dina"
 
   minio:
     image: minio/minio
