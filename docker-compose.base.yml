@@ -28,7 +28,7 @@ services:
       - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`)"
 
   traefik:
-    image: traefik:v2.2.0
+    image: traefik:v2.3.7
     command:
       - "--providers.docker=true"
       - "--entrypoints.traefik.address=:9090"
