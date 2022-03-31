@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.85.0
+    image: aafcbicoe/dina-ui:0.88.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -63,10 +63,10 @@ services:
       - "traefik.http.middlewares.stripagent.stripprefix.prefixes=${AGENT_API_PREFIX}"
       - "traefik.http.routers.agentapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${AGENT_API_PREFIX}/`)"
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
-      - "traefik.docker.network=dina"
+      - "traefik.docker.network=dina-local-deployment_dina"
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.52
+    image: aafcbicoe/natural-history-collection-api:0.53
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -85,10 +85,10 @@ services:
       - "traefik.http.middlewares.stripcollection.stripprefix.prefixes=${COLLECTION_API_PREFIX}"
       - "traefik.http.routers.collectionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${COLLECTION_API_PREFIX}/`)"
       - "traefik.http.routers.collectionapi.middlewares=stripcollection@docker"
-      - "traefik.docker.network=dina"
+      - "traefik.docker.network=dina-local-deployment_dina"
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.1
+    image: aafcbicoe/loan-transaction-api:0.2
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
@@ -108,7 +108,7 @@ services:
       - "traefik.http.middlewares.striploantransaction.stripprefix.prefixes=${LOAN_TRANSACTION_API_PREFIX}"
       - "traefik.http.routers.loantransactionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${LOAN_TRANSACTION_API_PREFIX}/`)"
       - "traefik.http.routers.loantransactionapi.middlewares=striploantransaction@docker"
-      - "traefik.docker.network=dina"
+      - "traefik.docker.network=dina-local-deployment_dina"
 
   dina-user-api:
     image: aafcbicoe/dina-user-api:0.10
@@ -134,7 +134,7 @@ services:
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.37
+    image: aafcbicoe/object-store-api:0.39
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
@@ -160,7 +160,7 @@ services:
       - "traefik.http.middlewares.stripobjectstore.stripprefix.prefixes=${OBJECT_STORE_API_PREFIX}"
       - "traefik.http.routers.objectstoreapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${OBJECT_STORE_API_PREFIX}/`)"
       - "traefik.http.routers.objectstoreapi.middlewares=stripobjectstore@docker"
-      - "traefik.docker.network=dina"
+      - "traefik.docker.network=dina-local-deployment_dina"
 
   reports-labels-api:
     image: mfnberlin/dina-reports-labels:v0.2-rc
@@ -255,6 +255,16 @@ services:
     depends_on:
       - elasticsearch-dina
 
+  prometheus:
+    image: prom/prometheus
+    profiles: ["prometheus"]
+    ports:
+      - "9090:9090"
+    networks:
+      - dina
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+
   # Check the status of elasticsearch and configure indices if not already present.
   elastic-configurator:
     image: aafcbicoe/es-init-container:0.6
@@ -279,7 +289,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.12.1
+    image: aafcbicoe/dina-search-ws:0.13
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -288,9 +298,10 @@ services:
       # maps api.dina.local/search... -> /search
       - "traefik.http.middlewares.stripsearchws.stripprefix.prefixes=${SEARCH_API_PREFIX}"
       - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
+      - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.12
+    image: aafcbicoe/dina-search-cli:0.13
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token

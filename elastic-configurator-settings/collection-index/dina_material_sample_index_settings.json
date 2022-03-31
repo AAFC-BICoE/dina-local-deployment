@@ -8,6 +8,15 @@
   "mappings": {
     "dynamic_templates": [
       {
+        "includes_as_nested": {
+          "match_mapping_type": "object",
+          "match":   "included",
+          "mapping": {
+            "type": "nested"
+          }
+        }
+      },
+      {
         "id_as_keywords": {
           "match_mapping_type": "string",
           "match":   "id",
@@ -179,9 +188,6 @@
                   }
                 }
               },
-              "organism": {
-                "type": "object"
-              },
               "determination": {
                 "type": "object"
               }
@@ -204,8 +210,41 @@
                   }
                 }
               },
+              "organism": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "organism"
+                      }
+                    }
+                  }
+                }
+              },
               "storageUnit": {
-                "type": "object"
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "storage-unit"
+                      }
+                    }
+                  }
+                }
+              },
+              "collection": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "collection"
+                      }
+                    }
+                  }
+                }
               }
             }
           }

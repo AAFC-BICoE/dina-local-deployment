@@ -56,6 +56,7 @@ Available profiles:
 * report_label_api
 * seqdb_api
 * kibana
+* prometheus
  
 Example command using profile:
 
