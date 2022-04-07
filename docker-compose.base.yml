@@ -26,6 +26,9 @@ services:
       dina:
     labels:
       - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`)"
+    depends_on:
+      dina-db:
+        condition: service_healthy
 
   traefik:
     image: traefik:v2.3.7
@@ -56,6 +59,11 @@ services:
 
   dina-db:
     image: "postgis/postgis:12-3.1-alpine"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
+      timeout: 5s
+      interval: 10s
+      retries: 10
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -68,6 +76,12 @@ services:
 
   init-db:
     image: "aafcbicoe/dina-db-init-container:0.2"
+    healthcheck:
+      test: ["CMD", "curl",]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     environment:
       POSTGRES_HOST: dina-db
       POSTGRES_DB: ${POSTGRES_DB}
