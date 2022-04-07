@@ -26,9 +26,6 @@ services:
       dina:
     labels:
       - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`)"
-    depends_on:
-      dina-db:
-        condition: service_healthy
 
   traefik:
     image: traefik:v2.3.7
@@ -119,4 +116,5 @@ services:
       - dina
 
     depends_on:
-      - "dina-db"
+      dina-db:
+        condition: service_healthy
