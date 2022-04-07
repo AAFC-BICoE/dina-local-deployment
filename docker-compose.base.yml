@@ -76,12 +76,6 @@ services:
 
   init-db:
     image: "aafcbicoe/dina-db-init-container:0.2"
-    healthcheck:
-      test: ["CMD", "curl",]
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
     environment:
       POSTGRES_HOST: dina-db
       POSTGRES_DB: ${POSTGRES_DB}
