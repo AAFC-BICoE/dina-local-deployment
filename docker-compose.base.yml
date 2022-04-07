@@ -56,6 +56,11 @@ services:
 
   dina-db:
     image: "postgis/postgis:12-3.1-alpine"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
+      timeout: 5s
+      interval: 10s
+      retries: 10
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -111,4 +116,5 @@ services:
       - dina
 
     depends_on:
-      - "dina-db"
+      dina-db:
+        condition: service_healthy
