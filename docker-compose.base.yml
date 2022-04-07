@@ -56,15 +56,12 @@ services:
     networks:
       dina:
         ipv4_address: ${TRAEFIK_IP}
-    depends_on:
-      dina-db:
-        condition: service_healthy
 
   dina-db:
     image: "postgis/postgis:12-3.1-alpine"
     healthcheck:
       test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
-      timeout: 45s
+      timeout: 5s
       interval: 10s
       retries: 10
     environment:
