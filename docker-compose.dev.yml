@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  # Nextjs's dev-mode server that hot-reloads the UI source code:
+  # Nextjs's dev-mode server that hot-reloads the UI source code.
   dina-ui-dev-server:
     image: node:14.18.1
     volumes:
@@ -15,7 +15,8 @@ services:
     networks:
       - dina
   
-  # Front-end gateway that proxies URLs to the correct service. This overrides the dina-ui in docker-compose.
+  # Front-end gateway that proxies URLs to the correct service. 
+  # This overlays the existing dina-ui to add the dev.Caddyfile and dina-ui-dev-server address.
   dina-ui:
     volumes:
       - "${DINA_UI_REPO_DIRECTORY}/packages/dina-ui/dev.Caddyfile:/etc/caddy/Caddyfile"
