@@ -42,6 +42,9 @@ services:
       - "traefik.http.middlewares.stripseqdb.stripprefix.prefixes=${SEQDB_API_PREFIX}"
       - "traefik.http.routers.seqdbapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEQDB_API_PREFIX}/`)"
       - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   agent-api:
     image: aafcbicoe/agent-api:0.20
@@ -64,6 +67,9 @@ services:
       - "traefik.http.routers.agentapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${AGENT_API_PREFIX}/`)"
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
       - "traefik.docker.network=dina-local-deployment_dina"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   collection-api:
     image: aafcbicoe/natural-history-collection-api:0.53
@@ -86,6 +92,9 @@ services:
       - "traefik.http.routers.collectionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${COLLECTION_API_PREFIX}/`)"
       - "traefik.http.routers.collectionapi.middlewares=stripcollection@docker"
       - "traefik.docker.network=dina-local-deployment_dina"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   loan-transaction-api:
     image: aafcbicoe/loan-transaction-api:0.2
@@ -109,6 +118,9 @@ services:
       - "traefik.http.routers.loantransactionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${LOAN_TRANSACTION_API_PREFIX}/`)"
       - "traefik.http.routers.loantransactionapi.middlewares=striploantransaction@docker"
       - "traefik.docker.network=dina-local-deployment_dina"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   dina-user-api:
     image: aafcbicoe/dina-user-api:0.10
@@ -132,6 +144,9 @@ services:
       - "traefik.http.routers.dinauserapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${DINA_USER_API_PREFIX}/`)"
       - "traefik.http.routers.dinauserapi.middlewares=stripdinauser@docker"
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   object-store-api:
     image: aafcbicoe/object-store-api:0.39
@@ -161,6 +176,9 @@ services:
       - "traefik.http.routers.objectstoreapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${OBJECT_STORE_API_PREFIX}/`)"
       - "traefik.http.routers.objectstoreapi.middlewares=stripobjectstore@docker"
       - "traefik.docker.network=dina-local-deployment_dina"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   reports-labels-api:
     image: mfnberlin/dina-reports-labels:v0.2-rc
