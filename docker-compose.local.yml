@@ -182,7 +182,7 @@ services:
 
   reports-labels-api:
     image: mfnberlin/dina-reports-labels:v0.2-rc
-    profiles: ["reports_labels"]
+    profiles: ["reports_labels_api"]
     #build:
     #  context: "https://github.com/MfN-Berlin/reports-labels.git#v1.0-rc"
     #  dockerfile: Dockerfile
@@ -212,6 +212,9 @@ services:
     ports:
       # for testing via Postman this port is opened
       - 7981:80
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   minio:
     image: minio/minio
