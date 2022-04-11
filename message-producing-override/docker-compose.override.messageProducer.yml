@@ -14,7 +14,14 @@ services:
       rabbitmq.host: rabbitmq-dina
     networks:
       - dina_rabbitmq_net
-      
+
+  loan-transaction-api:
+    environment:
+      messaging.isProducer: "true"
+      rabbitmq.host: rabbitmq-dina
+    networks:
+      - dina_rabbitmq_net
+
   object-store-api:
     environment:
       messaging.isProducer: "true"
