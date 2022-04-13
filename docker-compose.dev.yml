@@ -1,6 +1,24 @@
 version: "3.9"
+
 services:
-  object-store-api:
-    ports:
-      - "5005:5005"
-    entrypoint: ["java","-XX:+UnlockExperimentalVMOptions","-XX:+UseCGroupMemoryLimitForHeap","-Xdebug","-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005","-jar","/object-store-api.jar"]
+  # Nextjs's dev-mode server that hot-reloads the UI source code.
+  dina-ui-dev-server:
+    image: node:14.18.1
+    volumes:
+      - "${DINA_UI_REPO_DIRECTORY}:/dina-ui"
+    stop_signal: SIGKILL
+    command: >
+      bash -c "
+      yarn --cwd=/dina-ui/packages/dina-ui ;
+      yarn --cwd=/dina-ui/packages/dina-ui dev
+      "
+    networks:
+      - dina
+  
+  # Front-end gateway that proxies URLs to the correct service. 
+  # This overlays the existing dina-ui to add the dev.Caddyfile and dina-ui-dev-server address.
+  dina-ui:
+    volumes:
+      - "${DINA_UI_REPO_DIRECTORY}/packages/dina-ui/dev.Caddyfile:/etc/caddy/Caddyfile"
+    environment:
+      UI_DEV_SERVER_ADDRESS: dina-ui-dev-server:3000
