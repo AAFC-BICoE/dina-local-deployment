@@ -7,4 +7,5 @@
 :icons: font
 
 include::ui_development.adoc[dina-ui_development]
+
 include::messaging.adoc[messaging]
