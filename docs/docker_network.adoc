@@ -1,9 +1,12 @@
 
-# Change default Docker address pool
+= Change default Docker address pool
+
+The default Docker network addess pool may overlap with other networks (e.g. VPN).
 
 Add to (or create) the file  `/etc/docker/daemon.json`
 
-```
+[source,json]
+----
 {
   "bip": "192.168.32.1/24",
   "default-address-pools" : [
@@ -13,5 +16,5 @@ Add to (or create) the file  `/etc/docker/daemon.json`
       }
    ]
 }
-```
+----
 `bip`: Bridge IP (`bip`) must not overlap with the `default-address-pools`.
