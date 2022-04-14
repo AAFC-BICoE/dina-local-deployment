@@ -7,7 +7,8 @@ This repository can deploy the DINA ecosystem for demonstration and/or test purp
 * [Docker Engine](https://docs.docker.com/engine/install/)
 * [Docker-Compose](https://docs.docker.com/compose/)
 * Basic knowledge of Docker and Docker-Compose
-* Minimum of 12GB or RAM for all modules
+* Minimum 12GB of RAM (for all modules)
+* Local IP range must be available or updated
 
 # Documentation
 
