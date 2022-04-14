@@ -1,6 +1,6 @@
-= Dina UI Hot-Reloading Support
+= dina-ui Development
 
-Before using hot-reloading in dina-local-deployment, you need to configure the dina-ui repo location.
+To enable dina-ui hot-reloading in dina-local-deployment, you need to configure the dina-ui repo location.
 This variable is stored in the `.env` as `DINA_UI_REPO_DIRECTORY`. By default it looks in the home directory for dina-ui.
 
 Any changes to the pointed `DINA_UI_REPO_DIRECTORY` will cause the page to automatically reload.
