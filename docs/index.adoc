@@ -6,5 +6,5 @@
 :leveloffset: 1
 :icons: font
 
-include::ui_development.adoc
-include::messaging.adoc
+include::ui_development.adoc[]
+include::messaging.adoc[]
