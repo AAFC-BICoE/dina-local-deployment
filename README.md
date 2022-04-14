@@ -1,13 +1,13 @@
 # dina-local-deployment
 
-This project helps to start the DINA ecosystem with Keycloak using Docker Compose.
+This repository can deploy the DINA ecosystem for demonstration and/or test purpose.
 
-Tested with [Docker-Compose](https://docs.docker.com/compose/) 1.28, Ubuntu hosts and 12GB of RAM.
+# Requirements
 
-
-# Goal
-
-Repository where we can start the DINA system for demonstration and/or test purpose.
+* [Docker Engine](https://docs.docker.com/engine/install/)
+* [Docker-Compose](https://docs.docker.com/compose/)
+* Basic knowledge of Docker and Docker-Compose
+* Minimum of 12GB or RAM for all modules
 
 # Documentation
 
