@@ -4,9 +4,7 @@ This project helps to start the DINA ecosystem with Keycloak using Docker Compos
 
 Tested with [Docker-Compose](https://docs.docker.com/compose/) 1.28, Ubuntu hosts and 12GB of RAM.
 
-For development setup see [dina-dev](https://github.com/AAFC-BICoE/dina-dev) (private repo).
-
-For UI development, you can use dina-local-deployment with the `docker-compose.dev.yml` override to provide a hot-reloading UI server, [More info here](#dina-ui-hot-reloading-support).
+See complete [Documentation](https://aafc-bicoe.github.io/dina-local-deployment/).
 
 # Goal
 
@@ -104,24 +102,6 @@ These steps can also be followed when using the search api as well, just add the
 
 # Documentation
 * DINA [Keycloak testing](docs/keycloak.md)
-
-# Dina UI Hot-Reloading Support
-
-Before using hot-reloading in dina-local-deployment, you need to configure the dina-ui repo location. This variable
-is stored in the. `.env` as `DINA_UI_REPO_DIRECTORY`. By default it looks in the home directory for `dina-ui`.
-
-Any changes to the pointed DINA_UI_REPO_DIRECTORY will cause the page to automatically reload. 
-
-To use, simply add the override docker-compose configuration for dev: `-f docker-compose.dev.yml`.
-
-```bash
-docker-compose \
--f docker-compose.base.yml \
--f docker-compose.local.yml \
--f docker-compose.dev.yml up
-```
-
-You can also still use profiles or combine this with RabbitMQ messaging as well.
 
 # RabbitMQ Messaging
 
