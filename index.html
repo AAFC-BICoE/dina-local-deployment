@@ -437,19 +437,61 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
 <h1>DINA local-deployment</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_dina_ui_hot_reloading_support">1. Dina UI Hot-Reloading Support</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_dina_ui_hot_reloading_support">1. Dina UI Hot-Reloading Support</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>include::ui_development.adoc
-include::messaging.adoc</p>
+<p>Before using hot-reloading in dina-local-deployment, you need to configure the dina-ui repo location.
+This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY</code>. By default it looks in the home directory for dina-ui.</p>
+</div>
+<div class="paragraph">
+<p>Any changes to the pointed <code>DINA_UI_REPO_DIRECTORY</code> will cause the page to automatically reload.</p>
+</div>
+<div class="paragraph">
+<p>To use, simply add the override docker-compose configuration for dev: <code>-f docker-compose.dev.yml</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">docker-compose \
+-f docker-compose.base.yml \
+-f docker-compose.local.yml \
+-f docker-compose.dev.yml up</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also still use profiles or combine this with RabbitMQ messaging as well.
+= Messaging</p>
+</div>
+<div class="paragraph">
+<p>To enable Messaging based on RabbitMQ, combine the <code>--profile search_api</code> with the override file <code>message-producing-override/docker-compose.override.messageProducer.yml</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">docker-compose \
+--profile search_api \
+-f docker-compose.base.yml \
+-f docker-compose.local.yml \
+-f message-producing-override/docker-compose.override.messageProducer.yml \
+up -d</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-14 13:55:50 UTC
+Last updated 2022-04-14 13:57:34 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
