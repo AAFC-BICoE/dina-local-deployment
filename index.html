@@ -445,6 +445,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#_dina_ui_development">1. dina-ui Development</a></li>
 <li><a href="#_messaging">2. Messaging</a></li>
+<li><a href="#_change_default_docker_address_pool">3. Change default Docker address pool</a></li>
 </ul>
 </div>
 </div>
@@ -493,10 +494,37 @@ up -d</code></pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_change_default_docker_address_pool">3. Change default Docker address pool</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The default Docker network addess pool may overlap with other networks (e.g. VPN).</p>
+</div>
+<div class="paragraph">
+<p>Add to (or create) the file  <code>/etc/docker/daemon.json</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="json" class="language-json hljs">{
+  "bip": "192.168.32.1/24",
+  "default-address-pools" : [
+      {
+          "base" : "192.168.33.0/24",
+          "size" : 24
+      }
+   ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>bip</code>: Bridge IP (<code>bip</code>) must not overlap with the <code>default-address-pools</code>.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-14 14:37:41 UTC
+Last updated 2022-04-14 14:38:17 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
