@@ -6,6 +6,8 @@
 :leveloffset: 1
 :icons: font
 
-include::ui_development.adoc[dina-ui_development]
+include::ui_development.adoc[]
 
-include::messaging.adoc[messaging]
+include::messaging.adoc[]
+
+include::docker_network.adoc[]
