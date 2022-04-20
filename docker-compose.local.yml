@@ -14,6 +14,8 @@ services:
       USER_API_ADDRESS: dina-user-api:8080
       SEARCH_API_ADDRESS: search-ws:8085
       LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
+      REPORTS_LABELS_API_ADDRESS: reports-labels-api:8080
+
     networks:
       - dina
     ports:
