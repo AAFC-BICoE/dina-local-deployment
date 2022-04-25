@@ -1,14 +1,18 @@
 # dina-local-deployment
 
-This project helps to start the DINA ecosystem with Keycloak using Docker Compose.
+This repository can deploy the DINA ecosystem for demonstration and/or test purpose.
 
-Tested with [Docker-Compose](https://docs.docker.com/compose/) 1.28, Ubuntu hosts and 12GB of RAM.
+# Requirements
 
-For development setup see [dina-dev](https://github.com/AAFC-BICoE/dina-dev) (private repo).
+* [Docker Engine](https://docs.docker.com/engine/install/)
+* [Docker-Compose](https://docs.docker.com/compose/)
+* Basic knowledge of Docker and Docker-Compose
+* Minimum 12GB of RAM (for all modules)
+* Local IP range must be available or updated
 
-# Goal
+# Documentation
 
-Repository where we can start the DINA system for demonstration and/or test purpose.
+See complete [Documentation](https://aafc-bicoe.github.io/dina-local-deployment/).
 
 # Setup
 
@@ -55,6 +59,7 @@ Available profiles:
 * search_api
 * seqdb_api
 * kibana
+* prometheus
  
 Example command using profile:
 
@@ -98,22 +103,6 @@ docker-compose -f docker-compose.base.yml -f docker-compose.local.yml up
 ```
 
 These steps can also be followed when using the search api as well, just add the `-d keycloak` after the `up`.
-
-# Documentation
-* DINA [Keycloak testing](docs/keycloak.md)
-
-# RabbitMQ Messaging
-
-To enable Messaging using RabbitMQ, combine the `--profile search_api` with the override file `message-producing-override/docker-compose.override.messageProducer.yml`.
-
-```
-docker-compose \
---profile search_api \
--f docker-compose.base.yml \
--f docker-compose.local.yml \
--f message-producing-override/docker-compose.override.messageProducer.yml \
-up -d
-```
 
 # Persist dina-db and keycloak data between containers
 

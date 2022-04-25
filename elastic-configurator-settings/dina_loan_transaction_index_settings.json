@@ -40,15 +40,6 @@
         "properties": {
           "attributes": {
             "properties": {
-              "aliases": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 256
-                  }
-                }
-              },
               "createdBy": {
                 "type": "text",
                 "fields": {
@@ -61,20 +52,7 @@
               "createdOn": {
                 "type": "date"
               },
-              "displayName": {
-                "type": "text",
-                "fields": {
-                  "autocomplete": {
-                    "type": "search_as_you_type",
-                    "max_shingle_size": 3
-                  },
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 256
-                  }
-                }
-              },
-              "familyNames": {
+              "group": {
                 "type": "text",
                 "fields": {
                   "keyword": {
@@ -83,7 +61,7 @@
                   }
                 }
               },
-              "givenNames": {
+              "transactionNumber": {
                 "type": "text",
                 "fields": {
                   "keyword": {
@@ -91,35 +69,6 @@
                     "ignore_above": 256
                   }
                 }
-              }
-            }
-          },
-          "relationships": {
-            "properties": {
-              "organizations": {
-                "properties": {
-                  "data": {
-                    "properties": {
-                      "type": {
-                        "type": "constant_keyword",
-                        "value": "organization"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "meta": {
-        "properties": {
-          "moduleVersion": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
               }
             }
           }

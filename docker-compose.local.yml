@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.84.0
+    image: aafcbicoe/dina-ui:0.89.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -42,6 +42,9 @@ services:
       - "traefik.http.middlewares.stripseqdb.stripprefix.prefixes=${SEQDB_API_PREFIX}"
       - "traefik.http.routers.seqdbapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEQDB_API_PREFIX}/`)"
       - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   agent-api:
     image: aafcbicoe/agent-api:0.20
@@ -63,10 +66,13 @@ services:
       - "traefik.http.middlewares.stripagent.stripprefix.prefixes=${AGENT_API_PREFIX}"
       - "traefik.http.routers.agentapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${AGENT_API_PREFIX}/`)"
       - "traefik.http.routers.agentapi.middlewares=stripagent@docker"
-      - "traefik.docker.network=dina"
+      - "traefik.docker.network=dina-local-deployment_dina"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.51
+    image: aafcbicoe/natural-history-collection-api:0.54
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -85,10 +91,13 @@ services:
       - "traefik.http.middlewares.stripcollection.stripprefix.prefixes=${COLLECTION_API_PREFIX}"
       - "traefik.http.routers.collectionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${COLLECTION_API_PREFIX}/`)"
       - "traefik.http.routers.collectionapi.middlewares=stripcollection@docker"
-      - "traefik.docker.network=dina"
+      - "traefik.docker.network=dina-local-deployment_dina"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.1
+    image: aafcbicoe/loan-transaction-api:0.3
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
@@ -108,10 +117,13 @@ services:
       - "traefik.http.middlewares.striploantransaction.stripprefix.prefixes=${LOAN_TRANSACTION_API_PREFIX}"
       - "traefik.http.routers.loantransactionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${LOAN_TRANSACTION_API_PREFIX}/`)"
       - "traefik.http.routers.loantransactionapi.middlewares=striploantransaction@docker"
-      - "traefik.docker.network=dina"
+      - "traefik.docker.network=dina-local-deployment_dina"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.9
+    image: aafcbicoe/dina-user-api:0.10
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
@@ -132,9 +144,12 @@ services:
       - "traefik.http.routers.dinauserapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${DINA_USER_API_PREFIX}/`)"
       - "traefik.http.routers.dinauserapi.middlewares=stripdinauser@docker"
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.37
+    image: aafcbicoe/object-store-api:0.39
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
@@ -160,7 +175,10 @@ services:
       - "traefik.http.middlewares.stripobjectstore.stripprefix.prefixes=${OBJECT_STORE_API_PREFIX}"
       - "traefik.http.routers.objectstoreapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${OBJECT_STORE_API_PREFIX}/`)"
       - "traefik.http.routers.objectstoreapi.middlewares=stripobjectstore@docker"
-      - "traefik.docker.network=dina"
+      - "traefik.docker.network=dina-local-deployment_dina"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   minio:
     image: minio/minio
@@ -222,6 +240,16 @@ services:
     depends_on:
       - elasticsearch-dina
 
+  prometheus:
+    image: prom/prometheus
+    profiles: ["prometheus"]
+    ports:
+      - "9090:9090"
+    networks:
+      - dina
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+
   # Check the status of elasticsearch and configure indices if not already present.
   elastic-configurator:
     image: aafcbicoe/es-init-container:0.6
@@ -229,7 +257,7 @@ services:
     environment:
       ELASTIC_SERVER_URL: $ELASTIC_SERVER_URL
       INDEX_CREATE_CMD: $INDEX_CREATE_CMD
-      DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE
+      DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE TRANSACTION
       DINA_AGENT_INDEX_NAME: $DINA_AGENT_INDEX_NAME
       DINA_AGENT_INDEX_SETTINGS_FILE: $DINA_AGENT_INDEX_SETTINGS_FILE
       DINA_MATERIAL_SAMPLE_INDEX_NAME: $DINA_MATERIAL_SAMPLE_INDEX_NAME
@@ -238,6 +266,8 @@ services:
       DINA_STORAGE_INDEX_SETTINGS_FILE: $DINA_STORAGE_INDEX_SETTINGS_FILE
       DINA_OBJECT_STORE_INDEX_NAME: $DINA_OBJECT_STORE_NAME
       DINA_OBJECT_STORE_INDEX_SETTINGS_FILE: $DINA_OBJECT_STORE_SETTINGS_FILE
+      DINA_TRANSACTION_INDEX_NAME: $DINA_LOAN_TRANSACTION_INDEX_NAME
+      DINA_TRANSACTION_INDEX_SETTINGS_FILE: $DINA_LOAN_TRANSACTION_INDEX_SETTINGS_FILE
     volumes:
       - ./elastic-configurator-settings:/usr/share/elastic-configurator/settings
     depends_on:
@@ -246,7 +276,8 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.12
+    image: aafcbicoe/dina-search-ws:0.15
+    mem_limit: 512m
     profiles: ["search_api"]
     networks:
       - dina
@@ -254,9 +285,10 @@ services:
       # maps api.dina.local/search... -> /search
       - "traefik.http.middlewares.stripsearchws.stripprefix.prefixes=${SEARCH_API_PREFIX}"
       - "traefik.http.routers.searchws.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${SEARCH_API_PREFIX}/`)"
+      - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.12
+    image: aafcbicoe/dina-search-cli:0.15
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
@@ -266,6 +298,7 @@ services:
       ORGANIZATION_URL: http://${API_HOSTNAME}/agent/api/v1/organization
       PERSON_URL: http://${API_HOSTNAME}/agent/api/v1/person
       STORAGE_UNIT_URL: http://${API_HOSTNAME}/collection/api/v1/storage-unit
+      LOAN_TRANSACTION_URL: http://${API_HOSTNAME}/transaction/api/v1/transaction
       RABBITMQ_HOSTNAME: rabbitmq-dina
       IS_MESSAGE_CONSUMER: "true"
       IS_MESSAGE_PRODUCER: "true"
