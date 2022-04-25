@@ -8,8 +8,6 @@ services:
   keycloak:
     build:
       context: keycloak/.
-    expose: 
-      - ${KEYCLOAK_PORT}
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
@@ -18,10 +16,15 @@ services:
       KC_DB_USERNAME: keycloak_user
       KC_DB_PASSWORD: keycloak_user
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
+    ports:
+      - 8443:8443
     networks:
       dina:
+    volumes:
+      - ./keycloak-dina-starter-realm.json:/opt/keycloak/data/import/realm.json
     labels:
       - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`)"
+      - "traefik.http.services.keycloak.loadbalancer.server.port=${KEYCLOAK_PORT}"
     depends_on:
       - keycloak-db
 
