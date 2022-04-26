@@ -445,7 +445,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#_dina_ui_development">1. dina-ui Development</a></li>
 <li><a href="#_messaging">2. Messaging</a></li>
-<li><a href="#_change_default_docker_address_pool">3. Change default Docker address pool</a></li>
+<li><a href="#_local_certificates">3. Local certificates</a>
+<ul class="sectlevel2">
+<li><a href="#_installation_ubuntu_20">3.1. Installation (Ubuntu 20)</a></li>
+</ul>
+</li>
+<li><a href="#_change_default_docker_address_pool">4. Change default Docker address pool</a></li>
 </ul>
 </div>
 </div>
@@ -495,7 +500,44 @@ up -d</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_change_default_docker_address_pool">3. Change default Docker address pool</h2>
+<h2 id="_local_certificates">3. Local certificates</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to generate development certificates <a href="https://github.com/FiloSottile/mkcert">mkcert</a> will be used.</p>
+</div>
+<div class="sect2">
+<h3 id="_installation_ubuntu_20">3.1. Installation (Ubuntu 20)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">sudo apt-get install wget libnss3-tools -y
+wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
+sudo chmod +x mkcert-v1.4.3-linux-amd64
+sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Test mkcert is installed correctly:</p>
+</div>
+<div class="paragraph">
+<p><code>mkcert --version</code></p>
+</div>
+<div class="paragraph">
+<p>Generate certificates for dina.local:</p>
+</div>
+<div class="paragraph">
+<p><code>mkcert -cert-file certs/dina-local-cert.pem -key-file certs/dina-local-key.pem "dina.local" "api.dina.local" "keycloak.dina.local"</code></p>
+</div>
+<div class="paragraph">
+<p>Then install the certificates so it&#8217;s trusted by Chrome and Firefox:</p>
+</div>
+<div class="paragraph">
+<p><code>mkcert --install</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_change_default_docker_address_pool">4. Change default Docker address pool</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The default Docker network addess pool may overlap with other networks (e.g. VPN).</p>
@@ -524,7 +566,7 @@ up -d</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-25 14:29:08 UTC
+Last updated 2022-04-26 18:32:11 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
