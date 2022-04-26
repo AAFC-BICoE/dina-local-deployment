@@ -19,3 +19,7 @@ Test mkcert is installed correctly:
 Generate certificates for dina.local:
 
 `mkcert -cert-file certs/dina-local-cert.pem -key-file certs/dina-local-key.pem "dina.local" "api.dina.local" "keycloak.dina.local"`
+
+Then install the certificates so it's trusted by Chrome and Firefox:
+
+`mkcert --install`
