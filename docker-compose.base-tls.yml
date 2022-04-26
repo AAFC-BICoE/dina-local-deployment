@@ -1,0 +1,33 @@
+version: "3.9"
+networks:
+  dina:
+    ipam:
+      config:
+        - subnet: ${SUBNET}
+services:
+  traefik:
+    image: traefik:v2.6.3
+    command:
+      # debug flags - may be commented or removed
+      # Traefik dashboard: access localhost:8999 in browser
+      - "--api.insecure=true"
+      # access logs: use "docker logs --follow [traefik container]"
+      - "--accesslog=true"
+      # debug logging: enable the traefik.log volume to use these
+      # - "--log.filePath=/traefik.log"
+      # - "--log.level=DEBUG"
+    ports:
+      - "443:443"
+      # 80 will be redirected to 443 by configuration
+      - "80:80"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./config/traefik-dynamic.yml:/etc/traefik/dynamic.yml:ro
+      - ./certs:/etc/certs:ro
+      # Allow Traefik to log to a local file
+      # - ./traefik.log:/traefik.log
+    networks:
+      dina:
+        ipv4_address: ${TRAEFIK_IP}

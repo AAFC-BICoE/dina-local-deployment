@@ -1,0 +1,25 @@
+## Static configuration
+
+global:
+  sendAnonymousUsage: false
+
+providers:
+  docker:
+    exposedByDefault: false
+  # allow dynamic configurations by config file
+  file:
+    filename: /etc/traefik/dynamic.yml
+    watch: true
+
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
+  websecure:
+    address: ":443"
+
