@@ -1,0 +1,20 @@
+= Local certificates
+
+In order to generate development certificates https://github.com/FiloSottile/mkcert[mkcert] will be used.
+
+== Installation (Ubuntu 20)
+
+[source,shell]
+----
+sudo apt-get install wget libnss3-tools -y
+wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
+sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert
+----
+
+Test mkcert is installed correctly:
+
+`mkcert --version`
+
+Generate certificates for dina.local:
+
+`mkcert -cert-file certs/dina-local-cert.pem -key-file certs/dina-local-key.pem "dina.local" "api.dina.local" "keycloak.dina.local"`
