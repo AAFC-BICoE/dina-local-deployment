@@ -60,7 +60,7 @@ Available profiles:
 * seqdb_api
 * kibana
 * prometheus
- 
+
 Example command using profile:
 
 ```
