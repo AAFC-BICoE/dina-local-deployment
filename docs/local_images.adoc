@@ -20,7 +20,7 @@ Each of the API modules, contain a `Dockerfile` which can be used to build an im
 +
 [source,shell]
 ----
-docker build -t collection-api:latest .
+docker build -t collection-api:dev .
 ----
 +
 3. Change the image name on the `docker-compose.local.yml`
@@ -30,7 +30,7 @@ In the `docker-compose.local.yml` file you can find the API container and change
 [source,yml]
 ----
   collection-api:
-    image: collection-api:latest
+    image: collection-api:dev
     environment:
       keycloak.enabled: "true"
 ----

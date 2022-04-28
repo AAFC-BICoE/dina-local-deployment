@@ -10,6 +10,8 @@ include::local_images.adoc[]
 
 include::ui_development.adoc[]
 
+include::api_testing.adoc[]
+
 include::messaging.adoc[]
 
 include::local_certificates.adoc[]

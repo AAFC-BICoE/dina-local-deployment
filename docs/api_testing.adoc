@@ -1,0 +1,51 @@
+= API Endpoint Testing
+
+== Applications
+
+Any REST API client with OAuth2 support can be used. Below are some examples of software you can use:
+
+* *Postman* - Download (Login Required)
+* *Insomnia* - Download (No Login Required)
+
+== Authentication
+
+On each request, you will need to set up the following Authentication settings:
+
+.Authentication Settings
+|===
+|Setting |Value
+
+|Authentication Type
+|OAuth 2.0
+
+|Grant Type
+|Authorization Code
+
+|Authorization URL / Auth URL
+|http://keycloak.local:8080/auth/realms/dina/protocol/openid-connect/auth
+
+|Access Token URL
+|http://keycloak.local:8080/auth/realms/dina/protocol/openid-connect/token
+
+|Client ID
+|objectstore
+
+|Redirect URL / Callback URL
+|http://dina.local
+
+|Scope
+|openid
+|===
+
+Then when sending the request, you should see a popup which will let you login to the DINA application. Once you do this, your login will be remembered for the session and tokens will be automatically generated.
+
+In Postman you will have to click the "Get New Access Token" button to see this popup.
+
+== Logout of Session
+
+
+
+== Headers
+
+Most of the API POST requests require a specific "Content-Type" header. 
+
