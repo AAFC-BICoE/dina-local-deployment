@@ -1,0 +1,4 @@
+tls:
+  certificates:
+    - certFile: "/etc/certs/dina-local-cert.pem"
+      keyFile: "/etc/certs/dina-local-key.pem"
