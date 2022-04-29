@@ -1,0 +1,68 @@
+= Developer Environment Setup
+
+== Prerequisites
+
+The following is required for DINA development:
+
+* Visual Studio Code
+* Linux operating system
+** On Windows using Virtual Machine
+** On Windows using WSL2 (Experimental)
+* Docker (Install on Linux)
++
+[source, bash]
+----
+sudo apt install curl 
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+sudo usermod -aG docker ${USER}
+----
+* Docker Compose (Install on Linux)
+* Node.js
++
+[source, bash]
+----
+sudo apt install nodejs
+----
+* Yarn
++
+[source, bash]
+----
+npm install -g yarn@latest
+----
+* Maven
++
+[source, bash]
+----
+sudo apt install maven
+----
+* Git
++
+[source, bash]
+----
+sudo apt install git
+----
+
+== Docker Setup
+
+Docker and Docker Compose need to be installed on the linux operating system.
+
+== Clone Repositories
+
+== Visual Studio Code
+
+=== VSCode Remote (Optional)
+
+You can avoid running a slow IDE inside your virtual machine by running VS Code on your host machine instead and connecting to the dev environment using VS Code Remote.
+
+1. Download VSCode for Windows
+2. Install the VSCode SSH Remote Extension
+3. Install SSH Server on your VM
+4. Setup Port Forwarding on your VM
+5. Configure SSH Remote Extension
+
+=== Docker Extension
+
+Highly recommended for managing your docker containers when running DINA.
+
+=== Project Manager Extension
