@@ -1,0 +1,67 @@
+= API Endpoint Testing
+
+== Applications
+
+Any REST API client with OAuth2 support can be used. Below are some examples of software you can use:
+
+* *Insomnia* - https://insomnia.rest/download[Download] (No Login Required)
+* *Postman* - https://www.postman.com/downloads/[Download] (Login Required)
+
+== Authentication
+
+On each request, you will need to set up the following Authentication settings:
+
+.Authentication Settings
+|===
+|Setting |Value
+
+|Authentication Type
+|OAuth 2.0
+
+|Grant Type
+|Authorization Code
+
+|Authorization URL / Auth URL
+|http://keycloak.local:8080/auth/realms/dina/protocol/openid-connect/auth
+
+|Access Token URL
+|http://keycloak.local:8080/auth/realms/dina/protocol/openid-connect/token
+
+|Client ID
+|objectstore
+
+|Redirect URL / Callback URL
+|http://dina.local
+
+|Scope
+|openid
+|===
+
+Then when sending the request, you should see a popup which will let you login to the DINA application. Once you do this, your login will be remembered for the session and tokens will be automatically generated.
+
+In Postman you will have to click the "Get New Access Token" button to see this popup.
+
+== Logout of Session
+
+Sometimes you might need to login as a different user for testing, the instructions for clearing your sessions are below:
+
+To logout of your session on the Insomnia application, simply go to the authentication tab and at the bottom of the panel there is a "Clear" button. Next time you send an API request you will be prompted again to login.
+
+For Postman, in the Authorization section there is a text field with your current access token. Selecting and removing the access token will remove your session. To re-login, scroll to the bottom for the "Get New Access Token" button.
+
+== Headers
+
+Most of the API POST requests require a specific "Content-Type" header. 
+
+.Common Headers
+|===
+|Key |Value |Description
+
+|Content-Type
+|application/vnd.api+json
+|This is only required for POST requests, by default Postman and Insomnia might put `application/json` which will cause an error.
+
+|Crnk-Compact
+|true
+|Optional. Self and related links can make up to 60% of the response payload size and not always are those links of use. In this case the computation of those links is omitted. Further relationships without data are completely omitted.
+|===
