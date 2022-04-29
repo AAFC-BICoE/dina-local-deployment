@@ -443,20 +443,341 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_dina_ui_development">1. dina-ui Development</a></li>
-<li><a href="#_messaging">2. Messaging</a></li>
-<li><a href="#_local_certificates">3. Local certificates</a>
+<li><a href="#_developer_environment_setup">1. Developer Environment Setup</a>
 <ul class="sectlevel2">
-<li><a href="#_installation_ubuntu_20">3.1. Installation (Ubuntu 20)</a></li>
+<li><a href="#_prerequisites">1.1. Prerequisites</a></li>
+<li><a href="#_clone_repositories">1.2. Clone Repositories</a></li>
+<li><a href="#_visual_studio_code">1.3. Visual Studio Code</a>
+<ul class="sectlevel3">
+<li><a href="#_recommended_extensions">1.3.1. Recommended Extensions</a></li>
+<li><a href="#_vscode_remote_optional">1.3.2. VSCode Remote (Optional)</a></li>
 </ul>
 </li>
-<li><a href="#_change_default_docker_address_pool">4. Change default Docker address pool</a></li>
+</ul>
+</li>
+<li><a href="#_using_local_images">2. Using Local Images</a></li>
+<li><a href="#_dina_ui_development">3. DINA-UI Development</a></li>
+<li><a href="#_api_endpoint_testing">4. API Endpoint Testing</a>
+<ul class="sectlevel2">
+<li><a href="#_applications">4.1. Applications</a></li>
+<li><a href="#_authentication">4.2. Authentication</a></li>
+<li><a href="#_logout_of_session">4.3. Logout of Session</a></li>
+<li><a href="#_headers">4.4. Headers</a></li>
+</ul>
+</li>
+<li><a href="#_messaging">5. Messaging</a></li>
+<li><a href="#_local_certificates">6. Local certificates</a>
+<ul class="sectlevel2">
+<li><a href="#_installation_ubuntu_20">6.1. Installation (Ubuntu 20)</a></li>
+</ul>
+</li>
+<li><a href="#_change_default_docker_address_pool">7. Change default Docker address pool</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_dina_ui_development">1. dina-ui Development</h2>
+<h2 id="_developer_environment_setup">1. Developer Environment Setup</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_prerequisites">1.1. Prerequisites</h3>
+<div class="paragraph">
+<p>The following is required for DINA development:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Linux operating system</p>
+<div class="ulist">
+<ul>
+<li>
+<p>On Windows using Virtual Machine</p>
+</li>
+<li>
+<p>On Windows using WSL2 (Not Recommended - Experimental)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Visual Studio Code (Install on Linux or see Remote setup below)</p>
+</li>
+<li>
+<p>Docker (Install on Linux)</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo apt install curl
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+sudo usermod -aG docker ${USER}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Docker Compose (Install on Linux)</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+mkdir -p $DOCKER_CONFIG/cli-plugins
+curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Node.js</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo apt install nodejs</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Yarn</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">npm install -g yarn@latest</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Maven</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo apt install maven</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Git</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo apt install git</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clone_repositories">1.2. Clone Repositories</h3>
+<div class="paragraph">
+<p>To get started, you can git clone all of the projects to your home directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">git clone --branch dev https://github.com/AAFC-BICoE/dina-ui.git
+git clone --branch dev https://github.com/AAFC-BICoE/object-store-api.git
+git clone --branch dev https://github.com/AAFC-BICoE/seqdb-api.git
+git clone --branch dev https://github.com/AAFC-BICoE/agent-api.git
+git clone --branch dev https://github.com/AAFC-BICoE/dina-user-api.git
+git clone --branch dev https://github.com/AAFC-BICoE/natural-history-collection-api.git
+git clone --branch dev https://github.com/AAFC-BICoE/loan-transaction-api.git
+git clone --branch dev https://github.com/AAFC-BICoE/dina-search-api.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also clone the OpenAPI specification projects:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">git clone https://github.com/DINA-Web/loan-transaction-specs.git
+git clone https://github.com/DINA-Web/object-store-specs.git
+git clone https://github.com/DINA-Web/collection-specs.git
+git clone https://github.com/DINA-Web/user-specs.git
+git clone https://github.com/DINA-Web/agent-specs.git
+git clone https://github.com/DINA-Web/sequence-specs.git</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_visual_studio_code">1.3. Visual Studio Code</h3>
+<div class="paragraph">
+<p>Visual Studio Code can be installed directly on your Virtual Machine or on your Windows machine using the VSCode Remote instructions below.</p>
+</div>
+<div class="sect3">
+<h4 id="_recommended_extensions">1.3.1. Recommended Extensions</h4>
+<div class="paragraph">
+<p>Once you have VSCode downloaded, you can run this command to install the recommended extensions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">code --install-extension vscjava.vscode-java-pack
+code --install-extension msjsdiag.debugger-for-chrome
+code --install-extension ms-azuretools.vscode-docker
+code --install-extension gabrielbb.vscode-lombok
+code --install-extension esbenp.prettier-vscode
+code --install-extension ms-vscode.vscode-typescript-tslint-plugin
+code --install-extension firsttris.vscode-jest-runner
+code --install-extension alefragnani.project-manager</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_vscode_remote_optional">1.3.2. VSCode Remote (Optional)</h4>
+<div class="paragraph">
+<p>You can avoid running a slow IDE inside your virtual machine by running VS Code on your host machine instead and connecting to the dev environment using VS Code Remote.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download VSCode for Windows</p>
+</li>
+<li>
+<p>Install the VSCode SSH Remote Extension</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">code --install-extension ms-vscode-remote.remote-ssh</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install Open-SSH Server on your VM</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo apt-get install openssh-server
+sudo systemctl enable ssh
+sudo systemctl start ssh</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Setup Port Forwarding on your VM</p>
+<div class="paragraph">
+<p>In order for your Windows VSCode to communicate with your Virtual Machine, you will need to allow for SSH port forwarding.</p>
+</div>
+<div class="paragraph">
+<p>From the <code>VirtualBox Manager</code> window, click <code>Settings`</code> &gt; <code>Network</code> Tab &gt; <code>Advanced</code> &gt; <code>Port Forwarding</code> &gt; Green <code>+</code> icon and add the following rule:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. SSH Port Forwarding Rule</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Protocol</th>
+<th class="tableblock halign-left valign-top">Host IP</th>
+<th class="tableblock halign-left valign-top">Host Port</th>
+<th class="tableblock halign-left valign-top">Guest IP</th>
+<th class="tableblock halign-left valign-top">Guest Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Leave Blank</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Leave Blank</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Click <code>OK</code> on both windows to finish setting up the port.</p>
+</div>
+</li>
+<li>
+<p>Configure SSH Remote Extension</p>
+<div class="paragraph">
+<p>Once you have the <code>SSH Remote</code> extension, using the command palette (CTRL + SHIFT + P) search for <code>&gt;Remote-SSH: Add New SSH Host&#8230;&#8203;</code>.</p>
+</div>
+<div class="paragraph">
+<p>In the popup at the top of the screen you can enter the SSH command to connect to your virtual machine (Replacing USERNAME with your Ubuntu username):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">ssh USERNAME@localhost</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Now you are connected to your Virtual Machine. You can open projects and use the terminal as if you were in the VM.</p>
+</div>
+<div class="paragraph">
+<p>More info: <a href="https://code.visualstudio.com/docs/remote/remote-overview" class="bare">https://code.visualstudio.com/docs/remote/remote-overview</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_local_images">2. Using Local Images</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Running local deployment without making any changes will run the docker-hub deployed API modules. For development purposes, you can follow these steps to test your API changes.</p>
+</div>
+<div class="paragraph">
+<p>For the examples below, we are using <code>Collection-API</code> but the steps are the same for all the other API modules. Check out the <code>dina-ui Development</code> section for live reloading support for UI development.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Clean and build your API changes</p>
+<div class="paragraph">
+<p>Navigate to the root of the API project you wish to test locally, then run maven clean install. The <code>-DskipTests</code> argument can be used to skip the tests.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">cd ~/collection-api
+mvn clean install -DskipTests</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Build the docker image</p>
+<div class="paragraph">
+<p>Each of the API modules, contain a <code>Dockerfile</code> which can be used to build an image. When running the command to build the image you can provide a tag which will be used in step 3.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">docker build -t collection-api:dev .</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change the image name on the <code>docker-compose.local.yml</code></p>
+<div class="paragraph">
+<p>In the <code>docker-compose.local.yml</code> file you can find the API container and change the image to use the tag created in step 2.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="yml" class="language-yml hljs">  collection-api:
+    image: collection-api:dev
+    environment:
+      keycloak.enabled: "true"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Start/Restart the containers</p>
+<div class="paragraph">
+<p>Re-run the command you used to start the container originally (with any settings you used like messaging or profiles), you can use the <code>-d collection-api</code> to just start the specific container.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">docker-compose -f docker-compose.base.yml -f docker-compose.local.yml up -d collection-api</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You are now running your local changes. It&#8217;s important to understand that you are running the jar generated from step 1, so if you make more changes on the API, you will need to repeat the steps to test your latest changes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dina_ui_development">3. DINA-UI Development</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To enable dina-ui hot-reloading in dina-local-deployment, you need to configure the dina-ui repo location.
@@ -482,7 +803,128 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect1">
-<h2 id="_messaging">2. Messaging</h2>
+<h2 id="_api_endpoint_testing">4. API Endpoint Testing</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_applications">4.1. Applications</h3>
+<div class="paragraph">
+<p>Any REST API client with OAuth2 support can be used. Below are some examples of software you can use:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Insomnia</strong> - <a href="https://insomnia.rest/download">Download</a> (No Login Required)</p>
+</li>
+<li>
+<p><strong>Postman</strong> - <a href="https://www.postman.com/downloads/">Download</a> (Login Required)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_authentication">4.2. Authentication</h3>
+<div class="paragraph">
+<p>On each request, you will need to set up the following Authentication settings:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Authentication Settings</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Setting</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OAuth 2.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grant Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authorization Code</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authorization URL / Auth URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://keycloak.local:8080/auth/realms/dina/protocol/openid-connect/auth" class="bare">http://keycloak.local:8080/auth/realms/dina/protocol/openid-connect/auth</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access Token URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://keycloak.local:8080/auth/realms/dina/protocol/openid-connect/token" class="bare">http://keycloak.local:8080/auth/realms/dina/protocol/openid-connect/token</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Client ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">objectstore</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Redirect URL / Callback URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://dina.local" class="bare">http://dina.local</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scope</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">openid</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Then when sending the request, you should see a popup which will let you login to the DINA application. Once you do this, your login will be remembered for the session and tokens will be automatically generated.</p>
+</div>
+<div class="paragraph">
+<p>In Postman you will have to click the "Get New Access Token" button to see this popup.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_logout_of_session">4.3. Logout of Session</h3>
+<div class="paragraph">
+<p>Sometimes you might need to login as a different user for testing, the instructions for clearing your sessions are below:</p>
+</div>
+<div class="paragraph">
+<p>To logout of your session on the Insomnia application, simply go to the authentication tab and at the bottom of the panel there is a "Clear" button. Next time you send an API request you will be prompted again to login.</p>
+</div>
+<div class="paragraph">
+<p>For Postman, in the Authorization section there is a text field with your current access token. Selecting and removing the access token will remove your session. To re-login, scroll to the bottom for the "Get New Access Token" button.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_headers">4.4. Headers</h3>
+<div class="paragraph">
+<p>Most of the API POST requests require a specific "Content-Type" header.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Common Headers</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Content-Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/vnd.api+json</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This is only required for POST requests, by default Postman and Insomnia might put <code>application/json</code> which will cause an error.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Crnk-Compact</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Self and related links can make up to 60% of the response payload size and not always are those links of use. In this case the computation of those links is omitted. Further relationships without data are completely omitted.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_messaging">5. Messaging</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To enable Messaging based on RabbitMQ, combine the <code>--profile search_api</code> with the override file <code>message-producing-override/docker-compose.override.messageProducer.yml</code>.</p>
@@ -500,13 +942,13 @@ up -d</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_local_certificates">3. Local certificates</h2>
+<h2 id="_local_certificates">6. Local certificates</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In order to generate development certificates <a href="https://github.com/FiloSottile/mkcert">mkcert</a> will be used.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation_ubuntu_20">3.1. Installation (Ubuntu 20)</h3>
+<h3 id="_installation_ubuntu_20">6.1. Installation (Ubuntu 20)</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">sudo apt-get install wget libnss3-tools -y
@@ -537,7 +979,7 @@ sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_change_default_docker_address_pool">4. Change default Docker address pool</h2>
+<h2 id="_change_default_docker_address_pool">7. Change default Docker address pool</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The default Docker network addess pool may overlap with other networks (e.g. VPN).</p>
@@ -566,7 +1008,7 @@ sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-29 19:14:29 UTC
+Last updated 2022-04-29 19:50:37 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
