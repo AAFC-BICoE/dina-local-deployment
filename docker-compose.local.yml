@@ -183,7 +183,7 @@ services:
         condition: service_completed_successfully 
 
   reports-labels-api:
-    image: mfnberlin/dina-reports-labels:dev
+    image: mfnberlin/dina-reports-labels:dev2
     profiles: ["reports_labels_api"]
     #build:
     #  context: "https://github.com/MfN-Berlin/reports-labels.git#v1.0-rc"
