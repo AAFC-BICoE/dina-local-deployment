@@ -275,10 +275,9 @@ If your labels have 2 cells change it to 2 and so on
 			<tr>
 		{% endif %}  
 		{# Rules for QR codes #}
-    		{% set filename = replace(replace(data.materialSampleName, '/', '_'), ':', '') %}
     		{% if (data.materialSampleName is defined) and (data.materialSampleName is not empty) and (data.materialSampleName is not null) %}
     		    <!-- This is he function to generate the QR code -->
-    		    {% set qrImage = generateCode(data.materialSampleName, filename , 'QR-Code', '{ \'margin\' : 4 }') %}
+    		    {% set qrImage = generateCode(data.materialSampleName, "" , 'QR-Code', '{ \'margin\' : 4 }') %}
     		{% endif %}
 			
 			{% set columnClass = 'col-' ~ (i+1) %}
