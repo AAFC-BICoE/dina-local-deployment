@@ -1,0 +1,156 @@
+= Developer Environment Setup
+
+== Prerequisites
+
+The following is required for DINA development:
+
+* Linux operating system
+** On Windows using Virtual Machine
+** On Windows using WSL2 (Not Recommended - Experimental)
+* Visual Studio Code (Install on Linux or see Remote setup below)
+* Docker (Install on Linux)
++
+[source, bash]
+----
+sudo apt install curl 
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+sudo usermod -aG docker ${USER}
+----
+* Docker Compose (Install on Linux)
++
+[source, bash]
+----
+DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+mkdir -p $DOCKER_CONFIG/cli-plugins
+curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+----
+* Node.js
++
+[source, bash]
+----
+sudo apt install nodejs
+----
+* Yarn
++
+[source, bash]
+----
+npm install -g yarn@latest
+----
+* Maven
++
+[source, bash]
+----
+sudo apt install maven
+----
+* Git
++
+[source, bash]
+----
+sudo apt install git
+----
+
+== Clone Repositories
+
+To get started, you can git clone all of the projects to your home directory:
+
+[source, bash]
+----
+git clone --branch dev https://github.com/AAFC-BICoE/dina-ui.git
+git clone --branch dev https://github.com/AAFC-BICoE/object-store-api.git
+git clone --branch dev https://github.com/AAFC-BICoE/seqdb-api.git
+git clone --branch dev https://github.com/AAFC-BICoE/agent-api.git
+git clone --branch dev https://github.com/AAFC-BICoE/dina-user-api.git
+git clone --branch dev https://github.com/AAFC-BICoE/natural-history-collection-api.git
+git clone --branch dev https://github.com/AAFC-BICoE/loan-transaction-api.git 
+git clone --branch dev https://github.com/AAFC-BICoE/dina-search-api.git 
+----
+
+You can also clone the OpenAPI specification projects:
+
+[source, bash]
+----
+git clone https://github.com/DINA-Web/loan-transaction-specs.git
+git clone https://github.com/DINA-Web/object-store-specs.git
+git clone https://github.com/DINA-Web/collection-specs.git
+git clone https://github.com/DINA-Web/user-specs.git
+git clone https://github.com/DINA-Web/agent-specs.git
+git clone https://github.com/DINA-Web/sequence-specs.git
+----
+
+== Visual Studio Code
+
+Visual Studio Code can be installed directly on your Virtual Machine or on your Windows machine using the VSCode Remote instructions below.
+
+=== Recommended Extensions
+
+Once you have VSCode downloaded, you can run this command to install the recommended extensions:
+
+[source, bash]
+----
+code --install-extension vscjava.vscode-java-pack
+code --install-extension msjsdiag.debugger-for-chrome
+code --install-extension ms-azuretools.vscode-docker
+code --install-extension gabrielbb.vscode-lombok
+code --install-extension esbenp.prettier-vscode
+code --install-extension ms-vscode.vscode-typescript-tslint-plugin
+code --install-extension firsttris.vscode-jest-runner
+code --install-extension alefragnani.project-manager
+----
+
+=== VSCode Remote (Optional)
+
+You can avoid running a slow IDE inside your virtual machine by running VS Code on your host machine instead and connecting to the dev environment using VS Code Remote.
+
+1. Download VSCode for Windows
+2. Install the VSCode SSH Remote Extension
++
+[source, bash]
+----
+code --install-extension ms-vscode-remote.remote-ssh
+----
++
+3. Install Open-SSH Server on your VM
++
+[source, bash]
+----
+sudo apt-get install openssh-server
+sudo systemctl enable ssh
+sudo systemctl start ssh
+----
++
+4. Setup Port Forwarding on your VM
++
+In order for your Windows VSCode to communicate with your Virtual Machine, you will need to allow for SSH port forwarding.
++
+From the `VirtualBox Manager` window, click `Settings`` > `Network` Tab > `Advanced` > `Port Forwarding` > Green `+` icon and add the following rule:
++
+.SSH Port Forwarding Rule
+|===
+|Name |Protocol |Host IP |Host Port |Guest IP |Guest Port
+
+|SSH
+|TCP
+|Leave Blank
+|22
+|Leave Blank
+|22
+|===
++
+Click `OK` on both windows to finish setting up the port.
++
+5. Configure SSH Remote Extension
++
+Once you have the `SSH Remote` extension, using the command palette (CTRL + SHIFT + P) search for `>Remote-SSH: Add New SSH Host...`.
++
+In the popup at the top of the screen you can enter the SSH command to connect to your virtual machine (Replacing USERNAME with your Ubuntu username):
++
+[source, bash]
+----
+ssh USERNAME@localhost
+----
+
+Now you are connected to your Virtual Machine. You can open projects and use the terminal as if you were in the VM.
+
+More info: https://code.visualstudio.com/docs/remote/remote-overview

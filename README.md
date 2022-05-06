@@ -1,16 +1,20 @@
 # dina-local-deployment
 
-This project helps to start the DINA ecosystem with Keycloak using Docker Compose.
+This repository can deploy the DINA ecosystem for demonstration and/or test purpose.
 
-Tested with [Docker-Compose](https://docs.docker.com/compose/) 1.28, Ubuntu hosts and 12GB of RAM.
+# Requirements
 
-For development setup see [dina-dev](https://github.com/AAFC-BICoE/dina-dev) (private repo).
+* [Docker Engine](https://docs.docker.com/engine/install/)
+* [Docker-Compose](https://docs.docker.com/compose/)
+* Basic knowledge of Docker and Docker-Compose
+* Minimum 12GB of RAM (for all modules)
+* Local IP range must be available or updated
 
 For UI development, you can use dina-local-deployment with the `docker-compose.dev.yml` override to provide a hot-reloading UI server, [More info here](#dina-ui-hot-reloading-support).
 
 # Goal
 
-Repository where we can start the DINA system for demonstration and/or test purpose.
+See complete [Documentation](https://aafc-bicoe.github.io/dina-local-deployment/).
 
 # Setup
 
@@ -59,7 +63,7 @@ Available profiles:
 * seqdb_api
 * kibana
 * prometheus
- 
+
 Example command using profile:
 
 ```

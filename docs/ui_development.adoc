@@ -1,0 +1,18 @@
+= DINA-UI Development
+
+To enable dina-ui hot-reloading in dina-local-deployment, you need to configure the dina-ui repo location.
+This variable is stored in the `.env` as `DINA_UI_REPO_DIRECTORY`. By default it looks in the home directory for dina-ui.
+
+Any changes to the pointed `DINA_UI_REPO_DIRECTORY` will cause the page to automatically reload.
+
+To use, simply add the override docker-compose configuration for dev: `-f docker-compose.dev.yml`.
+
+[source,shell]
+----
+docker-compose \
+-f docker-compose.base.yml \
+-f docker-compose.local.yml \
+-f docker-compose.dev.yml up
+----
+
+You can also still use profiles or combine this with RabbitMQ messaging as well.

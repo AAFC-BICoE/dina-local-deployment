@@ -1,0 +1,13 @@
+= Messaging
+
+To enable Messaging based on RabbitMQ, combine the `--profile search_api` with the override file `message-producing-override/docker-compose.override.messageProducer.yml`.
+
+[source,shell]
+----
+docker-compose \
+--profile search_api \
+-f docker-compose.base.yml \
+-f docker-compose.local.yml \
+-f message-producing-override/docker-compose.override.messageProducer.yml \
+up -d
+----

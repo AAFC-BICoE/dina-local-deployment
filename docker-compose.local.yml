@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.88.0
+    image: aafcbicoe/dina-ui:0.90.1
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -74,7 +74,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.53
+    image: aafcbicoe/natural-history-collection-api:0.55
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -84,6 +84,7 @@ services:
       spring.liquibase.contexts: schema-change, initial-data, data-migration
       spring.datasource.username: ${COLL_WEB_USER}
       spring.datasource.password: ${COLL_WEB_USER_PW}
+      actuator.allowedIp: prometheus
     networks:
       - dina
     extra_hosts:
@@ -99,7 +100,7 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.2
+    image: aafcbicoe/loan-transaction-api:0.3
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
@@ -295,7 +296,7 @@ services:
     environment:
       ELASTIC_SERVER_URL: $ELASTIC_SERVER_URL
       INDEX_CREATE_CMD: $INDEX_CREATE_CMD
-      DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE
+      DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE TRANSACTION
       DINA_AGENT_INDEX_NAME: $DINA_AGENT_INDEX_NAME
       DINA_AGENT_INDEX_SETTINGS_FILE: $DINA_AGENT_INDEX_SETTINGS_FILE
       DINA_MATERIAL_SAMPLE_INDEX_NAME: $DINA_MATERIAL_SAMPLE_INDEX_NAME
@@ -304,6 +305,8 @@ services:
       DINA_STORAGE_INDEX_SETTINGS_FILE: $DINA_STORAGE_INDEX_SETTINGS_FILE
       DINA_OBJECT_STORE_INDEX_NAME: $DINA_OBJECT_STORE_NAME
       DINA_OBJECT_STORE_INDEX_SETTINGS_FILE: $DINA_OBJECT_STORE_SETTINGS_FILE
+      DINA_TRANSACTION_INDEX_NAME: $DINA_LOAN_TRANSACTION_INDEX_NAME
+      DINA_TRANSACTION_INDEX_SETTINGS_FILE: $DINA_LOAN_TRANSACTION_INDEX_SETTINGS_FILE
     volumes:
       - ./elastic-configurator-settings:/usr/share/elastic-configurator/settings
     depends_on:
@@ -312,7 +315,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.13
+    image: aafcbicoe/dina-search-ws:0.15
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -324,7 +327,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.13
+    image: aafcbicoe/dina-search-cli:0.15
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
@@ -334,6 +337,7 @@ services:
       ORGANIZATION_URL: http://${API_HOSTNAME}/agent/api/v1/organization
       PERSON_URL: http://${API_HOSTNAME}/agent/api/v1/person
       STORAGE_UNIT_URL: http://${API_HOSTNAME}/collection/api/v1/storage-unit
+      LOAN_TRANSACTION_URL: http://${API_HOSTNAME}/transaction/api/v1/transaction
       RABBITMQ_HOSTNAME: rabbitmq-dina
       IS_MESSAGE_CONSUMER: "true"
       IS_MESSAGE_PRODUCER: "true"
