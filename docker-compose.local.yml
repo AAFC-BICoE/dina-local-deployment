@@ -98,7 +98,7 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.3
+    image: aafcbicoe/loan-transaction-api:0.4
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
