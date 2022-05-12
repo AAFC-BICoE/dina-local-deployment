@@ -98,7 +98,7 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.3
+    image: aafcbicoe/loan-transaction-api:0.4
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
@@ -277,7 +277,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.15
+    image: aafcbicoe/dina-search-ws:0.16
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -289,7 +289,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.15
+    image: aafcbicoe/dina-search-cli:0.16
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
