@@ -52,7 +52,7 @@ Exporting an image from the local registry:
 
 [source,shell]
 ----
-docker save -o collection-api1.tar collection-api
+docker save -o collection-api1.tar collection-api:dev
 ----
 
 Loading a Docker image from a file:
