@@ -455,7 +455,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_using_local_images">2. Using Local Images</a></li>
+<li><a href="#_using_local_images">2. Using Local Images</a>
+<ul class="sectlevel2">
+<li><a href="#_export_docker_image_to_file">2.1. Export Docker image to file</a></li>
+</ul>
+</li>
 <li><a href="#_dina_ui_development">3. DINA-UI Development</a></li>
 <li><a href="#_api_endpoint_testing">4. API Endpoint Testing</a>
 <ul class="sectlevel2">
@@ -774,6 +778,25 @@ mvn clean install -DskipTests</code></pre>
 <div class="paragraph">
 <p>You are now running your local changes. It&#8217;s important to understand that you are running the jar generated from step 1, so if you make more changes on the API, you will need to repeat the steps to test your latest changes.</p>
 </div>
+<div class="sect2">
+<h3 id="_export_docker_image_to_file">2.1. Export Docker image to file</h3>
+<div class="paragraph">
+<p>Exporting an image from the local registry:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">docker save -o collection-api1.tar collection-api</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Loading a Docker image from a file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">docker load &lt; collection-api1.tar</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1008,7 +1031,7 @@ sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-13 15:37:21 UTC
+Last updated 2022-05-18 18:57:00 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
