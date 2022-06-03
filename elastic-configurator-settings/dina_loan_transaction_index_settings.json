@@ -38,6 +38,10 @@
     "properties": {
       "data": {
         "properties": {
+          "type": {
+            "type": "constant_keyword",
+            "value": "transaction"
+          },
           "attributes": {
             "properties": {
               "createdBy": {
