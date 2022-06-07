@@ -45,3 +45,19 @@ docker-compose -f docker-compose.base.yml -f docker-compose.local.yml up -d coll
 ----
 
 You are now running your local changes. It's important to understand that you are running the jar generated from step 1, so if you make more changes on the API, you will need to repeat the steps to test your latest changes.
+
+== Export Docker image to file
+
+Exporting an image from the local registry:
+
+[source,shell]
+----
+docker save -o collection-api1.tar collection-api:dev
+----
+
+Loading a Docker image from a file:
+
+[source,shell]
+----
+docker load < collection-api1.tar
+----

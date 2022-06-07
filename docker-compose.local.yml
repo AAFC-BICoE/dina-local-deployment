@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.90.1
+    image: aafcbicoe/dina-ui:0.93.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -74,7 +74,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.55
+    image: aafcbicoe/natural-history-collection-api:0.57
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -100,7 +100,7 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.3
+    image: aafcbicoe/loan-transaction-api:0.4
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
@@ -233,7 +233,9 @@ services:
 
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch-dina:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+    # we need a plugin so a custom image is built (to ensure an immutable Docker image)
+    image: elasticsearch_icu:7.16.2
+    build: elasticsearch/
     profiles: ["search_api"]
     environment:
       - xpack.security.enabled=false
@@ -315,7 +317,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.15
+    image: aafcbicoe/dina-search-ws:0.16
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -327,7 +329,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.15
+    image: aafcbicoe/dina-search-cli:0.16
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
