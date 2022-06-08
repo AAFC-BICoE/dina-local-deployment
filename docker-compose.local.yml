@@ -14,6 +14,8 @@ services:
       USER_API_ADDRESS: dina-user-api:8080
       SEARCH_API_ADDRESS: search-ws:8085
       LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
+      REPORT_LABEL_API_ADDRESS: report-label-api:80
+
     networks:
       - dina
     ports:
@@ -180,6 +182,24 @@ services:
     depends_on:
       init-db:
         condition: service_completed_successfully 
+
+  report-label-api:
+    image: mfnberlin/dina-reports-labels:v1.1rc
+    profiles: ["report_label_api"]
+    volumes:
+      - type: bind
+        source: ./report-label/config.ini
+        target: /usr/local/dina-labels/config.ini
+      - type: bind
+        source: ./report-label/templates
+        target: /usr/local/dina-labels/templates
+    labels:
+      # Opens http://api.dina.local/collection/api/v1 module endpoint
+      - "traefik.http.middlewares.striplabels.stripprefix.prefixes=${REPORT_LABEL_API_PREFIX}"
+      - "traefik.http.routers.reportlabelapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${REPORT_LABEL_API_PREFIX}/`)"
+      - "traefik.http.routers.reportlabelapi.middlewares=striplabels@docker"
+    networks:
+      - dina
 
   minio:
     image: minio/minio

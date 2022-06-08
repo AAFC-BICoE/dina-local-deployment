@@ -58,6 +58,7 @@ Available profiles:
 * object_store_api
 * search_api
 * seqdb_api
+* report_label_api
 * kibana
 * prometheus
 
