@@ -89,12 +89,6 @@
                   "keyword": {
                     "type": "keyword",
                     "ignore_above": 256
-                  },
-                  "sort": {
-                    "type": "icu_collation_keyword",
-                    "index": false,
-                    "numeric": true,
-                    "language": "en"
                   }
                 }
               },
