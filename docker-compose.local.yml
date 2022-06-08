@@ -183,41 +183,23 @@ services:
       init-db:
         condition: service_completed_successfully 
 
-  reports-labels-api:
+  report-label-api:
     image: mfnberlin/dina-reports-labels:v1.1rc
-    profiles: ["reports_labels_api"]
-    #build:
-    #  context: "https://github.com/MfN-Berlin/reports-labels.git#v1.0-rc"
-    #  dockerfile: Dockerfile
-    environment:
-      HTTP_PROXY:
-      HTTPS_PROXY:
-      http_proxy:
-      https_proxy:
-      no_proxy:
-      NO_PROXY:
+    profiles: ["report_label_api"]
     volumes:
       - type: bind
-        # config.ini has baseURL. Make sure if you test via Postman you have an entry in your host file
-        # for example : reports-labels-api.dina.local
-        source: ./reportslabels/config.ini
+        source: ./report-label/config.ini
         target: /usr/local/dina-labels/config.ini
       - type: bind
-        source: ./reportslabels/templates
+        source: ./report-label/templates
         target: /usr/local/dina-labels/templates
     labels:
       # Opens http://api.dina.local/collection/api/v1 module endpoint
-      - "traefik.http.middlewares.striplabels.stripprefix.prefixes=${REPORTS_LABELS_API_PREFIX}"
-      - "traefik.http.routers.reportslabelsapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${REPORTS_LABELS_API_PREFIX}/`)"
-      - "traefik.http.routers.reportslabelsapi.middlewares=striplabels@docker"
+      - "traefik.http.middlewares.striplabels.stripprefix.prefixes=${REPORT_LABEL_API_PREFIX}"
+      - "traefik.http.routers.reportlabelapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${REPORT_LABEL_API_PREFIX}/`)"
+      - "traefik.http.routers.reportlabelapi.middlewares=striplabels@docker"
     networks:
       - dina
-    ports:
-      # for testing via Postman this port is opened
-      - 7981:80
-    depends_on:
-      init-db:
-        condition: service_completed_successfully 
 
   minio:
     image: minio/minio
