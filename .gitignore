@@ -1,3 +1,4 @@
 # Minio data folder
 minio-data/*
 certs/*.pem
+keycloak-data
