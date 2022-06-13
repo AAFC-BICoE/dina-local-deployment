@@ -6,7 +6,7 @@ networks:
         - subnet: ${SUBNET}
 services:
   traefik:
-    image: traefik:v2.6.3
+    image: traefik:v2.7.0
     command:
       # debug flags - may be commented or removed
       # Traefik dashboard: access localhost:8999 in browser
@@ -43,7 +43,7 @@ services:
       KC_DB_USERNAME: keycloak_user
       KC_DB_PASSWORD: keycloak_user
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
-      KC_PROXY: passthrough
+      KC_PROXY: edge
       KC_HTTPS_CERTIFICATE_FILE: /etc/certs/dina-local-cert.pem
       KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/certs/dina-local-key.pem
     ports:
@@ -56,9 +56,9 @@ services:
       - ./certs:/etc/certs:ro
     labels:
       - "traefik.enable=true"
-      - "traefik.tcp.routers.keycloak.rule=HostSNI(`${KEYCLOAK_HOSTNAME}`)"
-      - "traefik.tcp.routers.keycloak.tls.passthrough=true"
-      - "traefik.tcp.services.keycloak.loadbalancer.server.port=${KEYCLOAK_PORT}"
+      - "traefik.http.routers.keycloak.tls=true"
+      - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`)"
+      - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
     depends_on:
       - keycloak-db
 
