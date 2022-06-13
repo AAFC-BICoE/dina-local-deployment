@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.89.0
+    image: dina-ui:dev
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -19,6 +19,8 @@ services:
     ports:
       - "2015:80"
     labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ui.tls=true"
       - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
@@ -27,7 +29,7 @@ services:
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       spring.datasource.url: jdbc:postgresql://dina-db/seqdb?currentSchema=seqdb
       spring.liquibase.user: ${SEQDB_MIGRATION_USER}
       spring.liquibase.password: ${SEQDB_MIGRATION_USER_PW}
@@ -51,7 +53,7 @@ services:
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       spring.datasource.url: jdbc:postgresql://dina-db/agent?currentSchema=agent
       spring.liquibase.user: ${AGENT_MIGRATION_USER}
       spring.liquibase.password: ${AGENT_MIGRATION_USER_PW}
@@ -75,7 +77,7 @@ services:
     image: aafcbicoe/natural-history-collection-api:0.54
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       spring.datasource.url: jdbc:postgresql://dina-db/collection?currentSchema=collection
       spring.liquibase.user: ${COLL_MIGRATION_USER}
       spring.liquibase.password: ${COLL_MIGRATION_USER_PW}
@@ -101,7 +103,7 @@ services:
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       spring.datasource.url: jdbc:postgresql://dina-db/loan_transaction?currentSchema=loan_transaction
       spring.liquibase.user: ${LOAN_TRANSACTION_MIGRATION_USER}
       spring.liquibase.password: ${LOAN_TRANSACTION_MIGRATION_USER_PW}
@@ -127,7 +129,7 @@ services:
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       KEYCLOAK_USER_SVC_SECRET: 120c0b7a-5ed2-4295-9a31-29c2fcbc714f
       spring.datasource.url: jdbc:postgresql://dina-db/dina_user?currentSchema=dina_user
       spring.liquibase.user: ${DINA_USER_MIGRATION_USER}
@@ -154,7 +156,7 @@ services:
     profiles: ["object_store_api"]
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       dev-user.enabled: "false"
       spring.datasource.url: jdbc:postgresql://dina-db/object_store?currentSchema=object_store
       spring.liquibase.user: ${OBJ_STORE_MIGRATION_USER}
