@@ -68,6 +68,10 @@
               "name": {
                 "type": "text",
                 "fields": {
+                  "autocomplete": {
+                    "type": "search_as_you_type",
+                    "max_shingle_size": 3
+                  },
                   "keyword": {
                     "type": "keyword",
                     "ignore_above": 256
@@ -143,18 +147,13 @@
                   }
                 }
               },
-              "storageUnitType ": {
+              "storageUnitType": {
                 "properties": {
                   "data": {
                     "properties": {
                       "type": {
-                        "type": "text",
-                        "fields": {
-                          "keyword": {
-                            "type": "keyword",
-                            "ignore_above": 256
-                          }
-                        }
+                        "type": "constant_keyword",
+                        "value": "storage-unit-type"
                       }
                     }
                   }
