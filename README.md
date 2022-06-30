@@ -4,8 +4,8 @@ This repository can deploy the DINA ecosystem for demonstration and/or test purp
 
 # Requirements
 
-* [Docker Engine](https://docs.docker.com/engine/install/)
-* [Docker-Compose](https://docs.docker.com/compose/)
+* [Docker Engine](https://docs.docker.com/engine/install/) (tested with 20.10)
+* [Docker-Compose](https://docs.docker.com/compose/) (tested with 2.4)
 * Basic knowledge of Docker and Docker-Compose
 * Minimum 12GB of RAM (for all modules)
 * Local IP range must be available or updated
@@ -51,7 +51,7 @@ Note: By default, a lot of modules won't be started. See Profiles Support sectio
 
 ## Profiles Support
 
-Profiles have been added to support the deployment of non-mandatory components defined under a specific profile keyword (requires Docker-Compose >= 1.28.0).
+Profiles have been added to support the deployment of non-mandatory components defined under a specific profile keyword.
 
 Available profiles:
 
