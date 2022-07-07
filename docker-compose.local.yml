@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.96.0
+    image: aafcbicoe/dina-ui:0.97.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -25,7 +25,7 @@ services:
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.1.3
+    image: aafcbicoe/seqdb-api:2.1.4
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
@@ -74,7 +74,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.59
+    image: aafcbicoe/natural-history-collection-api:0.60
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
