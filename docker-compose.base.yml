@@ -12,7 +12,7 @@ services:
         "-Djboss.http.port=${KEYCLOAK_PORT}",
         "-Dkeycloak.hostname.provider=fixed",
         "-Dkeycloak.hostname.fixed.hostname=${KEYCLOAK_EXTERNAL_HOSTNAME}" ]
-    expose: 
+    expose:
       - ${KEYCLOAK_PORT}
     environment:
       KEYCLOAK_USER: admin
