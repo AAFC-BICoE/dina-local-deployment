@@ -1,0 +1,63 @@
+= Using Local Images
+
+Running local deployment without making any changes will run the docker-hub deployed API modules. For development purposes, you can follow these steps to test your API changes.
+
+For the examples below, we are using `Collection-API` but the steps are the same for all the other API modules. Check out the `dina-ui Development` section for live reloading support for UI development.
+
+1. Clean and build your API changes
++
+Navigate to the root of the API project you wish to test locally, then run maven clean install. The `-DskipTests` argument can be used to skip the tests.
++
+[source,shell]
+----
+cd ~/collection-api
+mvn clean install -DskipTests
+----
++
+2. Build the docker image
++
+Each of the API modules, contain a `Dockerfile` which can be used to build an image. When running the command to build the image you can provide a tag which will be used in step 3.
++
+[source,shell]
+----
+docker build -t collection-api:dev .
+----
++
+3. Change the image name on the `docker-compose.local.yml`
++
+In the `docker-compose.local.yml` file you can find the API container and change the image to use the tag created in step 2.
++
+[source,yml]
+----
+  collection-api:
+    image: collection-api:dev
+    environment:
+      keycloak.enabled: "true"
+----
++
+4. Start/Restart the containers
++
+Re-run the command you used to start the container originally (with any settings you used like messaging or profiles), you can use the `-d collection-api` to just start the specific container.
++
+[source,shell]
+----
+docker-compose -f docker-compose.base.yml -f docker-compose.local.yml up -d collection-api
+----
+
+You are now running your local changes. It's important to understand that you are running the jar generated from step 1, so if you make more changes on the API, you will need to repeat the steps to test your latest changes.
+
+== Export Docker image to file
+
+Exporting an image from the local registry:
+
+[source,shell]
+----
+docker save -o collection-api1.tar collection-api:dev
+----
+
+Loading a Docker image from a file:
+
+[source,shell]
+----
+docker load < collection-api1.tar
+----

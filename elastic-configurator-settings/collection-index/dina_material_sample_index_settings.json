@@ -38,6 +38,10 @@
     "properties": {
       "data": {
         "properties": {
+          "type": {
+            "type": "constant_keyword",
+            "value": "material-sample"
+          },
           "attributes": {
             "properties": {
               "group": {
@@ -174,22 +178,6 @@
               },
               "endEventDateTime": {
                 "type": "date"
-              },
-              "verbatimDeterminer": {
-                "type": "text",
-                "fields": {
-                  "autocomplete": {
-                    "type": "search_as_you_type",
-                    "max_shingle_size": 3
-                  },
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 256
-                  }
-                }
-              },
-              "determination": {
-                "type": "object"
               }
             }
           },
@@ -241,6 +229,58 @@
                       "type": {
                         "type": "constant_keyword",
                         "value": "collection"
+                      }
+                    }
+                  }
+                }
+              },
+              "preparationType": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "preparation-type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "included" : {
+        "type": "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "attributes" : {
+            "properties" : {
+              "dwcRecordedBy": {
+                "type": "text",
+                "fields": {
+                  "autocomplete": {
+                    "type": "search_as_you_type",
+                    "max_shingle_size": 3
+                  },
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "determination" : {
+                "properties" : {
+                  "verbatimDeterminer": {
+                    "type": "text",
+                    "fields": {
+                      "autocomplete": {
+                        "type": "search_as_you_type",
+                        "max_shingle_size": 3
+                      },
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
                       }
                     }
                   }
