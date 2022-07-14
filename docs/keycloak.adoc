@@ -3,21 +3,17 @@
 
 == Keycloak 18 (experimental)
 
+Note: Local dev certificates are expected to be accessible. See xref:local_certificates.adoc[local certificates] for details.
+
 Traefik is responsible for TLS termination so Keycloak is configured with `KC_PROXY: edge`.
 
-
-Overwrite `.env` with `tls.env`
-
-
-Add the following to the labels of `dina-ui` in `docker-compose.local.yml`:
+. Overwrite `.env` with `tls.env`
+. Add the following to the labels of `dina-ui` in `docker-compose.local.yml`:
 
 - "traefik.enable=true" 
-- "traefik.http.routers.ui.tls=true" 
+- "traefik.http.routers.ui.tls=true"
+. Change API labels to access Keycloak using the Docker internal network:
+  `keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}`
+. To enable external access to an API add the same label added to `dina-ui` section
 
-API labels should be changed to access Keycloak using the Docker internal network:
-
-`keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}`
-
-
-To enable external access to an API add the same label added to dina-ui.
-
+Start the stack by pointing to `docker-compose.base-tls.yml` instead of `docker-compose.base.yml`.
