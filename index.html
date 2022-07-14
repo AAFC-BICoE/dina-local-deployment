@@ -470,12 +470,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#_messaging">5. Messaging</a></li>
-<li><a href="#_local_certificates">6. Local certificates</a>
+<li><a href="#_keycloak">6. Keycloak</a>
 <ul class="sectlevel2">
-<li><a href="#_installation_ubuntu_20">6.1. Installation (Ubuntu 20)</a></li>
+<li><a href="#_keycloak_18_experimental">6.1. Keycloak 18 (experimental)</a></li>
 </ul>
 </li>
-<li><a href="#_change_default_docker_address_pool">7. Change default Docker address pool</a></li>
+<li><a href="#_local_certificates">7. Local certificates</a>
+<ul class="sectlevel2">
+<li><a href="#_installation_ubuntu_20">7.1. Installation (Ubuntu 20)</a></li>
+</ul>
+</li>
+<li><a href="#_change_default_docker_address_pool">8. Change default Docker address pool</a></li>
 </ul>
 </div>
 </div>
@@ -965,13 +970,57 @@ up -d</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_local_certificates">6. Local certificates</h2>
+<h2 id="_keycloak">6. Keycloak</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_keycloak_18_experimental">6.1. Keycloak 18 (experimental)</h3>
+<div class="paragraph">
+<p>Note: Local dev certificates are expected to be accessible. See <a href="#">local certificates</a> for details.</p>
+</div>
+<div class="paragraph">
+<p>Traefik is responsible for TLS termination so Keycloak is configured with <code>KC_PROXY: edge</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Overwrite <code>.env</code> with <code>tls.env</code></p>
+</li>
+<li>
+<p>Add the following to the labels of <code>dina-ui</code> in <code>docker-compose.local.yml</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>"traefik.enable=true"</p>
+</li>
+<li>
+<p>"traefik.http.routers.ui.tls=true"</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Change API labels to access Keycloak using the Docker internal network:
+<code>keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}</code></p>
+</li>
+<li>
+<p>To enable external access to an API add the same label added to <code>dina-ui</code> section</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Start the stack by pointing to <code>docker-compose.base-tls.yml</code> instead of <code>docker-compose.base.yml</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_local_certificates">7. Local certificates</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In order to generate development certificates <a href="https://github.com/FiloSottile/mkcert">mkcert</a> will be used.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation_ubuntu_20">6.1. Installation (Ubuntu 20)</h3>
+<h3 id="_installation_ubuntu_20">7.1. Installation (Ubuntu 20)</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">sudo apt-get install wget libnss3-tools -y
@@ -1002,7 +1051,7 @@ sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_change_default_docker_address_pool">7. Change default Docker address pool</h2>
+<h2 id="_change_default_docker_address_pool">8. Change default Docker address pool</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The default Docker network addess pool may overlap with other networks (e.g. VPN).</p>
@@ -1031,7 +1080,7 @@ sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-07-13 19:54:51 UTC
+Last updated 2022-07-14 19:21:31 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
