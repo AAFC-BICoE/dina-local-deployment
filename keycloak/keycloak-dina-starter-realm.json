@@ -105,8 +105,8 @@
       ]
     },
     {
-      "id": "fe3ef8c1-e615-4528-960b-e86b3102c7c0",
-      "clientId": "objectstore",
+      "id": "6d51fede-7a8e-4761-a363-fffcd0cb4428",
+      "clientId": "dina-public",
       "enabled": true,
       "directAccessGrantsEnabled": true,
       "publicClient": true,

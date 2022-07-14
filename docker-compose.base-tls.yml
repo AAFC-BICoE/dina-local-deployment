@@ -53,7 +53,7 @@ services:
     networks:
       dina:
     volumes:
-      - ./keycloak-dina-starter-realm.json:/opt/keycloak/data/import/realm.json
+      - ./keycloak/keycloak-dina-starter-realm.json:/opt/keycloak/data/import/realm.json
       - ./dina-keycloak-theme:/opt/keycloak/themes/dina
       - ./certs:/etc/certs:ro
     labels:
