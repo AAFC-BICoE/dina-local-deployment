@@ -1,0 +1,23 @@
+= Keycloak
+
+
+== Keycloak 18 (experimental)
+
+Traefik is responsible for TLS termination so Keycloak is configured with `KC_PROXY: edge`.
+
+
+Overwrite `.env` with `tls.env`
+
+
+Add the following to the labels of `dina-ui` in `docker-compose.local.yml`:
+
+- "traefik.enable=true" 
+- "traefik.http.routers.ui.tls=true" 
+
+API labels should be changed to access Keycloak using the Docker internal network:
+
+`keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}`
+
+
+To enable external access to an API add the same label added to dina-ui.
+

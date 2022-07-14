@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: dina-ui:dev
+    image: aafcbicoe/dina-ui:0.98.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -14,22 +14,22 @@ services:
       USER_API_ADDRESS: dina-user-api:8080
       SEARCH_API_ADDRESS: search-ws:8085
       LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
+      REPORT_LABEL_API_ADDRESS: report-label-api:80
+
     networks:
       - dina
     ports:
       - "2015:80"
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.ui.tls=true"
       - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.1.3
+    image: aafcbicoe/seqdb-api:2.1.4
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
       spring.datasource.url: jdbc:postgresql://dina-db/seqdb?currentSchema=seqdb
       spring.liquibase.user: ${SEQDB_MIGRATION_USER}
       spring.liquibase.password: ${SEQDB_MIGRATION_USER_PW}
@@ -53,7 +53,7 @@ services:
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
       spring.datasource.url: jdbc:postgresql://dina-db/agent?currentSchema=agent
       spring.liquibase.user: ${AGENT_MIGRATION_USER}
       spring.liquibase.password: ${AGENT_MIGRATION_USER_PW}
@@ -74,16 +74,17 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.54
+    image: aafcbicoe/natural-history-collection-api:0.61
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
       spring.datasource.url: jdbc:postgresql://dina-db/collection?currentSchema=collection
       spring.liquibase.user: ${COLL_MIGRATION_USER}
       spring.liquibase.password: ${COLL_MIGRATION_USER_PW}
       spring.liquibase.contexts: schema-change, initial-data, data-migration
       spring.datasource.username: ${COLL_WEB_USER}
       spring.datasource.password: ${COLL_WEB_USER_PW}
+      actuator.allowedIp: prometheus
     networks:
       - dina
     extra_hosts:
@@ -99,11 +100,11 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.3
+    image: aafcbicoe/loan-transaction-api:0.4
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
       spring.datasource.url: jdbc:postgresql://dina-db/loan_transaction?currentSchema=loan_transaction
       spring.liquibase.user: ${LOAN_TRANSACTION_MIGRATION_USER}
       spring.liquibase.password: ${LOAN_TRANSACTION_MIGRATION_USER_PW}
@@ -129,7 +130,7 @@ services:
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
       KEYCLOAK_USER_SVC_SECRET: 120c0b7a-5ed2-4295-9a31-29c2fcbc714f
       spring.datasource.url: jdbc:postgresql://dina-db/dina_user?currentSchema=dina_user
       spring.liquibase.user: ${DINA_USER_MIGRATION_USER}
@@ -156,7 +157,7 @@ services:
     profiles: ["object_store_api"]
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
+      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
       dev-user.enabled: "false"
       spring.datasource.url: jdbc:postgresql://dina-db/object_store?currentSchema=object_store
       spring.liquibase.user: ${OBJ_STORE_MIGRATION_USER}
@@ -182,6 +183,24 @@ services:
       init-db:
         condition: service_completed_successfully 
 
+  report-label-api:
+    image: mfnberlin/dina-reports-labels:v1.1rc
+    profiles: ["report_label_api"]
+    volumes:
+      - type: bind
+        source: ./report-label/config.ini
+        target: /usr/local/dina-labels/config.ini
+      - type: bind
+        source: ./report-label/templates
+        target: /usr/local/dina-labels/templates
+    labels:
+      # Opens http://api.dina.local/collection/api/v1 module endpoint
+      - "traefik.http.middlewares.striplabels.stripprefix.prefixes=${REPORT_LABEL_API_PREFIX}"
+      - "traefik.http.routers.reportlabelapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${REPORT_LABEL_API_PREFIX}/`)"
+      - "traefik.http.routers.reportlabelapi.middlewares=striplabels@docker"
+    networks:
+      - dina
+
   minio:
     image: minio/minio
     profiles: ["object_store_api"]
@@ -196,7 +215,9 @@ services:
 
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch-dina:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+    # we need a plugin so a custom image is built (to ensure an immutable Docker image)
+    image: elasticsearch_icu:7.17.4
+    build: elasticsearch/
     profiles: ["search_api"]
     environment:
       - xpack.security.enabled=false
@@ -278,7 +299,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.15
+    image: aafcbicoe/dina-search-ws:0.19
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -290,7 +311,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.15
+    image: aafcbicoe/dina-search-cli:0.19
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token

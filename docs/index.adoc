@@ -10,6 +10,9 @@ include::ui_development.adoc[]
 
 include::messaging.adoc[]
 
+include::keycloak.adoc[]
+
 include::local_certificates.adoc[]
 
 include::docker_network.adoc[]
+
