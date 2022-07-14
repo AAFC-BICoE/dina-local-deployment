@@ -1,5 +1,10 @@
 ## Static configuration
 
+# enable to get the dashboard at http://dina.local:8080/dashboard/
+# api:
+#  dashboard: true
+#  insecure: true
+
 global:
   sendAnonymousUsage: false
 

@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+
   keycloak:
     environment:
       DB_VENDOR: postgres
