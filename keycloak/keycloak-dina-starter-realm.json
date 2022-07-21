@@ -165,8 +165,8 @@
         "name": "admin"
       },
       {
-        "id": "62f69b76-740e-42f2-ba99-8adf42d8edd4",
-        "name": "collection-manager"
+        "id": "ce04ac27-4080-4995-8e2b-80a1f5d2a91e",
+        "name": "super-user"
       },
       {
         "id": "bf8685f9-8a74-40f2-a4bc-746f239e230c",
@@ -417,12 +417,12 @@
       "clientRoles": {},
       "subGroups": [
         {
-          "id": "c2bc6a7f-4e72-4011-822b-05ae8032d927",
-          "name": "collection-manager",
-          "path": "/aafc/collection-manager",
+          "id": "c7be2b30-9989-4e1d-bdf7-1515b3c7e7ba",
+          "name": "super-user",
+          "path": "/aafc/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -497,12 +497,12 @@
           "subGroups": []
         },
         {
-          "id": "cf35d033-3aea-4696-acbd-8e8abc640fe3",
-          "name": "collection-manager",
-          "path": "/amf/collection-manager",
+          "id": "94ff8b02-9659-4ad0-b7f0-8ae2218fe1c8",
+          "name": "super-user",
+          "path": "/amf/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -555,12 +555,12 @@
           "subGroups": []
         },
         {
-          "id": "12bb53c8-97d4-45e8-b14c-77306b764139",
-          "name": "collection-manager",
-          "path": "/ccfc/collection-manager",
+          "id": "3c018b06-cc0e-4ff1-9d0c-cc1b3205070b",
+          "name": "super-user",
+          "path": "/ccfc/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -613,12 +613,12 @@
           "subGroups": []
         },
         {
-          "id": "0b10b8c4-897d-4668-a3cc-446003418fa4",
-          "name": "collection-manager",
-          "path": "/cnc/collection-manager",
+          "id": "feca1d5e-7327-4535-847a-c6befe675c8e",
+          "name": "super-user",
+          "path": "/cnc/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -682,12 +682,12 @@
           "subGroups": []
         },
         {
-          "id": "b1b8651f-322a-4973-9a99-affc9958d8d0",
-          "name": "collection-manager",
-          "path": "/cpvc/collection-manager",
+          "id": "12ee1bc5-fc61-47c1-8416-d09c6ad1406d",
+          "name": "super-user",
+          "path": "/cpvc/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -718,12 +718,12 @@
       "clientRoles": {},
       "subGroups": [
         {
-          "id": "e0233df3-90bc-4bd4-91d5-3233bd0a3ee7",
-          "name": "collection-manager",
-          "path": "/dao/collection-manager",
+          "id": "da09d31a-2eac-4d6a-a7a4-fcab1e215076",
+          "name": "super-user",
+          "path": "/dao/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -779,12 +779,12 @@
       "clientRoles": {},
       "subGroups": [
         {
-          "id": "486c5b8b-da57-4b30-9891-f3a801a8d64c",
-          "name": "collection-manager",
-          "path": "/daom/collection-manager",
+          "id": "7affccc6-c145-42c8-ae55-61e57219589e",
+          "name": "super-user",
+          "path": "/daom/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -848,12 +848,12 @@
           "subGroups": []
         },
         {
-          "id": "e6c9ee22-11fc-4d41-a55f-8843c4f4eed7",
-          "name": "collection-manager",
-          "path": "/ml/collection-manager",
+          "id": "2155ca86-9817-435f-98a6-2dabf490da73",
+          "name": "super-user",
+          "path": "/ml/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -1323,11 +1323,11 @@
       }
     },
     {
-      "username": "cnc-cm",
+      "username": "cnc-su",
       "enabled": true,
       "realmRoles": ["user"],
-      "groups": ["cnc/collection-manager"],
-      "credentials": [{ "type": "password", "value": "cnc-cm" }],
+      "groups": ["cnc/super-user"],
+      "credentials": [{ "type": "password", "value": "cnc-su" }],
       "attributes": {
         "agentId": "ba05d46b-6c75-4c92-82d6-e72237d9982f"
       }
@@ -1363,21 +1363,21 @@
       }
     },
     {
-      "username": "ccfc-cm",
+      "username": "ccfc-su",
       "enabled": true,
       "realmRoles": ["user"],
-      "groups": ["ccfc/collection-manager"],
-      "credentials": [{ "type": "password", "value": "ccfc-cm" }],
+      "groups": ["ccfc/super-user"],
+      "credentials": [{ "type": "password", "value": "ccfc-su" }],
       "attributes": {
         "agentId": "4851a8af-705f-4415-a9b6-b661382d4da5"
       }
     },
     {
-      "username": "dao-cm",
+      "username": "dao-su",
       "enabled": true,
       "realmRoles": ["user"],
-      "groups": ["dao/collection-manager"],
-      "credentials": [{ "type": "password", "value": "dao-cm" }],
+      "groups": ["dao/super-user"],
+      "credentials": [{ "type": "password", "value": "dao-su" }],
       "attributes": {
         "agentId": "b5e79585-ce26-44d2-95e5-6272c3799581"
       }
