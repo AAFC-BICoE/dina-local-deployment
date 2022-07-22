@@ -161,10 +161,6 @@
         "name": "user"
       },
       {
-        "id": "90bc503d-ab0c-40a5-a0de-eedba9d09fc8",
-        "name": "admin"
-      },
-      {
         "id": "ce04ac27-4080-4995-8e2b-80a1f5d2a91e",
         "name": "super-user"
       },
@@ -173,8 +169,8 @@
         "name": "staff"
       },
       {
-        "id": "17bf4eea-1796-4474-b0f8-4e5d52357664",
-        "name": "student"
+        "id": "9d4fbc98-abec-4b2a-866d-1ad4120048c6",
+        "name": "guest"
       },
       {
         "id": "2d7967df-b27a-4010-923c-73b803635709",
@@ -450,12 +446,12 @@
           "subGroups": []
         },
         {
-          "id": "e3068573-8b6b-4daf-9dcd-97918efbc52b",
-          "name": "student",
-          "path": "/aafc/student",
+          "id": "e4f5ccda-772f-477b-8c28-c95ac82c4d14",
+          "name": "guest",
+          "path": "/aafc/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -508,12 +504,12 @@
           "subGroups": []
         },
         {
-          "id": "f217eab8-1cd1-4689-a8b3-093f19c66c45",
-          "name": "student",
-          "path": "/amf/student",
+          "id": "4969d535-d665-4cb2-ad6a-5cf6d55e71ae",
+          "name": "guest",
+          "path": "/amf/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -566,12 +562,12 @@
           "subGroups": []
         },
         {
-          "id": "40a46336-4eb7-4934-9e95-a53c79e9ba53",
-          "name": "student",
-          "path": "/ccfc/student",
+          "id": "709c1a53-2ce8-4347-8f9e-1ddb880ac444",
+          "name": "guest",
+          "path": "/ccfc/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -624,12 +620,12 @@
           "subGroups": []
         },
         {
-          "id": "7ee353bb-fbf5-4a4b-ab1d-2511a07b0526",
-          "name": "student",
-          "path": "/cnc/student",
+          "id": "8db27f00-a98b-4ff9-b630-9540f5188e3b",
+          "name": "guest",
+          "path": "/cnc/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -671,12 +667,12 @@
           "subGroups": []
         },
         {
-          "id": "df2338b2-a240-4038-90a2-4307d34ee7c5",
-          "name": "student",
-          "path": "/cpvc/student",
+          "id": "cc0c5c8c-b3d8-4623-814c-adfc71f43b96",
+          "name": "guest",
+          "path": "/cpvc/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -740,12 +736,12 @@
           "subGroups": []
         },
         {
-          "id": "6b129038-0098-4e29-a2b7-635f1e4087e3",
-          "name": "student",
-          "path": "/dao/student",
+          "id": "b839da21-cc09-4660-8c8d-6477acbf9749",
+          "name": "guest",
+          "path": "/dao/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -801,12 +797,12 @@
           "subGroups": []
         },
         {
-          "id": "a03428f5-1096-46ac-ab23-7859be98a313",
-          "name": "student",
-          "path": "/daom/student",
+          "id": "430efc78-cbcc-484b-852c-25f9eddd8336",
+          "name": "guest",
+          "path": "/daom/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -859,12 +855,12 @@
           "subGroups": []
         },
         {
-          "id": "e5f06cc3-68fb-4d45-8609-8cedf1d7670d",
-          "name": "student",
-          "path": "/ml/student",
+          "id": "50a5605b-839c-44fd-88d6-920f4c8d50e6",
+          "name": "guest",
+          "path": "/ml/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -1294,15 +1290,6 @@
   ],
   "users": [
     {
-      "username": "admin",
-      "enabled": true,
-      "realmRoles": ["admin", "user"],
-      "credentials": [{ "type": "password", "value": "admin" }],
-      "attributes": {
-        "agentId": "fdb72d9d-4ea1-4edf-baf2-6feafb90fd12"
-      }
-    },
-    {
       "username": "user",
       "enabled": true,
       "realmRoles": ["user"],
@@ -1343,11 +1330,11 @@
       }
     },
     {
-      "username": "cnc-student",
+      "username": "cnc-guest",
       "enabled": true,
       "realmRoles": ["user"],
-      "groups": ["cnc/student"],
-      "credentials": [{ "type": "password", "value": "cnc-student" }],
+      "groups": ["cnc/guest"],
+      "credentials": [{ "type": "password", "value": "cnc-guest" }],
       "attributes": {
         "agentId": "21d4f7ef-98b8-4f46-9963-d843f2fdf65a"
       }
