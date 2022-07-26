@@ -157,8 +157,8 @@
   "roles": {
     "realm": [
       {
-        "id": "1814de78-f3a8-4950-9077-e4cfff8a25b5",
-        "name": "user"
+        "id": "c1c775f0-cd30-4bc3-b9ca-4d39380385a6",
+        "name": "dina-realm-user"
       },
       {
         "id": "ce04ac27-4080-4995-8e2b-80a1f5d2a91e",
@@ -879,7 +879,7 @@
       ]
     }
   ],
-  "defaultRoles": ["user"],
+  "defaultRoles": ["dina-realm-user"],
   "clientScopes": [
     {
       "id": "9a822b42-c6c6-4e1c-b216-6a76cdeb2179",
@@ -1284,25 +1284,15 @@
     {
       "clientScope": "dina-agent",
       "roles": [
-        "user"
+        "dina-realm-user"
       ]
     }
   ],
   "users": [
     {
-      "username": "user",
-      "enabled": true,
-      "realmRoles": ["user"],
-      "groups": ["aafc", "cnc"],
-      "credentials": [{ "type": "password", "value": "user" }],
-      "attributes": {
-        "agentId": "9c403c4b-c849-43c4-bbc1-8bd10b1997e1"
-      }
-    },
-    {
       "username": "dina-admin",
       "enabled": true,
-      "realmRoles": ["user", "dina-admin"],
+      "realmRoles": ["dina-realm-user", "dina-admin"],
       "groups": ["aafc/dina-admin"],
       "credentials": [{ "type": "password", "value": "dina-admin" }],
       "attributes": {
@@ -1312,7 +1302,7 @@
     {
       "username": "cnc-su",
       "enabled": true,
-      "realmRoles": ["user"],
+      "realmRoles": ["dina-realm-user"],
       "groups": ["cnc/super-user"],
       "credentials": [{ "type": "password", "value": "cnc-su" }],
       "attributes": {
@@ -1322,7 +1312,7 @@
     {
       "username": "cnc-staff",
       "enabled": true,
-      "realmRoles": ["user"],
+      "realmRoles": ["dina-realm-user"],
       "groups": ["cnc/staff"],
       "credentials": [{ "type": "password", "value": "cnc-staff" }],
       "attributes": {
@@ -1332,7 +1322,7 @@
     {
       "username": "cnc-guest",
       "enabled": true,
-      "realmRoles": ["user"],
+      "realmRoles": ["dina-realm-user"],
       "groups": ["cnc/guest"],
       "credentials": [{ "type": "password", "value": "cnc-guest" }],
       "attributes": {
@@ -1342,7 +1332,7 @@
     {
       "username": "cnc-ro",
       "enabled": true,
-      "realmRoles": ["user"],
+      "realmRoles": ["dina-realm-user"],
       "groups": ["cnc/read-only"],
       "credentials": [{ "type": "password", "value": "cnc-ro" }],
       "attributes": {
@@ -1352,7 +1342,7 @@
     {
       "username": "ccfc-su",
       "enabled": true,
-      "realmRoles": ["user"],
+      "realmRoles": ["dina-realm-user"],
       "groups": ["ccfc/super-user"],
       "credentials": [{ "type": "password", "value": "ccfc-su" }],
       "attributes": {
@@ -1362,7 +1352,7 @@
     {
       "username": "dao-su",
       "enabled": true,
-      "realmRoles": ["user"],
+      "realmRoles": ["dina-realm-user"],
       "groups": ["dao/super-user"],
       "credentials": [{ "type": "password", "value": "dao-su" }],
       "attributes": {
@@ -1376,7 +1366,7 @@
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
-        "user",
+        "dina-realm-user",
         "uma_authorization",
         "offline_access"
       ],
