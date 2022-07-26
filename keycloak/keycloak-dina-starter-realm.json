@@ -179,6 +179,10 @@
       {
         "id": "2a806ec6-f09e-44b0-aa32-19640fbbd2ab",
         "name": "dina-admin"
+      },
+      {
+        "id": "09ac5781-8dc9-4c8d-a484-85ea66e818fd",
+        "name": "read-only-admin"
       }
     ],
     "client": {
