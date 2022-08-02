@@ -12,6 +12,26 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="username" elementType="Argument">
+            <stringProp name="Argument.name">username</stringProp>
+            <stringProp name="Argument.value">cnc-su</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="password" elementType="Argument">
+            <stringProp name="Argument.name">password</stringProp>
+            <stringProp name="Argument.value">cnc-su</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="user_group" elementType="Argument">
+            <stringProp name="Argument.name">user_group</stringProp>
+            <stringProp name="Argument.value">cnc</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group Auth" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
@@ -32,7 +52,7 @@
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">grant_type=password&amp;username=cnc-su&amp;password=cnc-su&amp;client_id=dina-public&amp;scope=openid</stringProp>
+                <stringProp name="Argument.value">grant_type=password&amp;username=${username}&amp;password=${password}&amp;client_id=dina-public&amp;scope=openid</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
@@ -136,7 +156,7 @@
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;collecting-event&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;group&quot;: &quot;cnc&quot;,&#xd;
+      &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;dwcVerbatimCoordinates&quot;: &quot;string&quot;,&#xd;
       &quot;dwcRecordedBy&quot;: &quot;string&quot;,&#xd;
       &quot;dwcVerbatimLatitude&quot;: &quot;string&quot;,&#xd;
@@ -144,8 +164,7 @@
       &quot;dwcVerbatimCoordinateSystem&quot;: &quot;string&quot;,&#xd;
       &quot;dwcVerbatimSRS&quot;: &quot;string&quot;,&#xd;
       &quot;dwcVerbatimElevation&quot;: &quot;string&quot;,&#xd;
-      &quot;dwcVerbatimDepth&quot;: &quot;string&quot;,&#xd;
-      &quot;createdBy&quot;: &quot;string&quot;&#xd;
+      &quot;dwcVerbatimDepth&quot;: &quot;string&quot;&#xd;
     }&#xd;
   }&#xd;
 }</stringProp>
@@ -185,8 +204,7 @@
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;material-sample&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;group&quot;: &quot;cnc&quot;,&#xd;
-      &quot;createdBy&quot;: &quot;string&quot;&#xd;
+      &quot;group&quot;: &quot;${user_group}&quot;&#xd;
     },&#xd;
     &quot;relationships&quot;: {&#xd;
       &quot;collectingEvent&quot;: {&#xd;
