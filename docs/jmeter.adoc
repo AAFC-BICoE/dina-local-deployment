@@ -1,0 +1,11 @@
+= JMeter
+
+https://jmeter.apache.org/index.html[Apache JMeter] is used to execute performance/stress test plan.
+
+== How to run
+
+You can start JMeter in GUI mode (default) and open the test plan to visualize it.
+
+Tu run a test plan from command-line:
+
+`jmeter -n -t collection_api_testplan.jmx -l log.jtl`

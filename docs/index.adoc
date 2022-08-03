@@ -20,5 +20,7 @@ include::keycloak.adoc[]
 
 include::local_certificates.adoc[]
 
+include::jmeter.adoc[]
+
 include::docker_network.adoc[]
 
