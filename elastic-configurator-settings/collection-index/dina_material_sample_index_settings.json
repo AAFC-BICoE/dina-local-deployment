@@ -257,6 +257,18 @@
                     }
                   }
                 }
+              },
+              "assemblages": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "assemblage"
+                      }
+                    }
+                  }
+                }
               }
             }
           }
