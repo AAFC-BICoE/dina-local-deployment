@@ -1,0 +1,41 @@
+= JMeter
+
+https://jmeter.apache.org/index.html[Apache JMeter] is used to execute performance/stress test plan.
+
+== Installation
+
+You will need to have java installed on your system. Insure it's installed using:
+
+[source, bash]
+----
+$ java -version
+----
+
+Next, download the latest version of JMeter from the https://jmeter.apache.org/download_jmeter.cgi[JMeter website] and extract it to your desired location:
+
+[source, bash]
+----
+$ wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.zip
+
+$ unzip apache-jmeter-5.5.zip
+----
+
+Then you can open up the binary and run jmeter to view the GUI:
+
+[source, bash]
+----
+$ cd /apache-jmeter-5.5/bin/
+
+$ ./jmeter
+----
+
+== How to run
+
+You can start JMeter in GUI mode (default) and open the test plan to visualize it.
+
+To run a test plan from command-line:
+
+[source,bash]
+----
+$ jmeter -n -t collection_api_testplan.jmx -l log.jtl
+----
