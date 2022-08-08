@@ -480,7 +480,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_installation_ubuntu_20">7.1. Installation (Ubuntu 20)</a></li>
 </ul>
 </li>
-<li><a href="#_change_default_docker_address_pool">8. Change default Docker address pool</a></li>
+<li><a href="#_jmeter">8. JMeter</a>
+<ul class="sectlevel2">
+<li><a href="#_installation">8.1. Installation</a></li>
+<li><a href="#_how_to_run">8.2. How to run</a></li>
+</ul>
+</li>
+<li><a href="#_change_default_docker_address_pool">9. Change default Docker address pool</a></li>
 </ul>
 </div>
 </div>
@@ -1051,7 +1057,60 @@ sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_change_default_docker_address_pool">8. Change default Docker address pool</h2>
+<h2 id="_jmeter">8. JMeter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://jmeter.apache.org/index.html">Apache JMeter</a> is used to execute performance/stress test plan.</p>
+</div>
+<div class="sect2">
+<h3 id="_installation">8.1. Installation</h3>
+<div class="paragraph">
+<p>You will need to have java installed on your system. Insure it&#8217;s installed using:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ java -version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, download the latest version of JMeter from the <a href="https://jmeter.apache.org/download_jmeter.cgi">JMeter website</a> and extract it to your desired location:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.zip
+
+$ unzip apache-jmeter-5.5.zip</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then you can open up the binary and run jmeter to view the GUI:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ cd /apache-jmeter-5.5/bin/
+
+$ ./jmeter</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_run">8.2. How to run</h3>
+<div class="paragraph">
+<p>You can start JMeter in GUI mode (default) and open the test plan to visualize it.</p>
+</div>
+<div class="paragraph">
+<p>To run a test plan from command-line:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ jmeter -n -t collection_api_testplan.jmx -l log.jtl</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_change_default_docker_address_pool">9. Change default Docker address pool</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The default Docker network addess pool may overlap with other networks (e.g. VPN).</p>
@@ -1080,7 +1139,7 @@ sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-08-08 17:21:52 UTC
+Last updated 2022-08-08 18:00:40 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
