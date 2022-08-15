@@ -34,7 +34,7 @@ services:
 
   keycloak:
     # we need a custom image optimized for Postgres. We are using the image tag to force a rebuild when there is a new Keycloak base container.
-    image: keycloak_pg:18.0.2
+    image: keycloak_pg:19.0.1
     build:
       context: keycloak/.
     environment:
