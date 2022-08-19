@@ -7,8 +7,11 @@ services:
     volumes:
       - "${DINA_UI_REPO_DIRECTORY}:/dina-ui"
     stop_signal: SIGKILL
+    # NodeJS Garbage Collection Heap Size is configured here, can be useful to increase if you are 
+    # out of memory in dev mode. Size is in MB.
     command: >
       bash -c "
+      export NODE_OPTIONS="--max-old-space-size=4096" ;
       yarn --cwd=/dina-ui/packages/dina-ui ;
       yarn --cwd=/dina-ui/packages/dina-ui dev
       "
