@@ -17,3 +17,5 @@ Traefik is responsible for TLS termination so Keycloak is configured with `KC_PR
 . To enable external access to an API add the same label added to `dina-ui` section
 
 Start the stack by pointing to `docker-compose.base-tls.yml` instead of `docker-compose.base.yml`.
+
+The URL to Keycloak changed: it is now `https://dina.local/auth`.
