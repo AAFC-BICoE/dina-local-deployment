@@ -11,11 +11,6 @@ services:
       # debug flags - may be commented or removed
       # Traefik dashboard: access localhost:8999 in browser
       - "--api.insecure=true"
-      # access logs: use "docker logs --follow [traefik container]"
-      - "--accesslog=true"
-      # debug logging: enable the traefik.log volume to use these
-      # - "--log.filePath=/traefik.log"
-      # - "--log.level=DEBUG"
     ports:
       - "443:443"
       # 80 will be redirected to 443 by configuration
@@ -27,7 +22,7 @@ services:
       - ./config/traefik-dynamic.yml:/etc/traefik/dynamic.yml:ro
       - ./certs:/etc/certs:ro
       # Allow Traefik to log to a local file
-      # - ./traefik.log:/traefik.log
+      # - ./logs/traefik:/tmp/traefik
     networks:
       dina:
         ipv4_address: ${TRAEFIK_IP}
@@ -46,8 +41,9 @@ services:
       KC_DB_PASSWORD: keycloak_user
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
       KC_PROXY: edge
-      KC_HTTPS_CERTIFICATE_FILE: /etc/certs/dina-local-cert.pem
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/certs/dina-local-key.pem
+#      use CERTIFICATE with proxy passthrough
+#      KC_HTTPS_CERTIFICATE_FILE: /etc/certs/dina-local-cert.pem
+#      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/certs/dina-local-key.pem
     ports:
       - 8443:8443
     networks:
@@ -59,7 +55,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.keycloak.tls=true"
-      - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`)"
+      - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`) && PathPrefix(`${KEYCLOAK_HOSTNAME_PATH}`)"
       - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
     depends_on:
       - keycloak-db

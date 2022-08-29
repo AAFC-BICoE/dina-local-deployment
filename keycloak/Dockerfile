@@ -1,6 +1,7 @@
 FROM quay.io/keycloak/keycloak:18.0.2 as builder
 
 ENV KC_DB=postgres
+ENV KC_HTTP_RELATIVE_PATH=/auth
 RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:18.0.2
