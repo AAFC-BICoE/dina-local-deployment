@@ -14,5 +14,6 @@ export COMPOSE_PROFILES=$(echo ${module_arr%,})
 
 echo "Using the following profile(s): $COMPOSE_PROFILES"
 
-docker compose -f docker-compose.base.yml -f docker-compose.local.yml $1
+# pass all the arguments to docker compose
+docker compose -f docker-compose.base.yml -f docker-compose.local.yml $@
 

@@ -40,12 +40,13 @@ KEYCLOAK_EXTERNAL_URL=http://My.Keycloak.Server:3239/auth
 
 # How to run
 
+Note: By default, a lot of modules won't be started. See Profiles Support section.
+
 To run:
 
 ```
 docker compose -f docker-compose.base.yml -f docker-compose.local.yml up
 ```
-Note: By default, a lot of modules won't be started. See Profiles Support section.
 
 ## Profiles Support
 
@@ -65,6 +66,8 @@ Example command using profile:
 ```
 $ COMPOSE_PROFILES=search_api docker compose -f docker-compose.base.yml -f docker-compose.local.yml up
 ```
+
+It is also possible to use the `start_stop_dina.sh` script to enable/disable modules.
 
 ## Users and groups
 
