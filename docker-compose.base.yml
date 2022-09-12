@@ -20,7 +20,7 @@ services:
       KEYCLOAK_IMPORT: /keycloak-realm.json
       KEYCLOAK_FRONTEND_URL: ${KEYCLOAK_EXTERNAL_URL}
     volumes:
-      - "./keycloak-dina-starter-realm.json:/keycloak-realm.json"
+      - "./keycloak/keycloak-dina-starter-realm.json:/keycloak-realm.json"
       - "./dina-keycloak-theme:/opt/jboss/keycloak/themes/dina"
     networks:
       dina:
