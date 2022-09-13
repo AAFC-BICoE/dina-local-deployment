@@ -315,6 +315,7 @@ services:
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
+      keycloak.client_id: dina-public
       keycloak.username: cnc-su
       keycloak.password: cnc-su
       ELASTICSEARCH_URL: elasticsearch-dina
