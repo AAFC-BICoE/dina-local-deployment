@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.103.0
+    image: aafcbicoe/dina-ui:0.104.0
     environment:
       KEYCLOAK_CLIENTID: objectstore
       KEYCLOAK_REALM: dina
@@ -74,7 +74,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.65
+    image: aafcbicoe/natural-history-collection-api:0.66
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
@@ -100,7 +100,7 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.4
+    image: aafcbicoe/loan-transaction-api:0.5
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
@@ -315,6 +315,8 @@ services:
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
+      keycloak.username: cnc-su
+      keycloak.password: cnc-su
       ELASTICSEARCH_URL: elasticsearch-dina
       MATERIAL_SAMPLE_URL: http://${API_HOSTNAME}/collection/api/v1/material-sample
       METADATA_URL: http://${API_HOSTNAME}/objectstore/api/v1/metadata
