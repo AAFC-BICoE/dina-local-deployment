@@ -72,11 +72,10 @@ docker-compose --profile search_api -f docker-compose.base.yml -f docker-compose
 
 After all the components have finished initializing, the UI will be available at `http://dina.local/`. By default, the following users are included:
 
-* `admin`: admin in the realm but not in any groups
-* `user`: in the `aafc`, `cnc` groups (no roles)
-* `cnc-cm`: `collection-manager` in the `cnc` group
-* `cnc-staff`: a `staff` in the `cnc` group
-* `cnc-student`: a `student` in the `cnc` group
+
+* `cnc-su`: `super-user` in the `cnc` group
+* `cnc-user`: a `user` in the `cnc` group
+* `cnc-guest`: a `guest` in the `cnc` group
 * `cnc-ro`: a `read-only` user in the `cnc` group
 * `dina-admin`: a `dina-admin` in the `aafc` group
 
