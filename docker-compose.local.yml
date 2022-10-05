@@ -126,7 +126,7 @@ services:
         condition: service_completed_successfully 
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.11
+    image: aafcbicoe/dina-user-api:0.12
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
