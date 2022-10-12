@@ -49,7 +49,7 @@ services:
         condition: service_completed_successfully 
 
   agent-api:
-    image: aafcbicoe/agent-api:0.21
+    image: aafcbicoe/agent-api:0.22
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
