@@ -341,6 +341,7 @@ services:
     image: rabbitmq:3.8.20-management-alpine
     profiles: ["search_api"]
     container_name: 'rabbitmq-dina'
+    hostname: rabbit_dina_node_1
     ports:
         - 5672:5672
         - 15672:15672
