@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.106.0
+    image: aafcbicoe/dina-ui:0.107.0
     environment:
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
@@ -126,7 +126,7 @@ services:
         condition: service_completed_successfully 
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.13
+    image: aafcbicoe/dina-user-api:0.14
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
