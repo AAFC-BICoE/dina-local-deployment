@@ -23,7 +23,7 @@ The hosts file must be updated with the hostnames used in the local deployment. 
 ```
 192.19.33.9 dina.local
 192.19.33.9 api.dina.local
-192.19.33.9 keycloak.local
+192.19.33.9 keycloak.dina.local
 ```
 
 ## Local certificates

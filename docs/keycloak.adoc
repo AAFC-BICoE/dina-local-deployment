@@ -6,5 +6,7 @@
 Traefik is responsible for TLS termination so Keycloak is configured with `KC_PROXY: edge`.
 
 
-Keycloak console is available at `https://dina.local/auth`.
+Keycloak Admin console is available at `https://keycloak.dina.local/auth`.
+
+The main reason for having the admin console on a different hostname is to simplify the rules for not exposing it.
 
