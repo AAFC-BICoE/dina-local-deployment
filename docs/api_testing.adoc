@@ -22,16 +22,16 @@ On each request, you will need to set up the following Authentication settings:
 |Authorization Code
 
 |Authorization URL / Auth URL
-|http://keycloak.local:8080/auth/realms/dina/protocol/openid-connect/auth
+|https://dina.local/auth/realms/dina/protocol/openid-connect/auth
 
 |Access Token URL
-|http://keycloak.local:8080/auth/realms/dina/protocol/openid-connect/token
+|https://dina.local/auth/realms/dina/protocol/openid-connect/token
 
 |Client ID
-|objectstore
+|dina-public
 
 |Redirect URL / Callback URL
-|http://dina.local
+|https://dina.local
 
 |Scope
 |openid
