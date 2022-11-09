@@ -21,33 +21,27 @@ See complete [Documentation](https://aafc-bicoe.github.io/dina-local-deployment/
 The hosts file must be updated with the hostnames used in the local deployment. In Linux and Mac OSX, this is located at `/etc/hosts`. You should have the following entries, all pointing to the fixed IP of the Traefik container:
 
 ```
-192.19.33.9 keycloak.local
 192.19.33.9 dina.local
 192.19.33.9 api.dina.local
+192.19.33.9 keycloak.local
 ```
 
-## KeyCloak Provider Url
+## Local certificates
 
-If you are running a local instance for testing purposes, you will not need to change the keycloak provider url.
-
-The public facing URL of the keycloak provider is required for the keycloak container and the UI. This allows the UI and keycloak container to serve the appropriate keycloak urls for users in the browser. By default the URL provider is set to point to a local instance with Host `keycloak.local` and port `8080`. 
-
-In the `.env` file you can set the `KEYCLOAK_EXTERNAL_URL` to point to the appropriate url.
-
-```properties
-KEYCLOAK_EXTERNAL_URL=http://My.Keycloak.Server:3239/auth
-```
+By default, everything will be accessible on https. In order to allow the local browser to work without issues and warnings
+[local development certificates](https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates) can be installed.
 
 # How to run
 
 To run:
 
 ```
-docker-compose \
+docker compose \
 -f docker-compose.base.yml \
 -f docker-compose.local.yml up
 ```
 Note: By default, a lot of modules won't be started. See Profiles Support section.
+
 
 ## Profiles Support
 
@@ -66,6 +60,18 @@ Example command using profile:
 
 ```
 docker-compose --profile search_api -f docker-compose.base.yml -f docker-compose.local.yml up
+```
+
+## KeyCloak Provider Url
+
+If you are running a local instance for testing purposes, you will not need to change the keycloak provider url.
+
+The public facing URL of the keycloak provider is required for the keycloak container and the UI. This allows the UI and keycloak container to serve the appropriate keycloak urls for users in the browser. By default the URL provider is set to point to a local instance with Host `keycloak.local` and port `8080`.
+
+In the `.env` file you can set the `KEYCLOAK_EXTERNAL_URL` to point to the appropriate url.
+
+```properties
+KEYCLOAK_EXTERNAL_URL=http://My.Keycloak.Server:3239/auth
 ```
 
 ## Users and groups
@@ -103,15 +109,3 @@ docker-compose -f docker-compose.base.yml -f docker-compose.local.yml up
 ```
 
 These steps can also be followed when using the search api as well, just add the `-d keycloak` after the `up`.
-
-# Persist dina-db and keycloak data between containers
-
-An optional override file is provided to allow the dina-db and keycloak services to persist their volumes between containers.
-
-```
-docker-compose \
--f docker-compose.base.yml \
--f persistence-override/docker-compose.override.persistence.yml \
--f docker-compose.local.yml \
-up -d
-```
