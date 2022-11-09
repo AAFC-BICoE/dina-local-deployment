@@ -984,7 +984,10 @@ up -d</code></pre>
 <p>Traefik is responsible for TLS termination so Keycloak is configured with <code>KC_PROXY: edge</code>.</p>
 </div>
 <div class="paragraph">
-<p>Keycloak console is available at <code><a href="https://dina.local/auth" class="bare">https://dina.local/auth</a></code>.</p>
+<p>Keycloak Admin console is available at <code><a href="https://keycloak.dina.local/auth" class="bare">https://keycloak.dina.local/auth</a></code>.</p>
+</div>
+<div class="paragraph">
+<p>The main reason for having the admin console on a different hostname is to simplify the rules for not exposing it.</p>
 </div>
 </div>
 </div>
@@ -1109,7 +1112,7 @@ $ ./jmeter</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-11-09 16:15:45 UTC
+Last updated 2022-11-09 19:17:51 UTC
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
