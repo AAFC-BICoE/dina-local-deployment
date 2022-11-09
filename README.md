@@ -5,7 +5,7 @@ This repository can deploy the DINA ecosystem for demonstration and/or test purp
 # Requirements
 
 * [Docker Engine](https://docs.docker.com/engine/install/) (tested with 20.10)
-* [Docker-Compose](https://docs.docker.com/compose/) (tested with 2.4)
+* [Docker-Compose](https://docs.docker.com/compose/) (tested with 2.6)
 * Basic knowledge of Docker and Docker-Compose
 * Minimum 12GB of RAM (for all modules)
 * Local IP range must be available or updated
@@ -23,7 +23,7 @@ The hosts file must be updated with the hostnames used in the local deployment. 
 ```
 192.19.33.9 dina.local
 192.19.33.9 api.dina.local
-192.19.33.9 keycloak.local
+192.19.33.9 keycloak.dina.local
 ```
 
 ## Local certificates
@@ -33,14 +33,13 @@ By default, everything will be accessible on https. In order to allow the local 
 
 # How to run
 
+Note: By default, a lot of modules won't be started. See Profiles Support section.
+
 To run:
 
 ```
-docker compose \
--f docker-compose.base.yml \
--f docker-compose.local.yml up
+docker compose -f docker-compose.base.yml -f docker-compose.local.yml up
 ```
-Note: By default, a lot of modules won't be started. See Profiles Support section.
 
 
 ## Profiles Support
@@ -59,8 +58,10 @@ Available profiles:
 Example command using profile:
 
 ```
-docker-compose --profile search_api -f docker-compose.base.yml -f docker-compose.local.yml up
+$ COMPOSE_PROFILES=search_api docker compose -f docker-compose.base.yml -f docker-compose.local.yml up
 ```
+
+It is also possible to use the `start_stop_dina.sh` script to enable/disable modules.
 
 ## KeyCloak Provider Url
 

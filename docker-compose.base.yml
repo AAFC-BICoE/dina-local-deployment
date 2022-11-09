@@ -40,6 +40,7 @@ services:
       KC_DB_USERNAME: keycloak_user
       KC_DB_PASSWORD: keycloak_user
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
+      KC_HOSTNAME_ADMIN: ${KEYCLOAK_ADMIN_HOSTNAME}
       KC_PROXY: edge
 #      use CERTIFICATE with proxy passthrough
 #      KC_HTTPS_CERTIFICATE_FILE: /etc/certs/dina-local-cert.pem
@@ -55,7 +56,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.keycloak.tls=true"
-      - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`) && PathPrefix(`${KEYCLOAK_HOSTNAME_PATH}`)"
+      - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`, `${KEYCLOAK_ADMIN_HOSTNAME}`) && PathPrefix(`${KEYCLOAK_HOSTNAME_PATH}`)"
       - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
     depends_on:
       - keycloak-db
