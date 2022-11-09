@@ -5,54 +5,71 @@ networks:
       config:
         - subnet: ${SUBNET}
 services:
-  keycloak:
-    image: jboss/keycloak:15.1.1
-    user: root
-    command: [
-        "-Djboss.http.port=${KEYCLOAK_PORT}",
-        "-Dkeycloak.hostname.provider=fixed",
-        "-Dkeycloak.hostname.fixed.hostname=${KEYCLOAK_EXTERNAL_HOSTNAME}" ]
-    expose:
-      - ${KEYCLOAK_PORT}
-    environment:
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: admin
-      KEYCLOAK_IMPORT: /keycloak-realm.json
-      KEYCLOAK_FRONTEND_URL: ${KEYCLOAK_EXTERNAL_URL}
-    volumes:
-      - "./keycloak-dina-starter-realm.json:/keycloak-realm.json"
-      - "./dina-keycloak-theme:/opt/jboss/keycloak/themes/dina"
-    networks:
-      dina:
-    labels:
-      - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`)"
-
   traefik:
-    image: traefik:v2.3.7
+    image: traefik:v2.7.0
     command:
-      - "--providers.docker=true"
-      - "--entrypoints.traefik.address=:9090"
-      - "--entrypoints.dockerweb.address=:8080"
-      - "--entrypoints.http.address=:80"
       # debug flags - may be commented or removed
       # Traefik dashboard: access localhost:8999 in browser
       - "--api.insecure=true"
-      # access logs: use "docker logs --follow [traefik container]"
-      - "--accesslog=true"
-      # debug logging: enable the traefik.log volume to use these
-      # - "--log.filePath=/traefik.log"
-      # - "--log.level=DEBUG"
     ports:
-      # - "80:80" # Traefik-connected services
-      - "8999:9090" # Traefik web UI
+      - "443:443"
+      # 80 will be redirected to 443 by configuration
+      - "80:80"
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./config/traefik-dynamic.yml:/etc/traefik/dynamic.yml:ro
+      - ./certs:/etc/certs:ro
       # Allow Traefik to log to a local file
-      # - ./traefik.log:/traefik.log
+      # - ./logs/traefik:/tmp/traefik
     networks:
       dina:
         ipv4_address: ${TRAEFIK_IP}
+
+  keycloak:
+    # we need a custom image optimized for Postgres. We are using the image tag to force a rebuild when there is a new Keycloak base container.
+    image: keycloak_pg:18.0.2
+    build:
+      context: keycloak/.
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB_URL_HOST: keycloak-db
+      KC_DB_URL_DATABASE: keycloak_db
+      KC_DB_USERNAME: keycloak_user
+      KC_DB_PASSWORD: keycloak_user
+      KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
+      KC_PROXY: edge
+#      use CERTIFICATE with proxy passthrough
+#      KC_HTTPS_CERTIFICATE_FILE: /etc/certs/dina-local-cert.pem
+#      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/certs/dina-local-key.pem
+    ports:
+      - 8443:8443
+    networks:
+      dina:
+    volumes:
+      - ./keycloak/keycloak-dina-starter-realm.json:/opt/keycloak/data/import/realm.json
+      - ./dina-keycloak-theme:/opt/keycloak/themes/dina
+      - ./certs:/etc/certs:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.keycloak.tls=true"
+      - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`) && PathPrefix(`${KEYCLOAK_HOSTNAME_PATH}`)"
+      - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
+    depends_on:
+      - keycloak-db
+
+  keycloak-db:
+    image: "postgres:12"
+    environment:
+      POSTGRES_DB: keycloak_db
+      POSTGRES_PASSWORD: keycloak_user
+      POSTGRES_USER: keycloak_user
+    networks:
+      - dina
+    volumes:
+      - ./keycloak-data:/var/lib/postgresql/data
 
   dina-db:
     image: "postgis/postgis:12-3.1-alpine"
