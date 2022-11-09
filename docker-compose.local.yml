@@ -316,17 +316,17 @@ services:
     image: aafcbicoe/dina-search-cli:0.22
     profiles: ["search_api"]
     environment:
-      keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
+      keycloak.openid_auth_server: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/token
       keycloak.client_id: dina-public
       keycloak.username: cnc-su
       keycloak.password: cnc-su
       ELASTICSEARCH_URL: elasticsearch-dina
-      MATERIAL_SAMPLE_URL: http://${API_HOSTNAME}/collection/api/v1/material-sample
-      METADATA_URL: http://${API_HOSTNAME}/objectstore/api/v1/metadata
-      ORGANIZATION_URL: http://${API_HOSTNAME}/agent/api/v1/organization
-      PERSON_URL: http://${API_HOSTNAME}/agent/api/v1/person
-      STORAGE_UNIT_URL: http://${API_HOSTNAME}/collection/api/v1/storage-unit
-      LOAN_TRANSACTION_URL: http://${API_HOSTNAME}/transaction/api/v1/transaction
+      MATERIAL_SAMPLE_URL: http://collection-api:8080/collection/api/v1/material-sample
+      METADATA_URL: http://object-store-api:8080/objectstore/api/v1/metadata
+      ORGANIZATION_URL: http://agent-api:8080/agent/api/v1/organization
+      PERSON_URL: http://agent-api:8080/agent/api/v1/person
+      STORAGE_UNIT_URL: http://collection-api:8080/collection/api/v1/storage-unit
+      LOAN_TRANSACTION_URL: http://loan-transaction-api:8080/transaction/api/v1/transaction
       RABBITMQ_HOSTNAME: rabbitmq-dina
       IS_MESSAGE_CONSUMER: "true"
       IS_MESSAGE_PRODUCER: "true"
