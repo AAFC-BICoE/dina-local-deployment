@@ -3,6 +3,7 @@ DINA_MODULES+=('object_store_api')
 #DINA_MODULES+=('search_api')
 #DINA_MODULES+=('seqdb_api')
 #DINA_MODULES+=('report_label_api')
+#DINA_MODULES+=('loan_transaction_api')
 
 #DINA_MODULES+=('kibana')
 #DINA_MODULES+=('prometheus')

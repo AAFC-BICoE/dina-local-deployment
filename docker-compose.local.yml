@@ -103,6 +103,7 @@ services:
 
   loan-transaction-api:
     image: aafcbicoe/loan-transaction-api:0.7
+    profiles: ["loan_transaction_api"]
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
