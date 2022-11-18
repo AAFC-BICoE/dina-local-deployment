@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.109.0
+    image: aafcbicoe/dina-ui:0.110.0
     environment:
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
@@ -102,7 +102,7 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.6
+    image: aafcbicoe/loan-transaction-api:0.7
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
@@ -154,7 +154,7 @@ services:
         condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.42
+    image: aafcbicoe/object-store-api:0.43
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
