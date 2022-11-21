@@ -52,6 +52,7 @@ services:
 
   agent-api:
     image: aafcbicoe/agent-api:0.22
+    profiles: ["agent_api"]
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
@@ -130,6 +131,7 @@ services:
 
   dina-user-api:
     image: aafcbicoe/dina-user-api:0.14
+    profiles: ["user_api"]
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"

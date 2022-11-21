@@ -1,5 +1,7 @@
 DINA_MODULES=()
-DINA_MODULES+=('object_store_api')
+DINA_MODULES+=('user_api')
+#DINA_MODULES+=('object_store_api')
+#DINA_MODULES+=('agent_api')
 #DINA_MODULES+=('search_api')
 #DINA_MODULES+=('seqdb_api')
 #DINA_MODULES+=('report_label_api')
