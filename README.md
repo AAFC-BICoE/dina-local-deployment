@@ -33,7 +33,7 @@ By default, everything will be accessible on https. In order to allow the local 
 
 # How to run
 
-Note: By default, a lot of modules won't be started. See Profiles Support section.
+Important: By default, a lot of modules won't be started due to the amount of RAM required to start all of them. See Profiles Support section.
 
 To run:
 
@@ -44,13 +44,16 @@ docker compose -f docker-compose.base.yml -f docker-compose.local.yml up
 
 ## Profiles Support
 
-Profiles have been added to support the deployment of non-mandatory components defined under a specific profile keyword.
+Profiles are available to start specific modules.
 
 Available profiles:
 
+* user_api
+* agent_api
 * object_store_api
 * search_api
 * seqdb_api
+* loan_transaction_api
 * report_label_api
 * kibana
 * prometheus
