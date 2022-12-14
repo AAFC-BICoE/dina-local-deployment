@@ -27,7 +27,7 @@ services:
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.3.0
+    image: aafcbicoe/seqdb-api:2.4.0
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
@@ -157,7 +157,7 @@ services:
         condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.43
+    image: aafcbicoe/object-store-api:1.0
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
