@@ -6,6 +6,8 @@
     }
   },
   "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
     "dynamic_templates": [
       {
         "includes_as_nested": {
