@@ -103,7 +103,7 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.7
+    image: aafcbicoe/loan-transaction-api:0.8
     profiles: ["loan_transaction_api"]
     mem_limit: 512m
     environment:
@@ -157,7 +157,7 @@ services:
         condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.1
+    image: aafcbicoe/object-store-api:1.2
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
