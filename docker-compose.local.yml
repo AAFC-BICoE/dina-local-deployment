@@ -2,9 +2,9 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.99.0
+    image: aafcbicoe/dina-ui:0.116.0
     environment:
-      KEYCLOAK_CLIENTID: objectstore
+      KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
       KEYCLOAK_PUBLIC_URL: ${KEYCLOAK_EXTERNAL_URL}
       OBJECTSTORE_API_ADDRESS: object-store-api:8080
@@ -15,21 +15,23 @@ services:
       SEARCH_API_ADDRESS: search-ws:8085
       LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
       REPORT_LABEL_API_ADDRESS: report-label-api:80
-
+      INSTANCE_MODE: ${INSTANCE_MODE}
     networks:
       - dina
     ports:
       - "2015:80"
     labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ui.tls=true"
       - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.1.4
+    image: aafcbicoe/seqdb-api:2.5.0
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       spring.datasource.url: jdbc:postgresql://dina-db/seqdb?currentSchema=seqdb
       spring.liquibase.user: ${SEQDB_MIGRATION_USER}
       spring.liquibase.password: ${SEQDB_MIGRATION_USER_PW}
@@ -49,11 +51,12 @@ services:
         condition: service_completed_successfully 
 
   agent-api:
-    image: aafcbicoe/agent-api:0.20
+    image: aafcbicoe/agent-api:0.23
+    profiles: ["agent_api"]
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       spring.datasource.url: jdbc:postgresql://dina-db/agent?currentSchema=agent
       spring.liquibase.user: ${AGENT_MIGRATION_USER}
       spring.liquibase.password: ${AGENT_MIGRATION_USER_PW}
@@ -74,10 +77,10 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.62
+    image: aafcbicoe/natural-history-collection-api:0.71
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       spring.datasource.url: jdbc:postgresql://dina-db/collection?currentSchema=collection
       spring.liquibase.user: ${COLL_MIGRATION_USER}
       spring.liquibase.password: ${COLL_MIGRATION_USER_PW}
@@ -100,11 +103,12 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.4
+    image: aafcbicoe/loan-transaction-api:0.8
+    profiles: ["loan_transaction_api"]
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       spring.datasource.url: jdbc:postgresql://dina-db/loan_transaction?currentSchema=loan_transaction
       spring.liquibase.user: ${LOAN_TRANSACTION_MIGRATION_USER}
       spring.liquibase.password: ${LOAN_TRANSACTION_MIGRATION_USER_PW}
@@ -126,11 +130,12 @@ services:
         condition: service_completed_successfully 
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.10
+    image: aafcbicoe/dina-user-api:0.14
+    profiles: ["user_api"]
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       KEYCLOAK_USER_SVC_SECRET: 120c0b7a-5ed2-4295-9a31-29c2fcbc714f
       spring.datasource.url: jdbc:postgresql://dina-db/dina_user?currentSchema=dina_user
       spring.liquibase.user: ${DINA_USER_MIGRATION_USER}
@@ -152,12 +157,12 @@ services:
         condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:0.40
+    image: aafcbicoe/object-store-api:1.2
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       dev-user.enabled: "false"
       spring.datasource.url: jdbc:postgresql://dina-db/object_store?currentSchema=object_store
       spring.liquibase.user: ${OBJ_STORE_MIGRATION_USER}
@@ -216,7 +221,7 @@ services:
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch-dina:
     # we need a plugin so a custom image is built (to ensure an immutable Docker image)
-    image: elasticsearch_icu:7.17.4
+    image: elasticsearch_icu:7.17.6
     build: elasticsearch/
     profiles: ["search_api"]
     environment:
@@ -299,7 +304,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.19
+    image: aafcbicoe/dina-search-ws:0.22
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -311,17 +316,20 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.19
+    image: aafcbicoe/dina-search-cli:0.22
     profiles: ["search_api"]
     environment:
-      keycloak.openid_auth_server: http://${KEYCLOAK_HOSTNAME}:${KEYCLOAK_PORT}/auth/realms/dina/protocol/openid-connect/token
+      keycloak.openid_auth_server: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/token
+      keycloak.client_id: dina-public
+      keycloak.username: cnc-su
+      keycloak.password: cnc-su
       ELASTICSEARCH_URL: elasticsearch-dina
-      MATERIAL_SAMPLE_URL: http://${API_HOSTNAME}/collection/api/v1/material-sample
-      METADATA_URL: http://${API_HOSTNAME}/objectstore/api/v1/metadata
-      ORGANIZATION_URL: http://${API_HOSTNAME}/agent/api/v1/organization
-      PERSON_URL: http://${API_HOSTNAME}/agent/api/v1/person
-      STORAGE_UNIT_URL: http://${API_HOSTNAME}/collection/api/v1/storage-unit
-      LOAN_TRANSACTION_URL: http://${API_HOSTNAME}/transaction/api/v1/transaction
+      MATERIAL_SAMPLE_URL: http://collection-api:8080/api/v1/material-sample
+      METADATA_URL: http://object-store-api:8080/api/v1/metadata
+      ORGANIZATION_URL: http://agent-api:8080/api/v1/organization
+      PERSON_URL: http://agent-api:8080/api/v1/person
+      STORAGE_UNIT_URL: http://collection-api:8080/api/v1/storage-unit
+      LOAN_TRANSACTION_URL: http://loan-transaction-api:8080/api/v1/transaction
       RABBITMQ_HOSTNAME: rabbitmq-dina
       IS_MESSAGE_CONSUMER: "true"
       IS_MESSAGE_PRODUCER: "true"
@@ -338,6 +346,7 @@ services:
     image: rabbitmq:3.8.20-management-alpine
     profiles: ["search_api"]
     container_name: 'rabbitmq-dina'
+    hostname: rabbit_dina_node_1
     ports:
         - 5672:5672
         - 15672:15672

@@ -6,6 +6,8 @@
     }
   },
   "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
     "dynamic_templates": [
       {
         "includes_as_nested": {
@@ -56,14 +58,11 @@
               "createdOn": {
                 "type": "date"
               },
-              "bucket": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 256
-                  }
-                }
+              "acDigitizationDate": {
+                "type": "date"
+              },
+              "xmpMetadataDate": {
+                "type": "date"
               },
               "originalFilename": {
                 "type": "text",
@@ -73,6 +72,36 @@
                     "ignore_above": 256
                   }
                 }
+              },
+              "bucket": {
+                "type": "keyword"
+              },
+              "fileIdentifier": {
+                "type": "keyword"
+              },
+              "fileExtension": {
+                "type": "keyword"
+              },
+              "dcFormat": {
+                "type": "keyword"
+              },
+              "dcType": {
+                "type": "keyword"
+              },
+              "xmpRightsWebStatement": {
+                "type": "keyword"
+              },
+              "dcRights": {
+                "type": "keyword"
+              },
+              "xmpRightsOwner": {
+                "type": "keyword"
+              },
+              "xmpRightsUsageTerms": {
+                "type": "keyword"
+              },
+              "acHashValue": {
+                "type": "keyword"
               },
               "acCaption": {
                 "type": "text",
@@ -146,3 +175,4 @@
     }
   }
 }
+
