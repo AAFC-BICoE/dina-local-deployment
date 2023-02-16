@@ -6,8 +6,6 @@
     }
   },
   "mappings": {
-    "date_detection": false,
-    "numeric_detection": false,
     "dynamic_templates": [
       {
         "includes_as_nested": {
@@ -40,10 +38,6 @@
     "properties": {
       "data": {
         "properties": {
-          "type": {
-            "type": "constant_keyword",
-            "value": "storage-unit"
-          },
           "attributes": {
             "properties": {
               "createdBy": {
@@ -70,10 +64,6 @@
               "name": {
                 "type": "text",
                 "fields": {
-                  "autocomplete": {
-                    "type": "search_as_you_type",
-                    "max_shingle_size": 3
-                  },
                   "keyword": {
                     "type": "keyword",
                     "ignore_above": 256
@@ -81,33 +71,16 @@
                 }
               },
               "hierarchy": {
+                "type": "nested",
                 "properties": {
                   "uuid": {
-                    "type": "text",
-                    "fields": {
-                      "keyword": {
-                        "type": "keyword",
-                        "ignore_above": 256
-                      }
-                    }
+                    "type": "keyword"
                   },
                   "name": {
-                    "type": "text",
-                    "fields": {
-                      "keyword": {
-                        "type": "keyword",
-                        "ignore_above": 256
-                      }
-                    }
+                    "type": "keyword"
                   },
                   "rank": {
-                    "type": "text",
-                    "fields": {
-                      "keyword": {
-                        "type": "keyword",
-                        "ignore_above": 256
-                      }
-                    }
+                    "type": "integer"
                   }
                 }
               }
@@ -149,13 +122,18 @@
                   }
                 }
               },
-              "storageUnitType": {
+              "storageUnitType ": {
                 "properties": {
                   "data": {
                     "properties": {
                       "type": {
-                        "type": "constant_keyword",
-                        "value": "storage-unit-type"
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
                       }
                     }
                   }
