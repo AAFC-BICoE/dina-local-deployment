@@ -180,6 +180,20 @@
               },
               "endEventDateTime": {
                 "type": "date"
+              },
+              "hierarchy": {
+                "type": "nested",
+                "properties": {
+                  "uuid": {
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "type": "keyword"
+                  },
+                  "rank": {
+                    "type": "integer"
+                  }
+                }
               }
             }
           },
