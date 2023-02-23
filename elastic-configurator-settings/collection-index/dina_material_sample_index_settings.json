@@ -6,8 +6,8 @@
     }
   },
   "mappings": {
-    "date_detection": true,
-    "numeric_detection": true,
+    "date_detection": false,
+    "numeric_detection": false,
     "dynamic_templates": [
       {
         "includes_as_nested": {
@@ -33,14 +33,6 @@
           "match":   "type",
           "mapping": {
             "type": "keyword"
-          }
-        }
-      },
-      {
-        "verbatim_as_text": {
-          "match": "*verbatim*",
-          "mapping": {
-            "type": "text"
           }
         }
       }
