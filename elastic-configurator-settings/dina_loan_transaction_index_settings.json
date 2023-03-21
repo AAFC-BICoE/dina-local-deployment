@@ -79,6 +79,18 @@
             }
           }
         }
+      },
+      "included" : {
+        "type": "nested",
+        "properties" : {
+          "attributes" : {
+            "properties" : {
+              "materialSamples": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
       }
     }
   }
