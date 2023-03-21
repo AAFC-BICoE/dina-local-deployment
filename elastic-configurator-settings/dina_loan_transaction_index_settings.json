@@ -12,7 +12,7 @@
       {
         "includes_as_nested": {
           "match_mapping_type": "object",
-          "match":   "included",
+          "match": "included",
           "mapping": {
             "type": "nested"
           }
@@ -21,7 +21,7 @@
       {
         "id_as_keywords": {
           "match_mapping_type": "string",
-          "match":   "id",
+          "match": "id",
           "mapping": {
             "type": "keyword"
           }
@@ -30,7 +30,7 @@
       {
         "type_as_keywords": {
           "match_mapping_type": "string",
-          "match":   "type",
+          "match": "type",
           "mapping": {
             "type": "keyword"
           }
@@ -75,6 +75,18 @@
                     "ignore_above": 256
                   }
                 }
+              }
+            }
+          }
+        }
+      },
+      "included": {
+        "type": "nested",
+        "properties": {
+          "attributes": {
+            "properties": {
+              "materialSamples": {
+                "type": "keyword"
               }
             }
           }
