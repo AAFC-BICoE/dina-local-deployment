@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+
+  flink-jobmanager:
+    image: flink:1.16
+    profiles: ["flink"]
+    ports:
+      - "8081:8081"
+    command: jobmanager
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: flink-jobmanager
+
+  flink-taskmanager:
+    image: flink:1.16
+    profiles: ["flink"]
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    scale: 1
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: flink-jobmanager
+        taskmanager.numberOfTaskSlots: 2
