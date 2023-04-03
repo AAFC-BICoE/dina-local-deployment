@@ -154,3 +154,31 @@ ssh USERNAME@localhost
 Now you are connected to your Virtual Machine. You can open projects and use the terminal as if you were in the VM.
 
 More info: https://code.visualstudio.com/docs/remote/remote-overview
+
+=== API Debugging
+
+To debug an API while using the local deployment, you can use the `docker-compose.debug.yml` config which can be enabled from the `start_stop_dina.sh` script.
+
+Once enabled, you will be able to attach your VSCode to an API. The debugging ports can be found in the `.env` file.
+
+Also remember that if you are running VSCode remotely, you will need to port forward the debugging port.
+
+Here is an example of a `launch.json` that can be added to an API for VSCode to attach itself to the java debugger for a specific API:
+
+[source, json]
+----
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Attach to Collection API Container",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": "5002"
+    }
+  ]
+}
+----
+
+Just ensure that port lines up with the correct API and the port is exposed for VSCode to attach itself.
