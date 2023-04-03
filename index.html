@@ -453,6 +453,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#_recommended_extensions">1.3.1. Recommended Extensions</a></li>
 <li><a href="#_vscode_remote_optional">1.3.2. VSCode Remote (Optional)</a></li>
+<li><a href="#_api_debugging">1.3.3. API Debugging</a></li>
 </ul>
 </li>
 </ul>
@@ -722,6 +723,40 @@ sudo systemctl start ssh</code></pre>
 </div>
 <div class="paragraph">
 <p>More info: <a href="https://code.visualstudio.com/docs/remote/remote-overview" class="bare">https://code.visualstudio.com/docs/remote/remote-overview</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_api_debugging">1.3.3. API Debugging</h4>
+<div class="paragraph">
+<p>To debug an API while using the local deployment, you can use the <code>docker-compose.debug.yml</code> config which can be enabled from the <code>start_stop_dina.sh</code> script.</p>
+</div>
+<div class="paragraph">
+<p>Once enabled, you will be able to attach your VSCode to an API. The debugging ports can be found in the <code>.env</code> file.</p>
+</div>
+<div class="paragraph">
+<p>Also remember that if you are running VSCode remotely, you will need to port forward the debugging port.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example of a <code>launch.json</code> that can be added to an API for VSCode to attach itself to the java debugger for a specific API:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Attach to Collection API Container",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": "5002"
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Just ensure that port lines up with the correct API and the port is exposed for VSCode to attach itself.</p>
 </div>
 </div>
 </div>
@@ -1114,7 +1149,7 @@ $ ./jmeter</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-30 15:07:29 UTC
+Last updated 2023-04-03 19:16:03 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
