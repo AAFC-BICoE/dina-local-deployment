@@ -21,14 +21,14 @@ DINA_CONFIGS+=('docker-compose.local.yml')
 #DINA_CONFIGS+=('persistence-override/docker-compose.override.persistence.yml')
 
 # Convert arrays to comma-separated strings
-printf -v module_arr '%s, ' "${DINA_MODULES[@]}"
-printf -v config_arr '%s, ' "${DINA_CONFIGS[@]}"
+printf -v module_arr '%s,' "${DINA_MODULES[@]}"
+printf -v config_arr '%s,' "${DINA_CONFIGS[@]}"
 
 # Remove trailing comma and export the variables for docker-compose
-export COMPOSE_PROFILES=$(echo ${module_arr%, })
+export COMPOSE_PROFILES=$(echo ${module_arr%,})
 
 # Remove training commas to display the compose configs to be applied.
-COMPOSE_CONFIGS=$(echo ${config_arr%, })
+COMPOSE_CONFIGS=$(echo ${config_arr%,})
 
 # Print the profiles and configs being used
 YELLOW_COLOR_CODE="\033[33m"
