@@ -38,9 +38,10 @@ Important: By default, a lot of modules won't be started due to the amount of RA
 To run:
 
 ```
-docker compose -f docker-compose.base.yml -f docker-compose.local.yml up
+./start_stop_dina.sh up
 ```
 
+The `start_stop_dina.sh` can be configured before running to allow for certain profiles and configurations to be applied.
 
 ## Profiles Support
 
