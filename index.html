@@ -472,24 +472,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_headers">4.4. Headers</a></li>
 </ul>
 </li>
-<li><a href="#_messaging">5. Messaging</a></li>
-<li><a href="#_keycloak">6. Keycloak</a>
+<li><a href="#_postgresql">5. PostgreSQL</a></li>
+<li><a href="#_messaging">6. Messaging</a></li>
+<li><a href="#_keycloak">7. Keycloak</a>
 <ul class="sectlevel2">
-<li><a href="#_settings">6.1. Settings</a></li>
+<li><a href="#_settings">7.1. Settings</a></li>
 </ul>
 </li>
-<li><a href="#_local_certificates">7. Local certificates</a>
+<li><a href="#_local_certificates">8. Local certificates</a>
 <ul class="sectlevel2">
-<li><a href="#_installation_ubuntu_20">7.1. Installation (Ubuntu 20)</a></li>
+<li><a href="#_installation_ubuntu_20">8.1. Installation (Ubuntu 20)</a></li>
 </ul>
 </li>
-<li><a href="#_jmeter">8. JMeter</a>
+<li><a href="#_jmeter">9. JMeter</a>
 <ul class="sectlevel2">
-<li><a href="#_installation">8.1. Installation</a></li>
-<li><a href="#_how_to_run">8.2. How to run</a></li>
+<li><a href="#_installation">9.1. Installation</a></li>
+<li><a href="#_how_to_run">9.2. How to run</a></li>
 </ul>
 </li>
-<li><a href="#_change_default_docker_address_pool">9. Change default Docker address pool</a></li>
+<li><a href="#_change_default_docker_address_pool">10. Change default Docker address pool</a></li>
 </ul>
 </div>
 </div>
@@ -995,7 +996,23 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect1">
-<h2 id="_messaging">5. Messaging</h2>
+<h2 id="_postgresql">5. PostgreSQL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is possible to query PostgreSQL when the container is running.</p>
+</div>
+<div class="paragraph">
+<p>Example on the <code>collection</code> database, <code>collection</code> pg schema:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">docker exec -i CONTAINER_ID psql -U pguser collection -c "select * from collection.project"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_messaging">6. Messaging</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To enable Messaging based on RabbitMQ, combine the <code>--profile search_api</code> with the override file <code>message-producing-override/docker-compose.override.messageProducer.yml</code>.</p>
@@ -1013,10 +1030,10 @@ up -d</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_keycloak">6. Keycloak</h2>
+<h2 id="_keycloak">7. Keycloak</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_settings">6.1. Settings</h3>
+<h3 id="_settings">7.1. Settings</h3>
 <div class="paragraph">
 <p>Traefik is responsible for TLS termination so Keycloak is configured with <code>KC_PROXY: edge</code>.</p>
 </div>
@@ -1030,13 +1047,13 @@ up -d</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_local_certificates">7. Local certificates</h2>
+<h2 id="_local_certificates">8. Local certificates</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In order to generate development certificates <a href="https://github.com/FiloSottile/mkcert">mkcert</a> will be used.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation_ubuntu_20">7.1. Installation (Ubuntu 20)</h3>
+<h3 id="_installation_ubuntu_20">8.1. Installation (Ubuntu 20)</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">sudo apt-get install wget libnss3-tools -y
@@ -1067,13 +1084,13 @@ sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_jmeter">8. JMeter</h2>
+<h2 id="_jmeter">9. JMeter</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://jmeter.apache.org/index.html">Apache JMeter</a> is used to execute performance/stress test plan.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation">8.1. Installation</h3>
+<h3 id="_installation">9.1. Installation</h3>
 <div class="paragraph">
 <p>You will need to have java installed on your system. Insure it&#8217;s installed using:</p>
 </div>
@@ -1104,7 +1121,7 @@ $ ./jmeter</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_how_to_run">8.2. How to run</h3>
+<h3 id="_how_to_run">9.2. How to run</h3>
 <div class="paragraph">
 <p>You can start JMeter in GUI mode (default) and open the test plan to visualize it.</p>
 </div>
@@ -1120,7 +1137,7 @@ $ ./jmeter</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_change_default_docker_address_pool">9. Change default Docker address pool</h2>
+<h2 id="_change_default_docker_address_pool">10. Change default Docker address pool</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The default Docker network addess pool may overlap with other networks (e.g. VPN).</p>
@@ -1149,7 +1166,7 @@ $ ./jmeter</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-18 12:57:05 UTC
+Last updated 2023-04-18 12:57:28 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
