@@ -2,7 +2,7 @@
 
 It is possible to query PostgreSQL when the container is running.
 
-Example on the collection database, colleciton pg schema:
+Example on the `collection` database, `collection` pg schema:
 [source,shell]
 ----
 docker exec -i CONTAINER_ID psql -U pguser collection -c "select * from collection.project"
