@@ -6,8 +6,8 @@
     }
   },
   "mappings": {
-    "date_detection": false,
-    "numeric_detection": false,
+    "date_detection": true,
+    "numeric_detection": true,
     "dynamic_templates": [
       {
         "includes_as_nested": {
