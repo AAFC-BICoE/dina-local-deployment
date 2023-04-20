@@ -35,6 +35,14 @@
             "type": "keyword"
           }
         }
+      },
+      {
+        "verbatim_as_text": {
+          "match": "*verbatim*",
+          "mapping": {
+            "type": "text"
+          }
+        }
       }
     ],
     "properties": {
