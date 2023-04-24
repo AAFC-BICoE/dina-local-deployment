@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.121.0
+    image: aafcbicoe/dina-ui:0.124.0
     environment:
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
@@ -27,7 +27,7 @@ services:
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.7.0
+    image: aafcbicoe/seqdb-api:2.8.0
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
@@ -304,7 +304,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.23
+    image: aafcbicoe/dina-search-ws:0.24.1
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -316,7 +316,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.23
+    image: aafcbicoe/dina-search-cli:0.24.1
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/token
