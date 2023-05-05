@@ -14,7 +14,7 @@ services:
       USER_API_ADDRESS: dina-user-api:8080
       SEARCH_API_ADDRESS: search-ws:8085
       LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
-      REPORT_LABEL_API_ADDRESS: report-label-api:80
+      REPORT_LABEL_API_ADDRESS: report-label-api:8080
       INSTANCE_MODE: ${INSTANCE_MODE}
     networks:
       - dina
@@ -201,7 +201,7 @@ services:
       spring.datasource.username: ${REPORT_LABEL_WEB_USER}
       spring.datasource.password: ${REPORT_LABEL_WEB_USER_PW}
     labels:
-      # Opens http://api.dina.local/collection/api/v1 module endpoint
+      # Opens http://api.dina.local/reportlabel/api/v1 module endpoint
       - "traefik.http.middlewares.striplabels.stripprefix.prefixes=${REPORT_LABEL_API_PREFIX}"
       - "traefik.http.routers.reportlabelapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${REPORT_LABEL_API_PREFIX}/`)"
       - "traefik.http.routers.reportlabelapi.middlewares=striplabels@docker"
