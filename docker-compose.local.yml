@@ -207,6 +207,8 @@ services:
       - "traefik.http.routers.reportlabelapi.middlewares=striplabels@docker"
     networks:
       - dina
+    volumes:
+      - ./report-label/templates:/tmp/templates
 
   minio:
     image: minio/minio:RELEASE.2022-10-05T14-58-27Z
