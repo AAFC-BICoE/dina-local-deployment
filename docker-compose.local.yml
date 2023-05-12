@@ -200,6 +200,7 @@ services:
       spring.liquibase.password: ${REPORT_LABEL_MIGRATION_USER_PW}
       spring.datasource.username: ${REPORT_LABEL_WEB_USER}
       spring.datasource.password: ${REPORT_LABEL_WEB_USER_PW}
+      spring.freemarker.template-loader-path: file:/tmp/templates/
     labels:
       # Opens http://api.dina.local/reportlabel/api/v1 module endpoint
       - "traefik.http.middlewares.striplabels.stripprefix.prefixes=${REPORT_LABEL_API_PREFIX}"
