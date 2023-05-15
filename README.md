@@ -43,6 +43,8 @@ To run:
 
 The `start_stop_dina.sh` can be configured before running to allow for certain profiles and configurations to be applied.
 
+DINA will be accessible on `https://dina.local` and the Keycloak console on `https://dina.local/auth`.
+
 ## Profiles Support
 
 Profiles are available to start specific modules.
