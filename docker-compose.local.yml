@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.124.0
+    image: aafcbicoe/dina-ui:0.126.0
     environment:
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
@@ -14,7 +14,7 @@ services:
       USER_API_ADDRESS: dina-user-api:8080
       SEARCH_API_ADDRESS: search-ws:8085
       LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
-      REPORT_LABEL_API_ADDRESS: report-label-api:80
+      REPORT_LABEL_API_ADDRESS: report-label-api:8080
       INSTANCE_MODE: ${INSTANCE_MODE}
     networks:
       - dina
@@ -77,7 +77,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.76
+    image: aafcbicoe/natural-history-collection-api:0.77.1
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -157,7 +157,7 @@ services:
         condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.4
+    image: aafcbicoe/object-store-api:1.5.1
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
@@ -189,25 +189,30 @@ services:
         condition: service_completed_successfully 
 
   report-label-api:
-    image: mfnberlin/dina-reports-labels:v1.1rc
+    image: afcbicoe/report-label-api:0.1
     profiles: ["report_label_api"]
-    volumes:
-      - type: bind
-        source: ./report-label/config.ini
-        target: /usr/local/dina-labels/config.ini
-      - type: bind
-        source: ./report-label/templates
-        target: /usr/local/dina-labels/templates
+    mem_limit: 512m
+    environment:
+      keycloak.enabled: "true"
+      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
+      spring.datasource.url: jdbc:postgresql://dina-db/report_label?currentSchema=report_label
+      spring.liquibase.user: ${REPORT_LABEL_MIGRATION_USER}
+      spring.liquibase.password: ${REPORT_LABEL_MIGRATION_USER_PW}
+      spring.datasource.username: ${REPORT_LABEL_WEB_USER}
+      spring.datasource.password: ${REPORT_LABEL_WEB_USER_PW}
+      spring.freemarker.template-loader-path: file:/tmp/templates/
     labels:
-      # Opens http://api.dina.local/collection/api/v1 module endpoint
+      # Opens http://api.dina.local/reportlabel/api/v1 module endpoint
       - "traefik.http.middlewares.striplabels.stripprefix.prefixes=${REPORT_LABEL_API_PREFIX}"
       - "traefik.http.routers.reportlabelapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${REPORT_LABEL_API_PREFIX}/`)"
       - "traefik.http.routers.reportlabelapi.middlewares=striplabels@docker"
     networks:
       - dina
+    volumes:
+      - ./report-label/templates:/tmp/templates
 
   minio:
-    image: minio/minio:RELEASE.2022-05-04T07-45-27Z
+    image: minio/minio:RELEASE.2022-10-05T14-58-27Z
     profiles: ["object_store_api"]
     volumes:
       - ./minio-data:/data
