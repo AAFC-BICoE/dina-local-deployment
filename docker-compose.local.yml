@@ -189,7 +189,7 @@ services:
         condition: service_completed_successfully 
 
   report-label-api:
-    image: afcbicoe/report-label-api:0.1
+    image: aafcbicoe/report-label-api:0.1
     profiles: ["report_label_api"]
     mem_limit: 512m
     environment:
@@ -203,13 +203,18 @@ services:
       spring.freemarker.template-loader-path: file:/tmp/templates/
     labels:
       # Opens http://api.dina.local/reportlabel/api/v1 module endpoint
-      - "traefik.http.middlewares.striplabels.stripprefix.prefixes=${REPORT_LABEL_API_PREFIX}"
+      - "traefik.http.middlewares.stripreportlabel.stripprefix.prefixes=${REPORT_LABEL_API_PREFIX}"
       - "traefik.http.routers.reportlabelapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${REPORT_LABEL_API_PREFIX}/`)"
-      - "traefik.http.routers.reportlabelapi.middlewares=striplabels@docker"
+      - "traefik.http.routers.reportlabelapi.middlewares=stripreportlabel@docker"
     networks:
       - dina
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     volumes:
       - ./report-label/templates:/tmp/templates
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   minio:
     image: minio/minio:RELEASE.2022-10-05T14-58-27Z
