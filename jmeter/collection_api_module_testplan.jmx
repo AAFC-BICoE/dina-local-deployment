@@ -237,7 +237,7 @@ props.put(&quot;tokenGenerationTime&quot;, vars.get(&quot;tokenGenerationTime&qu
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Collection Managed Attribute End2End Thread Group" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Collection Managed Attribute End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -253,46 +253,6 @@ props.put(&quot;tokenGenerationTime&quot;, vars.get(&quot;tokenGenerationTime&qu
       <hashTree>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Collection Managed Attribute Variables" enabled="true">
           <collectionProp name="Arguments.arguments">
-            <elementProp name="name_1" elementType="Argument">
-              <stringProp name="Argument.name">name_1</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_2" elementType="Argument">
-              <stringProp name="Argument.name">name_2</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_3" elementType="Argument">
-              <stringProp name="Argument.name">name_3</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_4" elementType="Argument">
-              <stringProp name="Argument.name">name_4</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="key_1" elementType="Argument">
-              <stringProp name="Argument.name">key_1</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="key_2" elementType="Argument">
-              <stringProp name="Argument.name">key_2</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="key_3" elementType="Argument">
-              <stringProp name="Argument.name">key_3</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="key_4" elementType="Argument">
-              <stringProp name="Argument.name">key_4</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
             <elementProp name="vocabularyElementType_1" elementType="Argument">
               <stringProp name="Argument.name">vocabularyElementType_1</stringProp>
               <stringProp name="Argument.value">STRING</stringProp>
@@ -404,8 +364,7 @@ props.put(&quot;tokenGenerationTime&quot;, vars.get(&quot;tokenGenerationTime&qu
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;managed-attribute&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_1}&quot;,&#xd;
-      &quot;key&quot;: &quot;${key_1}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;vocabularyElementType&quot;: &quot;${vocabularyElementType_1}&quot;,&#xd;
       &quot;managedAttributeComponent&quot;: &quot;${managedAttributeComponent_1}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;&#xd;
@@ -444,6 +403,18 @@ props.put(&quot;tokenGenerationTime&quot;, vars.get(&quot;tokenGenerationTime&qu
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Collection Managed Attribute UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">basic_collection_managed_attribute_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Initial Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_1</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Initial Key Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">key_1</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.key</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -511,8 +482,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;managed-attribute&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_2}&quot;,&#xd;
-      &quot;key&quot;: &quot;${key_2}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;vocabularyElementType&quot;: &quot;${vocabularyElementType_2}&quot;,&#xd;
       &quot;managedAttributeComponent&quot;: &quot;${managedAttributeComponent_2}&quot;,&#xd;
       &quot;acceptedValues&quot;: ${acceptedValues_2},&#xd;
@@ -553,6 +523,18 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Collection Managed Attribute UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">verbose_collection_managed_attribute_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Initial Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_2</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Initial Key Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">key_2</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.key</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -663,6 +645,18 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
               <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_3</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Updated Key Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">key_3</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.key</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Basic" enabled="true"/>
             <hashTree>
@@ -767,6 +761,18 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
               <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Key Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">key_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.key</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true"/>
             <hashTree>
@@ -862,6 +868,18 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Key Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">key_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.key</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose - Empty Body" enabled="true"/>
@@ -1187,7 +1205,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Preparation Type End2End Thread Group" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Preparation Type End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1203,26 +1221,6 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <hashTree>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Preparation Type Variables" enabled="true">
           <collectionProp name="Arguments.arguments">
-            <elementProp name="name_1" elementType="Argument">
-              <stringProp name="Argument.name">name_1</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_2" elementType="Argument">
-              <stringProp name="Argument.name">name_2</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_3" elementType="Argument">
-              <stringProp name="Argument.name">name_3</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_4" elementType="Argument">
-              <stringProp name="Argument.name">name_4</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
             <elementProp name="multilingualDescription_1" elementType="Argument">
               <stringProp name="Argument.name">multilingualDescription_1</stringProp>
               <stringProp name="Argument.value">{&quot;descriptions&quot;:[{&quot;lang&quot;:&quot;en&quot;,&quot;desc&quot;:&quot;desc_1&quot;}]}</stringProp>
@@ -1274,7 +1272,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;preparation-type&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-    	 &quot;name&quot; : &quot;${name_1}&quot;,&#xd;
+    	 &quot;name&quot; : &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;&#xd;
     }&#xd;
   }&#xd;
@@ -1311,6 +1309,12 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Preparation Type UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">basic_preparation-type_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Initial Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_1</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -1375,7 +1379,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;preparation-type&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-    	 &quot;name&quot; : &quot;${name_2}&quot;,&#xd;
+    	 &quot;name&quot; : &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_2}&#xd;
     }&#xd;
@@ -1413,6 +1417,12 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Preparation Type UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">verbose_preparation-type_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Initial Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_2</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -1490,7 +1500,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;preparation-type&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_3}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_3}&#xd;
     }&#xd;
@@ -1524,6 +1534,12 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_3</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Basic" enabled="true"/>
@@ -1596,7 +1612,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;preparation-type&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_4}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_4}&#xd;
     }&#xd;
@@ -1630,6 +1646,120 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true"/>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve Verbose Preparation Type" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/preparation-type/${verbose_preparation-type_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="49586">200</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - General Assertions" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
+def object = jsonSlurper.parseText(prev.getResponseDataAsString())
+
+def attr = object.data.attributes
+
+assert attr.name == &quot;${name_4}&quot;
+assert attr.group == &quot;${user_group}&quot;</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Multilingual Description Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualDescription_4}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose - Empty Body" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Preparation Type" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;data&quot;: {&#xd;
+    &quot;type&quot;: &quot;preparation-type&quot;,&#xd;
+    &quot;attributes&quot;: {}&#xd;
+  }&#xd;
+}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/preparation-type/${verbose_preparation-type_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">PATCH</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49586">200</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true"/>
@@ -1961,7 +2091,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Preparation Method End2End Thread Group" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Preparation Method End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1977,26 +2107,6 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <hashTree>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Preparation Method Variables" enabled="true">
           <collectionProp name="Arguments.arguments">
-            <elementProp name="name_1" elementType="Argument">
-              <stringProp name="Argument.name">name_1</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_2" elementType="Argument">
-              <stringProp name="Argument.name">name_2</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_3" elementType="Argument">
-              <stringProp name="Argument.name">name_3</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_4" elementType="Argument">
-              <stringProp name="Argument.name">name_4</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
             <elementProp name="multilingualDescription_1" elementType="Argument">
               <stringProp name="Argument.name">multilingualDescription_1</stringProp>
               <stringProp name="Argument.value">{&quot;descriptions&quot;:[{&quot;lang&quot;:&quot;en&quot;,&quot;desc&quot;:&quot;desc_1&quot;}]}</stringProp>
@@ -2048,7 +2158,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;preparation-method&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_1}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;&#xd;
     }&#xd;
   }&#xd;
@@ -2085,6 +2195,12 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Preparation Method UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">basic_preparation-method_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Initial Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_1</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -2149,7 +2265,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;preparation-method&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_2}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_2}&#xd;
     }&#xd;
@@ -2187,6 +2303,12 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Preparation Method UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">verbose_preparation-method_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Initial Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_2</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -2264,7 +2386,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;preparation-method&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_3}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_3}&#xd;
     }&#xd;
@@ -2302,6 +2424,12 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Preparation Method UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">basic_preparation-method_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_3</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -2376,7 +2504,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;preparation-method&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_4}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_4}&#xd;
     }&#xd;
@@ -2414,6 +2542,126 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Preparation Method UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">verbose_preparation-method_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true"/>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve Verbose Preparatoin Method" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/preparation-method/${verbose_preparation-method_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="49586">200</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - General Assertions" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
+def object = jsonSlurper.parseText(prev.getResponseDataAsString())
+
+def attr = object.data.attributes
+
+assert attr.name == &quot;${name_4}&quot;
+assert attr.group == &quot;${user_group}&quot;</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Multilingual Description Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualDescription_4}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose - Empty Body" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Preparation Method" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;data&quot;: {&#xd;
+    &quot;type&quot;: &quot;preparation-method&quot;,&#xd;
+    &quot;attributes&quot;: {}&#xd;
+  }&#xd;
+}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/preparation-method/${verbose_preparation-method_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">PATCH</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49586">200</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">8</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Preparation Method UUID Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">verbose_preparation-method_uuid</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -2747,7 +2995,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Institution End2End Thread Group" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Institution End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -2763,26 +3011,6 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <hashTree>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Institution Variables" enabled="true">
           <collectionProp name="Arguments.arguments">
-            <elementProp name="name_1" elementType="Argument">
-              <stringProp name="Argument.name">name_1</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_2" elementType="Argument">
-              <stringProp name="Argument.name">name_2</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_3" elementType="Argument">
-              <stringProp name="Argument.name">name_3</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_4" elementType="Argument">
-              <stringProp name="Argument.name">name_4</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
             <elementProp name="multilingualDescription_1" elementType="Argument">
               <stringProp name="Argument.name">multilingualDescription_1</stringProp>
               <stringProp name="Argument.value">{&quot;descriptions&quot;:[{&quot;lang&quot;:&quot;en&quot;,&quot;desc&quot;:&quot;desc_1&quot;}]}</stringProp>
@@ -2914,7 +3142,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;institution&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_1}&quot;&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;&#xd;
     }&#xd;
   }&#xd;
 }</stringProp>
@@ -2950,6 +3178,12 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Institution UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">basic_institution_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Initial Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_1</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -3013,7 +3247,7 @@ assert attr.name == &quot;${name_1}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;institution&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_2}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_2},&#xd;
       &quot;webpage&quot;: &quot;${webpage_2}&quot;,&#xd;
       &quot;address&quot;: &quot;${address_2}&quot;,&#xd;
@@ -3054,6 +3288,12 @@ assert attr.name == &quot;${name_1}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Institution UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">verbose_institution_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Initial Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_2</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -3143,7 +3383,7 @@ assert attr.remarks == &quot;${remarks_2}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;institution&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_3}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_3},&#xd;
       &quot;webpage&quot;: &quot;${webpage_3}&quot;,&#xd;
       &quot;address&quot;: &quot;${address_3}&quot;,&#xd;
@@ -3184,6 +3424,12 @@ assert attr.remarks == &quot;${remarks_2}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Institution UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">basic_institution_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_3</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -3270,7 +3516,7 @@ assert attr.remarks == &quot;${remarks_3}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;institution&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_4}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_4},&#xd;
       &quot;webpage&quot;: &quot;${webpage_4}&quot;,&#xd;
       &quot;address&quot;: &quot;${address_4}&quot;,&#xd;
@@ -3311,6 +3557,138 @@ assert attr.remarks == &quot;${remarks_3}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Institution UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">verbose_institution_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true"/>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve Verbose Institution" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/institution/${verbose_institution_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="49586">200</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - General Assertionsd" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
+def object = jsonSlurper.parseText(prev.getResponseDataAsString())
+
+def attr = object.data.attributes
+
+assert attr.name == &quot;${name_4}&quot;
+assert attr.webpage == &quot;${webpage_4}&quot;
+assert attr.address == &quot;${address_4}&quot;
+assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Multilingual Description Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualDescription_4}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Identifiers Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert identifiers here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.identifiers</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${identifiers_4}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose - Empty Body" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Patch - Update Verbose Institution" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;data&quot;: {&#xd;
+    &quot;type&quot;: &quot;institution&quot;,&#xd;
+    &quot;attributes&quot;: {}&#xd;
+  }&#xd;
+}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/institution/${verbose_institution_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">PATCH</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49586">200</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Institution UUID Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">verbose_institution_uuid</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -3660,9 +4038,9 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">4</stringProp>
+          <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">4</stringProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -3672,26 +4050,6 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
       <hashTree>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Storage-Unit-Type Variables" enabled="true">
           <collectionProp name="Arguments.arguments">
-            <elementProp name="name_1" elementType="Argument">
-              <stringProp name="Argument.name">name_1</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_2" elementType="Argument">
-              <stringProp name="Argument.name">name_2</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_3" elementType="Argument">
-              <stringProp name="Argument.name">name_3</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_4" elementType="Argument">
-              <stringProp name="Argument.name">name_4</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
             <elementProp name="isInseperable_1" elementType="Argument">
               <stringProp name="Argument.name">isInseperable_1</stringProp>
               <stringProp name="Argument.value">true</stringProp>
@@ -3763,7 +4121,7 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;storage-unit-type&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_1}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;&#xd;
     }&#xd;
   }&#xd;
@@ -3800,6 +4158,12 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Storage-Unit-Type UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">basic_storage_unit_type_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Initial Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_1</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -3864,7 +4228,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;storage-unit-type&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_2}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;isInseperable&quot;: ${isInseperable_2},&#xd;
       &quot;gridLayoutDefinition&quot;: ${gridLayoutDefinition_2}&#xd;
@@ -3903,6 +4267,12 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Storage-Unit-Type UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">verbose_storage_unit_type_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Initial Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_2</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -3981,7 +4351,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;storage-unit-type&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_3}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;isInseperable&quot;: ${isInseperable_3},&#xd;
       &quot;gridLayoutDefinition&quot;: ${gridLayoutDefinition_3}&#xd;
@@ -4016,6 +4386,12 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_3</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Basic" enabled="true"/>
@@ -4089,7 +4465,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;storage-unit-type&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_4}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;isInseperable&quot;: ${isInseperable_4},&#xd;
       &quot;gridLayoutDefinition&quot;: ${gridLayoutDefinition_4}&#xd;
@@ -4124,6 +4500,121 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true"/>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve Verbose Storage Unit Type" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/storage-unit-type/${verbose_storage_unit_type_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="49586">200</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - General Assertions" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
+def object = jsonSlurper.parseText(prev.getResponseDataAsString())
+
+def attr = object.data.attributes
+
+assert attr.name == &quot;${name_4}&quot;
+assert attr.isInseperable == ${isInseperable_4}
+assert attr.group == &quot;${user_group}&quot;</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Grid Layout Definition Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert gridLayoutDefinition here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.gridLayoutDefinition</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${gridLayoutDefinition_4}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose - Empty Body" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Storage Unit Type" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;data&quot;: {&#xd;
+    &quot;type&quot;: &quot;storage-unit-type&quot;,&#xd;
+    &quot;attributes&quot;: {}&#xd;
+  }&#xd;
+}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/storage-unit-type/${verbose_storage_unit_type_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">PATCH</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49586">200</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true"/>
@@ -4456,7 +4947,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Form Template End2End Thread Group" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Form Template End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -4472,26 +4963,6 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <hashTree>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Form Template Variables" enabled="true">
           <collectionProp name="Arguments.arguments">
-            <elementProp name="name_1" elementType="Argument">
-              <stringProp name="Argument.name">name_1</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_2" elementType="Argument">
-              <stringProp name="Argument.name">name_2</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_3" elementType="Argument">
-              <stringProp name="Argument.name">name_3</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="name_4" elementType="Argument">
-              <stringProp name="Argument.name">name_4</stringProp>
-              <stringProp name="Argument.value">${__RandomString(${__Random(3,9,)},abcdefghijklmnopqrstuvwxyz,)}</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
             <elementProp name="restrictToCreatedBy_1" elementType="Argument">
               <stringProp name="Argument.name">restrictToCreatedBy_1</stringProp>
               <stringProp name="Argument.value">false</stringProp>
@@ -4583,7 +5054,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;form-template&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_1}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;restrictToCreatedBy&quot;: ${restrictToCreatedBy_1},&#xd;
       &quot;viewConfiguration&quot;: ${viewConfiguration_1}&#xd;
@@ -4622,6 +5093,12 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Form Template UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">basic_form-template_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Initial Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_1</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -4685,7 +5162,7 @@ assert attr.name == &quot;${name_1}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;form-template&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_2}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;restrictToCreatedBy&quot;: ${restrictToCreatedBy_2},&#xd;
       &quot;viewConfiguration&quot;: ${viewConfiguration_2},&#xd;
@@ -4725,6 +5202,12 @@ assert attr.name == &quot;${name_1}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Form Template UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">verbose_form-template_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Initial Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_2</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -4813,7 +5296,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;form-template&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_3}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;restrictToCreatedBy&quot;: ${restrictToCreatedBy_3},&#xd;
       &quot;viewConfiguration&quot;: ${viewConfiguration_3},&#xd;
@@ -4849,6 +5332,12 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_3</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Basic" enabled="true"/>
@@ -4932,7 +5421,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;form-template&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-      &quot;name&quot;: &quot;${name_4}&quot;,&#xd;
+      &quot;name&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;restrictToCreatedBy&quot;: ${restrictToCreatedBy_4},&#xd;
       &quot;viewConfiguration&quot;: ${viewConfiguration_4},&#xd;
@@ -4968,6 +5457,131 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbsoe" enabled="true"/>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve Verbose Form Template" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/form-template/${verbose_form-template_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="49586">200</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - General Assertions" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
+def object = jsonSlurper.parseText(prev.getResponseDataAsString())
+
+def attr = object.data.attributes
+
+assert attr.name == &quot;${name_4}&quot;
+assert attr.restrictToCreatedBy == ${restrictToCreatedBy_4}
+assert attr.group == &quot;${user_group}&quot;</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - View Configuration Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert viewConfiguration here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.viewConfiguration</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${viewConfiguration_4}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Components Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert components here - Expectd Value represents an empty object</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.components</stringProp>
+                  <stringProp name="EXPECTED_VALUE">[{&quot;name&quot;:null,&quot;order&quot;:null,&quot;visible&quot;:null,&quot;gridSizeX&quot;:null,&quot;sections&quot;:null}]</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose - Empty Body" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Form Template" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;data&quot;: {&#xd;
+    &quot;type&quot;: &quot;form-template&quot;,&#xd;
+    &quot;attributes&quot;: {}&#xd;
+  }&#xd;
+}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/form-template/${verbose_form-template_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">PATCH</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49586">200</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">name_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.name</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbsoe" enabled="true"/>
@@ -5310,7 +5924,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Organism End2End Thread Group" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Organism End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -5916,6 +6530,18 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Initial Scientific Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">determination_scientificName_1</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.determination[0].scientificName</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Initial Verbatim Scientific Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">determination_verbatimScientificName_1</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.determination[0].verbatimScientificName</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Create Basic" enabled="true"/>
             <hashTree>
@@ -5983,10 +6609,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       &quot;remarks&quot;: &quot;${remarks_2}&quot;,&#xd;
       &quot;determination&quot;: [&#xd;
 	      {&#xd;
-	      	&quot;verbatimScientificName&quot;: &quot;${determination_verbatimScientificName_2}&quot;,&#xd;
+	      	&quot;verbatimScientificName&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
 	      	&quot;verbatimDeterminer&quot;: &quot;${determination_verbatimDeterminer_2}&quot;,&#xd;
 	      	&quot;verbatimDate&quot;: &quot;${determination_verbatimDate_2}&quot;,&#xd;
-	      	&quot;scientificName&quot;: &quot;${determination_scientificName_2}&quot;,&#xd;
+	      	&quot;scientificName&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
 	      	&quot;transcriberRemarks&quot;: &quot;${determination_transcriberRemarks_2}&quot;,&#xd;
 	      	&quot;verbatimRemarks&quot;: &quot;${determination_verbatimRemarks_2}&quot;,&#xd;
 	      	&quot;determinationRemarks&quot;: &quot;${determination_determinationRemarks_2}&quot;,&#xd;
@@ -6044,6 +6670,18 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Organism UUID Extractor" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">verbose_organism_uuid</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Initial Scientific Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">determination_scientificName_2</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.determination[0].scientificName</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Initial Verbatim Scientific Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">determination_verbatimScientificName_2</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.determination[0].verbatimScientificName</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -6143,7 +6781,7 @@ assert attr.determination[0].isFiledAs == ${determination_isFiledAs_2}</stringPr
       &quot;remarks&quot;: &quot;${remarks_3}&quot;,&#xd;
       &quot;determination&quot;: [&#xd;
 	      {&#xd;
-	      	&quot;verbatimScientificName&quot;: &quot;${determination_verbatimScientificName_3}&quot;,&#xd;
+	      	&quot;verbatimScientificName&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
 	      	&quot;verbatimDeterminer&quot;: &quot;${determination_verbatimDeterminer_3}&quot;,&#xd;
 	      	&quot;verbatimDate&quot;: &quot;${determination_verbatimDate_3}&quot;,&#xd;
 	      	&quot;transcriberRemarks&quot;: &quot;${determination_transcriberRemarks_3}&quot;,&#xd;
@@ -6199,6 +6837,18 @@ assert attr.determination[0].isFiledAs == ${determination_isFiledAs_2}</stringPr
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Updated Scientific Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">determination_scientificName_3</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.determination[0].scientificName</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Updated Verbatim Scientific Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">determination_verbatimScientificName_3</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.determination[0].verbatimScientificName</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Basic" enabled="true"/>
@@ -6292,10 +6942,10 @@ assert attr.determination[0].isFiledAs == ${determination_isFiledAs_3}</stringPr
       &quot;remarks&quot;: &quot;${remarks_4}&quot;,&#xd;
       &quot;determination&quot;: [&#xd;
 	      {&#xd;
-	      	&quot;verbatimScientificName&quot;: &quot;${determination_verbatimScientificName_4}&quot;,&#xd;
+	      	&quot;verbatimScientificName&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
 	      	&quot;verbatimDeterminer&quot;: &quot;${determination_verbatimDeterminer_4}&quot;,&#xd;
 	      	&quot;verbatimDate&quot;: &quot;${determination_verbatimDate_4}&quot;,&#xd;
-	      	&quot;scientificName&quot;: &quot;${determination_scientificName_4}&quot;,&#xd;
+	      	&quot;scientificName&quot;: &quot;${__RandomString(${__Random(6,9,)},abcdefghijklmnopqrstuvwxyz,)}&quot;,&#xd;
 	      	&quot;transcriberRemarks&quot;: &quot;${determination_transcriberRemarks_4}&quot;,&#xd;
 	      	&quot;verbatimRemarks&quot;: &quot;${determination_verbatimRemarks_4}&quot;,&#xd;
 	      	&quot;determinationRemarks&quot;: &quot;${determination_determinationRemarks_4}&quot;,&#xd;
@@ -6349,6 +6999,147 @@ assert attr.determination[0].isFiledAs == ${determination_isFiledAs_3}</stringPr
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Scientific Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">determination_scientificName_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.determination[0].scientificName</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Verbatim Scientific Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">determination_verbatimScientificName_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.determination[0].verbatimScientificName</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true"/>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve Verbose Organism" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/organism/${verbose_organism_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="49586">200</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - General Assertions" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
+def object = jsonSlurper.parseText(prev.getResponseDataAsString())
+
+def attr = object.data.attributes
+
+assert attr.group == &quot;${user_group}&quot;
+assert attr.isTarget == ${isTarget_4}
+assert attr.lifeStage == &quot;${lifeStage_4}&quot;
+assert attr.sex == &quot;${sex_4}&quot;
+assert attr.remarks == &quot;${remarks_4}&quot;
+assert attr.determination[0].verbatimScientificName  == &quot;${determination_verbatimScientificName_4}&quot;
+assert attr.determination[0].verbatimDeterminer == &quot;${determination_verbatimDeterminer_4}&quot;
+assert attr.determination[0].verbatimDate == &quot;${determination_verbatimDate_4}&quot;
+assert attr.determination[0].scientificName == &quot;${determination_scientificName_4}&quot;
+assert attr.determination[0].transcriberRemarks == &quot;${determination_transcriberRemarks_4}&quot;
+assert attr.determination[0].verbatimRemarks == &quot;${determination_verbatimRemarks_4}&quot;
+assert attr.determination[0].determinationRemarks == &quot;${determination_determinationRemarks_4}&quot;
+assert attr.determination[0].typeStatus == &quot;${determination_typeStatus_4}&quot;
+assert attr.determination[0].typeStatusEvidence == &quot;${determination_typeStatusEvidence_4}&quot;
+assert attr.determination[0].determiner == ${determination_determiner_4}
+assert attr.determination[0].determinedOn == &quot;${determination_determinedOn_4}&quot;
+assert attr.determination[0].qualifier == &quot;${determination_qualifier_4}&quot;
+assert attr.determination[0].scientificNameSource == &quot;${determination_scientificNameSource_4}&quot;
+assert attr.determination[0].scientificNameDetails.classificationPath == &quot;${determination_scientificNameDetails_classificationPath_4}&quot;
+assert attr.determination[0].scientificNameDetails.classificationRanks == &quot;${determination_scientificNameDetails_classificationRanks_4}&quot;
+assert attr.determination[0].scientificNameDetails.sourceUrl == &quot;${determination_scientificNameDetails_sourceUrl_4}&quot;
+assert attr.determination[0].scientificNameDetails.labelHtml == &quot;${determination_scientificNameDetails_labelHtml_4}&quot;
+assert attr.determination[0].scientificNameDetails.recordedOn == &quot;${determination_scientificNameDetails_recordedOn_4}&quot;
+assert attr.determination[0].scientificNameDetails.currentName == &quot;${determination_scientificNameDetails_currentName_4}&quot;
+assert attr.determination[0].scientificNameDetails.isSynonym == ${determination_scientificNameDetails_isSynonym_4}
+assert attr.determination[0].isPrimary == true // Should automaticlly become true as it is only determination
+assert attr.determination[0].isFiledAs == ${determination_isFiledAs_4}</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose - Empty Body" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Organism" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;data&quot;: {&#xd;
+    &quot;type&quot;: &quot;organism&quot;,&#xd;
+    &quot;attributes&quot;: {}&#xd;
+  }&#xd;
+}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/organism/${verbose_organism_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">PATCH</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49586">200</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Scientific Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">determination_scientificName_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.determination[0].scientificName</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Updated Verbatim Scientific Name Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">determination_verbatimScientificName_4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.attributes.determination[0].verbatimScientificName</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true"/>
