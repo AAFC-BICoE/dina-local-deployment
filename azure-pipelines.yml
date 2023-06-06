@@ -13,7 +13,6 @@ steps:
 - task: DockerCompose@0
   inputs:
     containerregistrytype: 'Container Registry'
-    dockerComposeFile: '**/docker-compose.yml'
+    dockerComposeFile: 'docker-compose.base.yml'
     action: 'Run a Docker Compose command'
-    arguments: '-f docker-compose.base.yml'
     
