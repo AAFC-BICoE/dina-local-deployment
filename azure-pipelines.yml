@@ -17,6 +17,7 @@ steps:
 #     dockerComposeFile: 'docker-compose.base.yml'
 #     action: 'Run a Docker Compose command'
 #     dockerComposeCommand: 'up'
-- bash: docker compose down
+- bash: curl --head -X GET --retry 25 --retry-connrefused --retry-delay 1 http://keycloak:8080
+- bash: docker compose -f docker-compose.base.yml down
 
     
