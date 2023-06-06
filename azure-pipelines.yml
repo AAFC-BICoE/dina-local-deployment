@@ -16,4 +16,5 @@ steps:
     dockerComposeFile: 'docker-compose.base.yml'
     action: 'Run a Docker Compose command'
     dockerComposeCommand: 'up'
+    detached: false
     
