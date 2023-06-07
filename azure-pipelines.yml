@@ -17,22 +17,21 @@ steps:
     secureFile: 'dina-local-cert.pem'
 
 - script: |
-    displayName: 'Installing local-deployement Certificates'
     echo Installing $(dinaLocalCertificate.secureFilePath) to the trusted CA directory...
     sudo chown root:root $(dinaLocalCertificate.secureFilePath)
     sudo chmod a+r $(dinaLocalCertificate.secureFilePath)
     sudo ln -s -t /etc/ssl/certs/ $(dinaLocalCertificate.secureFilePath)
-    echo Installing $(dinaLocalCertificate.secureFilePath) in $(System.AccessToken)/certs
+    echo Installing $(dinaLocalCertificate.secureFilePath) in $(Pipeline.Workspace)/certs
     cp $(dinaLocalCertificate.secureFilePath) $(Pipeline.Workspace)/certs
 
-#- bash: docker compose -f docker-compose.base.yml up &
+- bash: docker compose -f docker-compose.base.yml up &
 # - task: DockerCompose@0
 #   inputs:
 #     containerregistrytype: 'Container Registry'
 #     dockerComposeFile: 'docker-compose.base.yml'
 #     action: 'Run a Docker Compose command'
 #     dockerComposeCommand: 'up'
-#- bash: curl --head -X GET --retry 25 --retry-connrefused --retry-delay 1 http://keycloak:8080
-#- bash: docker compose -f docker-compose.base.yml down
+- bash: curl --head -X GET --retry 25 --retry-connrefused --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local
+- bash: docker compose -f docker-compose.base.yml down
 
     
