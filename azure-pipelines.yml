@@ -39,7 +39,10 @@ steps:
 #     dockerComposeFile: 'docker-compose.base.yml'
 #     action: 'Run a Docker Compose command'
 #     dockerComposeCommand: 'up'
-- bash: curl --head -X GET --retry 25 --retry-connrefused --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local
+- bash: |
+    echo Display curl version:
+    curl --version
+    curl --head -X GET --retry 25 --retry-connrefused --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local
 - bash: docker compose -f docker-compose.base.yml down
 
     
