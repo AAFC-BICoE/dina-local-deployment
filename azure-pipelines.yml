@@ -29,8 +29,8 @@ steps:
     sudo chmod a+r $(dinaLocalCertificateKey.secureFilePath)
     sudo ln -s -t /etc/ssl/certs/ $(dinaLocalCertificate.secureFilePath)
     echo Installing $(dinaLocalCertificate.secureFilePath) in $(Pipeline.Workspace)/s/certs
-    sudo ls -s -t $(Pipeline.Workspace)/s/certs/ $(dinaLocalCertificate.secureFilePath)
-    sudo ls -s -t $(Pipeline.Workspace)/s/certs/ $(dinaLocalCertificateKey.secureFilePath)
+    sudo cp $(dinaLocalCertificate.secureFilePath) $(Pipeline.Workspace)/s/certs/
+    sudo cp $(dinaLocalCertificateKey.secureFilePath) $(Pipeline.Workspace)/s/certs/
 
 - bash: docker compose -f docker-compose.base.yml up
 # - task: DockerCompose@0
