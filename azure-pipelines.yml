@@ -15,6 +15,11 @@ steps:
   displayName: 'Download DINA local certificate'
   inputs:
     secureFile: 'dina-local-cert.pem'
+- task: DownloadSecureFile@1
+  name: dinaLocalCertificateKey
+  displayName: 'Download DINA local certificate key'
+  inputs:
+    secureFile: 'dina-local-key.pem'
 
 - script: |
     echo Installing $(dinaLocalCertificate.secureFilePath) to the trusted CA directory...
@@ -23,6 +28,7 @@ steps:
     sudo ln -s -t /etc/ssl/certs/ $(dinaLocalCertificate.secureFilePath)
     echo Installing $(dinaLocalCertificate.secureFilePath) in $(Pipeline.Workspace)/certs
     cp $(dinaLocalCertificate.secureFilePath) $(Pipeline.Workspace)/certs
+    cp $(dinaLocalCertificateKey.secureFilePath) $(Pipeline.Workspace)/certs
 
 - bash: docker compose -f docker-compose.base.yml up &
 # - task: DockerCompose@0
