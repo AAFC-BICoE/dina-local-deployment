@@ -6,7 +6,7 @@ networks:
         - subnet: ${SUBNET}
 services:
   traefik:
-    image: traefik:v2.7.0
+    image: traefik:v2.8.8
     command:
       # debug flags - may be commented or removed
       # Traefik dashboard: access localhost:8999 in browser
