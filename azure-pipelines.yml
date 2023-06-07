@@ -32,7 +32,7 @@ steps:
     sudo cp $(dinaLocalCertificate.secureFilePath) $(Pipeline.Workspace)/s/certs/
     sudo cp $(dinaLocalCertificateKey.secureFilePath) $(Pipeline.Workspace)/s/certs/
 
-- bash: docker compose -f docker-compose.base.yml up
+- bash: docker compose -f docker-compose.base.yml up &
 # - task: DockerCompose@0
 #   inputs:
 #     containerregistrytype: 'Container Registry'
@@ -42,7 +42,7 @@ steps:
 - bash: |
     echo Display curl version:
     curl --version
-    curl --head -X GET --retry 25 --retry-connrefused --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local
+    curl --head -X GET --retry 25 --retry-connrefused --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local/auth
 - bash: docker compose -f docker-compose.base.yml down
 
     
