@@ -32,7 +32,7 @@ steps:
     sudo ls -s -t $(Pipeline.Workspace)/s/certs/ $(dinaLocalCertificate.secureFilePath)
     sudo ls -s -t $(Pipeline.Workspace)/s/certs/ $(dinaLocalCertificateKey.secureFilePath)
 
-- bash: docker compose -f docker-compose.base.yml up &
+- bash: docker compose -f docker-compose.base.yml up
 # - task: DockerCompose@0
 #   inputs:
 #     containerregistrytype: 'Container Registry'
