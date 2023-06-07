@@ -1,4 +1,4 @@
-# Starter pipeline
+# dina-local-deployment pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -10,12 +10,39 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: DockerCompose@0
+- task: DownloadSecureFile@1
+  name: dinaLocalCertificate
+  displayName: 'Download DINA local certificate'
   inputs:
-    containerregistrytype: 'Container Registry'
-    dockerComposeFile: 'docker-compose.base.yml'
-    action: 'Run a Docker Compose command'
-    dockerComposeCommand: 'up'
-- script: docker compose down
+    secureFile: 'dina-local-cert.pem'
+- task: DownloadSecureFile@1
+  name: dinaLocalCertificateKey
+  displayName: 'Download DINA local certificate key'
+  inputs:
+    secureFile: 'dina-local-key.pem'
+
+- script: |
+    echo Installing $(dinaLocalCertificate.secureFilePath) to the trusted CA directory...
+    sudo chown root:root $(dinaLocalCertificate.secureFilePath)
+    sudo chmod a+r $(dinaLocalCertificate.secureFilePath)
+    sudo chown root:root $(dinaLocalCertificateKey.secureFilePath)
+    sudo chmod a+r $(dinaLocalCertificateKey.secureFilePath)
+    sudo ln -s -t /etc/ssl/certs/ $(dinaLocalCertificate.secureFilePath)
+    echo Installing $(dinaLocalCertificate.secureFilePath) in $(Pipeline.Workspace)/s/certs
+    sudo ls -s -t $(Pipeline.Workspace)/s/certs/ $(dinaLocalCertificate.secureFilePath)
+    sudo ls -s -t $(Pipeline.Workspace)/s/certs/ $(dinaLocalCertificateKey.secureFilePath)
+
+- bash: docker compose -f docker-compose.base.yml up
+# - task: DockerCompose@0
+#   inputs:
+#     containerregistrytype: 'Container Registry'
+#     dockerComposeFile: 'docker-compose.base.yml'
+#     action: 'Run a Docker Compose command'
+#     dockerComposeCommand: 'up'
+- bash: |
+    echo Display curl version:
+    curl --version
+    curl --head -X GET --retry 25 --retry-connrefused --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local
+- bash: docker compose -f docker-compose.base.yml down
 
     
