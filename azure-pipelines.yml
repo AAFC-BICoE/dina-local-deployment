@@ -1,4 +1,4 @@
-# Starter pipeline
+# dina-local-deployment pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -17,10 +17,13 @@ steps:
     secureFile: 'dina-local-cert.pem'
 
 - script: |
+    displayName: 'Installing local-deployement Certificates'
     echo Installing $(dinaLocalCertificate.secureFilePath) to the trusted CA directory...
     sudo chown root:root $(dinaLocalCertificate.secureFilePath)
     sudo chmod a+r $(dinaLocalCertificate.secureFilePath)
     sudo ln -s -t /etc/ssl/certs/ $(dinaLocalCertificate.secureFilePath)
+    echo Installing $(dinaLocalCertificate.secureFilePath) in $(System.AccessToken)/certs
+    cp $(dinaLocalCertificate.secureFilePath) $(Pipeline.Workspace)/certs
 
 #- bash: docker compose -f docker-compose.base.yml up &
 # - task: DockerCompose@0
