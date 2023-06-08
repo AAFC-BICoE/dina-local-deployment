@@ -40,9 +40,8 @@ steps:
 #     action: 'Run a Docker Compose command'
 #     dockerComposeCommand: 'up'
 - bash: |
-    echo Display curl version:
-    curl --version
-    curl --head -X GET --cacert /etc/ssl/certs/dina-local-cert.pem --retry 25 --retry-connrefused --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local/auth
+    echo Try to connect to Keycloak endpoint ...
+    curl --head -X GET --cacert /etc/ssl/certs/dina-local-cert.pem --retry 25 --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local/auth
 - bash: docker compose -f docker-compose.base.yml down
 
     
