@@ -1,10 +1,9 @@
 # dina-local-deployment pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
 trigger:
 - master
+
+name: dina-local-deployment pipeline
 
 pool:
   vmImage: ubuntu-latest
