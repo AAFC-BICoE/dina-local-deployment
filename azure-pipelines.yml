@@ -42,7 +42,7 @@ steps:
 - bash: |
     echo Display curl version:
     curl --version
-    curl --head -X GET --retry 25 --retry-connrefused --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local/auth
+    curl --head -X GET --cacert /etc/ssl/certs/$(dinaLocalCertificate.secureFilePath) --retry 25 --retry-connrefused --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local/auth
 - bash: docker compose -f docker-compose.base.yml down
 
     
