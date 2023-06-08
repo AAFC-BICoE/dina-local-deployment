@@ -31,17 +31,17 @@ steps:
     echo Installing $(dinaLocalCertificate.secureFilePath) in $(Pipeline.Workspace)/s/certs
     sudo cp $(dinaLocalCertificate.secureFilePath) $(Pipeline.Workspace)/s/certs/
     sudo cp $(dinaLocalCertificateKey.secureFilePath) $(Pipeline.Workspace)/s/certs/
+  displayName: 'Setting up certificates'
 
 - bash: docker compose -f docker-compose.base.yml up &
-# - task: DockerCompose@0
-#   inputs:
-#     containerregistrytype: 'Container Registry'
-#     dockerComposeFile: 'docker-compose.base.yml'
-#     action: 'Run a Docker Compose command'
-#     dockerComposeCommand: 'up'
+  displayName: 'Start DockerCompose'
+
 - bash: |
     echo Try to connect to Keycloak endpoint ...
     curl --head -X GET --cacert /etc/ssl/certs/dina-local-cert.pem --retry 25 --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local/auth
+  displayName: 'Check Keycloak is reachable'
+
 - bash: docker compose -f docker-compose.base.yml down
+  displayName: 'Stop DockerCompose'
 
     
