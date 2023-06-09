@@ -37,5 +37,110 @@ To run a test plan from command-line:
 
 [source,bash]
 ----
-$ jmeter -n -t collection_api_testplan.jmx -l log.jtl
+$ jmeter -n -t collection_api_module_testplan.jmx -l log.jtl
 ----
+
+== Module Strucutre
+
+The JMeter test plan is constructed as follows
+
+* Test Plan
+** setUp Thread Group 
+** Endpoint Thread Groups
+** tearDown Thread Group
+
+=== setUp Thread Group
+
+The setUp Thread Group will be executred prior to any regular thread groups, allowing us to setup
+access priveleges as well as create any records that may be required by regular thread groups.
+
+Refer to https://jmeter.apache.org/usermanual/component_reference.html#setUp_Thread_Group[setUp Thread Group] component reference
+
+=== Endpoint Thread Group(s)
+
+The bulk of the test plan consists of the tests within these thread groups. Each endpoint being tested
+in the module will have a corresponding regular thread group to manage the tests.
+
+The layout of the group is as follows:
+
+* Endpoint User Defined Variables
+** All constant variables will be declared in this configuration element
+* HTTP Headers
+** Sets the access token and content-type headers, required to perform API requests
+* Setup Endpoint Controller
+** This controller contains all elements that should be run prior to the actual tests. This includes
+   creating relationships entities, setting up random variables, and refreshing the access token
+** Creating entities and refreshing the access token are conducted through 
+   https://jmeter.apache.org/usermanual/component_reference.html#Module_Controller[Module Controllers].
+*** Module Controllers allow you to perform the actions of other controllers such as using the Token Controller from the
+    setUp Thread Group or the CRUD controllers from other endpoints.
+**** All controllers aside from the Module Controllers are https://jmeter.apache.org/usermanual/component_reference.html#Simple_Controller[Simple Controllers] 
+     elements that offer no unique functionality, being used primarily for organizational purposes and to allow Module Controllers to replicate their functionality if needed.
+*** Random variables are utilzied to produce unique variables and prevent conflicts between records when
+    increasing thread counts
+* Create/Update/Delete (CRUD) Endpoint Controllers
+** These controllers contain all Controller, Samplers, and Assertions associcated with their respective CRUD operation.
+*** Retrieval is tested wtihin each controller when assertions are being made.
+
+=== tearDown Thread Group
+
+The tearDown Thread Group is executed after all of the other thread groups have terminated. This allows
+us to remove the records created within the setUp Thread Group without causing any conflicts with the
+thread group that user these records.
+
+Refer to https://jmeter.apache.org/usermanual/component_reference.html#tearDown_Thread_Group[tearDown Thread Group] component reference
+
+== CRUD Controllers
+
+The CRUD Controllers are the thread group Create, Update, and Delete Controllers.
+
+=== Create Endpoint Controller
+
+This controller will contain all Controllers, Samplers and Assertions that have to do with
+the creation of the endpoint recordsws
+
+* Create Basic/Verbose
+** Creates a record with the bare minimum fields required and asserts the values match to the variable 
+   used in the POST request.
+** Creates a record with all fields populated and asserts the values correspond to the variables used in the POST request..
+* Invalid Creation(s)
+** One or more controllers that attempt to create a record with an invalid request. Some examples of invalid
+   creation controllers are creating a record with empty attributes, missing required attributes, or
+   having an incorrect 'type' set in the body.
+   
+=== Update Endpoint Controller
+
+* Update Basic/Verbose
+** Updates the values of the Basic and Verbose records created prior and asserts that
+   all updated values correspond to the ones used in the PATCH request.
+* Update Verbose - Empty Body
+** Creates a PATCH request on the Verbose entity and asserts that no values have been changed as results of this request.
+* Invalid Update(s)
+** One or more controllers that attempt to update a record. An example of an invalid update would be attempting
+   to update a record that does not exist, such as providing a uuid that does not correspond to any created
+   record.
+   
+=== Delete Endpoint Controller
+
+* Delete Basic/Verbose
+** Deletes the records that had been created and asserts that they have been properly removed. Audit records
+   may remain.
+* Invalid Deletion(s)
+** One or more controllers that attempt to remove a record. An example of invalid deletion would be attempting 
+   to delete a record that does not exist, such as providing a uuid that does not correspodng to any created
+   record.
+
+=== Assertions
+
+In all of the CRUD controllers, assertions are being made to ensure that the correct results are produced
+by each operation.
+
+** Assertions are managed by using an https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request[HTTP Request Sampler] 
+   to retrieve the designated record and verifying the correctness of the fields. 
+*** The majority of assertions are conducted through a Groovy script by means of a https://jmeter.apache.org/usermanual/component_reference.html#JSR223_Assertion[JSR223 Assertion]. 
+*** Assertions for Map attributes utilize the https://jmeter.apache.org/usermanual/component_reference.html#JSON_Assertion[JSON Assertion] instead for simpler comparisson.
+** In addition to the assertions used to validate data, https://jmeter.apache.org/usermanual/component_reference.html#Response_Assertion[Response Assertions] 
+   are used after every HTTP Request Sampler to ensure that the correct response code is also returned.
+*** In order to for the Invalid CRUD Controller to return a valid result, a JSR223 Assertion with a Groovy script is used
+    in place of the Response Assertion to verify the correct response code has been returned and
+    https://jmeter.apache.org/api/org/apache/jmeter/samplers/SampleResult.html#setSuccessful(boolean)[set the successful attribute] of the HTTP Request Sampler to be true.
