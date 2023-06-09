@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.5">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Collection API Module Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -33,6 +33,7 @@
             <stringProp name="Argument.name">invalid_uuid</stringProp>
             <stringProp name="Argument.value">123e4567-e89b-12d3-a456-426614174000</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Used to simulate a uuid that does not exist</stringProp>
           </elementProp>
         </collectionProp>
         <stringProp name="TestPlan.comments">Variables defined here are accessble via ${name}, such as ${user_group}, in any thread group</stringProp>
@@ -53,7 +54,7 @@
         <stringProp name="HTTPSampler.response_timeout"></stringProp>
       </ConfigTestElement>
       <hashTree/>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Retrieve Auth Token - setUp Thread Group" enabled="true">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -122,45 +123,242 @@
               <stringProp name="TestPlan.comments">Sets the access_token variable to a property of the same name to allow use between thread groups - accessible now via ${__P(access_token)}</stringProp>
             </JSR223PostProcessor>
             <hashTree/>
-            <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Request Tree Visualizer" enabled="true">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <sentBytes>true</sentBytes>
-                  <url>true</url>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                  <connectTime>true</connectTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-            </ResultCollector>
-            <hashTree/>
           </hashTree>
         </hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Thread Group Request Headers" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Authorization</stringProp>
+              <stringProp name="Header.value">Bearer ${__P(access_token)}</stringProp>
+            </elementProp>
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/vnd.api+json</stringProp>
+            </elementProp>
+          </collectionProp>
+          <stringProp name="TestPlan.comments">Required headers to perform API requests</stringProp>
+        </HeaderManager>
+        <hashTree/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Attachment" enabled="true"/>
+        <hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Attachment 1" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Upload FIles" enabled="true">
+              <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
+                <collectionProp name="HTTPFileArgs.files">
+                  <elementProp name="./tmp.png" elementType="HTTPFileArg">
+                    <stringProp name="File.mimetype">image/png</stringProp>
+                    <stringProp name="File.path">./tmp.png</stringProp>
+                    <stringProp name="File.paramname">file</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/objectstore-api/file/${user_group}</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Uploaded File Identifer Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">uploaded_file_identifier_1</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.fileIdentifier</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Metadata for Uploaded File" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;data&quot;: {&#xd;
+		&quot;type&quot;: &quot;metadata&quot;,&#xd;
+		&quot;attributes&quot;: {&#xd;
+			&quot;group&quot;: &quot;${user_group}&quot;,&#xd;
+			&quot;bucket&quot;: &quot;${user_group}&quot;,&#xd;
+			&quot;fileIdentifier&quot;: &quot;${uploaded_file_identifier_1}&quot;&#xd;
+		}&#xd;
+	}&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/objectstore-api/metadata</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Metadata UUID Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">attachment_uuid_1</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+                <stringProp name="scriptLanguage">groovy</stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="script">props.put(&quot;attachment_uuid_1&quot;, vars.get(&quot;attachment_uuid_1&quot;));</stringProp>
+                <stringProp name="TestPlan.comments">Sets the attachment_uuid variable to a property of the same name to allow use between thread groups - accessible now via ${__P(attachment_uuid)}</stringProp>
+              </JSR223PostProcessor>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Attachment 2" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Upload FIles" enabled="true">
+              <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
+                <collectionProp name="HTTPFileArgs.files">
+                  <elementProp name="./tmp.png" elementType="HTTPFileArg">
+                    <stringProp name="File.mimetype">image/png</stringProp>
+                    <stringProp name="File.path">./tmp.png</stringProp>
+                    <stringProp name="File.paramname">file</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/objectstore-api/file/${user_group}</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Uploaded File Identifer Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">uploaded_file_identifier_2</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.fileIdentifier</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Metadata for Uploaded File" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;data&quot;: {&#xd;
+		&quot;type&quot;: &quot;metadata&quot;,&#xd;
+		&quot;attributes&quot;: {&#xd;
+			&quot;group&quot;: &quot;${user_group}&quot;,&#xd;
+			&quot;bucket&quot;: &quot;${user_group}&quot;,&#xd;
+			&quot;fileIdentifier&quot;: &quot;${uploaded_file_identifier_2}&quot;&#xd;
+		}&#xd;
+	}&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/objectstore-api/metadata</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Metadata UUID Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">attachment_uuid_2</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+                <stringProp name="scriptLanguage">groovy</stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="script">props.put(&quot;attachment_uuid_2&quot;, vars.get(&quot;attachment_uuid_2&quot;));</stringProp>
+                <stringProp name="TestPlan.comments">Sets the attachment_uuid variable to a property of the same name to allow use between thread groups - accessible now via ${__P(attachment_uuid)}</stringProp>
+              </JSR223PostProcessor>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Collection Managed Attribute End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -8514,8 +8712,8 @@ ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijk
             <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+              <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
+              <stringProp name="1506430348">setUp Thread Group</stringProp>
               <stringProp name="52452451">Token Controller</stringProp>
             </collectionProp>
           </ModuleController>
@@ -8580,7 +8778,7 @@ ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijk
               <stringProp name="TestPlan.comments">Retrieves the basic record that was created and asserts all values are set as expected.</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic - Retrieve Basic Organism" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic - Retrieve Basic Assemblage" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -8619,6 +8817,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
+assert attr.name == &quot;${name_1}&quot;
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -8641,6 +8840,14 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;multilingualTitle&quot;: ${multilingualTitle_2},&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_2}&#xd;
+    },&#xd;
+    &quot;relationships&quot;: {&#xd;
+      &quot;attachment&quot;: {&#xd;
+        &quot;data&quot;: {&#xd;
+        	&quot;type&quot;: &quot;metadata&quot;,&#xd;
+        	&quot;id&quot;: &quot;${__P(attachment_uuid_1)}&quot;&#xd;
+        }&#xd;
+      }&#xd;
     }&#xd;
   }&#xd;
 }</stringProp>
@@ -8684,7 +8891,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <stringProp name="TestPlan.comments">Retrieves the verbose record that was created and asserts all values are set as expected.</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic - Retrieve Basic Organism" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Verbose - Retrieve Basic Assemblage" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -8692,7 +8899,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${basic_assemblage_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${verbose_assemblage_uuid}?include=attachment</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -8723,8 +8930,33 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.group == &quot;${user_group}&quot;</stringProp>
+assert attr.name == &quot;${name_2}&quot;
+assert attr.group == &quot;${user_group}&quot;
+
+def rel = object.data.relationships
+
+assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;</stringProp>
                 </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Multilingual Title Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual title here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualTitle</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualTitle_2}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Multilingual Description Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualDescription_2}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
                 <hashTree/>
               </hashTree>
             </hashTree>
@@ -8891,6 +9123,14 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;multilingualTitle&quot;: ${multilingualTitle_3},&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_3}&#xd;
+    },&#xd;
+    &quot;relationships&quot;: {&#xd;
+      &quot;attachment&quot;: {&#xd;
+        &quot;data&quot;: {&#xd;
+        	&quot;type&quot;: &quot;metadata&quot;,&#xd;
+        	&quot;id&quot;: &quot;${__P(attachment_uuid_2)}&quot;&#xd;
+        }&#xd;
+      }&#xd;
     }&#xd;
   }&#xd;
 }</stringProp>
@@ -8928,7 +9168,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <stringProp name="TestPlan.comments">Retrieves the basic record that was updated and asserts all values are set as expected.</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic - Retrieve Basic Organism" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic - Retrieve Basic Aseemblage" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -8936,7 +9176,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${basic_assemblage_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${basic_assemblage_uuid}?include=attachment</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -8967,8 +9207,33 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.group == &quot;${user_group}&quot;</stringProp>
+assert attr.name == &quot;${name_3}&quot;
+assert attr.group == &quot;${user_group}&quot;
+
+def rel = object.data.relationships
+
+assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
                 </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Basic - Multilingual Title Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual title here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualTitle</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualTitle_3}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Basic - Multilingual Description Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualDescription_3}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
                 <hashTree/>
               </hashTree>
             </hashTree>
@@ -8989,6 +9254,14 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;multilingualTitle&quot;: ${multilingualTitle_4},&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_4}&#xd;
+    },&#xd;
+    &quot;relationships&quot;: {&#xd;
+      &quot;attachment&quot;: {&#xd;
+        &quot;data&quot;: {&#xd;
+        	&quot;type&quot;: &quot;metadata&quot;,&#xd;
+        	&quot;id&quot;: &quot;${__P(attachment_uuid_2)}&quot;&#xd;
+        }&#xd;
+      }&#xd;
     }&#xd;
   }&#xd;
 }</stringProp>
@@ -9034,7 +9307,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${verbose_assemblage_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${verbose_assemblage_uuid}?include=attachment</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -9065,8 +9338,33 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.group == &quot;${user_group}&quot;</stringProp>
+assert attr.name == &quot;${name_4}&quot;
+assert attr.group == &quot;${user_group}&quot;
+
+def rel = object.data.relationships
+
+assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
                 </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Multilingual Title Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual title here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualTitle</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualTitle_4}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Multilingual Description Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualDescription_4}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
                 <hashTree/>
               </hashTree>
             </hashTree>
@@ -9119,7 +9417,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <stringProp name="TestPlan.comments">Retrieves the verbose record that was updated and asserts all values are set as expected.</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Update Verbose - Retrieve Basic Organism" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Update Verbose - Retrieve Verbose Assemblage" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -9127,7 +9425,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${verbose_assemblage_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${verbose_assemblage_uuid}?include=attachment</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -9158,8 +9456,33 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.group == &quot;${user_group}&quot;</stringProp>
+assert attr.name == &quot;${name_4}&quot;
+assert attr.group == &quot;${user_group}&quot;
+
+def rel = object.data.relationships
+
+assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
                 </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Multilingual Title Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual title here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualTitle</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualTitle_4}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Multilingual Description Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualDescription_4}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
                 <hashTree/>
               </hashTree>
             </hashTree>
@@ -9666,6 +9989,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
+assert attr.name == &quot;${name_1}&quot;
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -9690,6 +10014,14 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       &quot;endDate&quot;: &quot;${endDate_2}&quot;,&#xd;
       &quot;status&quot;: &quot;${status_2}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_2}&#xd;
+    },&#xd;
+    &quot;relationships&quot;: {&#xd;
+      &quot;attachment&quot;: {&#xd;
+        &quot;data&quot;: {&#xd;
+        	&quot;type&quot;: &quot;metadata&quot;,&#xd;
+        	&quot;id&quot;: &quot;${__P(attachment_uuid_1)}&quot;&#xd;
+        }&#xd;
+      }&#xd;
     }&#xd;
   }&#xd;
 }</stringProp>
@@ -9733,7 +10065,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <stringProp name="TestPlan.comments">Retrieves the verbose record that was created and asserts all values are set as expected.</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic - Retrieve Basic Project" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Verbose - Retrieve Basic Project" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -9741,7 +10073,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/project/${basic_project_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/project/${verbose_project_uuid}?include=attachment</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -9772,8 +10104,26 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.group == &quot;${user_group}&quot;</stringProp>
+assert attr.name == &quot;${name_2}&quot;
+assert attr.group == &quot;${user_group}&quot;
+assert attr.startDate == &quot;${startDate_2}&quot;
+assert attr.endDate == &quot;${endDate_2}&quot;
+assert attr.status == &quot;${status_2}&quot;
+
+def rel = object.data.relationships
+
+assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;</stringProp>
                 </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Multilingual Description Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualDescription_2}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
                 <hashTree/>
               </hashTree>
             </hashTree>
@@ -9942,6 +10292,14 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       &quot;endDate&quot;: &quot;${endDate_3}&quot;,&#xd;
       &quot;status&quot;: &quot;${status_3}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_3}&#xd;
+    },&#xd;
+    &quot;relationships&quot;: {&#xd;
+      &quot;attachment&quot;: {&#xd;
+        &quot;data&quot;: {&#xd;
+        	&quot;type&quot;: &quot;metadata&quot;,&#xd;
+        	&quot;id&quot;: &quot;${__P(attachment_uuid_2)}&quot;&#xd;
+        }&#xd;
+      }&#xd;
     }&#xd;
   }&#xd;
 }</stringProp>
@@ -9979,7 +10337,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <stringProp name="TestPlan.comments">Retrieves the basic record that was updated and asserts all values are set as expected.</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic - Retrieve Basic Project" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Update Basic - Retrieve Basic Project" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -9987,7 +10345,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/project/${basic_project_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/project/${basic_project_uuid}?include=attachment</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -10018,8 +10376,26 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.group == &quot;${user_group}&quot;</stringProp>
+assert attr.name == &quot;${name_3}&quot;
+assert attr.group == &quot;${user_group}&quot;
+assert attr.startDate == &quot;${startDate_3}&quot;
+assert attr.endDate == &quot;${endDate_3}&quot;
+assert attr.status == &quot;${status_3}&quot;
+
+def rel = object.data.relationships
+
+assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
                 </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Multilingual Description Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualDescription_3}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
                 <hashTree/>
               </hashTree>
             </hashTree>
@@ -10042,6 +10418,14 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       &quot;endDate&quot;: &quot;${endDate_4}&quot;,&#xd;
       &quot;status&quot;: &quot;${status_4}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_4}&#xd;
+    },&#xd;
+    &quot;relationships&quot;: {&#xd;
+      &quot;attachment&quot;: {&#xd;
+        &quot;data&quot;: {&#xd;
+        	&quot;type&quot;: &quot;metadata&quot;,&#xd;
+        	&quot;id&quot;: &quot;${__P(attachment_uuid_2)}&quot;&#xd;
+        }&#xd;
+      }&#xd;
     }&#xd;
   }&#xd;
 }</stringProp>
@@ -10087,7 +10471,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/project/${verbose_project_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/project/${verbose_project_uuid}?include=attachment</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -10118,8 +10502,26 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.group == &quot;${user_group}&quot;</stringProp>
+assert attr.name == &quot;${name_4}&quot;
+assert attr.group == &quot;${user_group}&quot;
+assert attr.startDate == &quot;${startDate_4}&quot;
+assert attr.endDate == &quot;${endDate_4}&quot;
+assert attr.status == &quot;${status_4}&quot;
+
+def rel = object.data.relationships
+
+assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
                 </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Multilingual Description Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualDescription_4}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
                 <hashTree/>
               </hashTree>
             </hashTree>
@@ -10180,7 +10582,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/project/${verbose_project_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/project/${verbose_project_uuid}?include=attachment</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -10211,8 +10613,26 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.group == &quot;${user_group}&quot;</stringProp>
+assert attr.name == &quot;${name_4}&quot;
+assert attr.group == &quot;${user_group}&quot;
+assert attr.startDate == &quot;${startDate_4}&quot;
+assert attr.endDate == &quot;${endDate_4}&quot;
+assert attr.status == &quot;${status_4}&quot;
+
+def rel = object.data.relationships
+
+assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
                 </JSR223Assertion>
+                <hashTree/>
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Multilingual Description Assertion" enabled="true">
+                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
+                  <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
+                  <stringProp name="EXPECTED_VALUE">${multilingualDescription_4}</stringProp>
+                  <boolProp name="JSONVALIDATION">true</boolProp>
+                  <boolProp name="EXPECT_NULL">false</boolProp>
+                  <boolProp name="INVERT">false</boolProp>
+                  <boolProp name="ISREGEX">false</boolProp>
+                </JSONPathAssertion>
                 <hashTree/>
               </hashTree>
             </hashTree>
@@ -10422,1036 +10842,6 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
               <stringProp name="HTTPSampler.path">/api/collection-api/project/${invalid_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 404 Error" enabled="true">
-                <stringProp name="scriptLanguage">groovy</stringProp>
-                <stringProp name="parameters"></stringProp>
-                <stringProp name="filename"></stringProp>
-                <stringProp name="cacheKey">true</stringProp>
-                <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;404&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-              </JSR223Assertion>
-              <hashTree/>
-            </hashTree>
-          </hashTree>
-        </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>false</xml>
-              <fieldNames>true</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-              <sentBytes>true</sentBytes>
-              <url>true</url>
-              <threadCounts>true</threadCounts>
-              <idleTime>true</idleTime>
-              <connectTime>true</connectTime>
-            </value>
-          </objProp>
-          <stringProp name="filename"></stringProp>
-        </ResultCollector>
-        <hashTree/>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Acquisition Event End2End Thread Group" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">15</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
-      </ThreadGroup>
-      <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Acquisition Event Variables" enabled="true">
-          <collectionProp name="Arguments.arguments">
-            <elementProp name="receivedDate_1" elementType="Argument">
-              <stringProp name="Argument.name">receivedDate_1</stringProp>
-              <stringProp name="Argument.value">2012-02-01</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="receivedDate_2" elementType="Argument">
-              <stringProp name="Argument.name">receivedDate_2</stringProp>
-              <stringProp name="Argument.value">2013-02-01</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="receivedDate_3" elementType="Argument">
-              <stringProp name="Argument.name">receivedDate_3</stringProp>
-              <stringProp name="Argument.value">2015-02-01</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="receivedDate_4" elementType="Argument">
-              <stringProp name="Argument.name">receivedDate_4</stringProp>
-              <stringProp name="Argument.value">2017-02-01</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="receptionRemarks_1" elementType="Argument">
-              <stringProp name="Argument.name">receptionRemarks_1</stringProp>
-              <stringProp name="Argument.value">recepetion_remarks_1</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="receptionRemarks_2" elementType="Argument">
-              <stringProp name="Argument.name">receptionRemarks_2</stringProp>
-              <stringProp name="Argument.value">recepetion_remarks_2</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="receptionRemarks_3" elementType="Argument">
-              <stringProp name="Argument.name">receptionRemarks_3</stringProp>
-              <stringProp name="Argument.value">recepetion_remarks_3</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="receptionRemarks_4" elementType="Argument">
-              <stringProp name="Argument.name">receptionRemarks_4</stringProp>
-              <stringProp name="Argument.value">recepetion_remarks_4</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="isolatedOn_1" elementType="Argument">
-              <stringProp name="Argument.name">isolatedOn_1</stringProp>
-              <stringProp name="Argument.value">2017-02-01</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="isolatedOn_2" elementType="Argument">
-              <stringProp name="Argument.name">isolatedOn_2</stringProp>
-              <stringProp name="Argument.value">2018-02-01</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="isolatedOn_3" elementType="Argument">
-              <stringProp name="Argument.name">isolatedOn_3</stringProp>
-              <stringProp name="Argument.value">2019-02-01</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="isolatedOn_4" elementType="Argument">
-              <stringProp name="Argument.name">isolatedOn_4</stringProp>
-              <stringProp name="Argument.value">2020-02-01</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="isolationRemarks_1" elementType="Argument">
-              <stringProp name="Argument.name">isolationRemarks_1</stringProp>
-              <stringProp name="Argument.value">isolationRemarks_1</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="isolationRemarks_2" elementType="Argument">
-              <stringProp name="Argument.name">isolationRemarks_2</stringProp>
-              <stringProp name="Argument.value">isolationRemarks_2</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="isolationRemarks_3" elementType="Argument">
-              <stringProp name="Argument.name">isolationRemarks_3</stringProp>
-              <stringProp name="Argument.value">isolationRemarks_3</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-            <elementProp name="isolationRemarks_4" elementType="Argument">
-              <stringProp name="Argument.name">isolationRemarks_4</stringProp>
-              <stringProp name="Argument.value">isolationRemarks_4</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
-            </elementProp>
-          </collectionProp>
-        </Arguments>
-        <hashTree/>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Thread Group Request Headers" enabled="true">
-          <collectionProp name="HeaderManager.headers">
-            <elementProp name="" elementType="Header">
-              <stringProp name="Header.name">Authorization</stringProp>
-              <stringProp name="Header.value">Bearer ${__P(access_token)}</stringProp>
-            </elementProp>
-            <elementProp name="" elementType="Header">
-              <stringProp name="Header.name">Content-Type</stringProp>
-              <stringProp name="Header.value">application/vnd.api+json</stringProp>
-            </elementProp>
-          </collectionProp>
-          <stringProp name="TestPlan.comments">Required headers to perform API requests</stringProp>
-        </HeaderManager>
-        <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Setup for Acquisition Event" enabled="true"/>
-        <hashTree>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Acquisition Event" enabled="true"/>
-        <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Basic" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Basic Acquisition Event" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&#xd;
-  &quot;data&quot;: {&#xd;
-    &quot;type&quot;: &quot;acquisition-event&quot;,&#xd;
-    &quot;attributes&quot;: {&#xd;
-      &quot;group&quot;: &quot;${user_group}&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event</stringProp>
-              <stringProp name="HTTPSampler.method">POST</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 201" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49587">201</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Basic Acquisition Event UUID Extractor" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">basic_acquisition-event_uuid</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Create Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the basic record that was created and asserts all values are set as expected.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic - Retrieve Basic Acquisition Event" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${basic_acquisition-event_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
-                  <collectionProp name="Asserion.test_strings">
-                    <stringProp name="49586">200</stringProp>
-                  </collectionProp>
-                  <stringProp name="Assertion.custom_message"></stringProp>
-                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                  <boolProp name="Assertion.assume_success">false</boolProp>
-                  <intProp name="Assertion.test_type">2</intProp>
-                </ResponseAssertion>
-                <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Create Basic - General Assertions" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
-def object = jsonSlurper.parseText(prev.getResponseDataAsString())
-
-def attr = object.data.attributes
-
-assert attr.group == &quot;${user_group}&quot;</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Vebose" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Verbose Acquisition Event" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&#xd;
-  &quot;data&quot;: {&#xd;
-    &quot;type&quot;: &quot;acquisition-event&quot;,&#xd;
-    &quot;attributes&quot;: {&#xd;
-      &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
-      &quot;receivedDate&quot;: &quot;${receivedDate_2}&quot;,&#xd;
-      &quot;receptionRemarks&quot;: &quot;${receptionRemarks_2}&quot;,&#xd;
-      &quot;isolatedOn&quot;: &quot;${isolatedOn_2}&quot;,&#xd;
-      &quot;isolationRemarks&quot;: &quot;${isolationRemarks_2}&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event</stringProp>
-              <stringProp name="HTTPSampler.method">POST</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 201" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49587">201</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Verbose Acquisition Event UUID Extractor" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">verbose_acquisition-event_uuid</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.id</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Create Verbose" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the verbose record that was created and asserts all values are set as expected.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic - Retrieve Basic Acquisition Event" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${basic_acquisition-event_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
-                  <collectionProp name="Asserion.test_strings">
-                    <stringProp name="49586">200</stringProp>
-                  </collectionProp>
-                  <stringProp name="Assertion.custom_message"></stringProp>
-                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                  <boolProp name="Assertion.assume_success">false</boolProp>
-                  <intProp name="Assertion.test_type">2</intProp>
-                </ResponseAssertion>
-                <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Create Verbose - General Assertions" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
-def object = jsonSlurper.parseText(prev.getResponseDataAsString())
-
-def attr = object.data.attributes
-
-assert attr.group == &quot;${user_group}&quot;</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Empty Attributes" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Basic Acquisition Event" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&#xd;
-  &quot;data&quot;: {&#xd;
-    &quot;type&quot;: &quot;acquisition-event&quot;,&#xd;
-    &quot;attributes&quot;: {}&#xd;
-  }&#xd;
-}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event</stringProp>
-              <stringProp name="HTTPSampler.method">POST</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 403 Error" enabled="true">
-                <stringProp name="scriptLanguage">groovy</stringProp>
-                <stringProp name="parameters"></stringProp>
-                <stringProp name="filename"></stringProp>
-                <stringProp name="cacheKey">true</stringProp>
-                <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;403&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-              </JSR223Assertion>
-              <hashTree/>
-            </hashTree>
-          </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Incorrect Type" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Basic Acquisition Event" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&#xd;
-  &quot;data&quot;: {&#xd;
-    &quot;type&quot;: &quot;material-sample&quot;,&#xd;
-    &quot;attributes&quot;: {&#xd;
-      &quot;group&quot;: &quot;${user_group}&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event</stringProp>
-              <stringProp name="HTTPSampler.method">POST</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 400 Error" enabled="true">
-                <stringProp name="scriptLanguage">groovy</stringProp>
-                <stringProp name="parameters"></stringProp>
-                <stringProp name="filename"></stringProp>
-                <stringProp name="cacheKey">true</stringProp>
-                <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;400&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-              </JSR223Assertion>
-              <hashTree/>
-            </hashTree>
-          </hashTree>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Acquisition Event" enabled="true"/>
-        <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Basic" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Basic Acquisition Event" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&#xd;
-  &quot;data&quot;: {&#xd;
-    &quot;type&quot;: &quot;acquisition-event&quot;,&#xd;
-    &quot;attributes&quot;: {&#xd;
-      &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
-      &quot;receivedDate&quot;: &quot;${receivedDate_3}&quot;,&#xd;
-      &quot;receptionRemarks&quot;: &quot;${receptionRemarks_3}&quot;,&#xd;
-      &quot;isolatedOn&quot;: &quot;${isolatedOn_3}&quot;,&#xd;
-      &quot;isolationRemarks&quot;: &quot;${isolationRemarks_3}&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${basic_acquisition-event_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">PATCH</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49586">200</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the basic record that was updated and asserts all values are set as expected.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic - Retrieve Basic Acquisition Event" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${basic_acquisition-event_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
-                  <collectionProp name="Asserion.test_strings">
-                    <stringProp name="49586">200</stringProp>
-                  </collectionProp>
-                  <stringProp name="Assertion.custom_message"></stringProp>
-                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                  <boolProp name="Assertion.assume_success">false</boolProp>
-                  <intProp name="Assertion.test_type">2</intProp>
-                </ResponseAssertion>
-                <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Basic - General Assertions" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
-def object = jsonSlurper.parseText(prev.getResponseDataAsString())
-
-def attr = object.data.attributes
-
-assert attr.group == &quot;${user_group}&quot;</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Acquisition Event" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&#xd;
-  &quot;data&quot;: {&#xd;
-    &quot;type&quot;: &quot;acquisition-event&quot;,&#xd;
-    &quot;attributes&quot;: {&#xd;
-      &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
-      &quot;receivedDate&quot;: &quot;${receivedDate_4}&quot;,&#xd;
-      &quot;receptionRemarks&quot;: &quot;${receptionRemarks_4}&quot;,&#xd;
-      &quot;isolatedOn&quot;: &quot;${isolatedOn_4}&quot;,&#xd;
-      &quot;isolationRemarks&quot;: &quot;${isolationRemarks_4}&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${verbose_acquisition-event_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">PATCH</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49586">200</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the verbose record that was updated and asserts all values are set as expected.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Update Verbose - Retrieve Basic Acquisition Event" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${verbose_acquisition-event_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
-                  <collectionProp name="Asserion.test_strings">
-                    <stringProp name="49586">200</stringProp>
-                  </collectionProp>
-                  <stringProp name="Assertion.custom_message"></stringProp>
-                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                  <boolProp name="Assertion.assume_success">false</boolProp>
-                  <intProp name="Assertion.test_type">2</intProp>
-                </ResponseAssertion>
-                <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - General Assertions" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
-def object = jsonSlurper.parseText(prev.getResponseDataAsString())
-
-def attr = object.data.attributes
-
-assert attr.group == &quot;${user_group}&quot;</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose - Empty Body" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Acquisition Event" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&#xd;
-  &quot;data&quot;: {&#xd;
-    &quot;type&quot;: &quot;acquisition-event&quot;,&#xd;
-    &quot;attributes&quot;: {}&#xd;
-  }&#xd;
-}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${verbose_acquisition-event_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">PATCH</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49586">200</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the verbose record that was updated and asserts all values are set as expected.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Update Verbose - Retrieve Verbose Acquisition Event" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${verbose_acquisition-event_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
-                  <collectionProp name="Asserion.test_strings">
-                    <stringProp name="49586">200</stringProp>
-                  </collectionProp>
-                  <stringProp name="Assertion.custom_message"></stringProp>
-                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                  <boolProp name="Assertion.assume_success">false</boolProp>
-                  <intProp name="Assertion.test_type">2</intProp>
-                </ResponseAssertion>
-                <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - General Assertions" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
-def object = jsonSlurper.parseText(prev.getResponseDataAsString())
-
-def attr = object.data.attributes
-
-assert attr.group == &quot;${user_group}&quot;</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Invalid UUID" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Invalid Acquisition Event" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&#xd;
-  &quot;data&quot;: {&#xd;
-    &quot;type&quot;: &quot;acquisition-event&quot;,&#xd;
-    &quot;attributes&quot;: {&#xd;
-      &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
-      &quot;receivedDate&quot;: &quot;${receivedDate_3}&quot;,&#xd;
-      &quot;receptionRemarks&quot;: &quot;${receptionRemarks_3}&quot;,&#xd;
-      &quot;isolatedOn&quot;: &quot;${isolatedOn_3}&quot;,&#xd;
-      &quot;isolationRemarks&quot;: &quot;${isolationRemarks_3}&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${invalid_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">PATCH</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 404 Error" enabled="true">
-                <stringProp name="scriptLanguage">groovy</stringProp>
-                <stringProp name="parameters"></stringProp>
-                <stringProp name="filename"></stringProp>
-                <stringProp name="cacheKey">true</stringProp>
-                <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;404&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-              </JSR223Assertion>
-              <hashTree/>
-            </hashTree>
-          </hashTree>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Acquisition Event" enabled="true"/>
-        <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Acquisition Event" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&#xd;
-  &quot;data&quot;: {&#xd;
-    &quot;type&quot;: &quot;acquisition-event&quot;,&#xd;
-    &quot;attributes&quot;: {&#xd;
-      &quot;group&quot;: &quot;${user_group}&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${basic_acquisition-event_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Acquisition Event" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${basic_acquisition-event_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Verbose Acquisition Event" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&#xd;
-  &quot;data&quot;: {&#xd;
-    &quot;type&quot;: &quot;acquisition-event&quot;,&#xd;
-    &quot;attributes&quot;: {&#xd;
-      &quot;group&quot;: &quot;${user_group}&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${verbose_acquisition-event_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Verbose" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted verbose record and asserts that the correct response is returned.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Verbose - Retrieve Verbose Acquisition Event" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${verbose_acquisition-event_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Invalid UUID" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Invalid Acquisition Event" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&#xd;
-  &quot;data&quot;: {&#xd;
-    &quot;type&quot;: &quot;acquisition-event&quot;,&#xd;
-    &quot;attributes&quot;: {&#xd;
-      &quot;group&quot;: &quot;${user_group}&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/acquisition-event/${invalid_uuid}</stringProp>
               <stringProp name="HTTPSampler.method">DELETE</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -11755,6 +11145,14 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       &quot;protocolType&quot;: &quot;${protocolType_2}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_2},&#xd;
       &quot;protocolData&quot;: ${protocolData_2}&#xd;
+    },&#xd;
+    &quot;relationships&quot;: {&#xd;
+      &quot;attachments&quot;: {&#xd;
+        &quot;data&quot;: {&#xd;
+        	&quot;type&quot;: &quot;metadata&quot;,&#xd;
+        	&quot;id&quot;: &quot;${__P(attachment_uuid_1)}&quot;&#xd;
+        }&#xd;
+      }&#xd;
     }&#xd;
   }&#xd;
 }</stringProp>
@@ -11806,7 +11204,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${verbose_protocol_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${verbose_protocol_uuid}?include=attachments</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -11838,7 +11236,12 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 def attr = object.data.attributes
 
 assert attr.name == &quot;${name_2}&quot;
-assert attr.group == &quot;${user_group}&quot;</stringProp>
+assert attr.group == &quot;${user_group}&quot;
+assert attr.protocolType == &quot;${protocolType_2}&quot;
+
+def rel = object.data.relationships
+
+assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
                 <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Multilingual Description Assertion" enabled="true">
@@ -12027,6 +11430,14 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       &quot;protocolType&quot;: &quot;${protocolType_3}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_3},&#xd;
       &quot;protocolData&quot;: ${protocolData_3}&#xd;
+    },&#xd;
+    &quot;relationships&quot;: {&#xd;
+      &quot;attachments&quot;: {&#xd;
+        &quot;data&quot;: {&#xd;
+        	&quot;type&quot;: &quot;metadata&quot;,&#xd;
+        	&quot;id&quot;: &quot;${__P(attachment_uuid_2)}&quot;&#xd;
+        }&#xd;
+      }&#xd;
     }&#xd;
   }&#xd;
 }</stringProp>
@@ -12072,7 +11483,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${basic_protocol_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${basic_protocol_uuid}?include=attachments</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -12093,7 +11504,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Create Verbose - General Assertions" enabled="true">
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Basic - General Assertions" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -12104,10 +11515,15 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 def attr = object.data.attributes
 
 assert attr.name == &quot;${name_3}&quot;
-assert attr.group == &quot;${user_group}&quot;</stringProp>
+assert attr.group == &quot;${user_group}&quot;
+assert attr.protocolType == &quot;${protocolType_3}&quot;
+
+def rel = object.data.relationships
+
+assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
-                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Multilingual Description Assertion" enabled="true">
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Basic - Multilingual Description Assertion" enabled="true">
                   <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
                   <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
                   <stringProp name="EXPECTED_VALUE">${multilingualDescription_3}</stringProp>
@@ -12117,7 +11533,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                   <boolProp name="ISREGEX">false</boolProp>
                 </JSONPathAssertion>
                 <hashTree/>
-                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Protocol Data Assertion" enabled="true">
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Basic - Protocol Data Assertion" enabled="true">
                   <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
                   <stringProp name="JSON_PATH">$.data.attributes.protocolData</stringProp>
                   <stringProp name="EXPECTED_VALUE">${protocolData_3}</stringProp>
@@ -12147,6 +11563,14 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       &quot;protocolType&quot;: &quot;${protocolType_4}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_4},&#xd;
       &quot;protocolData&quot;: ${protocolData_4}&#xd;
+    },&#xd;
+    &quot;relationships&quot;: {&#xd;
+      &quot;attachments&quot;: {&#xd;
+        &quot;data&quot;: {&#xd;
+        	&quot;type&quot;: &quot;metadata&quot;,&#xd;
+        	&quot;id&quot;: &quot;${__P(attachment_uuid_2)}&quot;&#xd;
+        }&#xd;
+      }&#xd;
     }&#xd;
   }&#xd;
 }</stringProp>
@@ -12192,7 +11616,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${verbose_protocol_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${verbose_protocol_uuid}?include=attachments</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -12213,7 +11637,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Create Verbose - General Assertions" enabled="true">
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - General Assertions" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -12224,10 +11648,15 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 def attr = object.data.attributes
 
 assert attr.name == &quot;${name_4}&quot;
-assert attr.group == &quot;${user_group}&quot;</stringProp>
+assert attr.group == &quot;${user_group}&quot;
+assert attr.protocolType == &quot;${protocolType_4}&quot;
+
+def rel = object.data.relationships
+
+assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
-                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Multilingual Description Assertion" enabled="true">
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Multilingual Description Assertion" enabled="true">
                   <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
                   <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
                   <stringProp name="EXPECTED_VALUE">${multilingualDescription_4}</stringProp>
@@ -12237,7 +11666,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                   <boolProp name="ISREGEX">false</boolProp>
                 </JSONPathAssertion>
                 <hashTree/>
-                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Protocol Data Assertion" enabled="true">
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Protocol Data Assertion" enabled="true">
                   <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
                   <stringProp name="JSON_PATH">$.data.attributes.protocolData</stringProp>
                   <stringProp name="EXPECTED_VALUE">${protocolData_4}</stringProp>
@@ -12306,7 +11735,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${verbose_protocol_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${verbose_protocol_uuid}?include=attachments</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -12338,7 +11767,11 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 def attr = object.data.attributes
 
 assert attr.name == &quot;${name_4}&quot;
-assert attr.group == &quot;${user_group}&quot;</stringProp>
+assert attr.group == &quot;${user_group}&quot;
+
+def rel = object.data.relationships
+
+assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
                 <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Multilingual Description Assertion" enabled="true">
@@ -12592,6 +12025,111 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="tearDown Thread Group" enabled="true">
+        <stringProp name="TestPlan.comments">Thread group for deleting non-Collection API Module entities that were created for establishing relationships</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </PostThreadGroup>
+      <hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Thread Group Request Headers" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Authorization</stringProp>
+              <stringProp name="Header.value">Bearer ${__P(access_token)}</stringProp>
+            </elementProp>
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/vnd.api+json</stringProp>
+            </elementProp>
+          </collectionProp>
+          <stringProp name="TestPlan.comments">Required headers to perform API requests</stringProp>
+        </HeaderManager>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Delete - Remove Attachment 1" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/api/objectstore-api/metadata/${__P(attachment_uuid_1)}</stringProp>
+          <stringProp name="HTTPSampler.method">DELETE</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Delete - Remove Attachment 2" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/api/objectstore-api/metadata/${__P(attachment_uuid_2)}</stringProp>
+          <stringProp name="HTTPSampler.method">DELETE</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
