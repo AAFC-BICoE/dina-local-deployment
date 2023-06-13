@@ -12078,7 +12078,657 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
       </ThreadGroup>
       <hashTree>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Collecting Event Variables" enabled="true">
-          <collectionProp name="Arguments.arguments"/>
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="dwcVerbatimCoordinates_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimCoordinates_1</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimCoordinates_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimCoordinates_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimCoordinates_2</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimCoordinates_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimCoordinates_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimCoordinates_3</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimCoordinates_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimCoordinates_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimCoordinates_4</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimCoordinates_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcRecordedBy_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcRecordedBy_1</stringProp>
+              <stringProp name="Argument.value">dwcRecordedBy_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcRecordedBy_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcRecordedBy_2</stringProp>
+              <stringProp name="Argument.value">dwcRecordedBy_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcRecordedBy_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcRecordedBy_3</stringProp>
+              <stringProp name="Argument.value">dwcRecordedBy_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcRecordedBy_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcRecordedBy_4</stringProp>
+              <stringProp name="Argument.value">dwcRecordedBy_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimLatitude_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimLatitude_1</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimLatitude_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimLatitude_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimLatitude_2</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimLatitude_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimLatitude_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimLatitude_3</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimLatitude_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimLatitude_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimLatitude_4</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimLatitude_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimLongitude_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimLongitude_1</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimLongitude_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimLongitude_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimLongitude_2</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimLongitude_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimLongitude_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimLongitude_3</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimLongitude_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimLongitude_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimLongitude_4</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimLongitude_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimCoordinateSystem_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimCoordinateSystem_1</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimCoordinateSystem_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimCoordinateSystem_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimCoordinateSystem_2</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimCoordinateSystem_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimCoordinateSystem_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimCoordinateSystem_3</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimCoordinateSystem_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimCoordinateSystem_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimCoordinateSystem_4</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimCoordinateSystem_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimSRS_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimSRS_1</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimSRS_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimSRS_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimSRS_2</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimSRS_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimSRS_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimSRS_3</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimSRS_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimSRS_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimSRS_4</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimSRS_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimElevation_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimElevation_1</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimElevation_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimElevation_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimElevation_2</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimElevation_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimElevation_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimElevation_3</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimElevation_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimElevation_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimElevation_4</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimElevation_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimDepth_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimDepth_1</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimDepth_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimDepth_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimDepth_2</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimDepth_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimDepth_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimDepth_3</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimDepth_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimDepth_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimDepth_4</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimDepth_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcFieldNumber_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcFieldNumber_1</stringProp>
+              <stringProp name="Argument.value">dwcFieldNumber_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcFieldNumber_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcFieldNumber_2</stringProp>
+              <stringProp name="Argument.value">dwcFieldNumber_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcFieldNumber_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcFieldNumber_3</stringProp>
+              <stringProp name="Argument.value">dwcFieldNumber_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcFieldNumber_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcFieldNumber_4</stringProp>
+              <stringProp name="Argument.value">dwcFieldNumber_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcRecordNumber_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcRecordNumber_1</stringProp>
+              <stringProp name="Argument.value">dwcRecordNumber_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcRecordNumber_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcRecordNumber_2</stringProp>
+              <stringProp name="Argument.value">dwcRecordNumber_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcRecordNumber_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcRecordNumber_3</stringProp>
+              <stringProp name="Argument.value">dwcRecordNumber_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcRecordNumber_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcRecordNumber_4</stringProp>
+              <stringProp name="Argument.value">dwcRecordNumber_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="otherRecordNumbers_1" elementType="Argument">
+              <stringProp name="Argument.name">otherRecordNumbers_1</stringProp>
+              <stringProp name="Argument.value">[&quot;otherRecordNumbers_1&quot;]</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="otherRecordNumbers_2" elementType="Argument">
+              <stringProp name="Argument.name">otherRecordNumbers_2</stringProp>
+              <stringProp name="Argument.value">[&quot;otherRecordNumbers_2&quot;]</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="otherRecordNumbers_3" elementType="Argument">
+              <stringProp name="Argument.name">otherRecordNumbers_3</stringProp>
+              <stringProp name="Argument.value">[&quot;otherRecordNumbers_3&quot;]</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="otherRecordNumbers_4" elementType="Argument">
+              <stringProp name="Argument.name">otherRecordNumbers_4</stringProp>
+              <stringProp name="Argument.value">[&quot;otherRecordNumbers_4&quot;]</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcCountry_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcCountry_1</stringProp>
+              <stringProp name="Argument.value">dwcCountry_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcCountry_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcCountry_2</stringProp>
+              <stringProp name="Argument.value">dwcCountry_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcCountry_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcCountry_3</stringProp>
+              <stringProp name="Argument.value">dwcCountry_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcCountry_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcCountry_4</stringProp>
+              <stringProp name="Argument.value">dwcCountry_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcCountryCode_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcCountryCode_1</stringProp>
+              <stringProp name="Argument.value">dwcCountryCode_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcCountryCode_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcCountryCode_2</stringProp>
+              <stringProp name="Argument.value">dwcCountryCode_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcCountryCode_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcCountryCode_3</stringProp>
+              <stringProp name="Argument.value">dwcCountryCode_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcCountryCode_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcCountryCode_4</stringProp>
+              <stringProp name="Argument.value">dwcCountryCode_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcStateProvince_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcStateProvince_1</stringProp>
+              <stringProp name="Argument.value">dwcStateProvince_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcStateProvince_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcStateProvince_2</stringProp>
+              <stringProp name="Argument.value">dwcStateProvince_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcStateProvince_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcStateProvince_3</stringProp>
+              <stringProp name="Argument.value">dwcStateProvince_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcStateProvince_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcStateProvince_4</stringProp>
+              <stringProp name="Argument.value">dwcStateProvince_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMinimumElevationInMeters_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcMinimumElevationInMeters_1</stringProp>
+              <stringProp name="Argument.value">31.21</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMinimumElevationInMeters_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcMinimumElevationInMeters_2</stringProp>
+              <stringProp name="Argument.value">32.32</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMinimumElevationInMeters_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcMinimumElevationInMeters_3</stringProp>
+              <stringProp name="Argument.value">134.13</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMinimumElevationInMeters_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcMinimumElevationInMeters_4</stringProp>
+              <stringProp name="Argument.value">1213</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMinimumDepthInMeters_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcMinimumDepthInMeters_1</stringProp>
+              <stringProp name="Argument.value">312.12</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMinimumDepthInMeters_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcMinimumDepthInMeters_2</stringProp>
+              <stringProp name="Argument.value">12.33</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMinimumDepthInMeters_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcMinimumDepthInMeters_3</stringProp>
+              <stringProp name="Argument.value">12.3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMinimumDepthInMeters_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcMinimumDepthInMeters_4</stringProp>
+              <stringProp name="Argument.value">121.30</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMaximumElevationInMeters_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcMaximumElevationInMeters_1</stringProp>
+              <stringProp name="Argument.value">430.21</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMaximumElevationInMeters_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcMaximumElevationInMeters_2</stringProp>
+              <stringProp name="Argument.value">431.21</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMaximumElevationInMeters_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcMaximumElevationInMeters_3</stringProp>
+              <stringProp name="Argument.value">432.21</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMaximumElevationInMeters_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcMaximumElevationInMeters_4</stringProp>
+              <stringProp name="Argument.value">501.2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMaximumDepthInMeters_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcMaximumDepthInMeters_1</stringProp>
+              <stringProp name="Argument.value">430.21</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMaximumDepthInMeters_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcMaximumDepthInMeters_2</stringProp>
+              <stringProp name="Argument.value">431.21</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMaximumDepthInMeters_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcMaximumDepthInMeters_3</stringProp>
+              <stringProp name="Argument.value">432.21</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcMaximumDepthInMeters_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcMaximumDepthInMeters_4</stringProp>
+              <stringProp name="Argument.value">501.2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="habitat_1" elementType="Argument">
+              <stringProp name="Argument.name">habitat_1</stringProp>
+              <stringProp name="Argument.value">habitat_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="habitat_2" elementType="Argument">
+              <stringProp name="Argument.name">habitat_2</stringProp>
+              <stringProp name="Argument.value">habitat_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="habitat_3" elementType="Argument">
+              <stringProp name="Argument.name">habitat_3</stringProp>
+              <stringProp name="Argument.value">habitat_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="habitat_4" elementType="Argument">
+              <stringProp name="Argument.name">habitat_4</stringProp>
+              <stringProp name="Argument.value">habitat_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="substrate_1" elementType="Argument">
+              <stringProp name="Argument.name">substrate_1</stringProp>
+              <stringProp name="Argument.value">substrate_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="substrate_2" elementType="Argument">
+              <stringProp name="Argument.name">substrate_2</stringProp>
+              <stringProp name="Argument.value">substrate_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="substrate_3" elementType="Argument">
+              <stringProp name="Argument.name">substrate_3</stringProp>
+              <stringProp name="Argument.value">substrate_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="substrate_4" elementType="Argument">
+              <stringProp name="Argument.name">substrate_4</stringProp>
+              <stringProp name="Argument.value">substrate_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="remarks_1" elementType="Argument">
+              <stringProp name="Argument.name">remarks_1</stringProp>
+              <stringProp name="Argument.value">remarks_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="remarks_2" elementType="Argument">
+              <stringProp name="Argument.name">remarks_2</stringProp>
+              <stringProp name="Argument.value">remarks_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="remarks_3" elementType="Argument">
+              <stringProp name="Argument.name">remarks_3</stringProp>
+              <stringProp name="Argument.value">remarks_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="remarks_4" elementType="Argument">
+              <stringProp name="Argument.name">remarks_4</stringProp>
+              <stringProp name="Argument.value">remarks_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="verbatimEventDateTime_1" elementType="Argument">
+              <stringProp name="Argument.name">verbatimEventDateTime_1</stringProp>
+              <stringProp name="Argument.value">2013-02-12</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="verbatimEventDateTime_2" elementType="Argument">
+              <stringProp name="Argument.name">verbatimEventDateTime_2</stringProp>
+              <stringProp name="Argument.value">2014-02-12</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="verbatimEventDateTime_3" elementType="Argument">
+              <stringProp name="Argument.name">verbatimEventDateTime_3</stringProp>
+              <stringProp name="Argument.value">2016-02-12</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="verbatimEventDateTime_4 " elementType="Argument">
+              <stringProp name="Argument.name">verbatimEventDateTime_4 </stringProp>
+              <stringProp name="Argument.value">2017-02-12</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="startEventDateTime_1" elementType="Argument">
+              <stringProp name="Argument.name">startEventDateTime_1</stringProp>
+              <stringProp name="Argument.value">2013-01-04</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="startEventDateTime_2" elementType="Argument">
+              <stringProp name="Argument.name">startEventDateTime_2</stringProp>
+              <stringProp name="Argument.value">2014-03-13</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="startEventDateTime_3" elementType="Argument">
+              <stringProp name="Argument.name">startEventDateTime_3</stringProp>
+              <stringProp name="Argument.value">2016-01-04</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="startEventDateTime_4" elementType="Argument">
+              <stringProp name="Argument.name">startEventDateTime_4</stringProp>
+              <stringProp name="Argument.value">2017-03-13</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="endEventDateTime_1" elementType="Argument">
+              <stringProp name="Argument.name">endEventDateTime_1</stringProp>
+              <stringProp name="Argument.value">2014-03-13</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="endEventDateTime_2" elementType="Argument">
+              <stringProp name="Argument.name">endEventDateTime_2</stringProp>
+              <stringProp name="Argument.value">2016-01-04</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="endEventDateTime_3" elementType="Argument">
+              <stringProp name="Argument.name">endEventDateTime_3</stringProp>
+              <stringProp name="Argument.value">2017-03-13</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="endEventDateTime_4" elementType="Argument">
+              <stringProp name="Argument.name">endEventDateTime_4</stringProp>
+              <stringProp name="Argument.value">2018-03-13</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimLocality_1" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimLocality_1</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimLocality_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimLocality_2" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimLocality_2</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimLocality_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimLocality_3" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimLocality_3</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimLocality_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dwcVerbatimLocality_4" elementType="Argument">
+              <stringProp name="Argument.name">dwcVerbatimLocality_4</stringProp>
+              <stringProp name="Argument.value">dwcVerbatimLocality_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="publiclyReleasable_1" elementType="Argument">
+              <stringProp name="Argument.name">publiclyReleasable_1</stringProp>
+              <stringProp name="Argument.value">true</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="publiclyReleasable_2" elementType="Argument">
+              <stringProp name="Argument.name">publiclyReleasable_2</stringProp>
+              <stringProp name="Argument.value">false</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="publiclyReleasable_3" elementType="Argument">
+              <stringProp name="Argument.name">publiclyReleasable_3</stringProp>
+              <stringProp name="Argument.value">false</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="publiclyReleasable_4" elementType="Argument">
+              <stringProp name="Argument.name">publiclyReleasable_4</stringProp>
+              <stringProp name="Argument.value">true</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="notPubliclyReleasableReason_1" elementType="Argument">
+              <stringProp name="Argument.name">notPubliclyReleasableReason_1</stringProp>
+              <stringProp name="Argument.value">notPubliclyReleasableReason_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="notPubliclyReleasableReason_2" elementType="Argument">
+              <stringProp name="Argument.name">notPubliclyReleasableReason_2</stringProp>
+              <stringProp name="Argument.value">notPubliclyReleasableReason_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="notPubliclyReleasableReason_3" elementType="Argument">
+              <stringProp name="Argument.name">notPubliclyReleasableReason_3</stringProp>
+              <stringProp name="Argument.value">notPubliclyReleasableReason_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="notPubliclyReleasableReason_4" elementType="Argument">
+              <stringProp name="Argument.name">notPubliclyReleasableReason_4</stringProp>
+              <stringProp name="Argument.value">notPubliclyReleasableReason_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="geographicPlaceNameSource_1" elementType="Argument">
+              <stringProp name="Argument.name">geographicPlaceNameSource_1</stringProp>
+              <stringProp name="Argument.value">OSM</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="geographicPlaceNameSource_2" elementType="Argument">
+              <stringProp name="Argument.name">geographicPlaceNameSource_2</stringProp>
+              <stringProp name="Argument.value">OSM</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="geographicPlaceNameSource_3" elementType="Argument">
+              <stringProp name="Argument.name">geographicPlaceNameSource_3</stringProp>
+              <stringProp name="Argument.value">OSM</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="geographicPlaceNameSource_4" elementType="Argument">
+              <stringProp name="Argument.name">geographicPlaceNameSource_4</stringProp>
+              <stringProp name="Argument.value">OSM</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="geographicPlaceNameSourceDetail_1" elementType="Argument">
+              <stringProp name="Argument.name">geographicPlaceNameSourceDetail_1</stringProp>
+              <stringProp name="Argument.value">Fill_Later</stringProp>
+              <stringProp name="Argument.desc">Map that needs filling - Handle simliar to Organism</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="geographicPlaceNameSourceDetail_2" elementType="Argument">
+              <stringProp name="Argument.name">geographicPlaceNameSourceDetail_2</stringProp>
+              <stringProp name="Argument.value">Fill_Later</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.desc">&quot;&quot;</stringProp>
+            </elementProp>
+            <elementProp name="geographicPlaceNameSourceDetail_3" elementType="Argument">
+              <stringProp name="Argument.name">geographicPlaceNameSourceDetail_3</stringProp>
+              <stringProp name="Argument.value">Fill_Later</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.desc">&quot;&quot;</stringProp>
+            </elementProp>
+            <elementProp name="geographicPlaceNameSourceDetail_4" elementType="Argument">
+              <stringProp name="Argument.name">geographicPlaceNameSourceDetail_4</stringProp>
+              <stringProp name="Argument.value">Fill_Later</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.desc">&quot;&quot;</stringProp>
+            </elementProp>
+            <elementProp name="tags_1" elementType="Argument">
+              <stringProp name="Argument.name">tags_1</stringProp>
+              <stringProp name="Argument.value">[&quot;tags_1&quot;]</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="tags_2" elementType="Argument">
+              <stringProp name="Argument.name">tags_2</stringProp>
+              <stringProp name="Argument.value">[&quot;tags_2&quot;]</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="tags_3" elementType="Argument">
+              <stringProp name="Argument.name">tags_3</stringProp>
+              <stringProp name="Argument.value">[&quot;tags_3&quot;]</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="tags_4" elementType="Argument">
+              <stringProp name="Argument.name">tags_4</stringProp>
+              <stringProp name="Argument.value">[&quot;tags_4&quot;]</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="host_1" elementType="Argument">
+              <stringProp name="Argument.name">host_1</stringProp>
+              <stringProp name="Argument.value">host_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="host_2" elementType="Argument">
+              <stringProp name="Argument.name">host_2</stringProp>
+              <stringProp name="Argument.value">host_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="host_3" elementType="Argument">
+              <stringProp name="Argument.name">host_3</stringProp>
+              <stringProp name="Argument.value">host_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="host_4" elementType="Argument">
+              <stringProp name="Argument.name">host_4</stringProp>
+              <stringProp name="Argument.value">host_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="geoReferenceAssertions_1" elementType="Argument">
+              <stringProp name="Argument.name">geoReferenceAssertions_1</stringProp>
+              <stringProp name="Argument.value">Fill_Later</stringProp>
+              <stringProp name="Argument.desc">Map that needs filling - Handle simliar to Organism</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="geoReferenceAssertions_2" elementType="Argument">
+              <stringProp name="Argument.name">geoReferenceAssertions_2</stringProp>
+              <stringProp name="Argument.value">Fill_Later</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.desc">&quot;&quot;</stringProp>
+            </elementProp>
+            <elementProp name="geoReferenceAssertions_3" elementType="Argument">
+              <stringProp name="Argument.name">geoReferenceAssertions_3</stringProp>
+              <stringProp name="Argument.value">Fill_Later</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.desc">&quot;&quot;</stringProp>
+            </elementProp>
+            <elementProp name="geoReferenceAssertions_4" elementType="Argument">
+              <stringProp name="Argument.name">geoReferenceAssertions_4</stringProp>
+              <stringProp name="Argument.value">Fill_Later</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.desc">&quot;&quot;</stringProp>
+            </elementProp>
+          </collectionProp>
+          <stringProp name="TestPlan.comments">Note for dev: Extension Values and Managed Attributes not considered at the moment</stringProp>
         </Arguments>
         <hashTree/>
         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Thread Group Request Headers" enabled="true">
@@ -12096,14 +12746,39 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
         </HeaderManager>
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Setup for Collecting Event" enabled="true"/>
-        <hashTree/>
+        <hashTree>
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+            <collectionProp name="ModuleController.node_path">
+              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
+              <stringProp name="1506430348">setUp Thread Group</stringProp>
+              <stringProp name="52452451">Token Controller</stringProp>
+            </collectionProp>
+          </ModuleController>
+          <hashTree/>
+        </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Collecting Event" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Basic" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Basic Collecting Event" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;data&quot;: {&#xd;
+    &quot;type&quot;: &quot;collecting-event&quot;,&#xd;
+    &quot;attributes&quot;: {&#xd;
+      &quot;group&quot;: &quot;${user_group}&quot;&#xd;
+    }&#xd;
+  }&#xd;
+}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -12141,8 +12816,53 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Verbose" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Verbose Collecting Event" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;data&quot;: {&#xd;
+    &quot;type&quot;: &quot;collecting-event&quot;,&#xd;
+    &quot;attributes&quot;: {&#xd;
+      &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
+      &quot;dwcVerbatimCoordinates&quot;: &quot;${dwcVerbatimCoordinates_2}&quot;,&#xd;
+      &quot;dwcRecordedBy&quot;: &quot;${dwcRecordedBy_2}&quot;,&#xd;
+      &quot;dwcVerbatimLatitude&quot;: &quot;${dwcVerbatimLatitude_2}&quot;,&#xd;
+      &quot;dwcVerbatimLongitude&quot;: &quot;${dwcVerbatimLongitude_2}&quot;,&#xd;
+      &quot;dwcVerbatimCoordinateSystem&quot;: &quot;${dwcVerbatimCoordinateSystem_2}&quot;,&#xd;
+      &quot;dwcVerbatimSRS&quot;: &quot;${dwcVerbatimSRS_2}&quot;,&#xd;
+      &quot;dwcVerbatimElevation&quot;: &quot;${dwcVerbatimElevation_2}&quot;,&#xd;
+      &quot;dwcVerbatimDepth&quot;: &quot;${dwcVerbatimDepth_2}&quot;,&#xd;
+      &quot;dwcFieldNumber&quot;: &quot;${dwcFieldNumber_2}&quot;,&#xd;
+      &quot;dwcRecordNumber&quot;: &quot;${dwcRecordNumber_2}&quot;,&#xd;
+      &quot;otherRecordNumbers&quot;: &quot;${otherRecordNumbers_2}&quot;,&#xd;
+      &quot;dwcCountry&quot;: &quot;${dwcCountry_2}&quot;,&#xd;
+      &quot;dwcCountryCode&quot;: &quot;${dwcCountryCode_2}&quot;,&#xd;
+      &quot;dwcStateProvince&quot;: &quot;${dwcStateProvince_2}&quot;,&#xd;
+      &quot;dwcMinimumElevationInMeters&quot;: ${dwcMinimumElevationInMeters_2},&#xd;
+      &quot;dwcMinimumDepthInMeters&quot;: ${dwcMinimumDepthInMeters_2},&#xd;
+      &quot;dwcMaximumElevationInMeters&quot;: ${dwcMaximumElevationInMeters_2},&#xd;
+      &quot;dwcMaximumDepthInMeters&quot;: ${dwcMaximumDepthInMeters_2},&#xd;
+      &quot;habitat&quot;: &quot;${habitat_2}&quot;,&#xd;
+      &quot;substrate&quot;: &quot;${substrate_2}&quot;,&#xd;
+      &quot;remarks&quot;: &quot;${remarks_2}&quot;,&#xd;
+      &quot;verbatimEventDateTime&quot;: &quot;${verbatimEventDateTime_2}&quot;,&#xd;
+      &quot;startEventDateTime&quot;: &quot;${startEventDateTime_2}&quot;,&#xd;
+      &quot;endEventDateTime&quot;: &quot;${endEventDateTime_2}&quot;,&#xd;
+      &quot;dwcVerbatimLocality&quot;: &quot;${dwcVerbatimLocality_2}&quot;,&#xd;
+      &quot;publiclyReleasable&quot;: ${publiclyReleasable_2},&#xd;
+      &quot;notPubliclyReleasableReason&quot;: &quot;${notPubliclyReleasableReason_2}&quot;,&#xd;
+      &quot;geographicPlaceNameSource&quot;: &quot;${geographicPlaceNameSource_2}&quot;,&#xd;
+      &quot;tags&quot;: ${tags_2},&#xd;
+      &quot;host&quot;: &quot;${host_2}&quot;&#xd;
+    }&#xd;
+  }&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -12183,8 +12903,53 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Basic" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Basic Collecting Event" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;data&quot;: {&#xd;
+    &quot;type&quot;: &quot;collecting-event&quot;,&#xd;
+    &quot;attributes&quot;: {&#xd;
+      &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
+      &quot;dwcVerbatimCoordinates&quot;: &quot;${dwcVerbatimCoordinates_3}&quot;,&#xd;
+      &quot;dwcRecordedBy&quot;: &quot;${dwcRecordedBy_3}&quot;,&#xd;
+      &quot;dwcVerbatimLatitude&quot;: &quot;${dwcVerbatimLatitude_3}&quot;,&#xd;
+      &quot;dwcVerbatimLongitude&quot;: &quot;${dwcVerbatimLongitude_3}&quot;,&#xd;
+      &quot;dwcVerbatimCoordinateSystem&quot;: &quot;${dwcVerbatimCoordinateSystem_3}&quot;,&#xd;
+      &quot;dwcVerbatimSRS&quot;: &quot;${dwcVerbatimSRS_3}&quot;,&#xd;
+      &quot;dwcVerbatimElevation&quot;: &quot;${dwcVerbatimElevation_3}&quot;,&#xd;
+      &quot;dwcVerbatimDepth&quot;: &quot;${dwcVerbatimDepth_3}&quot;,&#xd;
+      &quot;dwcFieldNumber&quot;: &quot;${dwcFieldNumber_3}&quot;,&#xd;
+      &quot;dwcRecordNumber&quot;: &quot;${dwcRecordNumber_3}&quot;,&#xd;
+      &quot;otherRecordNumbers&quot;: &quot;${otherRecordNumbers_3}&quot;,&#xd;
+      &quot;dwcCountry&quot;: &quot;${dwcCountry_3}&quot;,&#xd;
+      &quot;dwcCountryCode&quot;: &quot;${dwcCountryCode_3}&quot;,&#xd;
+      &quot;dwcStateProvince&quot;: &quot;${dwcStateProvince_3}&quot;,&#xd;
+      &quot;dwcMinimumElevationInMeters&quot;: ${dwcMinimumElevationInMeters_3},&#xd;
+      &quot;dwcMinimumDepthInMeters&quot;: ${dwcMinimumDepthInMeters_3},&#xd;
+      &quot;dwcMaximumElevationInMeters&quot;: ${dwcMaximumElevationInMeters_3},&#xd;
+      &quot;dwcMaximumDepthInMeters&quot;: ${dwcMaximumDepthInMeters_3},&#xd;
+      &quot;habitat&quot;: &quot;${habitat_3}&quot;,&#xd;
+      &quot;substrate&quot;: &quot;${substrate_3}&quot;,&#xd;
+      &quot;remarks&quot;: &quot;${remarks_3}&quot;,&#xd;
+      &quot;verbatimEventDateTime&quot;: &quot;${verbatimEventDateTime_3}&quot;,&#xd;
+      &quot;startEventDateTime&quot;: &quot;${startEventDateTime_3}&quot;,&#xd;
+      &quot;endEventDateTime&quot;: &quot;${endEventDateTime_3}&quot;,&#xd;
+      &quot;dwcVerbatimLocality&quot;: &quot;${dwcVerbatimLocality_3}&quot;,&#xd;
+      &quot;publiclyReleasable&quot;: ${publiclyReleasable_3},&#xd;
+      &quot;notPubliclyReleasableReason&quot;: &quot;${notPubliclyReleasableReason_3}&quot;,&#xd;
+      &quot;geographicPlaceNameSource&quot;: &quot;${geographicPlaceNameSource_3}&quot;,&#xd;
+      &quot;tags&quot;: ${tags_3},&#xd;
+      &quot;host&quot;: &quot;${host_3}&quot;&#xd;
+    }&#xd;
+  }&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -12216,8 +12981,53 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Collecting Event" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;data&quot;: {&#xd;
+    &quot;type&quot;: &quot;collecting-event&quot;,&#xd;
+    &quot;attributes&quot;: {&#xd;
+      &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
+      &quot;dwcVerbatimCoordinates&quot;: &quot;${dwcVerbatimCoordinates_4}&quot;,&#xd;
+      &quot;dwcRecordedBy&quot;: &quot;${dwcRecordedBy_4}&quot;,&#xd;
+      &quot;dwcVerbatimLatitude&quot;: &quot;${dwcVerbatimLatitude_4}&quot;,&#xd;
+      &quot;dwcVerbatimLongitude&quot;: &quot;${dwcVerbatimLongitude_4}&quot;,&#xd;
+      &quot;dwcVerbatimCoordinateSystem&quot;: &quot;${dwcVerbatimCoordinateSystem_4}&quot;,&#xd;
+      &quot;dwcVerbatimSRS&quot;: &quot;${dwcVerbatimSRS_4}&quot;,&#xd;
+      &quot;dwcVerbatimElevation&quot;: &quot;${dwcVerbatimElevation_4}&quot;,&#xd;
+      &quot;dwcVerbatimDepth&quot;: &quot;${dwcVerbatimDepth_4}&quot;,&#xd;
+      &quot;dwcFieldNumber&quot;: &quot;${dwcFieldNumber_4}&quot;,&#xd;
+      &quot;dwcRecordNumber&quot;: &quot;${dwcRecordNumber_4}&quot;,&#xd;
+      &quot;otherRecordNumbers&quot;: &quot;${otherRecordNumbers_4}&quot;,&#xd;
+      &quot;dwcCountry&quot;: &quot;${dwcCountry_4}&quot;,&#xd;
+      &quot;dwcCountryCode&quot;: &quot;${dwcCountryCode_4}&quot;,&#xd;
+      &quot;dwcStateProvince&quot;: &quot;${dwcStateProvince_4}&quot;,&#xd;
+      &quot;dwcMinimumElevationInMeters&quot;: ${dwcMinimumElevationInMeters_4},&#xd;
+      &quot;dwcMinimumDepthInMeters&quot;: ${dwcMinimumDepthInMeters_4},&#xd;
+      &quot;dwcMaximumElevationInMeters&quot;: ${dwcMaximumElevationInMeters_4},&#xd;
+      &quot;dwcMaximumDepthInMeters&quot;: ${dwcMaximumDepthInMeters_4},&#xd;
+      &quot;habitat&quot;: &quot;${habitat_4}&quot;,&#xd;
+      &quot;substrate&quot;: &quot;${substrate_4}&quot;,&#xd;
+      &quot;remarks&quot;: &quot;${remarks_4}&quot;,&#xd;
+      &quot;verbatimEventDateTime&quot;: &quot;${verbatimEventDateTime_4}&quot;,&#xd;
+      &quot;startEventDateTime&quot;: &quot;${startEventDateTime_4}&quot;,&#xd;
+      &quot;endEventDateTime&quot;: &quot;${endEventDateTime_4}&quot;,&#xd;
+      &quot;dwcVerbatimLocality&quot;: &quot;${dwcVerbatimLocality_4}&quot;,&#xd;
+      &quot;publiclyReleasable&quot;: ${publiclyReleasable_4},&#xd;
+      &quot;notPubliclyReleasableReason&quot;: &quot;${notPubliclyReleasableReason_4}&quot;,&#xd;
+      &quot;geographicPlaceNameSource&quot;: &quot;${geographicPlaceNameSource_4}&quot;,&#xd;
+      &quot;tags&quot;: ${tags_4},&#xd;
+      &quot;host&quot;: &quot;${host_4}&quot;&#xd;
+    }&#xd;
+  }&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -12249,8 +13059,21 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose - Empty Body" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose - Empty Body Collecting Event" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;data&quot;: {&#xd;
+    &quot;type&quot;: &quot;collecting-event&quot;,&#xd;
+    &quot;attributes&quot;: {}&#xd;
+  }&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -12402,7 +13225,108 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
       </ThreadGroup>
       <hashTree>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Collection Variables" enabled="true">
-          <collectionProp name="Arguments.arguments"/>
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="code_1" elementType="Argument">
+              <stringProp name="Argument.name">code_1</stringProp>
+              <stringProp name="Argument.value">code_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="code_2" elementType="Argument">
+              <stringProp name="Argument.name">code_2</stringProp>
+              <stringProp name="Argument.value">code_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="code_3" elementType="Argument">
+              <stringProp name="Argument.name">code_3</stringProp>
+              <stringProp name="Argument.value">code_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="code_4" elementType="Argument">
+              <stringProp name="Argument.name">code_4</stringProp>
+              <stringProp name="Argument.value">code_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="webpage_1" elementType="Argument">
+              <stringProp name="Argument.name">webpage_1</stringProp>
+              <stringProp name="Argument.value">https://webpage_1.com</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="webpage_2" elementType="Argument">
+              <stringProp name="Argument.name">webpage_2</stringProp>
+              <stringProp name="Argument.value">https://webpage_2.com</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="webpage_3" elementType="Argument">
+              <stringProp name="Argument.name">webpage_3</stringProp>
+              <stringProp name="Argument.value">https://webpage_3.com</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="webpage_4" elementType="Argument">
+              <stringProp name="Argument.name">webpage_4</stringProp>
+              <stringProp name="Argument.value">https://webpage_4.com</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="contact_1" elementType="Argument">
+              <stringProp name="Argument.name">contact_1</stringProp>
+              <stringProp name="Argument.value">contact_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="contact_2" elementType="Argument">
+              <stringProp name="Argument.name">contact_2</stringProp>
+              <stringProp name="Argument.value">contact_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="contact_3" elementType="Argument">
+              <stringProp name="Argument.name">contact_3</stringProp>
+              <stringProp name="Argument.value">contact_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="contact_4" elementType="Argument">
+              <stringProp name="Argument.name">contact_4</stringProp>
+              <stringProp name="Argument.value">contact_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="address_1" elementType="Argument">
+              <stringProp name="Argument.name">address_1</stringProp>
+              <stringProp name="Argument.value">address_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="address_2" elementType="Argument">
+              <stringProp name="Argument.name">address_2</stringProp>
+              <stringProp name="Argument.value">address_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="address_3" elementType="Argument">
+              <stringProp name="Argument.name">address_3</stringProp>
+              <stringProp name="Argument.value">address_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="address_4" elementType="Argument">
+              <stringProp name="Argument.name">address_4</stringProp>
+              <stringProp name="Argument.value">address_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="remarks_1" elementType="Argument">
+              <stringProp name="Argument.name">remarks_1</stringProp>
+              <stringProp name="Argument.value">remarks_1</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="remarks_2" elementType="Argument">
+              <stringProp name="Argument.name">remarks_2</stringProp>
+              <stringProp name="Argument.value">remarks_2</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="remarks_3" elementType="Argument">
+              <stringProp name="Argument.name">remarks_3</stringProp>
+              <stringProp name="Argument.value">remarks_3</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="remarks_4" elementType="Argument">
+              <stringProp name="Argument.name">remarks_4</stringProp>
+              <stringProp name="Argument.value">remarks_4</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
         </Arguments>
         <hashTree/>
         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Thread Group Request Headers" enabled="true">
@@ -12420,14 +13344,53 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
         </HeaderManager>
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Setup for Collection" enabled="true"/>
-        <hashTree/>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
+
+ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+            <collectionProp name="ModuleController.node_path">
+              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
+              <stringProp name="1506430348">setUp Thread Group</stringProp>
+              <stringProp name="52452451">Token Controller</stringProp>
+            </collectionProp>
+          </ModuleController>
+          <hashTree/>
+        </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Collection" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Basic" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Basic Collection" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;data&quot;: {&#xd;
+		&quot;attributes&quot;: {&#xd;
+			&quot;name&quot;: &quot;${name_1}&quot;,&#xd;
+			&quot;group&quot;: &quot;${user_group}&quot;&#xd;
+		}&#xd;
+	}&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -12465,8 +13428,28 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Verbose" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Verbose Collection" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;data&quot;: {&#xd;
+		&quot;attributes&quot;: {&#xd;
+			&quot;name&quot;: &quot;${name_2}&quot;,&#xd;
+			&quot;group&quot;: &quot;${user_group}&quot;,&#xd;
+			&quot;code&quot;: &quot;${code_2}&quot;,&#xd;
+     		&quot;webpage&quot;: &quot;${webpage_2}&quot;,&#xd;
+     		&quot;contact&quot;: &quot;${contact_2}&quot;,&#xd;
+      		&quot;address&quot;: &quot;${address_2}&quot;,&#xd;
+     		&quot;remarks&quot;: &quot;${remarks_2}&quot;&#xd;
+		}&#xd;
+	}&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -12507,8 +13490,28 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Basic" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Basic Collection" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;data&quot;: {&#xd;
+		&quot;attributes&quot;: {&#xd;
+			&quot;name&quot;: &quot;${name_3}&quot;,&#xd;
+			&quot;group&quot;: &quot;${user_group}&quot;,&#xd;
+			&quot;code&quot;: &quot;${code_3}&quot;,&#xd;
+     		&quot;webpage&quot;: &quot;${webpage_3}&quot;,&#xd;
+     		&quot;contact&quot;: &quot;${contact_3}&quot;,&#xd;
+      		&quot;address&quot;: &quot;${address_3}&quot;,&#xd;
+     		&quot;remarks&quot;: &quot;${remarks_3}&quot;&#xd;
+		}&#xd;
+	}&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -12540,8 +13543,28 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Collection" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;data&quot;: {&#xd;
+		&quot;attributes&quot;: {&#xd;
+			&quot;name&quot;: &quot;${name_4}&quot;,&#xd;
+			&quot;group&quot;: &quot;${user_group}&quot;,&#xd;
+			&quot;code&quot;: &quot;${code_4}&quot;,&#xd;
+     		&quot;webpage&quot;: &quot;${webpage_4}&quot;,&#xd;
+     		&quot;contact&quot;: &quot;${contact_4}&quot;,&#xd;
+      		&quot;address&quot;: &quot;${address_4}&quot;,&#xd;
+     		&quot;remarks&quot;: &quot;${remarks_4}&quot;&#xd;
+		}&#xd;
+	}&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -12573,8 +13596,20 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose - Empty Body" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose - Empty Body Collection" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;data&quot;: {&#xd;
+		&quot;attributes&quot;: {}&#xd;
+	}&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -12744,7 +13779,18 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
         </HeaderManager>
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Setup for Material Sample" enabled="true"/>
-        <hashTree/>
+        <hashTree>
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+            <collectionProp name="ModuleController.node_path">
+              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
+              <stringProp name="1506430348">setUp Thread Group</stringProp>
+              <stringProp name="52452451">Token Controller</stringProp>
+            </collectionProp>
+          </ModuleController>
+          <hashTree/>
+        </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Material Sample" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Basic" enabled="true"/>
@@ -13051,24 +14097,24 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
       <hashTree>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Storage Unit Variables" enabled="true">
           <collectionProp name="Arguments.arguments">
-            <elementProp name="multilingualDescription_1" elementType="Argument">
-              <stringProp name="Argument.name">multilingualDescription_1</stringProp>
-              <stringProp name="Argument.value">{&quot;descriptions&quot;:[{&quot;lang&quot;:&quot;en&quot;,&quot;desc&quot;:&quot;desc_1&quot;}]}</stringProp>
+            <elementProp name="barcode_1" elementType="Argument">
+              <stringProp name="Argument.name">barcode_1</stringProp>
+              <stringProp name="Argument.value">barcode_1</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
-            <elementProp name="multilingualDescription_2" elementType="Argument">
-              <stringProp name="Argument.name">multilingualDescription_2</stringProp>
-              <stringProp name="Argument.value">{&quot;descriptions&quot;:[{&quot;lang&quot;:&quot;en&quot;,&quot;desc&quot;:&quot;desc_2&quot;}]}</stringProp>
+            <elementProp name="barcode_2" elementType="Argument">
+              <stringProp name="Argument.name">barcode_2</stringProp>
+              <stringProp name="Argument.value">barcode_2</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
-            <elementProp name="multilingualDescription_3" elementType="Argument">
-              <stringProp name="Argument.name">multilingualDescription_3</stringProp>
-              <stringProp name="Argument.value">{&quot;descriptions&quot;:[{&quot;lang&quot;:&quot;fr&quot;,&quot;desc&quot;:&quot;desc_3&quot;}]}</stringProp>
+            <elementProp name="barcode_3" elementType="Argument">
+              <stringProp name="Argument.name">barcode_3</stringProp>
+              <stringProp name="Argument.value">barcode_3</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
-            <elementProp name="multilingualDescription_4" elementType="Argument">
-              <stringProp name="Argument.name">multilingualDescription_4</stringProp>
-              <stringProp name="Argument.value">{&quot;descriptions&quot;:[{&quot;lang&quot;:&quot;fr&quot;,&quot;desc&quot;:&quot;desc_4&quot;}]}</stringProp>
+            <elementProp name="barcode_4" elementType="Argument">
+              <stringProp name="Argument.name">barcode_4</stringProp>
+              <stringProp name="Argument.value">barcode_4</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
           </collectionProp>
@@ -13089,14 +14135,53 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
         </HeaderManager>
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Setup for Storage Unit" enabled="true"/>
-        <hashTree/>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
+
+ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+            <collectionProp name="ModuleController.node_path">
+              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
+              <stringProp name="1506430348">setUp Thread Group</stringProp>
+              <stringProp name="52452451">Token Controller</stringProp>
+            </collectionProp>
+          </ModuleController>
+          <hashTree/>
+        </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Storage Unit" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Basic" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Basic Storage Unit" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;data&quot;: {&#xd;
+		&quot;attributes&quot;: {&#xd;
+			&quot;name&quot;: &quot;${name_1}&quot;,&#xd;
+			&quot;group&quot;: &quot;${user_group}&quot;&#xd;
+		}&#xd;
+	}&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -13134,8 +14219,24 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Verbose" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Verbose Storage Unit" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;data&quot;: {&#xd;
+		&quot;attributes&quot;: {&#xd;
+			&quot;name&quot;: &quot;${name_2}&quot;,&#xd;
+			&quot;group&quot;: &quot;${user_group}&quot;,&#xd;
+			&quot;barcode&quot;: &quot;${barcode_2}&quot;&#xd;
+		}&#xd;
+	}&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -13176,8 +14277,24 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Basic" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Basic Storage Unit" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;data&quot;: {&#xd;
+		&quot;attributes&quot;: {&#xd;
+			&quot;name&quot;: &quot;${name_3}&quot;,&#xd;
+			&quot;group&quot;: &quot;${user_group}&quot;,&#xd;
+			&quot;barcode&quot;: &quot;${barcode_3}&quot;&#xd;
+		}&#xd;
+	}&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -13209,8 +14326,24 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Storage Unit" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;data&quot;: {&#xd;
+		&quot;attributes&quot;: {&#xd;
+			&quot;name&quot;: &quot;${name_4}&quot;,&#xd;
+			&quot;group&quot;: &quot;${user_group}&quot;,&#xd;
+			&quot;barcode&quot;: &quot;${barcode_4}&quot;&#xd;
+		}&#xd;
+	}&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
@@ -13242,8 +14375,20 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose - Empty Body" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose - Empty Body Storage Unit" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;data&quot;: {&#xd;
+		&quot;attributes&quot;: {}&#xd;
+	}&#xd;
+}&#xd;
+</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
