@@ -353,7 +353,7 @@ services:
       - api.dina.local:${TRAEFIK_IP}
 
   rabbitmq-dina:
-    image: rabbitmq:3.8.20-management-alpine
+    image: rabbitmq:3.9.29-management-alpine
     profiles: ["search_api"]
     container_name: 'rabbitmq-dina'
     hostname: rabbit_dina_node_1
@@ -361,8 +361,8 @@ services:
         - 5672:5672
         - 15672:15672
     volumes:
-        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+        - ./rabbitmq-data:/var/lib/rabbitmq
+    #    - ./rabbitmq-log:/var/log/rabbitmq
     networks:
         - dina_rabbitmq_net
         
