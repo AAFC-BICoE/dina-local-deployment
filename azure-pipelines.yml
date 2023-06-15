@@ -1,10 +1,9 @@
 # dina-local-deployment pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
 trigger:
 - master
+
+name: dina-local-deployment pipeline
 
 pool:
   vmImage: ubuntu-latest
@@ -29,20 +28,19 @@ steps:
     sudo chmod a+r $(dinaLocalCertificateKey.secureFilePath)
     sudo ln -s -t /etc/ssl/certs/ $(dinaLocalCertificate.secureFilePath)
     echo Installing $(dinaLocalCertificate.secureFilePath) in $(Pipeline.Workspace)/s/certs
-    sudo ls -s -t $(Pipeline.Workspace)/s/certs/ $(dinaLocalCertificate.secureFilePath)
-    sudo ls -s -t $(Pipeline.Workspace)/s/certs/ $(dinaLocalCertificateKey.secureFilePath)
+    sudo cp $(dinaLocalCertificate.secureFilePath) $(Pipeline.Workspace)/s/certs/
+    sudo cp $(dinaLocalCertificateKey.secureFilePath) $(Pipeline.Workspace)/s/certs/
+  displayName: 'Setting up certificates'
 
-- bash: docker compose -f docker-compose.base.yml up
-# - task: DockerCompose@0
-#   inputs:
-#     containerregistrytype: 'Container Registry'
-#     dockerComposeFile: 'docker-compose.base.yml'
-#     action: 'Run a Docker Compose command'
-#     dockerComposeCommand: 'up'
+- bash: docker compose -f docker-compose.base.yml up &
+  displayName: 'Start DockerCompose'
+
 - bash: |
-    echo Display curl version:
-    curl --version
-    curl --head -X GET --retry 25 --retry-connrefused --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local
+    echo Try to connect to Keycloak endpoint ...
+    curl --head -X GET --cacert /etc/ssl/certs/dina-local-cert.pem --retry 25 --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local/auth
+  displayName: 'Check Keycloak is reachable'
+
 - bash: docker compose -f docker-compose.base.yml down
+  displayName: 'Stop DockerCompose'
 
     

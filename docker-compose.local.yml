@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.127.0
+    image: aafcbicoe/dina-ui:0.128.0
     environment:
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
@@ -77,7 +77,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.77.1
+    image: aafcbicoe/natural-history-collection-api:0.78
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -314,7 +314,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.24.1
+    image: aafcbicoe/dina-search-ws:0.25
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -326,7 +326,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.24.1
+    image: aafcbicoe/dina-search-cli:0.25
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/token
@@ -353,7 +353,7 @@ services:
       - api.dina.local:${TRAEFIK_IP}
 
   rabbitmq-dina:
-    image: rabbitmq:3.8.20-management-alpine
+    image: rabbitmq:3.9.29-management-alpine
     profiles: ["search_api"]
     container_name: 'rabbitmq-dina'
     hostname: rabbit_dina_node_1
@@ -361,8 +361,8 @@ services:
         - 5672:5672
         - 15672:15672
     volumes:
-        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+        - ./rabbitmq-data:/var/lib/rabbitmq
+    #    - ./rabbitmq-log:/var/log/rabbitmq
     networks:
         - dina_rabbitmq_net
         
