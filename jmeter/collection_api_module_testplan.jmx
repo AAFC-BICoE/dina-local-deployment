@@ -1423,77 +1423,6 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Managed Attributes" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
-            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
-          </GenericController>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Managed Attribute" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/managed-attribute/${basic_collection_managed_attribute_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Delete Basic - Retrieve Basic Managed Attribute" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/managed-attribute/${basic_collection_managed_attribute_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - Error 410" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true">
             <stringProp name="TestPlan.comments">Deletes the verbose record and asserts that the record was properly removed.</stringProp>
           </GenericController>
@@ -1541,6 +1470,77 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
                 <stringProp name="HTTPSampler.path">/api/collection-api/managed-attribute/${verbose_collection_managed_attribute_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - Error 410" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
+	prev.setSuccessful(true)
+}</stringProp>
+                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
+            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
+          </GenericController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Managed Attribute" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/managed-attribute/${basic_collection_managed_attribute_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">DELETE</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49590">204</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
+              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            </GenericController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Delete Basic - Retrieve Basic Managed Attribute" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/managed-attribute/${basic_collection_managed_attribute_uuid}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2477,77 +2477,6 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Preparation Type" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
-            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
-          </GenericController>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Preparation Type" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/preparation-type/${basic_preparation-type_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Preparation Type" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/preparation-type/${basic_preparation-type_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true">
             <stringProp name="TestPlan.comments">Deletes the verbose record and asserts that the record was properly removed.</stringProp>
           </GenericController>
@@ -2606,6 +2535,77 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </HTTPSamplerProxy>
               <hashTree>
                 <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - Error 410" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
+	prev.setSuccessful(true)
+}</stringProp>
+                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
+            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
+          </GenericController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Preparation Type" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/preparation-type/${basic_preparation-type_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">DELETE</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49590">204</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
+              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            </GenericController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Preparation Type" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/preparation-type/${basic_preparation-type_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -3531,77 +3531,6 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Preparation Method " enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
-            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
-          </GenericController>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Preparation Method" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/preparation-method/${basic_preparation-method_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Preparation Method" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/preparation-method/${basic_preparation-method_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true">
             <stringProp name="TestPlan.comments">Deletes the verbose record and asserts that the record was properly removed.</stringProp>
           </GenericController>
@@ -3649,6 +3578,77 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
                 <stringProp name="HTTPSampler.path">/api/collection-api/preparation-method/${verbose_preparation-method_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
+	prev.setSuccessful(true)
+}</stringProp>
+                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
+            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
+          </GenericController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Preparation Method" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/preparation-method/${basic_preparation-method_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">DELETE</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49590">204</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
+              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            </GenericController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Preparation Method" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/preparation-method/${basic_preparation-method_uuid}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4672,77 +4672,6 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Institution" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
-            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
-          </GenericController>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Institution" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/institution/${basic_institution_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Institution" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/institution/${basic_institution_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true">
             <stringProp name="TestPlan.comments">Deletes the verbose record and asserts that the record was properly removed.</stringProp>
           </GenericController>
@@ -4790,6 +4719,77 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
                 <stringProp name="HTTPSampler.path">/api/collection-api/institution/${verbose_institution_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
+	prev.setSuccessful(true)
+}</stringProp>
+                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
+            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
+          </GenericController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Institution" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/institution/${basic_institution_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">DELETE</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49590">204</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
+              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            </GenericController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Institution" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/institution/${basic_institution_uuid}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -5754,77 +5754,6 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Storage Unit Type" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
-            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
-          </GenericController>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Storage Unit Type" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/storage-unit-type/${basic_storage_unit_type_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Storage Unit Type" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/storage-unit-type/${basic_storage_unit_type_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true">
             <stringProp name="TestPlan.comments">Deletes the verbose record and asserts that the record was properly removed.</stringProp>
           </GenericController>
@@ -5872,6 +5801,77 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
                 <stringProp name="HTTPSampler.path">/api/collection-api/storage-unit-type/${verbose_storage_unit_type_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
+	prev.setSuccessful(true)
+}</stringProp>
+                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
+            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
+          </GenericController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Storage Unit Type" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/storage-unit-type/${basic_storage_unit_type_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">DELETE</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49590">204</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
+              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            </GenericController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Storage Unit Type" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/storage-unit-type/${basic_storage_unit_type_uuid}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -6902,77 +6902,6 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Form Template" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
-            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
-          </GenericController>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Form Template" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/form-template/${basic_form-template_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Form Template" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/form-template/${basic_form-template_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 404 Error" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;404&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true">
             <stringProp name="TestPlan.comments">Deletes the verbose record and asserts that the record was properly removed.</stringProp>
           </GenericController>
@@ -7020,6 +6949,77 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
                 <stringProp name="HTTPSampler.path">/api/collection-api/form-template/${verbose_form-template_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 404 Error" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;404&quot;) {
+	prev.setSuccessful(true)
+}</stringProp>
+                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
+            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
+          </GenericController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Form Template" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/form-template/${basic_form-template_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">DELETE</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49590">204</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
+              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            </GenericController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Form Template" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/form-template/${basic_form-template_uuid}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -8565,77 +8565,6 @@ assert attr.determination[0].isFiledAs == ${determination_isFiledAs_4}</stringPr
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Organism" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
-            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
-          </GenericController>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Organism" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/organism/${basic_organism_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Organism" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/organism/${basic_organism_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true">
             <stringProp name="TestPlan.comments">Deletes the verbose record and asserts that the record was properly removed.</stringProp>
           </GenericController>
@@ -8683,6 +8612,77 @@ assert attr.determination[0].isFiledAs == ${determination_isFiledAs_4}</stringPr
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
                 <stringProp name="HTTPSampler.path">/api/collection-api/organism/${verbose_organism_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
+	prev.setSuccessful(true)
+}</stringProp>
+                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
+            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
+          </GenericController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Organism" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/organism/${basic_organism_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">DELETE</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49590">204</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
+              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            </GenericController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Organism" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/organism/${basic_organism_uuid}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -9703,75 +9703,6 @@ assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</strin
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Assemblage" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Assemblage" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${basic_assemblage_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Assemblage" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${basic_assemblage_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Verbose Assemblage" enabled="true">
@@ -9817,6 +9748,75 @@ assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</strin
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
                 <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${verbose_assemblage_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
+	prev.setSuccessful(true)
+}</stringProp>
+                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Assemblage" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${basic_assemblage_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">DELETE</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49590">204</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">8</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
+              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            </GenericController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Assemblage" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/assemblage/${basic_assemblage_uuid}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -10855,75 +10855,6 @@ assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</strin
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Project" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Project" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/project/${basic_project_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Project" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/project/${basic_project_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Verbose Project" enabled="true">
@@ -10969,6 +10900,75 @@ assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</strin
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
                 <stringProp name="HTTPSampler.path">/api/collection-api/project/${verbose_project_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
+	prev.setSuccessful(true)
+}</stringProp>
+                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Project" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/project/${basic_project_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">DELETE</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49590">204</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">8</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
+              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            </GenericController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Project" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/project/${basic_project_uuid}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -12014,75 +12014,6 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Protocol" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Protocol" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${basic_protocol_uuid}</stringProp>
-              <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49590">204</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Protocol" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${basic_protocol_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
-	prev.setSuccessful(true)
-}</stringProp>
-                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
-          </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Verbose Protocol" enabled="true">
@@ -12128,6 +12059,75 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
                 <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${verbose_protocol_uuid}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Request Override - 410 Error" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getResponseDataAsString().contains(&quot;errors&quot;) &amp;&amp; prev.getResponseCode() == &quot;410&quot;) {
+	prev.setSuccessful(true)
+}</stringProp>
+                  <stringProp name="TestPlan.comments">Allows the listener to interpret the previous sample as successful if conditions are met</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+              </hashTree>
+            </hashTree>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Protocol" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${basic_protocol_uuid}</stringProp>
+              <stringProp name="HTTPSampler.method">DELETE</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 204" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="49590">204</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">8</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
+              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            </GenericController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Protocol" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/protocol/${basic_protocol_uuid}</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -13393,12 +13393,26 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Setup for Collecting Event" enabled="true"/>
           <hashTree>
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
+
+ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+            </JSR223Sampler>
+            <hashTree/>
             <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Create Protocol" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1925115245">Protocol End2End Thread Group</stringProp>
                 <stringProp name="1195328828">Create Protocol</stringProp>
+                <stringProp name="193347594">Create Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -13940,7 +13954,7 @@ assert rel.protocol.data.id == &quot;${basic_protocol_uuid}&quot;
     	 &quot;protocol&quot;: {&#xd;
     	 	&quot;data&quot;: {&#xd;
     	 		&quot;type&quot;: &quot;protocol&quot;,&#xd;
-    	 		&quot;id&quot;: &quot;${verbose_protocol_uuid}&quot;&#xd;
+    	 		&quot;id&quot;: &quot;${basic_protocol_uuid}&quot;&#xd;
     	 	}&#xd;
     	 },&#xd;
     	 &quot;collectors&quot;: {&#xd;
@@ -14092,7 +14106,7 @@ def rel = object.data.relationships
 
 assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;
 assert rel.collectors.data[0].id == &quot;${__P(person_uuid_2)}&quot;
-assert rel.protocol.data.id == &quot;${verbose_protocol_uuid}&quot;
+assert rel.protocol.data.id == &quot;${basic_protocol_uuid}&quot;
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -14184,7 +14198,7 @@ assert rel.protocol.data.id == &quot;${verbose_protocol_uuid}&quot;
     	 &quot;protocol&quot;: {&#xd;
     	 	&quot;data&quot;: {&#xd;
     	 		&quot;type&quot;: &quot;protocol&quot;,&#xd;
-    	 		&quot;id&quot;: &quot;${verbose_protocol_uuid}&quot;&#xd;
+    	 		&quot;id&quot;: &quot;${basic_protocol_uuid}&quot;&#xd;
     	 	}&#xd;
     	 },&#xd;
     	 &quot;collectors&quot;: {&#xd;
@@ -14336,7 +14350,7 @@ def rel = object.data.relationships
 
 assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;
 assert rel.collectors.data[0].id == &quot;${__P(person_uuid_2)}&quot;
-assert rel.protocol.data.id == &quot;${verbose_protocol_uuid}&quot;
+assert rel.protocol.data.id == &quot;${basic_protocol_uuid}&quot;
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -14492,7 +14506,7 @@ def rel = object.data.relationships
 
 assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;
 assert rel.collectors.data[0].id == &quot;${__P(person_uuid_2)}&quot;
-assert rel.protocol.data.id == &quot;${verbose_protocol_uuid}&quot;
+assert rel.protocol.data.id == &quot;${basic_protocol_uuid}&quot;
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -14730,6 +14744,7 @@ assert rel.protocol.data.id == &quot;${verbose_protocol_uuid}&quot;
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1925115245">Protocol End2End Thread Group</stringProp>
                 <stringProp name="-852282003">Delete Protocol</stringProp>
+                <stringProp name="-2102483591">Delete Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -15358,7 +15373,7 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
 			&quot;institution&quot;: {&#xd;
 				&quot;data&quot;: {&#xd;
 					&quot;type&quot;: &quot;institution&quot;,&#xd;
-					&quot;id&quot;: &quot;${verbose_institution_uuid}&quot;&#xd;
+					&quot;id&quot;: &quot;${basic_institution_uuid}&quot;&#xd;
 				}&#xd;
 			}&#xd;
 		}&#xd;
@@ -15448,7 +15463,7 @@ assert attr.remarks == &quot;${remarks_3}&quot;
 
 def rel = object.data.relationships
 
-assert rel.institution.data.id == &quot;${verbose_institution_uuid}&quot;
+assert rel.institution.data.id == &quot;${basic_institution_uuid}&quot;
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -15476,12 +15491,6 @@ assert rel.institution.data.id == &quot;${verbose_institution_uuid}&quot;
      		&quot;remarks&quot;: &quot;${remarks_4}&quot;&#xd;
 		},&#xd;
 		&quot;relationships&quot;: {&#xd;
-			&quot;institution&quot;: {&#xd;
-				&quot;data&quot;: {&#xd;
-					&quot;type&quot;: &quot;institution&quot;,&#xd;
-					&quot;id&quot;: &quot;${verbose_institution_uuid}&quot;&#xd;
-				}&#xd;
-			},&#xd;
 			&quot;parentCollection&quot;: {&#xd;
 				&quot;data&quot;: null&#xd;
 			}&#xd;
@@ -15572,7 +15581,7 @@ assert attr.remarks == &quot;${remarks_4}&quot;
 
 def rel = object.data.relationships
 
-assert rel.institution.data.id == &quot;${verbose_institution_uuid}&quot;
+assert rel.institution.data.id == &quot;${basic_institution_uuid}&quot;
 assert rel.parentCollection.data == null
 </stringProp>
                 </JSR223Assertion>
@@ -15678,7 +15687,7 @@ assert attr.remarks == &quot;${remarks_4}&quot;
 
 def rel = object.data.relationships
 
-assert rel.institution.data.id == &quot;${verbose_institution_uuid}&quot;
+assert rel.institution.data.id == &quot;${basic_institution_uuid}&quot;
 assert rel.parentCollection.data == null
 </stringProp>
                 </JSR223Assertion>
@@ -15917,6 +15926,7 @@ assert rel.parentCollection.data == null
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-1804591475">Institution End2End Thread Group</stringProp>
                 <stringProp name="-1479011645">Delete Institution</stringProp>
+                <stringProp name="-2102483591">Delete Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -16060,6 +16070,7 @@ ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijk
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-1347631884">Storage Unit Type End2End Thread Group</stringProp>
                 <stringProp name="-2107648307">Create Storage Unit Type</stringProp>
+                <stringProp name="193347594">Create Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -16465,7 +16476,7 @@ assert rel.parentStorageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;
 			&quot;storageUnitType&quot;: {&#xd;
 				&quot;data&quot;: {&#xd;
 					&quot;type&quot;: &quot;storage-unit-type&quot;,&#xd;
-					&quot;id&quot;: &quot;${verbose_storage_unit_type_uuid}&quot;&#xd;
+					&quot;id&quot;: &quot;${basic_storage_unit_type_uuid}&quot;&#xd;
 				}&#xd;
 			}&#xd;
 		}&#xd;
@@ -16551,7 +16562,7 @@ assert attr.barcode == &quot;${barcode_3}&quot;
 
 def rel = object.data.relationships
 
-assert rel.storageUnitType.data.id == &quot;${verbose_storage_unit_type_uuid}&quot;
+assert rel.storageUnitType.data.id == &quot;${basic_storage_unit_type_uuid}&quot;
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -16574,12 +16585,6 @@ assert rel.storageUnitType.data.id == &quot;${verbose_storage_unit_type_uuid}&qu
 			&quot;barcode&quot;: &quot;${barcode_4}&quot;&#xd;
 		},&#xd;
 		&quot;relationships&quot;: {&#xd;
-			&quot;storageUnitType&quot;: {&#xd;
-				&quot;data&quot;: {&#xd;
-					&quot;type&quot;: &quot;storage-unit-type&quot;,&#xd;
-					&quot;id&quot;: &quot;${verbose_storage_unit_type_uuid}&quot;&#xd;
-				}&#xd;
-			},&#xd;
 			&quot;parentStorageUnit&quot;: {&#xd;
 				&quot;data&quot;: null&#xd;
 			}&#xd;
@@ -16666,7 +16671,7 @@ assert attr.barcode == &quot;${barcode_4}&quot;
 
 def rel = object.data.relationships
 
-assert rel.storageUnitType.data.id == &quot;${verbose_storage_unit_type_uuid}&quot;
+assert rel.storageUnitType.data.id == &quot;${basic_storage_unit_type_uuid}&quot;
 assert rel.parentStorageUnit.data == null
 </stringProp>
                 </JSR223Assertion>
@@ -16767,7 +16772,7 @@ assert attr.barcode == &quot;${barcode_4}&quot;
 
 def rel = object.data.relationships
 
-assert rel.storageUnitType.data.id == &quot;${verbose_storage_unit_type_uuid}&quot;
+assert rel.storageUnitType.data.id == &quot;${basic_storage_unit_type_uuid}&quot;
 assert rel.parentStorageUnit.data == null
 </stringProp>
                 </JSR223Assertion>
@@ -17006,6 +17011,7 @@ assert rel.parentStorageUnit.data == null
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-1347631884">Storage Unit Type End2End Thread Group</stringProp>
                 <stringProp name="-1712812612">Delete Storage Unit Type</stringProp>
+                <stringProp name="-2102483591">Delete Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17496,7 +17502,7 @@ assert rel.parentStorageUnit.data == null
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Setup for Material Sample" enabled="true"/>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="false">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
               <stringProp name="scriptLanguage">groovy</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
@@ -17525,6 +17531,7 @@ ctx.getVariables().put(&quot;determination_verbatimScientificName_4&quot;, &quot
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-256151134">Preparation Type End2End Thread Group</stringProp>
                 <stringProp name="438052327">Create Preparation Type</stringProp>
+                <stringProp name="193347594">Create Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17534,6 +17541,7 @@ ctx.getVariables().put(&quot;determination_verbatimScientificName_4&quot;, &quot
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-224228197">Preparation Method End2End Thread Group</stringProp>
                 <stringProp name="-580019822">Create Preparation Method </stringProp>
+                <stringProp name="193347594">Create Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17543,6 +17551,7 @@ ctx.getVariables().put(&quot;determination_verbatimScientificName_4&quot;, &quot
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1860862835">Organism End2End Thread Group</stringProp>
                 <stringProp name="-794085514">Create Organism</stringProp>
+                <stringProp name="193347594">Create Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17552,6 +17561,7 @@ ctx.getVariables().put(&quot;determination_verbatimScientificName_4&quot;, &quot
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1661393241">Assemblage End2End Thread Group</stringProp>
                 <stringProp name="990358736">Create Assemblage</stringProp>
+                <stringProp name="193347594">Create Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17561,6 +17571,7 @@ ctx.getVariables().put(&quot;determination_verbatimScientificName_4&quot;, &quot
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1302683596">Project End2End Thread Group</stringProp>
                 <stringProp name="1146630133">Create Project</stringProp>
+                <stringProp name="193347594">Create Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17570,6 +17581,7 @@ ctx.getVariables().put(&quot;determination_verbatimScientificName_4&quot;, &quot
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1925115245">Protocol End2End Thread Group</stringProp>
                 <stringProp name="1195328828">Create Protocol</stringProp>
+                <stringProp name="193347594">Create Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17579,6 +17591,7 @@ ctx.getVariables().put(&quot;determination_verbatimScientificName_4&quot;, &quot
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="868735347">Collecting Event End2End Thread Group</stringProp>
                 <stringProp name="272326006">Create Collecting Event</stringProp>
+                <stringProp name="193347594">Create Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17588,6 +17601,7 @@ ctx.getVariables().put(&quot;determination_verbatimScientificName_4&quot;, &quot
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1137554727">Collection End2End Thread Group</stringProp>
                 <stringProp name="1612139586">Create Collection</stringProp>
+                <stringProp name="193347594">Create Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17597,6 +17611,7 @@ ctx.getVariables().put(&quot;determination_verbatimScientificName_4&quot;, &quot
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-1100509060">Storage Unit End2End Thread Group</stringProp>
                 <stringProp name="-2014767923">Create Storage Unit</stringProp>
+                <stringProp name="193347594">Create Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17855,7 +17870,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/material-sample/${verbose_material-sample_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/material-sample/${verbose_material-sample_uuid}?include=collectingEvent,collection,preparationType,preparationMethod,preparedBy,attachment,preparationProtocol,projects,assemblages,organism,storageUnit</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -17907,7 +17922,22 @@ assert attr.isRestricted == ${isRestricted_2}
 assert attr.publiclyReleasable == ${publiclyReleasable_2}
 assert attr.notPubliclyReleasableReason == &quot;${notPubliclyReleasableReason_2}&quot;
 assert attr.allowDuplicateName == ${allowDuplicateName_2}
-*/</stringProp>
+
+
+def rel = object.data.relationships
+
+assert rel.collectingEvent.data.id == &quot;${basic_collecting-event_uuid}&quot;
+assert rel.collection.data.id == &quot;${basic_collection_uuid}&quot;
+assert rel.preparationType.data.id == &quot;${basic_preparation-type_uuid}&quot;
+assert rel.preparationMethod.data.id == &quot;${basic_preparation-method_uuid}&quot;
+assert rel.preparedBy.data[0].id == &quot;${__P(person_uuid_1)}&quot;
+assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;
+assert rel.preparationProtocol.data.id == &quot;${basic_protocol_uuid}&quot;
+assert rel.projects.data[0].id == &quot;${basic_project_uuid}&quot;
+assert rel.assemblages.data[0].id == &quot;${basic_assemblage_uuid}&quot;
+assert rel.organism.data[0].id == &quot;${basic_organism_uuid}&quot;
+assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;
+</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
               </hashTree>
@@ -18047,6 +18077,74 @@ assert attr.allowDuplicateName == ${allowDuplicateName_2}
 			&quot;publiclyReleasable&quot;: ${publiclyReleasable_3},&#xd;
 			&quot;notPubliclyReleasableReason&quot;: &quot;${notPubliclyReleasableReason_3}&quot;,&#xd;
 			&quot;allowDuplicateName&quot;: ${allowDuplicateName_3}&#xd;
+		},&#xd;
+		&quot;relationships&quot;: {&#xd;
+			&quot;collectingEvent&quot;: {&#xd;
+				&quot;data&quot;: {&#xd;
+					&quot;type&quot;: &quot;collecting-event&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_collecting-event_uuid}&quot;&#xd;
+				}&#xd;
+			},&#xd;
+			&quot;collection&quot;: {&#xd;
+				&quot;data&quot;: {&#xd;
+					&quot;type&quot;: &quot;collection&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_collection_uuid}&quot;&#xd;
+				}&#xd;
+			},&#xd;
+			&quot;preparationType&quot;: {&#xd;
+				&quot;data&quot;: {&#xd;
+					&quot;type&quot;: &quot;preparation-type&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_preparation-type_uuid}&quot;&#xd;
+				}&#xd;
+			},&#xd;
+			&quot;preparationMethod&quot;: {&#xd;
+				&quot;data&quot;: {&#xd;
+					&quot;type&quot;: &quot;preparation-method&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_preparation-method_uuid}&quot;&#xd;
+				}&#xd;
+			},&#xd;
+			&quot;preparedBy&quot;: {&#xd;
+				&quot;data&quot;: [{&#xd;
+					&quot;type&quot;: &quot;person&quot;,&#xd;
+					&quot;id&quot;: &quot;${__P(person_uuid_1)}&quot;&#xd;
+				}]&#xd;
+			},&#xd;
+			&quot;attachment&quot;: {&#xd;
+				&quot;data&quot;: [{&#xd;
+					&quot;type&quot;: &quot;metadata&quot;,&#xd;
+					&quot;id&quot;: &quot;${__P(attachment_uuid_1)}&quot;&#xd;
+				}]&#xd;
+			},&#xd;
+			&quot;preparationProtocol&quot;: {&#xd;
+				&quot;data&quot;: {&#xd;
+					&quot;type&quot;: &quot;protocol&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_protocol_uuid}&quot;&#xd;
+				}&#xd;
+			},&#xd;
+			&quot;projects&quot;: {&#xd;
+				&quot;data&quot;: [{&#xd;
+					&quot;type&quot;: &quot;project&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_project_uuid}&quot;&#xd;
+				}]&#xd;
+			},&#xd;
+			&quot;assemblages&quot;: {&#xd;
+				&quot;data&quot;: [{&#xd;
+					&quot;type&quot;: &quot;assemblage&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_assemblage_uuid}&quot;&#xd;
+				}]&#xd;
+			},&#xd;
+			&quot;organism&quot;: {&#xd;
+				&quot;data&quot;: [{&#xd;
+					&quot;type&quot;: &quot;organism&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_organism_uuid}&quot;&#xd;
+				}]&#xd;
+			},&#xd;
+			&quot;storageUnit&quot;: {&#xd;
+				&quot;data&quot;: {&#xd;
+					&quot;type&quot;: &quot;storage-unit&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_storage-unit_uuid}&quot;&#xd;
+				}&#xd;
+			}&#xd;
 		}&#xd;
 	}&#xd;
 }&#xd;
@@ -18093,7 +18191,7 @@ assert attr.allowDuplicateName == ${allowDuplicateName_2}
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/material-sample/${basic_material-sample_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/material-sample/${basic_material-sample_uuid}?include=collectingEvent,collection,preparationType,preparationMethod,preparedBy,attachment,preparationProtocol,projects,assemblages,organism,storageUnit</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -18146,12 +18244,19 @@ assert attr.publiclyReleasable == ${publiclyReleasable_3}
 assert attr.notPubliclyReleasableReason == &quot;${notPubliclyReleasableReason_3}&quot;
 assert attr.allowDuplicateName == ${allowDuplicateName_3}
 
-/*
 def rel = object.data.relationships
 
-assert rel.institution.data.id == &quot;${basic_institution_uuid}&quot;
-assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
-*/</stringProp>
+assert rel.collectingEvent.data.id == &quot;${basic_collecting-event_uuid}&quot;
+assert rel.collection.data.id == &quot;${basic_collection_uuid}&quot;
+assert rel.preparationType.data.id == &quot;${basic_preparation-type_uuid}&quot;
+assert rel.preparationMethod.data.id == &quot;${basic_preparation-method_uuid}&quot;
+assert rel.preparedBy.data[0].id == &quot;${__P(person_uuid_1)}&quot;
+assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;
+assert rel.preparationProtocol.data.id == &quot;${basic_protocol_uuid}&quot;
+assert rel.projects.data[0].id == &quot;${basic_project_uuid}&quot;
+assert rel.assemblages.data[0].id == &quot;${basic_assemblage_uuid}&quot;
+assert rel.organism.data[0].id == &quot;${basic_organism_uuid}&quot;
+assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
               </hashTree>
@@ -18190,6 +18295,74 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
 			&quot;publiclyReleasable&quot;: ${publiclyReleasable_4},&#xd;
 			&quot;notPubliclyReleasableReason&quot;: &quot;${notPubliclyReleasableReason_4}&quot;,&#xd;
 			&quot;allowDuplicateName&quot;: ${allowDuplicateName_4}&#xd;
+		},&#xd;
+		&quot;relationships&quot;: {&#xd;
+			&quot;collectingEvent&quot;: {&#xd;
+				&quot;data&quot;: {&#xd;
+					&quot;type&quot;: &quot;collecting-event&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_collecting-event_uuid}&quot;&#xd;
+				}&#xd;
+			},&#xd;
+			&quot;collection&quot;: {&#xd;
+				&quot;data&quot;: {&#xd;
+					&quot;type&quot;: &quot;collection&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_collection_uuid}&quot;&#xd;
+				}&#xd;
+			},&#xd;
+			&quot;preparationType&quot;: {&#xd;
+				&quot;data&quot;: {&#xd;
+					&quot;type&quot;: &quot;preparation-type&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_preparation-type_uuid}&quot;&#xd;
+				}&#xd;
+			},&#xd;
+			&quot;preparationMethod&quot;: {&#xd;
+				&quot;data&quot;: {&#xd;
+					&quot;type&quot;: &quot;preparation-method&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_preparation-method_uuid}&quot;&#xd;
+				}&#xd;
+			},&#xd;
+			&quot;preparedBy&quot;: {&#xd;
+				&quot;data&quot;: [{&#xd;
+					&quot;type&quot;: &quot;person&quot;,&#xd;
+					&quot;id&quot;: &quot;${__P(person_uuid_1)}&quot;&#xd;
+				}]&#xd;
+			},&#xd;
+			&quot;attachment&quot;: {&#xd;
+				&quot;data&quot;: [{&#xd;
+					&quot;type&quot;: &quot;metadata&quot;,&#xd;
+					&quot;id&quot;: &quot;${__P(attachment_uuid_1)}&quot;&#xd;
+				}]&#xd;
+			},&#xd;
+			&quot;preparationProtocol&quot;: {&#xd;
+				&quot;data&quot;: {&#xd;
+					&quot;type&quot;: &quot;protocol&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_protocol_uuid}&quot;&#xd;
+				}&#xd;
+			},&#xd;
+			&quot;projects&quot;: {&#xd;
+				&quot;data&quot;: [{&#xd;
+					&quot;type&quot;: &quot;project&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_project_uuid}&quot;&#xd;
+				}]&#xd;
+			},&#xd;
+			&quot;organism&quot;: {&#xd;
+				&quot;data&quot;: [{&#xd;
+					&quot;type&quot;: &quot;organism&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_organism_uuid}&quot;&#xd;
+				}]&#xd;
+			},&#xd;
+			&quot;assemblages&quot;: {&#xd;
+				&quot;data&quot;: [{&#xd;
+					&quot;type&quot;: &quot;assemblage&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_assemblage_uuid}&quot;&#xd;
+				}]&#xd;
+			},&#xd;
+			&quot;storageUnit&quot;: {&#xd;
+				&quot;data&quot;: {&#xd;
+					&quot;type&quot;: &quot;storage-unit&quot;,&#xd;
+					&quot;id&quot;: &quot;${basic_storage-unit_uuid}&quot;&#xd;
+				}&#xd;
+			}&#xd;
 		}&#xd;
 	}&#xd;
 }&#xd;
@@ -18236,7 +18409,7 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/material-sample/${verbose_material-sample_uuid}</stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/material-sample/${verbose_material-sample_uuid}?include=collectingEvent,collection,preparationType,preparationMethod,preparedBy,attachment,preparationProtocol,projects,assemblages,organism,storageUnit</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -18289,12 +18462,19 @@ assert attr.publiclyReleasable == ${publiclyReleasable_4}
 assert attr.notPubliclyReleasableReason == &quot;${notPubliclyReleasableReason_4}&quot;
 assert attr.allowDuplicateName == ${allowDuplicateName_4}
 
-/*
 def rel = object.data.relationships
 
-assert rel.institution.data.id == &quot;${basic_institution_uuid}&quot;
-assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
-*/</stringProp>
+assert rel.collectingEvent.data.id == &quot;${basic_collecting-event_uuid}&quot;
+assert rel.collection.data.id == &quot;${basic_collection_uuid}&quot;
+assert rel.preparationType.data.id == &quot;${basic_preparation-type_uuid}&quot;
+assert rel.preparationMethod.data.id == &quot;${basic_preparation-method_uuid}&quot;
+assert rel.preparedBy.data[0].id == &quot;${__P(person_uuid_1)}&quot;
+assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;
+assert rel.preparationProtocol.data.id == &quot;${basic_protocol_uuid}&quot;
+assert rel.projects.data[0].id == &quot;${basic_project_uuid}&quot;
+assert rel.assemblages.data[0].id == &quot;${basic_assemblage_uuid}&quot;
+assert rel.organism.data[0].id == &quot;${basic_organism_uuid}&quot;
+assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
               </hashTree>
@@ -18344,6 +18524,88 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
                 <intProp name="Assertion.test_type">8</intProp>
               </ResponseAssertion>
               <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true">
+              <stringProp name="TestPlan.comments">Retrieves the verbose record that was udpated and asserts all values are set as expected.</stringProp>
+            </GenericController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Update Verbose - Retrieve Material Sample" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/api/collection-api/material-sample/${verbose_material-sample_uuid}?include=collectingEvent,collection,preparationType,preparationMethod,preparedBy,attachment,preparationProtocol,projects,assemblages,organism,storageUnit</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="49586">200</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Create Basic - General Assertions" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
+def object = jsonSlurper.parseText(prev.getResponseDataAsString())
+
+def attr = object.data.attributes
+
+assert attr.group == &quot;${user_group}&quot;
+assert attr.dwcCatalogNumber == &quot;${dwcCatalogNumber_4}&quot;
+assert attr.materialSampleName == &quot;${materialSampleName_4}&quot;
+assert attr.materialSampleType == &quot;${materialSampleType_4}&quot;
+assert attr.barcode == &quot;${barcode_4}&quot;
+assert attr.dwcOtherCatalogNumbers == ${dwcOtherCatalogNumbers_4}
+assert attr.preservationType == &quot;${preservationType_4}&quot;
+assert attr.preparationFixative == &quot;${preparationFixative_4}&quot;
+assert attr.preparationMaterials == &quot;${preparationMaterials_4}&quot;
+assert attr.preparationSubstrate == &quot;${preparationSubstrate_4}&quot;
+assert attr.preparationDate == &quot;${preparationDate_4}&quot;
+assert attr.preparationRemarks == &quot;${preparationRemarks_4}&quot;
+assert attr.dwcDegreeOfEstablishment == &quot;${dwcDegreeOfEstablishment_4}&quot;
+assert attr.stateChangedOn == &quot;${stateChangedOn_4}&quot;
+assert attr.stateChangeRemarks == &quot;${stateChangeRemarks_4}&quot;
+assert attr.materialSampleRemarks == &quot;${materialSampleRemarks_4}&quot;
+assert attr.restrictionRemarks == &quot;${restrictionRemarks_4}&quot;
+assert attr.isRestricted == ${isRestricted_4}
+assert attr.publiclyReleasable == ${publiclyReleasable_4}
+assert attr.notPubliclyReleasableReason == &quot;${notPubliclyReleasableReason_4}&quot;
+assert attr.allowDuplicateName == ${allowDuplicateName_4}
+
+def rel = object.data.relationships
+
+assert rel.collectingEvent.data.id == &quot;${basic_collecting-event_uuid}&quot;
+assert rel.collection.data.id == &quot;${basic_collection_uuid}&quot;
+assert rel.preparationType.data.id == &quot;${basic_preparation-type_uuid}&quot;
+assert rel.preparationMethod.data.id == &quot;${basic_preparation-method_uuid}&quot;
+assert rel.preparedBy.data[0].id == &quot;${__P(person_uuid_1)}&quot;
+assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;
+assert rel.preparationProtocol.data.id == &quot;${basic_protocol_uuid}&quot;
+assert rel.projects.data[0].id == &quot;${basic_project_uuid}&quot;
+assert rel.assemblages.data[0].id == &quot;${basic_assemblage_uuid}&quot;
+assert rel.organism.data[0].id == &quot;${basic_organism_uuid}&quot;
+assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</stringProp>
+                </JSR223Assertion>
+                <hashTree/>
+              </hashTree>
             </hashTree>
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Invalid UUID" enabled="true"/>
@@ -18418,9 +18680,9 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Material Sample" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Material Sample" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Verbose Material Sample" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -18428,7 +18690,7 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/material-sample/${basic_material-sample_uuid}</stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/material-sample/${verbose_material-sample_uuid}</stringProp>
               <stringProp name="HTTPSampler.method">DELETE</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -18451,9 +18713,9 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Verbose Material Sample" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Material Sample" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -18461,7 +18723,7 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/api/collection-api/material-sample/${verbose_material-sample_uuid}</stringProp>
+              <stringProp name="HTTPSampler.path">/api/collection-api/material-sample/${basic_material-sample_uuid}</stringProp>
               <stringProp name="HTTPSampler.method">DELETE</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -18524,8 +18786,9 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
-                <stringProp name="1661393241">Assemblage End2End Thread Group</stringProp>
-                <stringProp name="331371713">Delete Assemblage</stringProp>
+                <stringProp name="-1100509060">Storage Unit End2End Thread Group</stringProp>
+                <stringProp name="353862782">Delete Storage Unit</stringProp>
+                <stringProp name="-2102483591">Delete Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -18535,6 +18798,7 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1137554727">Collection End2End Thread Group</stringProp>
                 <stringProp name="953152563">Delete Collection</stringProp>
+                <stringProp name="-2102483591">Delete Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -18544,6 +18808,7 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="868735347">Collecting Event End2End Thread Group</stringProp>
                 <stringProp name="2086177959">Delete Collecting Event</stringProp>
+                <stringProp name="-2102483591">Delete Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -18553,6 +18818,7 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1925115245">Protocol End2End Thread Group</stringProp>
                 <stringProp name="-852282003">Delete Protocol</stringProp>
+                <stringProp name="-2102483591">Delete Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -18562,6 +18828,7 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1302683596">Project End2End Thread Group</stringProp>
                 <stringProp name="-1828915804">Delete Project</stringProp>
+                <stringProp name="-2102483591">Delete Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -18571,6 +18838,7 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1661393241">Assemblage End2End Thread Group</stringProp>
                 <stringProp name="331371713">Delete Assemblage</stringProp>
+                <stringProp name="-2102483591">Delete Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -18580,6 +18848,7 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1860862835">Organism End2End Thread Group</stringProp>
                 <stringProp name="1453270951">Delete Organism</stringProp>
+                <stringProp name="-2102483591">Delete Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -18589,6 +18858,7 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-224228197">Preparation Method End2End Thread Group</stringProp>
                 <stringProp name="899961025">Delete Preparation Method </stringProp>
+                <stringProp name="-2102483591">Delete Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -18598,6 +18868,7 @@ assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-256151134">Preparation Type End2End Thread Group</stringProp>
                 <stringProp name="-2043063016">Delete Preparation Type</stringProp>
+                <stringProp name="-2102483591">Delete Basic</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
