@@ -139,7 +139,9 @@
           <stringProp name="TestPlan.comments">Required headers to perform API requests - These headers are not utilzied when refreshing the bearer token.</stringProp>
         </HeaderManager>
         <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Attachment" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Attachment" enabled="true">
+          <stringProp name="TestPlan.comments">Creates Attachment records to be utilized for relationship testings</stringProp>
+        </GenericController>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Attachment 1" enabled="true"/>
           <hashTree>
@@ -362,7 +364,9 @@ newFile.delete() </stringProp>
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Persons" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Persons" enabled="true">
+          <stringProp name="TestPlan.comments">Creates Person records to be utilized for relationship testings</stringProp>
+        </GenericController>
         <hashTree>
           <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
             <stringProp name="scriptLanguage">groovy</stringProp>
@@ -646,9 +650,11 @@ ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijk
           </collectionProp>
         </ModuleController>
         <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Managed Attributes" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="setUp Controller" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Collection Managed Attribute setUp" enabled="true">
+            <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Collection Managed Attribute testing</stringProp>
+          </GenericController>
           <hashTree>
             <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
@@ -673,8 +679,8 @@ ctx.getVariables().put(&quot;material-sample_managed-attribute_name&quot;, &quot
             </JSR223Sampler>
             <hashTree/>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Basic" enabled="true">
-            <stringProp name="TestPlan.comments">Creates the basic record and asserts that all fields are set as intended.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Basic Collection Managed Attribute" enabled="true">
+            <stringProp name="TestPlan.comments">Creates a basic Collection Managed Attribute record</stringProp>
           </GenericController>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Basic Managed Attribute" enabled="true">
@@ -730,11 +736,11 @@ ctx.getVariables().put(&quot;material-sample_managed-attribute_name&quot;, &quot
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Create Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the basic record that was created and asserts all values are set as expected.</stringProp>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Basic Collection Managed Attribute" enabled="true">
+              <stringProp name="TestPlan.comments">Validates that the fields of the basic Collection Managed Attribute have been created and stored correctly</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic - Retrieve Basic Managed Attribute" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate Basic Collection Managed Attribute Creation" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -763,7 +769,7 @@ ctx.getVariables().put(&quot;material-sample_managed-attribute_name&quot;, &quot
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Create Basic - General Assertions" enabled="true">
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Created Basic Collection Managed Attribute - General Assertions" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -783,8 +789,8 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Verbose" enabled="true">
-            <stringProp name="TestPlan.comments">Creates the verbose record and asserts that all fields are set as intended.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Verbose Collection Managed Attribute" enabled="true">
+            <stringProp name="TestPlan.comments">Creates a verbose Collection Managed Attribute record</stringProp>
           </GenericController>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Verbose Managed Attribute" enabled="true">
@@ -842,11 +848,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Create Verbose" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the verbose record that was created and asserts all values are set as expected.</stringProp>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Verbose Collection Managed Attribute" enabled="true">
+              <stringProp name="TestPlan.comments">Validates that the fields of the verbose Collection Managed Attribute have been created and stored correctly</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Verbose - Retrieve Verbose Managed Attribute" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate Verbose Collection Managed Attribute Creation" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -875,7 +881,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Create Verbose - General Assertions" enabled="true">
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Created Verbose Collection Managed Attribute - General Assertions" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -896,8 +902,8 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create COLLECTING_EVENT" enabled="true">
-            <stringProp name="TestPlan.comments">Creates a basic COLLECTING_EVENT managed attribute</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="COLLECTING_EVENT Collection Managed Attribute" enabled="true">
+            <stringProp name="TestPlan.comments">Creates a COLLECTING_EVENT Collection Managed Attribute record</stringProp>
           </GenericController>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Basic Collecting Event" enabled="true">
@@ -953,11 +959,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Create Basic Collecting Event" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the basic record that was created and asserts all values are set as expected.</stringProp>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate COLLECTING_EVENT Collection Managed Attribute" enabled="true">
+              <stringProp name="TestPlan.comments">Validates that the fields of the COLLECTING_EVENT Collection Managed Attribute have been created and stored correctly</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic Collecting Event - Retrieve Basic Managed Attribute" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate COLLECTING_EVENT Collection Managed Attribute Creation" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -986,7 +992,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Create Basic Collecting Event - General Assertions" enabled="true">
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Created COLLECTING_EVENT Collection Managed Attribute - General Assertions" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -1006,8 +1012,8 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create MATERIAL_SAMPLE" enabled="true">
-            <stringProp name="TestPlan.comments">Creates a basic MATERIAL_SAMPLE managed attribute</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="MATERIAL_SAMPLE Collection Managed Attribute" enabled="true">
+            <stringProp name="TestPlan.comments">Validates that the fields of the MATERIAL_SAMPLE Collection Managed Attribute have been created and stored correctly</stringProp>
           </GenericController>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Basic Material Sample" enabled="true">
@@ -1063,11 +1069,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Create Basic Material Sample" enabled="true">
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate MATERIAL_SAMPLE Collection Managed Attribute" enabled="true">
               <stringProp name="TestPlan.comments">Retrieves the basic record that was created and asserts all values are set as expected.</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic Material Sample - Retrieve Basic Managed Attribute" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate MATERIAL_SAMPLE Collection Managed Attribute Creation" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -1096,7 +1102,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Create Basic Collecting Event - General Assertions" enabled="true">
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Created MATERIAL_SAMPLE Collection Managed Attribute - General Assertions" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -1116,11 +1122,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Empty Attributes" enabled="true">
-            <stringProp name="TestPlan.comments">Attempts to create a record with no attributes and asserts the expected error.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Collection Managed Attribute w/ Empty Attributes" enabled="true">
+            <stringProp name="TestPlan.comments">Creates a Collection Managed Attribute without any attributes specified - Produces an Error</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Empty Attributes - Create Managed Attribute " enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Collection Managed Attribute w/ Empty Attributes" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -1165,11 +1171,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Only User Group" enabled="true">
-            <stringProp name="TestPlan.comments">Attempts to create a record without the required fields and asserts the expected error.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Collection Managed Attribute w/ Only User Group" enabled="true">
+            <stringProp name="TestPlan.comments">Creates a Collection Managed Attribute with only user group specified - Produces an Error</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Only User Group - Create Managed Attribute" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Collection Managed Attribute w/ Only User Group" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -1215,11 +1221,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Incorrect Type" enabled="true">
-            <stringProp name="TestPlan.comments">Attempts to create a record with the incorrect type set and asserts the expected error.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Collection Managed Attribute w/ Incorrect Type" enabled="true">
+            <stringProp name="TestPlan.comments">Creates a Collection Managed Attribute the incorrect type specified - Produces an Error</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Incorrect Type - Create Managed Attribute" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Collection Managed Attribute w/ Incorrect Type" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -1269,10 +1275,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Managed Attributes" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Basic" enabled="true">
-            <stringProp name="TestPlan.comments">Updates the basic record and asserts that all fields are set as intended.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Basic Collection Managed Attribute" enabled="true">
+            <stringProp name="TestPlan.comments">Updates the basic Collection Managed Attribute record</stringProp>
           </GenericController>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Basic Managed Attribute" enabled="true">
@@ -1325,11 +1331,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the basic record that was updated and asserts all values are set as expected</stringProp>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Basic Collection Managed Attribute" enabled="true">
+              <stringProp name="TestPlan.comments">Validates that the fields of the basic Collection Managed Attribute have been updated and stored correctly</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Update Basic - Retrieve Basic Managed Attribute" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate Basic Collection Managed Attribute Updated" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -1358,7 +1364,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Basic - General Assertions" enabled="true">
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Updated Basic Collection Managed Attribute - General Assertions" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -1379,8 +1385,8 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose" enabled="true">
-            <stringProp name="TestPlan.comments">Updates the verbose record and asserts that all fields are set as intended.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Verbose Collection Managed Attribute" enabled="true">
+            <stringProp name="TestPlan.comments">Updates the verbose Collection Managed Attribute record</stringProp>
           </GenericController>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Managed Attribute" enabled="true">
@@ -1433,11 +1439,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the verbose record that was updated and asserts all values are set as expected.</stringProp>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Verbose Collection Managed Attribute" enabled="true">
+              <stringProp name="TestPlan.comments">Validates that the fields of the verbose Collection Managed Attribute have been updated and stored correctly</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Update Verbose Retrieve Verbose Managed Attribute" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate Verbose Collection Managed Attribute Updated" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -1466,7 +1472,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - General Assertions" enabled="true">
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Updated Verbose Collection Managed Attribute - General Assertions" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -1487,11 +1493,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose - Empty Body" enabled="true">
-            <stringProp name="TestPlan.comments">Updates the verbose record while providing no fields to update and asserts that no changes were made.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Verbose Collection Managed Attribute w/ Empty Body" enabled="true">
+            <stringProp name="TestPlan.comments">Updates the verbose Collection Managed Attribute record w/ an empty body request</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Managed Attribute" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Managed Attribute w/ Empty Body" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -1533,65 +1539,24 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose - Empty Body" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the verbose record that was updated and asserts all values are set as expected.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Update Verbose - Empty Body - Retrieve Verbose Managed Attribute" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/managed-attribute/${verbose_collection_managed_attribute_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
-                  <collectionProp name="Asserion.test_strings">
-                    <stringProp name="49586">200</stringProp>
-                  </collectionProp>
-                  <stringProp name="Assertion.custom_message"></stringProp>
-                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                  <boolProp name="Assertion.assume_success">false</boolProp>
-                  <intProp name="Assertion.test_type">2</intProp>
-                </ResponseAssertion>
-                <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - Empty Body - General Assetions" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
-def object = jsonSlurper.parseText(prev.getResponseDataAsString())
-
-def attr = object.data.attributes
-
-assert attr.name == &quot;${name_2}&quot;
-assert attr.key == &quot;${name_2}&quot;
-assert attr.vocabularyElementType == &quot;${vocabularyElementType_4}&quot;
-assert attr.managedAttributeComponent == &quot;${managedAttributeComponent_3}&quot;
-assert attr.acceptedValues.toString() == &quot;${acceptedValues_4}&quot;
-assert attr.group == &quot;${user_group}&quot;</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Module Validate Verbose Collection Managed Attribute</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
+                <stringProp name="-219911028">Collection Managed Attribute End2End Thread Group</stringProp>
+                <stringProp name="-1754979095">Update</stringProp>
+                <stringProp name="116994103">Verbose Collection Managed Attribute</stringProp>
+                <stringProp name="1956072673">Validate Verbose Collection Managed Attribute</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Invalid UUID" enabled="true">
-            <stringProp name="TestPlan.comments">Attempts to update a record with an invalid UUID specified and asserts the expected error.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Collection Managed Attribute w/ Invalid UUID" enabled="true">
+            <stringProp name="TestPlan.comments">Updates a Collection Managed Attribute at a UUID that does not correspond to any Collection Managed Attribute - Produces an Error</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Invalid Managed Attribute" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Collection Managed Attribute w/ Invalid UUID" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -1644,13 +1609,13 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Managed Attributes" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete MATERIAL_SAMPLE" enabled="true">
-            <stringProp name="TestPlan.comments">Deletes the MATERIAL_SAMPLE record and asserts that the record was properly removed.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="MATERIAL_SAMPLE Collection Managed Attribute" enabled="true">
+            <stringProp name="TestPlan.comments">Removes the MATERIAL_SAMPLE Collection Managed Attribute record</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Managed Attribute" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove MATERIAL_SAMPLE Collection Managed Attribute" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -1680,11 +1645,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic Material Sampel" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate MATERIAL_SAMPLE Collection Managed Attribute Removed" enabled="true">
+              <stringProp name="TestPlan.comments">Validates that the MATERIAL_SAMPLE Collection Managed Attribute has been removed</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Delete Basic - Retrieve Basic Managed Attribute" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retireve and Validate MATERIAL_SAMPLE Collection Managed Attribute Removed" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -1717,11 +1682,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete COLLECTING_EVENT" enabled="true">
-            <stringProp name="TestPlan.comments">Deletes the COLLECTING_EVENT record and asserts that the record was properly removed.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="COLLECTING_EVENT Collection Managed Attribute" enabled="true">
+            <stringProp name="TestPlan.comments">Removes the COLLECTING_EVENT Collection Managed Attribute record</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Collecting Event" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove COLLECTING_EVENT Collection Managed Attribute" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -1751,11 +1716,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic Collecting Event" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate COLLECTING_EVENT Collection Managed Attribute Removed" enabled="true">
+              <stringProp name="TestPlan.comments">Validates that the COLLECTING_EVENT Collection Managed Attribute has been removed</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Delete Basic - Retrieve Basic Collecting Event" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate COLLECTING_EVENT Collection Managed Attribute Removed" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -1788,11 +1753,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true">
-            <stringProp name="TestPlan.comments">Deletes the verbose record and asserts that the record was properly removed.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Verbose Collection Managed Attribute" enabled="true">
+            <stringProp name="TestPlan.comments">Removes the verbose Collection Managed Attribute record</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Verbose Managed Attribute" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Verbose Collection Managed Attribute" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -1823,10 +1788,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <hashTree/>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Verbose" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted verbose record and asserts that the correct response is returned.</stringProp>
+              <stringProp name="TestPlan.comments">Validates that the verbose Collection Managed Attribute has been removed</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Delete Verbose - Retrieve Verbose Managed Attribute" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate Verbose Collection Managed Attribute Removed" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -1859,11 +1824,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
-            <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Basic Collection Managed Attribute" enabled="true">
+            <stringProp name="TestPlan.comments">Removes the basic Collection Managed Attribute record</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Managed Attribute" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Basic Collection Managed Attribute" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -1893,11 +1858,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Delete Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Basic Collection Managed Attribute" enabled="true">
+              <stringProp name="TestPlan.comments">Validates that the basic Collection Managed Attribute has been removed</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Delete Basic - Retrieve Basic Managed Attribute" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate Basic Collection Managed Attribute Removed" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -1930,11 +1895,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Invalid UUID" enabled="true">
-            <stringProp name="TestPlan.comments">Attempts to delete a record with an invalid UUID specified and asserts the expected error.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Collection Managed Attribute w/ Invalid UUID" enabled="true">
+            <stringProp name="TestPlan.comments">Removes a Collection Managed Attribute record at a UUID that does not correspond to any Collection Managed Attribute - Produces an Error</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Invalid Managed Attribute" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Collection Managed Attribute w/ Invalid UUID" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -2069,9 +2034,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
           </collectionProp>
         </ModuleController>
         <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Preparation Type" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="setUp Controller" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Preparation Type setUp" enabled="true">
+            <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Preparation Type testing</stringProp>
+          </GenericController>
           <hashTree>
             <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
@@ -2087,8 +2054,8 @@ ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijk
             </JSR223Sampler>
             <hashTree/>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Basic" enabled="true">
-            <stringProp name="TestPlan.comments">Creates the basic record and asserts that all fields are set as intended.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Basic Preparation Type" enabled="true">
+            <stringProp name="TestPlan.comments">Creates a basic Preparation Type record</stringProp>
           </GenericController>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Basic Preparation Type" enabled="true">
@@ -2142,11 +2109,11 @@ ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijk
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Create Basic" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the basic record that was created and asserts all values are set as expected.</stringProp>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Basic Preparation Type" enabled="true">
+              <stringProp name="TestPlan.comments">Validates that the fields of the basic Preparation Type have been created and stored correctly</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Basic - Retrieve Basic Peparation Type" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate Basic Preparation Type Creation" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -2175,7 +2142,7 @@ ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijk
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Create Basic - General Assertions" enabled="true">
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Created Basic Preparation Type - General Assertions" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -2192,8 +2159,8 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Verbose" enabled="true">
-            <stringProp name="TestPlan.comments">Creates the verbose record and asserts that all fields are set as intended.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Verbose Preparation Type" enabled="true">
+            <stringProp name="TestPlan.comments">Creates a verbose Preparation Type record</stringProp>
           </GenericController>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Verbose Preparation Type" enabled="true">
@@ -2248,11 +2215,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Create Verbose" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the verbose record that was created and asserts all values are set as expected.</stringProp>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Verbose Preparation Type" enabled="true">
+              <stringProp name="TestPlan.comments">Validates that the fields of the verbose Preparation Type have been created and stored correctly</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Create Verbose - Retrieve Verbose Preparation Type" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate Verbose Preparation Type Creation" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -2281,7 +2248,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Create Verbose - General Assertions" enabled="true">
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Created Verbose Preparation Type - General Assertions" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -2295,7 +2262,7 @@ assert attr.name == &quot;${name_2}&quot;
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
-                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Create Verbose - Multilingual Description Assertion" enabled="true">
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Created Verbose Preparation Type - Multilingual Description Assertion" enabled="true">
                   <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
                   <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
                   <stringProp name="EXPECTED_VALUE">${multilingualDescription_2}</stringProp>
@@ -2308,11 +2275,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Empty Attributes" enabled="true">
-            <stringProp name="TestPlan.comments">Attempts to create a record with no attributes and asserts the expected error.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Preparation Type w/ Empty Attributes" enabled="true">
+            <stringProp name="TestPlan.comments">Creates a Preparation Type without any attributes specified - Produces an Error</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Empty Attributes - Create Preparation Type" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Preparation Type w/ Empty Attributes" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -2357,11 +2324,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Only User Group" enabled="true">
-            <stringProp name="TestPlan.comments">Attempts to create a record without the required fields and asserts the expected error.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Preparation Type w/ Only User Group" enabled="true">
+            <stringProp name="TestPlan.comments">Creates a Preparation Type with only user group specified - Produces an Error</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Only User Group - Create Preparation Type" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Preparation Type w/ Only User Group" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -2407,11 +2374,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Incorrect Type" enabled="true">
-            <stringProp name="TestPlan.comments">Attempts to create a record with the incorrect type set and asserts the expected error.</stringProp>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Preparation Type w/ Incorrect Type" enabled="true">
+            <stringProp name="TestPlan.comments">Creates a Preparation Type the incorrect type specified - Produces an Error</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Incorrect Type - Create Preparation Type" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST - Create Preparation Type w/ Incorrect Type" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -2459,9 +2426,9 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Preparation Type" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Basic" enabled="true">
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Basic Preparation Type" enabled="true">
             <stringProp name="TestPlan.comments">Updates the basic record and asserts that all fields are set as intended.</stringProp>
           </GenericController>
           <hashTree>
@@ -2511,11 +2478,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Basic" enabled="true">
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Basic Preparation Type" enabled="true">
               <stringProp name="TestPlan.comments">Retrieves the basic record that was updated and asserts all values are set as expected</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Update Basic - Retrieve Basic Preparation Type" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate Basic Preparation Type Updated" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -2544,7 +2511,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Basic - General Assertions" enabled="true">
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Updated Basic Preparation Type - General Assertions" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -2558,7 +2525,7 @@ assert attr.name == &quot;${name_3}&quot;
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
-                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Basic - Multilingual Description Assertion" enabled="true">
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Updated Basic Preparation Type - Multilingual Description Assertion" enabled="true">
                   <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
                   <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
                   <stringProp name="EXPECTED_VALUE">${multilingualDescription_3}</stringProp>
@@ -2585,7 +2552,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
   &quot;data&quot;: {&#xd;
     &quot;type&quot;: &quot;preparation-type&quot;,&#xd;
     &quot;attributes&quot;: {&#xd;
-    	 &quot;name&quot; : &quot;${name_4}&quot;,&#xd;
+    	 &quot;name&quot;: &quot;${name_4}&quot;,&#xd;
       &quot;group&quot;: &quot;${user_group}&quot;,&#xd;
       &quot;multilingualDescription&quot;: ${multilingualDescription_4}&#xd;
     }&#xd;
@@ -2621,11 +2588,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose" enabled="true">
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Verbose Preparation Type" enabled="true">
               <stringProp name="TestPlan.comments">Retrieves the verbose record that was updated and asserts all values are set as expected</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Update Verbose - Retrieve Verbose Preparation Type" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate Verbose Preparation Type Updated" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -2654,7 +2621,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - General Assertions" enabled="true">
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Updated Verbose Preparation Type - General Assertions" enabled="true">
                   <stringProp name="scriptLanguage">groovy</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
@@ -2668,7 +2635,7 @@ assert attr.name == &quot;${name_4}&quot;
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
-                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Multilingual Description Assertion" enabled="true">
+                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Updated Verbose Preparation Type - Multilingual Description Assertion" enabled="true">
                   <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
                   <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
                   <stringProp name="EXPECTED_VALUE">${multilingualDescription_4}</stringProp>
@@ -2681,11 +2648,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Verbose - Empty Body" enabled="true">
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Verbose Preparation Type w/ Empty Body" enabled="true">
             <stringProp name="TestPlan.comments">Updates the verbose record while providing no fields to update and asserts that no changes were made.</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Preparation Type" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Preparation Type w/ Empty Body" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -2727,71 +2694,23 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Validate Update Verbose - Empty Body" enabled="true">
-              <stringProp name="TestPlan.comments">Retrieves the verbose record that was updated and asserts all values are set as expected.</stringProp>
-            </GenericController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve Verbose Preparation Type" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/api/collection-api/preparation-type/${verbose_preparation-type_uuid}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion - 200" enabled="true">
-                  <collectionProp name="Asserion.test_strings">
-                    <stringProp name="49586">200</stringProp>
-                  </collectionProp>
-                  <stringProp name="Assertion.custom_message"></stringProp>
-                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                  <boolProp name="Assertion.assume_success">false</boolProp>
-                  <intProp name="Assertion.test_type">2</intProp>
-                </ResponseAssertion>
-                <hashTree/>
-                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Update Verbose - General Assertions" enabled="true">
-                  <stringProp name="scriptLanguage">groovy</stringProp>
-                  <stringProp name="parameters"></stringProp>
-                  <stringProp name="filename"></stringProp>
-                  <stringProp name="cacheKey">true</stringProp>
-                  <stringProp name="script">def jsonSlurper = new groovy.json.JsonSlurper()
-def object = jsonSlurper.parseText(prev.getResponseDataAsString())
-
-def attr = object.data.attributes
-
-assert attr.name == &quot;${name_4}&quot;
-assert attr.group == &quot;${user_group}&quot;</stringProp>
-                </JSR223Assertion>
-                <hashTree/>
-                <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Update Verbose - Multilingual Description Assertion" enabled="true">
-                  <stringProp name="TestPlan.comments">Asserting with groovy script appears to have issue so will assert multilingual description here</stringProp>
-                  <stringProp name="JSON_PATH">$.data.attributes.multilingualDescription</stringProp>
-                  <stringProp name="EXPECTED_VALUE">${multilingualDescription_4}</stringProp>
-                  <boolProp name="JSONVALIDATION">true</boolProp>
-                  <boolProp name="EXPECT_NULL">false</boolProp>
-                  <boolProp name="INVERT">false</boolProp>
-                  <boolProp name="ISREGEX">false</boolProp>
-                </JSONPathAssertion>
-                <hashTree/>
-              </hashTree>
-            </hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Validate Verbose Preparation Type" enabled="true">
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
+                <stringProp name="-256151134">Preparation Type End2End Thread Group</stringProp>
+                <stringProp name="-1754979095">Update</stringProp>
+                <stringProp name="1754650923">Update Verbose</stringProp>
+                <stringProp name="-363773429">Validate Verbose Preparation Type</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Update Invalid UUID" enabled="true">
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Preparation Type w/ Invalid UUID" enabled="true">
             <stringProp name="TestPlan.comments">Attempts to update a record with an invalid UUID specified and asserts the expected error.</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Invalid Preparation Type" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Preparation Type w/ Invalid UUID" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -2840,9 +2759,9 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Preparation Type" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Verbose" enabled="true">
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Verbose Preparation Type" enabled="true">
             <stringProp name="TestPlan.comments">Deletes the verbose record and asserts that the record was properly removed.</stringProp>
           </GenericController>
           <hashTree>
@@ -2880,7 +2799,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <stringProp name="TestPlan.comments">Attempts to retrieve the deleted verbose record and asserts that the correct response is returned.</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Verbose - Retrieve Verbose Preparation Type" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate Verbose Preparation Type Removed" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -2913,7 +2832,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Basic" enabled="true">
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Basic Preparation Type" enabled="true">
             <stringProp name="TestPlan.comments">Deletes the basic record and asserts that the record was properly removed.</stringProp>
           </GenericController>
           <hashTree>
@@ -2951,7 +2870,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               <stringProp name="TestPlan.comments">Attempts to retrieve the deleted basic record and asserts that the correct response is returned.</stringProp>
             </GenericController>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Validate Delete Basic - Retrieve Basic Preparation Type" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET - Retrieve and Validate Basic Preparation Type Removed" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -2984,11 +2903,11 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Delete Invalid UUID" enabled="true">
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Preparation Type w/ Invalid UUID" enabled="true">
             <stringProp name="TestPlan.comments">Attempts to delete a record with an invalid UUID specified and asserts the expected error.</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Invalid Preparation Type" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="DELETE - Remove Preparation Type w/ Invalid UUID" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -13412,8 +13331,8 @@ ctx.getVariables().put(&quot;collecting-event_managed-attribute_name&quot;, &quo
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-219911028">Collection Managed Attribute End2End Thread Group</stringProp>
-                <stringProp name="-1392583108">Create Managed Attributes</stringProp>
-                <stringProp name="-156087177">Create COLLECTING_EVENT</stringProp>
+                <stringProp name="2026540316">Create</stringProp>
+                <stringProp name="117127494">COLLECTING_EVENT Collection Managed Attribute</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -13422,8 +13341,8 @@ ctx.getVariables().put(&quot;collecting-event_managed-attribute_name&quot;, &quo
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1925115245">Protocol End2End Thread Group</stringProp>
-                <stringProp name="1195328828">Create Protocol</stringProp>
-                <stringProp name="193347594">Create Basic</stringProp>
+                <stringProp name="2026540316">Create</stringProp>
+                <stringProp name="-347627894">Basic Protocol</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -14677,8 +14596,8 @@ assert rel.protocol.data.id == &quot;${basic_protocol_uuid}&quot;
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1925115245">Protocol End2End Thread Group</stringProp>
-                <stringProp name="-852282003">Delete Protocol</stringProp>
-                <stringProp name="-2102483591">Delete Basic</stringProp>
+                <stringProp name="2043376075">Delete</stringProp>
+                <stringProp name="-347627894">Basic Protocol</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -14687,8 +14606,8 @@ assert rel.protocol.data.id == &quot;${basic_protocol_uuid}&quot;
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-219911028">Collection Managed Attribute End2End Thread Group</stringProp>
-                <stringProp name="-2037578451">Delete Managed Attributes</stringProp>
-                <stringProp name="1657764776">Delete COLLECTING_EVENT</stringProp>
+                <stringProp name="2043376075">Delete</stringProp>
+                <stringProp name="117127494">COLLECTING_EVENT Collection Managed Attribute</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -14897,9 +14816,10 @@ ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijk
             <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Create Institution" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
-                <stringProp name="0"></stringProp>
+                <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-1804591475">Institution End2End Thread Group</stringProp>
-                <stringProp name="1769716884">Create Institution</stringProp>
+                <stringProp name="2026540316">Create</stringProp>
+                <stringProp name="286013574">Basic Institution</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -15593,7 +15513,7 @@ assert rel.parentCollection.data == null
             <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Validate Update Verbose" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
-                <stringProp name="0"></stringProp>
+                <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1137554727">Collection End2End Thread Group</stringProp>
                 <stringProp name="-1754979095">Update</stringProp>
                 <stringProp name="2108981308">Verbose Collection</stringProp>
@@ -15840,10 +15760,10 @@ assert rel.parentCollection.data == null
             <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Delete Institution" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
-                <stringProp name="0"></stringProp>
+                <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-1804591475">Institution End2End Thread Group</stringProp>
-                <stringProp name="-1479011645">Delete Institution</stringProp>
-                <stringProp name="-2102483591">Delete Basic</stringProp>
+                <stringProp name="2043376075">Delete</stringProp>
+                <stringProp name="286013574">Basic Institution</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -15958,7 +15878,7 @@ assert rel.parentCollection.data == null
           <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="0"></stringProp>
+            <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
             <stringProp name="1506430348">setUp Thread Group</stringProp>
             <stringProp name="52452451">Token Controller</stringProp>
           </collectionProp>
@@ -16655,7 +16575,7 @@ assert rel.parentStorageUnit.data == null
             <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Validate Verbose Storage Unit" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
-                <stringProp name="0"></stringProp>
+                <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-1100509060">Storage Unit End2End Thread Group</stringProp>
                 <stringProp name="-1754979095">Update</stringProp>
                 <stringProp name="-1291242937">Verbose Storage Unit</stringProp>
@@ -16914,8 +16834,8 @@ assert rel.parentStorageUnit.data == null
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-1347631884">Storage Unit Type End2End Thread Group</stringProp>
-                <stringProp name="-1712812612">Delete Storage Unit Type</stringProp>
-                <stringProp name="-2102483591">Delete Basic</stringProp>
+                <stringProp name="2043376075">Delete</stringProp>
+                <stringProp name="-569633473">Basic Storage Unit Type</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17431,8 +17351,8 @@ ctx.getVariables().put(&quot;material-sample_managed-attribute_name&quot;, &quot
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-219911028">Collection Managed Attribute End2End Thread Group</stringProp>
-                <stringProp name="-1392583108">Create Managed Attributes</stringProp>
-                <stringProp name="-129640258">Create MATERIAL_SAMPLE</stringProp>
+                <stringProp name="2026540316">Create</stringProp>
+                <stringProp name="151918039">MATERIAL_SAMPLE Collection Managed Attribute</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17441,8 +17361,8 @@ ctx.getVariables().put(&quot;material-sample_managed-attribute_name&quot;, &quot
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-256151134">Preparation Type End2End Thread Group</stringProp>
-                <stringProp name="438052327">Create Preparation Type</stringProp>
-                <stringProp name="193347594">Create Basic</stringProp>
+                <stringProp name="2026540316">Create</stringProp>
+                <stringProp name="764760373">Basic Preparation Type</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -17451,8 +17371,8 @@ ctx.getVariables().put(&quot;material-sample_managed-attribute_name&quot;, &quot
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-224228197">Preparation Method End2End Thread Group</stringProp>
-                <stringProp name="-580019822">Create Preparation Method </stringProp>
-                <stringProp name="193347594">Create Basic</stringProp>
+                <stringProp name="2026540316">Create</stringProp>
+                <stringProp name="276561948">Basic Preparation Method</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -18548,7 +18468,7 @@ assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</string
             <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Validate Verbose Material Sample" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
-                <stringProp name="0"></stringProp>
+                <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1711903298">Material Sample End2End Thread Group</stringProp>
                 <stringProp name="-1754979095">Update</stringProp>
                 <stringProp name="813440005">Verbose Material Sample</stringProp>
@@ -18848,8 +18768,8 @@ assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</string
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="1925115245">Protocol End2End Thread Group</stringProp>
-                <stringProp name="-852282003">Delete Protocol</stringProp>
-                <stringProp name="-2102483591">Delete Basic</stringProp>
+                <stringProp name="2043376075">Delete</stringProp>
+                <stringProp name="-347627894">Basic Protocol</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -18888,8 +18808,8 @@ assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</string
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-224228197">Preparation Method End2End Thread Group</stringProp>
-                <stringProp name="899961025">Delete Preparation Method </stringProp>
-                <stringProp name="-2102483591">Delete Basic</stringProp>
+                <stringProp name="2043376075">Delete</stringProp>
+                <stringProp name="276561948">Basic Preparation Method</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -18898,8 +18818,8 @@ assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</string
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-256151134">Preparation Type End2End Thread Group</stringProp>
-                <stringProp name="-2043063016">Delete Preparation Type</stringProp>
-                <stringProp name="-2102483591">Delete Basic</stringProp>
+                <stringProp name="2043376075">Delete</stringProp>
+                <stringProp name="764760373">Basic Preparation Type</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -18908,8 +18828,8 @@ assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</string
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
                 <stringProp name="-219911028">Collection Managed Attribute End2End Thread Group</stringProp>
-                <stringProp name="-2037578451">Delete Managed Attributes</stringProp>
-                <stringProp name="1729986413">Delete MATERIAL_SAMPLE</stringProp>
+                <stringProp name="2043376075">Delete</stringProp>
+                <stringProp name="151918039">MATERIAL_SAMPLE Collection Managed Attribute</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -19143,7 +19063,7 @@ assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</string
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
+      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="Verbose Preparation Type" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
