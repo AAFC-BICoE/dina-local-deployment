@@ -40,11 +40,11 @@ To run a test plan from command-line:
 $ jmeter -n -t collection_api_module_testplan.jmx -l log.jtl
 ----
 
-== Module Strucutre
+== Module Structure
 
 The JMeter test plan is constructed as follows
 
-* Test Plan
+* Module Test Plan
 ** setUp Thread Group 
 ** Endpoint Thread Groups
 ** tearDown Thread Group
@@ -52,14 +52,14 @@ The JMeter test plan is constructed as follows
 === setUp Thread Group
 
 The setUp Thread Group will be executed prior to any regular thread groups, allowing us to setup
-access priveleges as well as create any records that may be required by regular thread groups.
+access privileges as well as create any records that may be required by regular thread groups.
 
 Refer to https://jmeter.apache.org/usermanual/component_reference.html#setUp_Thread_Group[setUp Thread Group] component reference
 
 === Endpoint Thread Group(s)
 
-Each endpoint within the collection-api module will contain a corresponding endpoint thread group.
-The thread group will be responsible for setting up and testing the endpoint's CRUD operations.
+Each endpoint within the corresponding module will contain a corresponding endpoint thread group.
+A thread group will be responsible for setting up and testing the respective endpoint's CRUD operations.
 
 The layout of each thread group is as follows:
 
@@ -69,12 +69,13 @@ The layout of each thread group is as follows:
 ** Sets the access token and content-type headers, required to perform API requests
 * Module Token Controller
 ** A Module Controller utilized to refresh the access token.
-*** https://jmeter.apache.org/usermanual/component_reference.html#Module_Controller[Module Controllers] allow you to perform the actions of other controllers such as using the Token Controller from the setUp Thread Group or the CRUD controllers from other endpoints.
+*** https://jmeter.apache.org/usermanual/component_reference.html#Module_Controller[Module Controllers] allow you to perform the actions 
+    of other controllers such as using the Token Controller from the setUp Thread Group or the CRUD controllers from other endpoints.
 *** All controllers aside from the Module Controllers are https://jmeter.apache.org/usermanual/component_reference.html#Simple_Controller[Simple Controllers] 
     that offer no unique functionality, being used primarily for organizational purposes and to allow Module Controllers to replicate their functionality if needed.
 * Create/Update/Delete (CRUD) Endpoint Controllers
-** These controllers contain all Controller, Samplers, and Assertions associcated with their respective CRUD operation.
-*** Retrieval is tested wtihin each controller when assertions are being made.
+** These controllers contain all Controller, Samplers, and Assertions associated with their respective CRUD operation.
+*** Retrieval is tested within each controller when assertions are being made.
 
 === tearDown Thread Group
 
@@ -86,54 +87,64 @@ Refer to https://jmeter.apache.org/usermanual/component_reference.html#tearDown_
 
 == CRUD Controllers
 
-The CRUD are the 3 main controllers within each endpoint's thread group, the create, update, and delete controllers.
+The CRUD Controllers are the thread group Create, Update, and Delete Controllers.
 
-=== Create Endpoint Controller
+=== Create
 
-This controller will contain all Controllers, Samplers and Assertions that have to do with
-the creation of the endpoint recordsws
+This controller contains all JMeter elements required for testing record creation for the respective endpoint.
 
-* Create Basic/Verbose
-** Creates a record with the bare minimum fields required and asserts the values match to the variable 
-   used in the POST request.
-** Creates a record with all fields populated and asserts the values correspond to the variables used in the POST request.
-* Invalid Creation(s)
-** One or more controllers that attempt to create a record with an invalid request. Some examples of invalid
-   creation controllers are creating a record with empty attributes, missing required attributes, or
-   having an incorrect 'type' set in the body.
-* setUp Controller
-** The setUp controller will create relationships entity records for records available through the collection-api.
-*** The setUp controller creates these records by utlizing a Module Controller that references the respective
-    entities' Endpoint Thread Group's Create Controller.
-** In addition to the creation of records, the setUp controller will declaration of random variables
-   not only for the designated endpoint, but also any variables required for relationship records.
-*** Random variables are utilzied to produce unique variables and prevent unique key conflict errors when increasing thread counts.
+* Endpoint setUp
+** Sets up random variables for the thread group to ensure unique values between threads.
+** Creates module records if the endpoint requires them for testing relationships fields.
+
+* Basic/Verbose
+** Creates a Basic record with the minimum fields and a Verbose record with all fields populated
+*** Asserts that records have been created and values match with the variables used in the POST request.
+
+* w/ Empty Attributes
+** Attempts to create a record with no attributes specified.
+*** Asserts that the correct error code is returned.
+
+* w/ Only User Group
+** Attempts to create a record with only the user group specified, missing possible required attributes
+*** Asserts that the correct error code is returned.
+*** If the user group is the only required attribute, this test is omitted as it is synonymous with the
+    'w/ Empty Attributes' test.
+    
+* w/ Incorrect Type
+** Attempts to create a record with the type field set to not match the endpoint.
+*** Asserts that the correct error code is returned.
    
-=== Update Endpoint Controller
+=== Update
 
-* Update Basic/Verbose
-** Updates the values of the Basic and Verbose records created prior and asserts that
-   all updated values correspond to the ones used in the PATCH request.
-* Update Verbose - Empty Body
-** Creates a PATCH request on the Verbose entity and asserts that no values have been changed as results of this request.
-* Invalid Update(s)
-** One or more controllers that attempt to update a record. An example of an invalid update would be attempting
-   to update a record that does not exist, such as providing a uuid that does not correspond to any created
-   record.
+This controller contains all JMeter elements required for testing updating of records for the respective endpoint.
+
+* Basic/Verbose
+** Update the created Basic and Verbose records
+*** Asserts that the values from the retrieved record match with the variables used in the PATCH request.
+
+* Verbose w/ Empty Body
+** Update Verbose entity with no request body.
+*** Asserts that no values have been updated as a result of the request.
+
+* w/ Invalid UUID
+** Attempts to update a record with a UUID that does not correspond to an existing record.
+*** Asserts that the correct error code is returned.
    
-=== Delete Endpoint Controller
+=== Delete
 
-* Delete Basic/Verbose
-** Deletes the records that had been created and asserts that they have been properly removed. Audit records
-   may remain.
-* Invalid Deletion(s)
-** One or more controllers that attempt to remove a record. An example of invalid deletion would be attempting 
-   to delete a record that does not exist, such as providing a uuid that does not correspodng to any created
-   record.
-* tearDown
-** The tearDown controller will remove all entities created in the Create Endpoint Controller/setUp Controller.
-   The tearDown controller deletes these records by utlizing a Module Controller that references the respective
-   entities' Endpoint Thread Group's Delete Controller.
+This controller contains all JMeter elements required for testing removal of records for the respective endpoint.
+
+* Basic/Verbose
+** Removes the records that have been created.
+*** Asserts that they have been removed. Audit records may remain.
+   
+* w/ Invalid UUID
+** Attempts to remove a record with a UUID that does not correspond to an existing record.
+*** Asserts that the correct error code is returned.
+
+* Endpoint tearDown
+** Removes any module records if they were created in the 'Endpoint setUp' controller
 
 === Assertions
 
@@ -143,9 +154,11 @@ by each operation.
 ** Assertions are managed by using an https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request[HTTP Request Sampler] 
    to retrieve the designated record and verifying the correctness of the fields. 
 *** The majority of assertions are conducted through a Groovy script by means of a https://jmeter.apache.org/usermanual/component_reference.html#JSR223_Assertion[JSR223 Assertion]. 
-*** Assertions for Map attributes utilize the https://jmeter.apache.org/usermanual/component_reference.html#JSON_Assertion[JSON Assertion] instead for simpler comparisson.
+*** Assertions for Map attributes utilize the https://jmeter.apache.org/usermanual/component_reference.html#JSON_Assertion[JSON Assertion] instead 
+    for simpler comparison.
 ** In addition to the assertions used to validate data, https://jmeter.apache.org/usermanual/component_reference.html#Response_Assertion[Response Assertions] 
    are used after every HTTP Request Sampler to ensure that the correct response code is also returned.
 *** In order to for the Invalid CRUD Controller to return a valid result, a JSR223 Assertion with a Groovy script is used
     in place of the Response Assertion to verify the correct response code has been returned and
-    https://jmeter.apache.org/api/org/apache/jmeter/samplers/SampleResult.html#setSuccessful(boolean)[set the successful attribute] of the HTTP Request Sampler to be true.
+    https://jmeter.apache.org/api/org/apache/jmeter/samplers/SampleResult.html#setSuccessful(boolean)[set the successful attribute] of the HTTP Request Sampler 
+    to be true.
