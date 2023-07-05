@@ -38,6 +38,7 @@ steps:
 
 - script: 
     sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
+    sudo sh -c "echo '192.19.33.9 api.dina.local' >> /etc/hosts"
   displayName: 'Setting up hosts name'
 
 - bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up &
@@ -59,5 +60,5 @@ steps:
     cat jmeter.log
   displayName: 'Run JMeter'
 
-- bash: docker compose -f docker-compose.base.yml down
+- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml down
   displayName: 'Stop DockerCompose'
