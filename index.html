@@ -488,6 +488,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_installation">9.1. Installation</a></li>
 <li><a href="#_how_to_run">9.2. How to run</a></li>
+<li><a href="#_module_structure">9.3. Module Structure</a>
+<ul class="sectlevel3">
+<li><a href="#_setup_thread_group">9.3.1. setUp Thread Group</a></li>
+<li><a href="#_endpoint_thread_groups">9.3.2. Endpoint Thread Group(s)</a></li>
+<li><a href="#_teardown_thread_group">9.3.3. tearDown Thread Group</a></li>
+</ul>
+</li>
+<li><a href="#_crud_controllers">9.4. CRUD Controllers</a>
+<ul class="sectlevel3">
+<li><a href="#_create">9.4.1. Create</a></li>
+<li><a href="#_update">9.4.2. Update</a></li>
+<li><a href="#_delete">9.4.3. Delete</a></li>
+<li><a href="#_assertions">9.4.4. Assertions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_change_default_docker_address_pool">10. Change default Docker address pool</a></li>
@@ -1130,7 +1145,383 @@ $ ./jmeter</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ jmeter -n -t collection_api_testplan.jmx -l log.jtl</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ jmeter -n -t collection_api_module_testplan.jmx -l log.jtl</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_module_structure">9.3. Module Structure</h3>
+<div class="paragraph">
+<p>The JMeter test plan is constructed as follows</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Module Test Plan</p>
+<div class="ulist">
+<ul>
+<li>
+<p>setUp Thread Group</p>
+</li>
+<li>
+<p>Endpoint Thread Groups</p>
+</li>
+<li>
+<p>tearDown Thread Group</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_setup_thread_group">9.3.1. setUp Thread Group</h4>
+<div class="paragraph">
+<p>The setUp Thread Group will be executed prior to any regular thread groups, allowing us to setup
+access privileges as well as create any records that may be required by regular thread groups.</p>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="https://jmeter.apache.org/usermanual/component_reference.html#setUp_Thread_Group">setUp Thread Group</a> component reference</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_endpoint_thread_groups">9.3.2. Endpoint Thread Group(s)</h4>
+<div class="paragraph">
+<p>Each endpoint within the corresponding module will contain a corresponding endpoint thread group.
+A thread group will be responsible for setting up and testing the respective endpoint&#8217;s CRUD operations.</p>
+</div>
+<div class="paragraph">
+<p>The layout of each thread group is as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Endpoint User Defined Variables</p>
+<div class="ulist">
+<ul>
+<li>
+<p>All constant variables will be declared in this configuration element</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>HTTP Headers</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Sets the access token and content-type headers, required to perform API requests</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Module Token Controller</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A Module Controller utilized to refresh the access token.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://jmeter.apache.org/usermanual/component_reference.html#Module_Controller">Module Controllers</a> allow you to perform the actions
+of other controllers such as using the Token Controller from the setUp Thread Group or the CRUD controllers from other endpoints.</p>
+</li>
+<li>
+<p>All controllers aside from the Module Controllers are <a href="https://jmeter.apache.org/usermanual/component_reference.html#Simple_Controller">Simple Controllers</a>
+that offer no unique functionality, being used primarily for organizational purposes and to allow Module Controllers to replicate their functionality if needed.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Create/Update/Delete (CRUD) Endpoint Controllers</p>
+<div class="ulist">
+<ul>
+<li>
+<p>These controllers contain all Controller, Samplers, and Assertions associated with their respective CRUD operation.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Retrieval is tested within each controller when assertions are being made.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_teardown_thread_group">9.3.3. tearDown Thread Group</h4>
+<div class="paragraph">
+<p>The tearDown Thread Group is executed after all of the other thread groups have terminated. This allows
+us to remove the records created within the setUp Thread Group without causing any conflicts with the
+thread group that user these records.</p>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="https://jmeter.apache.org/usermanual/component_reference.html#tearDown_Thread_Group">tearDown Thread Group</a> component reference</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_crud_controllers">9.4. CRUD Controllers</h3>
+<div class="paragraph">
+<p>The CRUD Controllers are the thread group Create, Update, and Delete Controllers.</p>
+</div>
+<div class="sect3">
+<h4 id="_create">9.4.1. Create</h4>
+<div class="paragraph">
+<p>This controller contains all JMeter elements required for testing record creation for the respective endpoint.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Endpoint setUp</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Sets up random variables for the thread group to ensure unique values between threads.</p>
+</li>
+<li>
+<p>Creates module records if the endpoint requires them for testing relationships fields.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Basic/Verbose</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Creates a Basic record with the minimum fields and a Verbose record with all fields populated</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Asserts that records have been created and values match with the variables used in the POST request.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>w/ Empty Attributes</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Attempts to create a record with no attributes specified.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Asserts that the correct error code is returned.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>w/ Only User Group</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Attempts to create a record with only the user group specified, missing possible required attributes</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Asserts that the correct error code is returned.</p>
+</li>
+<li>
+<p>If the user group is the only required attribute, this test is omitted as it is synonymous with the
+'w/ Empty Attributes' test.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>w/ Incorrect Type</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Attempts to create a record with the type field set to not match the endpoint.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Asserts that the correct error code is returned.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_update">9.4.2. Update</h4>
+<div class="paragraph">
+<p>This controller contains all JMeter elements required for testing updating of records for the respective endpoint.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Basic/Verbose</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Update the created Basic and Verbose records</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Asserts that the values from the retrieved record match with the variables used in the PATCH request.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Verbose w/ Empty Body</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Update Verbose entity with no request body.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Asserts that no values have been updated as a result of the request.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>w/ Invalid UUID</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Attempts to update a record with a UUID that does not correspond to an existing record.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Asserts that the correct error code is returned.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_delete">9.4.3. Delete</h4>
+<div class="paragraph">
+<p>This controller contains all JMeter elements required for testing removal of records for the respective endpoint.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Basic/Verbose</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Removes the records that have been created.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Asserts that they have been removed. Audit records may remain.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>w/ Invalid UUID</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Attempts to remove a record with a UUID that does not correspond to an existing record.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Asserts that the correct error code is returned.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Endpoint tearDown</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Removes any module records if they were created in the 'Endpoint setUp' controller</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_assertions">9.4.4. Assertions</h4>
+<div class="paragraph">
+<p>In all of the CRUD controllers, assertions are being made to ensure that the correct results are produced
+by each operation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Assertions are managed by using an <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">HTTP Request Sampler</a>
+to retrieve the designated record and verifying the correctness of the fields.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The majority of assertions are conducted through a Groovy script by means of a <a href="https://jmeter.apache.org/usermanual/component_reference.html#JSR223_Assertion">JSR223 Assertion</a>.</p>
+</li>
+<li>
+<p>Assertions for Map attributes utilize the <a href="https://jmeter.apache.org/usermanual/component_reference.html#JSON_Assertion">JSON Assertion</a> instead
+for simpler comparison.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>In addition to the assertions used to validate data, <a href="https://jmeter.apache.org/usermanual/component_reference.html#Response_Assertion">Response Assertions</a>
+are used after every HTTP Request Sampler to ensure that the correct response code is also returned.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>In order to for the Invalid CRUD Controller to return a valid result, a JSR223 Assertion with a Groovy script is used
+in place of the Response Assertion to verify the correct response code has been returned and
+<a href="https://jmeter.apache.org/api/org/apache/jmeter/samplers/SampleResult.html#setSuccessful(boolean)">set the successful attribute</a> of the HTTP Request Sampler
+to be true.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1166,7 +1557,7 @@ $ ./jmeter</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-06-22 18:40:31 UTC
+Last updated 2023-07-05 14:18:54 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
