@@ -33,7 +33,7 @@ steps:
     echo Exporting to PKCS12
     openssl pkcs12 -export -out $(Pipeline.Workspace)/s/certs/keystore.p12 -inkey $(dinaLocalCertificateKey.secureFilePath) -in $(dinaLocalCertificate.secureFilePath) -passout pass:tmp_ci
     echo Adding PKCS12 to java keytool
-    keytool -importkeystore -srckeystore $(Pipeline.Workspace)/s/certs/keystore.p12 -srcstoretype PKCS12 -srcstorepass -keystore $(Pipeline.Workspace)/s/certs/keystore.jks
+    keytool -importkeystore -srckeystore $(Pipeline.Workspace)/s/certs/keystore.p12 -srcstoretype PKCS12 -srcstorepass tmp_ci -keystore $(Pipeline.Workspace)/s/certs/keystore.jks -deststorepass tmp_ci
   displayName: 'Setting up certificates'
 
 - bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up &
