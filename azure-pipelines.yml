@@ -52,7 +52,9 @@ steps:
   displayName: 'Install the JMeter'
 
 - script: |
-    apache-jmeter-5.6/bin/./jmeter -Djdk.net.hosts.file=$(Pipeline.Workspace)/s/dina_hosts -Djavax.net.ssl.trustStore=$(Pipeline.Workspace)/s/certs/keystore.jks -Djavax.net.ssl.trustStorePassword=tmp_ci -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report
+    apache-jmeter-5.6/bin/./jmeter -Djdk.net.hosts.file=$(Pipeline.Workspace)/s/dina_hosts -Djavax.net.ssl.trustStore=$(Pipeline.Workspace)/s/certs/keystore.jks -Djavax.net.ssl.trustStorePassword=tmp_ci -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report -j jmeter.log
+    echo Done
+    cat jmeter.log
   displayName: 'Run JMeter'
 
 - bash: docker compose -f docker-compose.base.yml down
