@@ -36,27 +36,25 @@ steps:
     keytool -importkeystore -srckeystore $(Pipeline.Workspace)/s/certs/keystore.p12 -srcstoretype PKCS12 -srcstorepass tmp_ci -keystore $(Pipeline.Workspace)/s/certs/keystore.jks -deststorepass tmp_ci
   displayName: 'Setting up certificates'
 
+- script: 
+    sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
+  displayName: 'Setting up hosts name'
+
 - bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up &
   displayName: 'Start DockerCompose'
 
 - bash: |
     echo Try to connect to Keycloak endpoint ...
-    curl --head -X GET --cacert /etc/ssl/certs/dina-local-cert.pem --retry 25 --retry-delay 1 --resolve dina.local:443:192.19.33.9 https://dina.local/auth
+    curl --head -X GET --cacert /etc/ssl/certs/dina-local-cert.pem --retry 25 --retry-delay 1
   displayName: 'Waiting for Keycloak ...'
-
-- script: 
-    sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
-  displayName: 'Setting up hosts name'
 
 - script: |
     wget -c https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.tgz
     tar -xf apache-jmeter-5.6.tgz
-    echo '192.19.33.9    dina.local' > $(Pipeline.Workspace)/s/dina_hosts
-    echo '192.19.33.9    api.dina.local' >> $(Pipeline.Workspace)/s/dina_hosts
   displayName: 'Install the JMeter'
 
 - script: |
-    apache-jmeter-5.6/bin/./jmeter -Djdk.net.hosts.file=$(Pipeline.Workspace)/s/dina_hosts -Djavax.net.ssl.trustStore=$(Pipeline.Workspace)/s/certs/keystore.jks -Djavax.net.ssl.trustStorePassword=tmp_ci -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report -j jmeter.log
+    apache-jmeter-5.6/bin/./jmeter -Djavax.net.ssl.trustStore=$(Pipeline.Workspace)/s/certs/keystore.jks -Djavax.net.ssl.trustStorePassword=tmp_ci -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report -j jmeter.log
     echo Done
     cat jmeter.log
   displayName: 'Run JMeter'
