@@ -40,7 +40,7 @@ steps:
     sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
   displayName: 'Setting up hosts name'
 
-- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up &
+- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up
   displayName: 'Start DockerCompose'
 
 - bash: |
@@ -54,7 +54,7 @@ steps:
   displayName: 'Install the JMeter'
 
 - script: |
-    apache-jmeter-5.6/bin/./jmeter -Djavax.net.ssl.trustStore=$(Pipeline.Workspace)/s/certs/keystore.jks -Djavax.net.ssl.trustStorePassword=tmp_c -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report -j jmeter.log
+    apache-jmeter-5.6/bin/./jmeter -Djavax.net.ssl.trustStore=$(Pipeline.Workspace)/s/certs/keystore.jks -Djavax.net.ssl.trustStorePassword=tmp_ci -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report -j jmeter.log
     echo Done
     cat jmeter.log
   displayName: 'Run JMeter'
