@@ -46,7 +46,7 @@ steps:
   displayName: 'Install the JMeter'
 
 - script: |
-    apache-jmeter-5.6/bin/./jmeter -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report
+    apache-jmeter-5.6/bin/./jmeter -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report
   displayName: 'Run JMeter'
 
 - bash: docker compose -f docker-compose.base.yml down
