@@ -48,6 +48,7 @@ steps:
     echo 'javax.net.ssl.keyStoreType=pkcs12' >> apache-jmeter-5.6/bin/system.properties
     echo 'javax.net.ssl.keyStore=$(Pipeline.Workspace)/s/certs/keystore.p12' >> apache-jmeter-5.6/bin/system.properties
     echo 'javax.net.ssl.keyStorePassword=tmp_ci' >> apache-jmeter-5.6/bin/system.properties
+    ls apache-jmeter-5.6/bin/
     cat apache-jmeter-5.6/bin/system.properties
   displayName: 'Install the JMeter'
 
