@@ -45,7 +45,7 @@ steps:
 
 - bash: |
     echo Try to connect to Keycloak endpoint ...
-    curl --head -X GET --cacert /etc/ssl/certs/dina-local-cert.pem --retry 25 --retry-delay 1
+    curl --head -X GET --cacert /etc/ssl/certs/dina-local-cert.pem --retry 25 --retry-delay 1 https://dina.local/auth
   displayName: 'Waiting for Keycloak ...'
 
 - script: |
