@@ -195,7 +195,7 @@ services:
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
-      spring.datasource.url: jdbc:postgresql://dina-db/report_label?currentSchema=report_label
+      spring.datasource.url: jdbc:postgresql://dina-db/export?currentSchema=export
       spring.liquibase.user: ${REPORT_LABEL_MIGRATION_USER}
       spring.liquibase.password: ${REPORT_LABEL_MIGRATION_USER_PW}
       spring.datasource.username: ${REPORT_LABEL_WEB_USER}
