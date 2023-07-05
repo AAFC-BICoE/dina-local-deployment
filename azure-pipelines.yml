@@ -32,6 +32,8 @@ steps:
     sudo cp $(dinaLocalCertificateKey.secureFilePath) $(Pipeline.Workspace)/s/certs/
     echo Exporting to PKCS12
     openssl pkcs12 -export -out $(Pipeline.Workspace)/s/certs/keystore.p12 -inkey $(dinaLocalCertificateKey.secureFilePath) -in $(dinaLocalCertificate.secureFilePath) -passout pass:tmp_ci
+    echo Adding PKCS12 to java keytool
+    keytool -importkeystore -srckeystore $(Pipeline.Workspace)/s/certs/keystore.p12 -srcstoretype PKCS12 -srcstorepass -keystore $(Pipeline.Workspace)/s/certs/keystore.jks
   displayName: 'Setting up certificates'
 
 - bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up &
@@ -45,15 +47,10 @@ steps:
 - script: |
     wget -c https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.tgz
     tar -xf apache-jmeter-5.6.tgz
-    echo 'javax.net.ssl.keyStoreType=pkcs12' >> apache-jmeter-5.6/bin/system.properties
-    echo 'javax.net.ssl.keyStore=$(Pipeline.Workspace)/s/certs/keystore.p12' >> apache-jmeter-5.6/bin/system.properties
-    echo 'javax.net.ssl.keyStorePassword=tmp_ci' >> apache-jmeter-5.6/bin/system.properties
-    ls apache-jmeter-5.6/bin/
-    cat apache-jmeter-5.6/bin/system.properties
   displayName: 'Install the JMeter'
 
 - script: |
-    apache-jmeter-5.6/bin/./jmeter -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report
+    apache-jmeter-5.6/bin/./jmeter -Djavax.net.ssl.trustStore=$(Pipeline.Workspace)/s/certs/keystore.jks -Djavax.net.ssl.trustStorePassword=tmp_ci -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report
   displayName: 'Run JMeter'
 
 - bash: docker compose -f docker-compose.base.yml down
