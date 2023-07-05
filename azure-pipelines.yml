@@ -45,7 +45,7 @@ steps:
   displayName: 'Waiting for Keycloak ...'
 
 - script: 
-    echo '192.19.33.9 dina.local' >> /etc/hosts
+    sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
   displayName: 'Setting up hosts name'
 
 - script: |
