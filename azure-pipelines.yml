@@ -39,6 +39,8 @@ steps:
   displayName: 'Install the JMeter'
 
 - script: |
+    echo Java version:
+    java -version
     apache-jmeter-5.6/bin/./jmeter -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report -j jmeter.log
     echo Done
     cat jmeter.log
