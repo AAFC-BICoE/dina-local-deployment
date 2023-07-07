@@ -9,36 +9,11 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-# - task: DownloadSecureFile@1
-#   name: dinaLocalCertificate
-#   displayName: 'Download DINA local certificate'
-#   inputs:
-#     secureFile: 'dina-local-cert.pem'
-# - task: DownloadSecureFile@1
-#   name: dinaLocalCertificateKey
-#   displayName: 'Download DINA local certificate key'
-#   inputs:
-#     secureFile: 'dina-local-key.pem'
-
-# - script: |
-#     echo Installing $(dinaLocalCertificate.secureFilePath) to the trusted CA directory...
-#     sudo chown root:root $(dinaLocalCertificate.secureFilePath)
-#     sudo chmod a+r $(dinaLocalCertificate.secureFilePath)
-#     sudo chown root:root $(dinaLocalCertificateKey.secureFilePath)
-#     sudo chmod a+r $(dinaLocalCertificateKey.secureFilePath)
-#     sudo ln -s -t /etc/ssl/certs/ $(dinaLocalCertificate.secureFilePath)
-#     echo Installing $(dinaLocalCertificate.secureFilePath) in $(Pipeline.Workspace)/s/certs
-#     sudo cp $(dinaLocalCertificate.secureFilePath) $(Pipeline.Workspace)/s/certs/
-#     sudo cp $(dinaLocalCertificateKey.secureFilePath) $(Pipeline.Workspace)/s/certs/
-#     echo Exporting to PKCS12
-#     openssl pkcs12 -export -out $(Pipeline.Workspace)/s/certs/keystore.p12 -inkey $(dinaLocalCertificateKey.secureFilePath) -in $(dinaLocalCertificate.secureFilePath) -passout pass:tmp_ci
-#     echo Adding PKCS12 to java keytool
-#     keytool -importkeystore -srckeystore $(Pipeline.Workspace)/s/certs/keystore.p12 -srcstoretype PKCS12 -srcstorepass tmp_ci -keystore $(Pipeline.Workspace)/s/certs/keystore.jks -deststorepass tmp_ci
-#   displayName: 'Setting up certificates'
 
 - script: 
     sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
     sudo sh -c "echo '192.19.33.9 api.dina.local' >> /etc/hosts"
+    sudo sh -c "echo '192.19.33.9 keycloak.dina.local' >> /etc/hosts"
   displayName: 'Setting up hosts name'
 
 - script: |
