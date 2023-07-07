@@ -41,7 +41,7 @@ steps:
     sudo sh -c "echo '192.19.33.9 api.dina.local' >> /etc/hosts"
   displayName: 'Setting up hosts name'
 
-- bash:
+- script:
     sudo apt-get install wget libnss3-tools -y
     wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
     sudo chmod +x mkcert-v1.4.3-linux-amd64
