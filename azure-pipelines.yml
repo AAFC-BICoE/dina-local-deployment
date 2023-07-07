@@ -9,56 +9,65 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: DownloadSecureFile@1
-  name: dinaLocalCertificate
-  displayName: 'Download DINA local certificate'
-  inputs:
-    secureFile: 'dina-local-cert.pem'
-- task: DownloadSecureFile@1
-  name: dinaLocalCertificateKey
-  displayName: 'Download DINA local certificate key'
-  inputs:
-    secureFile: 'dina-local-key.pem'
+# - task: DownloadSecureFile@1
+#   name: dinaLocalCertificate
+#   displayName: 'Download DINA local certificate'
+#   inputs:
+#     secureFile: 'dina-local-cert.pem'
+# - task: DownloadSecureFile@1
+#   name: dinaLocalCertificateKey
+#   displayName: 'Download DINA local certificate key'
+#   inputs:
+#     secureFile: 'dina-local-key.pem'
 
-- script: |
-    echo Installing $(dinaLocalCertificate.secureFilePath) to the trusted CA directory...
-    sudo chown root:root $(dinaLocalCertificate.secureFilePath)
-    sudo chmod a+r $(dinaLocalCertificate.secureFilePath)
-    sudo chown root:root $(dinaLocalCertificateKey.secureFilePath)
-    sudo chmod a+r $(dinaLocalCertificateKey.secureFilePath)
-    sudo ln -s -t /etc/ssl/certs/ $(dinaLocalCertificate.secureFilePath)
-    echo Installing $(dinaLocalCertificate.secureFilePath) in $(Pipeline.Workspace)/s/certs
-    sudo cp $(dinaLocalCertificate.secureFilePath) $(Pipeline.Workspace)/s/certs/
-    sudo cp $(dinaLocalCertificateKey.secureFilePath) $(Pipeline.Workspace)/s/certs/
-    echo Exporting to PKCS12
-    openssl pkcs12 -export -out $(Pipeline.Workspace)/s/certs/keystore.p12 -inkey $(dinaLocalCertificateKey.secureFilePath) -in $(dinaLocalCertificate.secureFilePath) -passout pass:tmp_ci
-    echo Adding PKCS12 to java keytool
-    keytool -importkeystore -srckeystore $(Pipeline.Workspace)/s/certs/keystore.p12 -srcstoretype PKCS12 -srcstorepass tmp_ci -keystore $(Pipeline.Workspace)/s/certs/keystore.jks -deststorepass tmp_ci
-  displayName: 'Setting up certificates'
+# - script: |
+#     echo Installing $(dinaLocalCertificate.secureFilePath) to the trusted CA directory...
+#     sudo chown root:root $(dinaLocalCertificate.secureFilePath)
+#     sudo chmod a+r $(dinaLocalCertificate.secureFilePath)
+#     sudo chown root:root $(dinaLocalCertificateKey.secureFilePath)
+#     sudo chmod a+r $(dinaLocalCertificateKey.secureFilePath)
+#     sudo ln -s -t /etc/ssl/certs/ $(dinaLocalCertificate.secureFilePath)
+#     echo Installing $(dinaLocalCertificate.secureFilePath) in $(Pipeline.Workspace)/s/certs
+#     sudo cp $(dinaLocalCertificate.secureFilePath) $(Pipeline.Workspace)/s/certs/
+#     sudo cp $(dinaLocalCertificateKey.secureFilePath) $(Pipeline.Workspace)/s/certs/
+#     echo Exporting to PKCS12
+#     openssl pkcs12 -export -out $(Pipeline.Workspace)/s/certs/keystore.p12 -inkey $(dinaLocalCertificateKey.secureFilePath) -in $(dinaLocalCertificate.secureFilePath) -passout pass:tmp_ci
+#     echo Adding PKCS12 to java keytool
+#     keytool -importkeystore -srckeystore $(Pipeline.Workspace)/s/certs/keystore.p12 -srcstoretype PKCS12 -srcstorepass tmp_ci -keystore $(Pipeline.Workspace)/s/certs/keystore.jks -deststorepass tmp_ci
+#   displayName: 'Setting up certificates'
 
 - script: 
     sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
     sudo sh -c "echo '192.19.33.9 api.dina.local' >> /etc/hosts"
   displayName: 'Setting up hosts name'
 
-- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up &
-  displayName: 'Start DockerCompose'
+- bash:
+    sudo apt-get install wget libnss3-tools -y
+    wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
+    sudo chmod +x mkcert-v1.4.3-linux-amd64
+    sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert
+    mkcert --install
+    mkcert -cert-file  $(Pipeline.Workspace)/s/certs/dina-local-cert.pem -key-file $(Pipeline.Workspace)/s/certs/dina-local-key.pem "dina.local" "api.dina.local" "keycloak.dina.local"
+  displayName: Setting up certificates
 
-- bash: |
-    echo Try to connect to Keycloak endpoint ...
-    curl --head -X GET --cacert /etc/ssl/certs/dina-local-cert.pem --retry 25 --retry-delay 1 https://dina.local/auth
-  displayName: 'Waiting for Keycloak ...'
+# - bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up &
+#   displayName: 'Start DockerCompose'
 
-- script: |
-    wget -c https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.tgz
-    tar -xf apache-jmeter-5.6.tgz
-  displayName: 'Install the JMeter'
+# - bash: |
+#     echo Try to connect to Keycloak endpoint ...
+#     curl --head -X GET --cacert /etc/ssl/certs/dina-local-cert.pem --retry 25 --retry-delay 1 https://dina.local/auth
+#   displayName: 'Waiting for Keycloak ...'
 
-- script: |
-    apache-jmeter-5.6/bin/./jmeter -Djavax.net.ssl.trustStore=$(Pipeline.Workspace)/s/certs/keystore.jks -Djavax.net.ssl.trustStorePassword=tmp_ci -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report -j jmeter.log
-    echo Done
-    cat jmeter.log
-  displayName: 'Run JMeter'
+# - script: |
+#     wget -c https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.tgz
+#     tar -xf apache-jmeter-5.6.tgz
+#   displayName: 'Install the JMeter'
 
-- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml down
-  displayName: 'Stop DockerCompose'
+# - script: |
+#     apache-jmeter-5.6/bin/./jmeter -Djavax.net.ssl.trustStore=$(Pipeline.Workspace)/s/certs/keystore.jks -Djavax.net.ssl.trustStorePassword=tmp_ci -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report -j jmeter.log
+#     echo Done
+#     cat jmeter.log
+#   displayName: 'Run JMeter'
+
+# - bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml down
+#   displayName: 'Stop DockerCompose'
