@@ -196,10 +196,11 @@ services:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       spring.datasource.url: jdbc:postgresql://dina-db/export?currentSchema=export
-      spring.liquibase.user: ${REPORT_LABEL_MIGRATION_USER}
-      spring.liquibase.password: ${REPORT_LABEL_MIGRATION_USER_PW}
-      spring.datasource.username: ${REPORT_LABEL_WEB_USER}
-      spring.datasource.password: ${REPORT_LABEL_WEB_USER_PW}
+      spring.liquibase.user: ${EXPORT_MIGRATION_USER}
+      spring.liquibase.password: ${EXPORT_MIGRATION_USER_PW}
+      spring.liquibase.liquibase-schema: export
+      spring.datasource.username: ${EXPORT_WEB_USER}
+      spring.datasource.password: ${EXPORT_WEB_USER_PW}
       spring.freemarker.template-loader-path: file:/tmp/templates/
     labels:
       # Opens http://api.dina.local/export/api/v1 module endpoint
