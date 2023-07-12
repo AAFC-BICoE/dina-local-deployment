@@ -14,7 +14,7 @@ services:
       USER_API_ADDRESS: dina-user-api:8080
       SEARCH_API_ADDRESS: search-ws:8085
       LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
-      REPORT_LABEL_API_ADDRESS: report-label-api:8080
+      REPORT_LABEL_API_ADDRESS: dina-export-api:8080
       INSTANCE_MODE: ${INSTANCE_MODE}
     networks:
       - dina
@@ -188,24 +188,25 @@ services:
       init-db:
         condition: service_completed_successfully 
 
-  report-label-api:
-    image: aafcbicoe/report-label-api:0.1
-    profiles: ["report_label_api"]
+  dina-export-api:
+    image: aafcbicoe/dina-export-api:0.2
+    profiles: ["export_api"]
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
-      spring.datasource.url: jdbc:postgresql://dina-db/report_label?currentSchema=report_label
-      spring.liquibase.user: ${REPORT_LABEL_MIGRATION_USER}
-      spring.liquibase.password: ${REPORT_LABEL_MIGRATION_USER_PW}
-      spring.datasource.username: ${REPORT_LABEL_WEB_USER}
-      spring.datasource.password: ${REPORT_LABEL_WEB_USER_PW}
+      spring.datasource.url: jdbc:postgresql://dina-db/export?currentSchema=export
+      spring.liquibase.user: ${EXPORT_MIGRATION_USER}
+      spring.liquibase.password: ${EXPORT_MIGRATION_USER_PW}
+      spring.liquibase.liquibase-schema: export
+      spring.datasource.username: ${EXPORT_WEB_USER}
+      spring.datasource.password: ${EXPORT_WEB_USER_PW}
       spring.freemarker.template-loader-path: file:/tmp/templates/
     labels:
-      # Opens http://api.dina.local/reportlabel/api/v1 module endpoint
-      - "traefik.http.middlewares.stripreportlabel.stripprefix.prefixes=${REPORT_LABEL_API_PREFIX}"
-      - "traefik.http.routers.reportlabelapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${REPORT_LABEL_API_PREFIX}/`)"
-      - "traefik.http.routers.reportlabelapi.middlewares=stripreportlabel@docker"
+      # Opens http://api.dina.local/export/api/v1 module endpoint
+      - "traefik.http.middlewares.stripreportlabel.stripprefix.prefixes=${EXPORT_API_PREFIX}"
+      - "traefik.http.routers.exportapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${EXPORT_API_PREFIX}/`)"
+      - "traefik.http.routers.exportapi.middlewares=stripreportlabel@docker"
     networks:
       - dina
     extra_hosts:

@@ -5,7 +5,7 @@ DINA_MODULES+=('user_api')
 #DINA_MODULES+=('agent_api')
 #DINA_MODULES+=('search_api')
 #DINA_MODULES+=('seqdb_api')
-#DINA_MODULES+=('report_label_api')
+#DINA_MODULES+=('export_api')
 #DINA_MODULES+=('loan_transaction_api')
 
 #DINA_MODULES+=('kibana')

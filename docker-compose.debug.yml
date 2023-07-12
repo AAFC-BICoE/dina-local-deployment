@@ -61,12 +61,12 @@ services:
     ports:
       - ${SEQDB_DEBUG_PORT}:${SEQDB_DEBUG_PORT}
 
-  report-label-api:
+  dina-export-api:
     environment:
       spring.jpa.show-sql: true
       spring.jpa.properties.hibernate.format_sql: true
       logging.level.org.hibernate.SQL: DEBUG
       logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${REPORT_LABEL_DEBUG_PORT}
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${EXPORT_API_DEBUG_PORT}
     ports:
-      - ${REPORT_LABEL_DEBUG_PORT}:${REPORT_LABEL_DEBUG_PORT}
+      - ${EXPORT_API_DEBUG_PORT}:${EXPORT_API_DEBUG_PORT}
