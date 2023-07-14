@@ -10,7 +10,7 @@ pool:
 
 steps:
 
-- script: 
+- script: |
     sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
     sudo sh -c "echo '192.19.33.9 api.dina.local' >> /etc/hosts"
     sudo sh -c "echo '192.19.33.9 keycloak.dina.local' >> /etc/hosts"
