@@ -34,14 +34,14 @@ steps:
   displayName: 'Waiting for Keycloak ...'
 
 - script: |
-    wget -c https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.tgz
-    tar -xf apache-jmeter-5.6.tgz
+    wget -c https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.1.tgz
+    tar -xf apache-jmeter-5.6.1.tgz
   displayName: 'Install the JMeter'
 
 - script: |
     echo Java version:
     java -version
-    apache-jmeter-5.6/bin/./jmeter -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report -j jmeter.log
+    apache-jmeter-5.6.1/bin/./jmeter -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report -j jmeter.log
     echo Done
     cat jmeter.log
   displayName: 'Run JMeter'
