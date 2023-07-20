@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.130.0
+    image: aafcbicoe/dina-ui:0.131.0
     environment:
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
@@ -189,7 +189,7 @@ services:
         condition: service_completed_successfully 
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.2
+    image: aafcbicoe/dina-export-api:0.3
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
@@ -201,7 +201,8 @@ services:
       spring.liquibase.liquibase-schema: export
       spring.datasource.username: ${EXPORT_WEB_USER}
       spring.datasource.password: ${EXPORT_WEB_USER_PW}
-      spring.freemarker.template-loader-path: file:/tmp/templates/
+      spring.freemarker.template-loader-path: classpath:/templates/,file:/tmp/dina-data-export/templates/
+      dina.export.workingFolder: /tmp/dina-data-export
     labels:
       # Opens http://api.dina.local/export/api/v1 module endpoint
       - "traefik.http.middlewares.stripreportlabel.stripprefix.prefixes=${EXPORT_API_PREFIX}"
