@@ -49,7 +49,7 @@
       </ConfigTestElement>
       <hashTree/>
       <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Retrieve Auth Token - setUp Thread Group" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stoptestnow</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <stringProp name="LoopController.loops">1</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -115,46 +115,10 @@
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="script">props.put(&quot;access_token&quot;, vars.get(&quot;access_token&quot;));</stringProp>
+              <stringProp name="script">props.put(&quot;access_token&quot;, vars.get(&quot;access_token&quot;));
+props.put(&quot;tokenGenerationTime&quot;, &quot;${__time()}&quot;)</stringProp>
               <stringProp name="TestPlan.comments">Sets the access_token variable to a property of the same name to allow use between thread groups - accessible now via ${__P(access_token)}</stringProp>
             </JSR223PostProcessor>
-            <hashTree/>
-            <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Request Tree Visualizer" enabled="false">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <sentBytes>true</sentBytes>
-                  <url>true</url>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                  <connectTime>true</connectTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-            </ResultCollector>
             <hashTree/>
           </hashTree>
         </hashTree>
@@ -293,16 +257,24 @@ vars.put(&quot;key_4&quot;, ctx.getVariables().get(&quot;name_4&quot;))
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Managed Attributes" enabled="true"/>
         <hashTree>
@@ -1335,16 +1307,24 @@ vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxy
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Preparation Type" enabled="true"/>
         <hashTree>
@@ -2379,16 +2359,24 @@ vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxy
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Preparation Method " enabled="true"/>
         <hashTree>
@@ -3503,16 +3491,24 @@ vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxy
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Institution" enabled="true"/>
         <hashTree>
@@ -4575,16 +4571,24 @@ vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxy
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Storage Unit Type" enabled="true"/>
         <hashTree>
@@ -5667,16 +5671,24 @@ vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxy
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Form Template" enabled="true"/>
         <hashTree>
@@ -7250,16 +7262,24 @@ vars.put(&quot;determination_verbatimScientificName_4&quot;, &quot;${__RandomStr
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Organism" enabled="true"/>
         <hashTree>
@@ -8351,7 +8371,7 @@ assert attr.determination[0].isFiledAs == ${determination_isFiledAs_4}</stringPr
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
