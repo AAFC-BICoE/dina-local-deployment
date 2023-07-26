@@ -162,10 +162,10 @@
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Collection Managed Attribute End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">10</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -407,8 +407,8 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;
-assert attr.key == &quot;${name_1}&quot;
+assert attr.name == vars.get(&quot;name_1&quot;)
+assert attr.key == vars.get(&quot;name_1&quot;)
 assert attr.vocabularyElementType == &quot;${vocabularyElementType_1}&quot;
 assert attr.managedAttributeComponent == &quot;${managedAttributeComponent_1}&quot;
 assert attr.group == &quot;${user_group}&quot;</stringProp>
@@ -518,8 +518,8 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
-assert attr.key == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
+assert attr.key == vars.get(&quot;name_2&quot;)
 assert attr.vocabularyElementType == &quot;${vocabularyElementType_2}&quot;
 assert attr.managedAttributeComponent == &quot;${managedAttributeComponent_2}&quot;
 assert attr.acceptedValues.toString() == &quot;${acceptedValues_2}&quot;
@@ -777,8 +777,8 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;
-assert attr.key == &quot;${name_1}&quot;
+assert attr.name == vars.get(&quot;name_1&quot;)
+assert attr.key == vars.get(&quot;name_1&quot;)
 assert attr.vocabularyElementType == &quot;${vocabularyElementType_3}&quot;
 assert attr.managedAttributeComponent == &quot;${managedAttributeComponent_3}&quot;
 assert attr.acceptedValues == ${acceptedValues_3}
@@ -884,8 +884,8 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
-assert attr.key == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
+assert attr.key == vars.get(&quot;name_2&quot;)
 assert attr.vocabularyElementType == &quot;${vocabularyElementType_4}&quot;
 assert attr.managedAttributeComponent == &quot;${managedAttributeComponent_3}&quot;
 assert attr.acceptedValues.toString() == &quot;${acceptedValues_4}&quot;
@@ -983,8 +983,8 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
-assert attr.key == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
+assert attr.key == vars.get(&quot;name_2&quot;)
 assert attr.vocabularyElementType == &quot;${vocabularyElementType_4}&quot;
 assert attr.managedAttributeComponent == &quot;${managedAttributeComponent_3}&quot;
 assert attr.acceptedValues.toString() == &quot;${acceptedValues_4}&quot;
@@ -1272,10 +1272,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Preparation Type End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">10</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -1449,7 +1449,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;
+assert attr.name == vars.get(&quot;name_1&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -1554,7 +1554,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -1813,7 +1813,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_3}&quot;
+assert attr.name == vars.get(&quot;name_3&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -1922,7 +1922,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -2027,7 +2027,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -2318,10 +2318,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Preparation Method End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">10</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -2495,7 +2495,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;
+assert attr.name == vars.get(&quot;name_1&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -2600,7 +2600,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -2859,7 +2859,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_3}&quot;
+assert attr.name == vars.get(&quot;name_3&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -2968,7 +2968,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -3073,7 +3073,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -3364,10 +3364,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Institution End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">10</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -3620,7 +3620,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;</stringProp>
+assert attr.name == vars.get(&quot;name_1&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
               </hashTree>
@@ -3727,7 +3727,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
 assert attr.webpage == &quot;${webpage_2}&quot;
 assert attr.address == &quot;${address_2}&quot;
 assert attr.remarks == &quot;${remarks_2}&quot;</stringProp>
@@ -3951,7 +3951,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_3}&quot;
+assert attr.name == vars.get(&quot;name_3&quot;)
 assert attr.webpage == &quot;${webpage_3}&quot;
 assert attr.address == &quot;${address_3}&quot;
 assert attr.remarks == &quot;${remarks_3}&quot;</stringProp>
@@ -3984,7 +3984,7 @@ assert attr.remarks == &quot;${remarks_3}&quot;</stringProp>
             <stringProp name="TestPlan.comments">Updates the verbose record and asserts that all fields are set as intended.</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Patch - Update Verbose Institution" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Institution" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -4075,7 +4075,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.webpage == &quot;${webpage_4}&quot;
 assert attr.address == &quot;${address_4}&quot;
 assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
@@ -4108,7 +4108,7 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
             <stringProp name="TestPlan.comments">Updates the verbose record while providing no fields to update and asserts that no changes were made.</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Patch - Update Verbose Institution" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Institution" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -4192,7 +4192,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.webpage == &quot;${webpage_4}&quot;
 assert attr.address == &quot;${address_4}&quot;
 assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
@@ -4498,10 +4498,10 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Storage Unit Type End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">10</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -4695,7 +4695,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;
+assert attr.name == vars.get(&quot;name_1&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -4801,7 +4801,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
 assert attr.isInseperable == ${isInseperable_2}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -5062,7 +5062,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_3}&quot;
+assert attr.name == vars.get(&quot;name_3&quot;)
 assert attr.isInseperable == ${isInseperable_3}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -5173,7 +5173,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.isInseperable == ${isInseperable_4}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -5279,7 +5279,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.isInseperable == ${isInseperable_4}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -5572,10 +5572,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Form Template End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">10</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -5791,7 +5791,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;</stringProp>
+assert attr.name == vars.get(&quot;name_1&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
               </hashTree>
@@ -5897,7 +5897,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
 assert attr.restrictToCreatedBy == ${restrictToCreatedBy_2}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -6170,7 +6170,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_3}&quot;
+assert attr.name == vars.get(&quot;name_3&quot;)
 assert attr.restrictToCreatedBy == ${restrictToCreatedBy_3}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -6292,7 +6292,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.restrictToCreatedBy == ${restrictToCreatedBy_4}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -6408,7 +6408,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.restrictToCreatedBy == ${restrictToCreatedBy_4}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -6712,10 +6712,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Organism End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">10</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -7512,10 +7512,10 @@ assert attr.isTarget == ${isTarget_2}
 assert attr.lifeStage == &quot;${lifeStage_2}&quot;
 assert attr.sex == &quot;${sex_2}&quot;
 assert attr.remarks == &quot;${remarks_2}&quot;
-assert attr.determination[0].verbatimScientificName  == &quot;${determination_verbatimScientificName_2}&quot;
+assert attr.determination[0].verbatimScientificName  == vars.get(&quot;determination_verbatimScientificName_2&quot;)
 assert attr.determination[0].verbatimDeterminer == &quot;${determination_verbatimDeterminer_2}&quot;
 assert attr.determination[0].verbatimDate == &quot;${determination_verbatimDate_2}&quot;
-assert attr.determination[0].scientificName == &quot;${determination_scientificName_2}&quot;
+assert attr.determination[0].scientificName == vars.get(&quot;determination_scientificName_2&quot;)
 assert attr.determination[0].transcriberRemarks == &quot;${determination_transcriberRemarks_2}&quot;
 assert attr.determination[0].verbatimRemarks == &quot;${determination_verbatimRemarks_2}&quot;
 assert attr.determination[0].determinationRemarks == &quot;${determination_determinationRemarks_2}&quot;
@@ -7765,7 +7765,7 @@ assert attr.isTarget == ${isTarget_3}
 assert attr.lifeStage == &quot;${lifeStage_3}&quot;
 assert attr.sex == &quot;${sex_3}&quot;
 assert attr.remarks == &quot;${remarks_3}&quot;
-assert attr.determination[0].verbatimScientificName  == &quot;${determination_verbatimScientificName_3}&quot;
+assert attr.determination[0].verbatimScientificName  == vars.get(&quot;determination_verbatimScientificName_3&quot;)
 assert attr.determination[0].verbatimDeterminer == &quot;${determination_verbatimDeterminer_3}&quot;
 assert attr.determination[0].verbatimDate == &quot;${determination_verbatimDate_3}&quot;
 assert attr.determination[0].transcriberRemarks == &quot;${determination_transcriberRemarks_3}&quot;
@@ -7918,10 +7918,10 @@ assert attr.isTarget == ${isTarget_4}
 assert attr.lifeStage == &quot;${lifeStage_4}&quot;
 assert attr.sex == &quot;${sex_4}&quot;
 assert attr.remarks == &quot;${remarks_4}&quot;
-assert attr.determination[0].verbatimScientificName  == &quot;${determination_verbatimScientificName_4}&quot;
+assert attr.determination[0].verbatimScientificName  == vars.get(&quot;determination_verbatimScientificName_4&quot;)
 assert attr.determination[0].verbatimDeterminer == &quot;${determination_verbatimDeterminer_4}&quot;
 assert attr.determination[0].verbatimDate == &quot;${determination_verbatimDate_4}&quot;
-assert attr.determination[0].scientificName == &quot;${determination_scientificName_4}&quot;
+assert attr.determination[0].scientificName == vars.get(&quot;determination_scientificName_4&quot;)
 assert attr.determination[0].transcriberRemarks == &quot;${determination_transcriberRemarks_4}&quot;
 assert attr.determination[0].verbatimRemarks == &quot;${determination_verbatimRemarks_4}&quot;
 assert attr.determination[0].determinationRemarks == &quot;${determination_determinationRemarks_4}&quot;
@@ -8038,10 +8038,10 @@ assert attr.isTarget == ${isTarget_4}
 assert attr.lifeStage == &quot;${lifeStage_4}&quot;
 assert attr.sex == &quot;${sex_4}&quot;
 assert attr.remarks == &quot;${remarks_4}&quot;
-assert attr.determination[0].verbatimScientificName  == &quot;${determination_verbatimScientificName_4}&quot;
+assert attr.determination[0].verbatimScientificName  == vars.get(&quot;determination_verbatimScientificName_4&quot;)
 assert attr.determination[0].verbatimDeterminer == &quot;${determination_verbatimDeterminer_4}&quot;
 assert attr.determination[0].verbatimDate == &quot;${determination_verbatimDate_4}&quot;
-assert attr.determination[0].scientificName == &quot;${determination_scientificName_4}&quot;
+assert attr.determination[0].scientificName == vars.get(&quot;determination_scientificName_4&quot;)
 assert attr.determination[0].transcriberRemarks == &quot;${determination_transcriberRemarks_4}&quot;
 assert attr.determination[0].verbatimRemarks == &quot;${determination_verbatimRemarks_4}&quot;
 assert attr.determination[0].determinationRemarks == &quot;${determination_determinationRemarks_4}&quot;
