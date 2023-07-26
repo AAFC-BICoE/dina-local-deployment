@@ -280,17 +280,15 @@
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
+            <stringProp name="script">vars.put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
 
-ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-
-ctx.getVariables().put(&quot;key_1&quot;, ctx.getVariables().get(&quot;name_1&quot;))
-ctx.getVariables().put(&quot;key_2&quot;, ctx.getVariables().get(&quot;name_2&quot;))
-ctx.getVariables().put(&quot;key_3&quot;, ctx.getVariables().get(&quot;name_3&quot;))
-ctx.getVariables().put(&quot;key_4&quot;, ctx.getVariables().get(&quot;name_4&quot;))
+vars.put(&quot;key_1&quot;, ctx.getVariables().get(&quot;name_1&quot;))
+vars.put(&quot;key_2&quot;, ctx.getVariables().get(&quot;name_2&quot;))
+vars.put(&quot;key_3&quot;, ctx.getVariables().get(&quot;name_3&quot;))
+vars.put(&quot;key_4&quot;, ctx.getVariables().get(&quot;name_4&quot;))
 </stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
@@ -1330,12 +1328,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
-
-ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+            <stringProp name="script">vars.put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
@@ -2376,12 +2372,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
-
-ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+            <stringProp name="script">vars.put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
@@ -3502,12 +3496,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
-
-ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+            <stringProp name="script">vars.put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
@@ -4576,12 +4568,10 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
-
-ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+            <stringProp name="script">vars.put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
@@ -5670,12 +5660,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
-
-ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+            <stringProp name="script">vars.put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
@@ -7250,17 +7238,15 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
+            <stringProp name="script">vars.put(&quot;determination_scientificName_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;determination_scientificName_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;determination_scientificName_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;determination_scientificName_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
 
-ctx.getVariables().put(&quot;determination_scientificName_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;determination_scientificName_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;determination_scientificName_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;determination_scientificName_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-
-ctx.getVariables().put(&quot;determination_verbatimScientificName_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;determination_verbatimScientificName_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;determination_verbatimScientificName_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;determination_verbatimScientificName_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+vars.put(&quot;determination_verbatimScientificName_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;determination_verbatimScientificName_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;determination_verbatimScientificName_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;determination_verbatimScientificName_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
