@@ -28,6 +28,10 @@ steps:
 - bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up &
   displayName: 'Start DockerCompose'
 
+- task: Delay@1
+  inputs:
+    delayForMinutes: '1'
+
 - bash: |
     echo Try to connect to Keycloak endpoint ...
     curl --head -X GET --retry 25 --retry-delay 1 https://dina.local/auth
