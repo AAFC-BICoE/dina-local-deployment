@@ -25,11 +25,8 @@ steps:
     mkcert -cert-file  $(Pipeline.Workspace)/s/certs/dina-local-cert.pem -key-file $(Pipeline.Workspace)/s/certs/dina-local-key.pem "dina.local" "api.dina.local" "keycloak.dina.local"
   displayName: Setting up certificates
 
-- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up &
+- bash: docker compose -f docker-compose.local.yml -f docker-compose.base.yml up &
   displayName: 'Start DockerCompose'
-
-- bash: sleep 60
-  displayName: 'Delay 60 Seconds'
 
 - bash: |
     echo Try to connect to Keycloak endpoint ...
