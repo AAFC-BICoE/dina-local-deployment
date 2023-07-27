@@ -25,12 +25,16 @@ steps:
     mkcert -cert-file  $(Pipeline.Workspace)/s/certs/dina-local-cert.pem -key-file $(Pipeline.Workspace)/s/certs/dina-local-key.pem "dina.local" "api.dina.local" "keycloak.dina.local"
   displayName: Setting up certificates
 
-- bash: docker compose -f docker-compose.local.yml -f docker-compose.base.yml up &
+- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml down
   displayName: 'Start DockerCompose'
 
 - bash: |
-    echo Try to connect to Keycloak endpoint ...
-    curl --head -X GET --retry 25 --retry-delay 1 https://dina.local/auth
+    until [ "$response" = "303" ]; do
+      >&2 echo "Attempting to Reach Keycloak Server..."
+      response=$(curl --write-out %{http_code} --silent --output /dev/null https://dina.local/auth)
+      sleep 1
+    done
+    >&2 echo "Keycloak Server Reached!"
   displayName: 'Waiting for Keycloak ...'
 
 - script: |
