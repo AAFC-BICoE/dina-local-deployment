@@ -25,7 +25,7 @@ steps:
     mkcert -cert-file  $(Pipeline.Workspace)/s/certs/dina-local-cert.pem -key-file $(Pipeline.Workspace)/s/certs/dina-local-key.pem "dina.local" "api.dina.local" "keycloak.dina.local"
   displayName: Setting up certificates
 
-- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml down
+- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up
   displayName: 'Start DockerCompose'
 
 - bash: |
