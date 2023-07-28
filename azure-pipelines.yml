@@ -28,15 +28,14 @@ steps:
 - bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml down
   displayName: 'Start DockerCompose'
 
-- script: |
-    bash -c 'function validate_keycloak() {
-        until [ "$response" = "303" ]; do
-          >&2 echo "Attempting to Reach Keycloak Server..."
-          response=$(curl --write-out %{http_code} --silent --output /dev/null https://dina.local/auth)
-          sleep 1
-        done;
-        };
-      validate_keycloak'
+- bash: |
+    until [ "$response" = "303" ]; do
+      >&2 echo "Attempting to Reach Keycloak Server..."
+      >&2 echo "Response Code: `curl --write-out %{http_code} --silent --output /dev/null https://dina.local/auth`"
+      response=$(curl --write-out %{http_code} --silent --output /dev/null https://dina.local/auth)
+      sleep 1
+    done;
+    >&2 echo "Keycloak Server Reached!"
   displayName: 'Waiting for Keycloak ...'
 
 - script: |
