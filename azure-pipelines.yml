@@ -31,8 +31,8 @@ steps:
 - bash: |
     until [ "$response" = "303" ]; do
       >&2 echo "Attempting to Reach Keycloak Server..."
-      >&2 echo "Response Code: `curl --write-out %{http_code} --silent --output /dev/null https://dina.local/auth`"
-      response=$(curl --write-out %{http_code} --silent --output /dev/null https://dina.local/auth)
+      >&2 echo "Response Code: `curl --head -X GET --write-out %{http_code} --silent --output /dev/null https://dina.local/auth`"
+      response=$(curl --head -X GET --write-out %{http_code} --silent --output /dev/null https://dina.local/auth)
       sleep 1
     done;
     >&2 echo "Keycloak Server Reached!"
