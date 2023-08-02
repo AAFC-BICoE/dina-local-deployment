@@ -480,7 +480,7 @@ ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijk
             </hashTree>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -657,7 +657,7 @@ ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijk
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Collection Managed Attribute testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Collection Managed Attribute - Set Random Variables" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
@@ -1915,7 +1915,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -2032,7 +2032,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Preparation Type testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Preparation Type - Set Random Variables" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
@@ -2921,7 +2921,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -3038,7 +3038,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Preparation Method testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Preparation Method - Set Random Variables" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
@@ -3927,7 +3927,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -4124,7 +4124,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Institution testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Institution - Set Random Variables" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
@@ -5009,7 +5009,7 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -5146,7 +5146,7 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Storage Unit Type testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Storage Unit Type - Set Random Variables" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
@@ -6042,7 +6042,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -6199,7 +6199,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Form Template testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Form Template - Set Random Variables" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
@@ -7131,7 +7131,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -7728,7 +7728,7 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Organism testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Organism - Set Random Variables" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
@@ -8458,7 +8458,7 @@ assert attr.determination[0].isFiledAs == ${determination_isFiledAs_4}</stringPr
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Validate Update Verbose Organism" enabled="true">
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Validate Verbose Organism" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
@@ -8732,7 +8732,7 @@ assert attr.determination[0].isFiledAs == ${determination_isFiledAs_4}</stringPr
             </hashTree>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -8864,11 +8864,11 @@ assert attr.determination[0].isFiledAs == ${determination_isFiledAs_4}</stringPr
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="setUp Controller" enabled="true">
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Assemblage setUp" enabled="true">
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Assemblage testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Assemblage - Set Random Variables" enabled="true">
               <stringProp name="scriptLanguage">groovy</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
@@ -9096,7 +9096,7 @@ assert attr.group == &quot;${user_group}&quot;
 
 def rel = object.data.relationships
 
-assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;</stringProp>
+assert rel.attachment.data[0].id == props.get(&quot;attachment_uuid_1&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
                 <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Created Verbose Assemblage - Multilingual Title Assertion" enabled="true">
@@ -9377,7 +9377,7 @@ assert attr.group == &quot;${user_group}&quot;
 
 def rel = object.data.relationships
 
-assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
+assert rel.attachment.data[0].id == props.get(&quot;attachment_uuid_2&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
                 <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Updated Basic Assemblage - Multilingual Title Assertion" enabled="true">
@@ -9509,7 +9509,7 @@ assert attr.group == &quot;${user_group}&quot;
 
 def rel = object.data.relationships
 
-assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
+assert rel.attachment.data[0].id == props.get(&quot;attachment_uuid_2&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
                 <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Updated Verbose Assemblage - Multilingual Title Assertion" enabled="true">
@@ -9580,7 +9580,7 @@ assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</strin
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Moduel Validate Verbose Assemblage" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
@@ -9826,7 +9826,7 @@ assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</strin
             </hashTree>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -10002,7 +10002,7 @@ assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</strin
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Project testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Project - Set Random Variables" enabled="true">
               <stringProp name="scriptLanguage">groovy</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
@@ -10235,7 +10235,7 @@ assert attr.status == &quot;${status_2}&quot;
 
 def rel = object.data.relationships
 
-assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;</stringProp>
+assert rel.attachment.data[0].id == props.get(&quot;attachment_uuid_1&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
                 <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Created Verbose Project - Multilingual Description Assertion" enabled="true">
@@ -10511,7 +10511,7 @@ assert attr.status == &quot;${status_3}&quot;
 
 def rel = object.data.relationships
 
-assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
+assert rel.attachment.data[0].id == props.get(&quot;attachment_uuid_2&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
                 <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Updated Basic Project - Multilingual Description Assertion" enabled="true">
@@ -10638,7 +10638,7 @@ assert attr.status == &quot;${status_4}&quot;
 
 def rel = object.data.relationships
 
-assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
+assert rel.attachment.data[0].id == props.get(&quot;attachment_uuid_2&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
                 <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Updated Verbose Project - Multilingual Description Assertion" enabled="true">
@@ -10699,7 +10699,7 @@ assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</strin
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Validate Verbose Project" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
@@ -10947,7 +10947,7 @@ assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</strin
             </hashTree>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -11103,7 +11103,7 @@ assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</strin
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Protocol testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Protocol - Set Random Variables" enabled="true">
               <stringProp name="scriptLanguage">groovy</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
@@ -11334,7 +11334,7 @@ assert attr.protocolType == &quot;${protocolType_2}&quot;
 
 def rel = object.data.relationships
 
-assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;</stringProp>
+assert rel.attachments.data[0].id == props.get(&quot;attachment_uuid_1&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
                 <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Created Verbose Protocol - Multilingual Description Assertion" enabled="true">
@@ -11617,7 +11617,7 @@ assert attr.protocolType == &quot;${protocolType_3}&quot;
 
 def rel = object.data.relationships
 
-assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
+assert rel.attachments.data[0].id == props.get(&quot;attachment_uuid_2&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
                 <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Updated Basic Protocol - Multilingual Description Assertion" enabled="true">
@@ -11751,7 +11751,7 @@ assert attr.protocolType == &quot;${protocolType_4}&quot;
 
 def rel = object.data.relationships
 
-assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stringProp>
+assert rel.attachments.data[0].id == props.get(&quot;attachment_uuid_2&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
                 <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Updated Verbose Protocol - Multilingual Description Assertion" enabled="true">
@@ -11822,7 +11822,7 @@ assert rel.attachments.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;</stri
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Validate Verbose Protocol" enabled="true">
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="764597751">Test Plan</stringProp>
                 <stringProp name="-470684949">Collection API Module Test Plan</stringProp>
@@ -12070,7 +12070,7 @@ Updates a Protocol at a UUID that does not correspond to any Protocol - Produces
             </hashTree>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -13287,7 +13287,7 @@ Updates a Protocol at a UUID that does not correspond to any Protocol - Produces
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Collecting Event testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Collecting Event - Set Random Variables" enabled="true">
               <stringProp name="scriptLanguage">groovy</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
@@ -13662,12 +13662,13 @@ assert attr.geoReferenceAssertions[0].dwcGeoreferenceRemarks == &quot;${geoRefer
 assert attr.geoReferenceAssertions[0].dwcGeodeticDatum == &quot;${geoReferenceAssertions_dwcGeodeticDatum_2}&quot;
 assert attr.geoReferenceAssertions[0].isPrimary == ${geoReferenceAssertions_isPrimary_2}
 assert attr.geoReferenceAssertions[0].dwcGeoreferenceVerificationStatus == ${geoReferenceAssertions_dwcGeoreferenceVerificationStatus_2}
+assert attr.managedAttributes[vars.get(&quot;collecting-event_managed-attribute_name&quot;)] == &quot;managed_attribute_1&quot;
 
 def rel = object.data.relationships
 
-assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;
-assert rel.collectors.data[0].id == &quot;${__P(person_uuid_1)}&quot;
-assert rel.protocol.data.id == &quot;${basic_protocol_uuid}&quot;
+assert rel.attachment.data[0].id == props.get(&quot;attachment_uuid_1&quot;)
+assert rel.collectors.data[0].id == props.get(&quot;person_uuid_1&quot;)
+assert rel.protocol.data.id == vars.get(&quot;basic_protocol_uuid&quot;)
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -14009,9 +14010,9 @@ assert attr.geoReferenceAssertions[0].dwcGeoreferenceVerificationStatus == ${geo
 
 def rel = object.data.relationships
 
-assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;
-assert rel.collectors.data[0].id == &quot;${__P(person_uuid_2)}&quot;
-assert rel.protocol.data.id == &quot;${basic_protocol_uuid}&quot;
+assert rel.attachment.data[0].id == props.get(&quot;attachment_uuid_2&quot;)
+assert rel.collectors.data[0].id == props.get(&quot;person_uuid_2&quot;)
+assert rel.protocol.data.id == vars.get(&quot;basic_protocol_uuid&quot;)
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -14251,12 +14252,13 @@ assert attr.geoReferenceAssertions[0].dwcGeoreferenceRemarks == &quot;${geoRefer
 assert attr.geoReferenceAssertions[0].dwcGeodeticDatum == &quot;${geoReferenceAssertions_dwcGeodeticDatum_4}&quot;
 assert attr.geoReferenceAssertions[0].isPrimary == ${geoReferenceAssertions_isPrimary_4}
 assert attr.geoReferenceAssertions[0].dwcGeoreferenceVerificationStatus == ${geoReferenceAssertions_dwcGeoreferenceVerificationStatus_4}
+assert attr.managedAttributes[vars.get(&quot;collecting-event_managed-attribute_name&quot;)] == &quot;managed_attribute_1&quot;
 
 def rel = object.data.relationships
 
-assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_2)}&quot;
-assert rel.collectors.data[0].id == &quot;${__P(person_uuid_2)}&quot;
-assert rel.protocol.data.id == &quot;${basic_protocol_uuid}&quot;
+assert rel.attachment.data[0].id == props.get(&quot;attachment_uuid_2&quot;)
+assert rel.collectors.data[0].id == props.get(&quot;person_uuid_2&quot;)
+assert rel.protocol.data.id == vars.get(&quot;basic_protocol_uuid&quot;)
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -14576,7 +14578,7 @@ assert rel.protocol.data.id == &quot;${basic_protocol_uuid}&quot;
             <hashTree/>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -14772,7 +14774,7 @@ assert rel.protocol.data.id == &quot;${basic_protocol_uuid}&quot;
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Collection testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname=" Collection - Set Random Variables" enabled="true">
               <stringProp name="scriptLanguage">groovy</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
@@ -14893,7 +14895,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 def attr = object.data.attributes
 
 assert attr.group == &quot;${user_group}&quot;
-assert attr.name == &quot;${name_1}&quot;
+assert attr.name == vars.get(&quot;name_1&quot;)
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -15018,7 +15020,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 def attr = object.data.attributes
 
 assert attr.group == &quot;${user_group}&quot;
-assert attr.name == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
 assert attr.code == &quot;${code_2}&quot;
 assert attr.webpage == &quot;${webpage_2}&quot;
 assert attr.contact == &quot;${contact_2}&quot;
@@ -15027,8 +15029,8 @@ assert attr.remarks == &quot;${remarks_2}&quot;
 
 def rel = object.data.relationships
 
-assert rel.institution.data.id == &quot;${basic_institution_uuid}&quot;
-assert rel.parentCollection.data.id == &quot;${basic_collection_uuid}&quot;
+assert rel.institution.data.id == vars.get(&quot;basic_institution_uuid&quot;)
+assert rel.parentCollection.data.id == vars.get(&quot;basic_collection_uuid&quot;)
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -15290,7 +15292,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 def attr = object.data.attributes
 
 assert attr.group == &quot;${user_group}&quot;
-assert attr.name == &quot;${name_3}&quot;
+assert attr.name == vars.get(&quot;name_3&quot;)
 assert attr.code == &quot;${code_3}&quot;
 assert attr.webpage == &quot;${webpage_3}&quot;
 assert attr.contact == &quot;${contact_3}&quot;
@@ -15299,7 +15301,7 @@ assert attr.remarks == &quot;${remarks_3}&quot;
 
 def rel = object.data.relationships
 
-assert rel.institution.data.id == &quot;${basic_institution_uuid}&quot;
+assert rel.institution.data.id == vars.get(&quot;basic_institution_uuid&quot;)
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -15409,7 +15411,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 def attr = object.data.attributes
 
 assert attr.group == &quot;${user_group}&quot;
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.code == &quot;${code_4}&quot;
 assert attr.webpage == &quot;${webpage_4}&quot;
 assert attr.contact == &quot;${contact_4}&quot;
@@ -15418,7 +15420,7 @@ assert attr.remarks == &quot;${remarks_4}&quot;
 
 def rel = object.data.relationships
 
-assert rel.institution.data.id == &quot;${basic_institution_uuid}&quot;
+assert rel.institution.data.id == vars.get(&quot;basic_institution_uuid&quot;)
 assert rel.parentCollection.data == null
 </stringProp>
                 </JSR223Assertion>
@@ -15730,7 +15732,7 @@ assert rel.parentCollection.data == null
             <hashTree/>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -15846,7 +15848,7 @@ assert rel.parentCollection.data == null
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Storage Unit testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Storage Unit - Set Random Variables" enabled="true">
               <stringProp name="scriptLanguage">groovy</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
@@ -15966,7 +15968,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 def attr = object.data.attributes
 
 assert attr.group == &quot;${user_group}&quot;
-assert attr.name == &quot;${name_1}&quot;
+assert attr.name == vars.get(&quot;name_1&quot;)
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -16086,13 +16088,13 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 def attr = object.data.attributes
 
 assert attr.group == &quot;${user_group}&quot;
-assert attr.name == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
 assert attr.barcode == &quot;${barcode_2}&quot;
 
 def rel = object.data.relationships
 
-assert rel.storageUnitType.data.id == &quot;${basic_storage_unit_type_uuid}&quot;
-assert rel.parentStorageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;
+assert rel.storageUnitType.data.id == vars.get(&quot;basic_storage_unit_type_uuid&quot;)
+assert rel.parentStorageUnit.data.id == vars.get(&quot;basic_storage-unit_uuid&quot;)
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -16350,12 +16352,12 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 def attr = object.data.attributes
 
 assert attr.group == &quot;${user_group}&quot;
-assert attr.name == &quot;${name_3}&quot;
+assert attr.name == vars.get(&quot;name_3&quot;)
 assert attr.barcode == &quot;${barcode_3}&quot;
 
 def rel = object.data.relationships
 
-assert rel.storageUnitType.data.id == &quot;${basic_storage_unit_type_uuid}&quot;
+assert rel.storageUnitType.data.id == vars.get(&quot;basic_storage_unit_type_uuid&quot;)
 </stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -16460,12 +16462,12 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 def attr = object.data.attributes
 
 assert attr.group == &quot;${user_group}&quot;
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.barcode == &quot;${barcode_4}&quot;
 
 def rel = object.data.relationships
 
-assert rel.storageUnitType.data.id == &quot;${basic_storage_unit_type_uuid}&quot;
+assert rel.storageUnitType.data.id == vars.get(&quot;basic_storage_unit_type_uuid&quot;)
 assert rel.parentStorageUnit.data == null
 </stringProp>
                 </JSR223Assertion>
@@ -16786,7 +16788,7 @@ assert rel.parentStorageUnit.data == null
             <hashTree/>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -17282,7 +17284,7 @@ assert rel.parentStorageUnit.data == null
             <stringProp name="TestPlan.comments">Sets random variables and creates relationship entities required for Material Sample testing</stringProp>
           </GenericController>
           <hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Set Random Variables" enabled="true">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Material Sample - Set Random Variables" enabled="true">
               <stringProp name="scriptLanguage">groovy</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
@@ -17804,27 +17806,27 @@ assert attr.isRestricted == ${isRestricted_2}
 assert attr.publiclyReleasable == ${publiclyReleasable_2}
 assert attr.notPubliclyReleasableReason == &quot;${notPubliclyReleasableReason_2}&quot;
 assert attr.allowDuplicateName == ${allowDuplicateName_2}
+assert attr.managedAttributes[vars.get(&quot;material-sample_managed-attribute_name&quot;)] == &quot;managed_attribute_1&quot;
 
 def rel = object.data.relationships
 
-assert rel.collectingEvent.data.id == &quot;${basic_collecting-event_uuid}&quot;
-assert rel.collection.data.id == &quot;${basic_collection_uuid}&quot;
-assert rel.preparationType.data.id == &quot;${basic_preparation-type_uuid}&quot;
-assert rel.preparationMethod.data.id == &quot;${basic_preparation-method_uuid}&quot;
-assert rel.preparedBy.data[0].id == &quot;${__P(person_uuid_1)}&quot;
-assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;
-assert rel.preparationProtocol.data.id == &quot;${basic_protocol_uuid}&quot;
-assert rel.projects.data[0].id == &quot;${basic_project_uuid}&quot;
-assert rel.assemblages.data[0].id == &quot;${basic_assemblage_uuid}&quot;
-assert rel.organism.data[0].id == &quot;${basic_organism_uuid}&quot;
-assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;
-</stringProp>
+assert rel.collectingEvent.data.id == vars.get(&quot;basic_collecting-event_uuid&quot;)
+assert rel.collection.data.id == vars.get(&quot;basic_collection_uuid&quot;)
+assert rel.preparationType.data.id == vars.get(&quot;basic_preparation-type_uuid&quot;)
+assert rel.preparationMethod.data.id == vars.get(&quot;basic_preparation-method_uuid&quot;)
+assert rel.preparedBy.data[0].id == props.get(&quot;person_uuid_1&quot;)
+assert rel.attachment.data[0].id == props.get(&quot;attachment_uuid_1&quot;)
+assert rel.preparationProtocol.data.id == vars.get(&quot;basic_protocol_uuid&quot;)
+assert rel.projects.data[0].id == vars.get(&quot;basic_project_uuid&quot;)
+assert rel.assemblages.data[0].id == vars.get(&quot;basic_assemblage_uuid&quot;)
+assert rel.organism.data[0].id == vars.get(&quot;basic_organism_uuid&quot;)
+assert rel.storageUnit.data.id == vars.get(&quot;basic_storage-unit_uuid&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Empty Attribute Material Sample" enabled="true">
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Material Sample w/ Empty Attributes" enabled="true">
             <stringProp name="TestPlan.comments">Creates a Material Sample without any attributes specified - Produces an Error</stringProp>
           </GenericController>
           <hashTree>
@@ -17871,7 +17873,7 @@ assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Incorrect Type Material Sample" enabled="true">
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Material Sample w/ Incorrect Type" enabled="true">
             <stringProp name="TestPlan.comments">Creates a Material Sample w/ the incorrect type specified in the body - Produces an Error</stringProp>
           </GenericController>
           <hashTree>
@@ -18126,17 +18128,17 @@ assert attr.allowDuplicateName == ${allowDuplicateName_3}
 
 def rel = object.data.relationships
 
-assert rel.collectingEvent.data.id == &quot;${basic_collecting-event_uuid}&quot;
-assert rel.collection.data.id == &quot;${basic_collection_uuid}&quot;
-assert rel.preparationType.data.id == &quot;${basic_preparation-type_uuid}&quot;
-assert rel.preparationMethod.data.id == &quot;${basic_preparation-method_uuid}&quot;
-assert rel.preparedBy.data[0].id == &quot;${__P(person_uuid_1)}&quot;
-assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;
-assert rel.preparationProtocol.data.id == &quot;${basic_protocol_uuid}&quot;
-assert rel.projects.data[0].id == &quot;${basic_project_uuid}&quot;
-assert rel.assemblages.data[0].id == &quot;${basic_assemblage_uuid}&quot;
-assert rel.organism.data[0].id == &quot;${basic_organism_uuid}&quot;
-assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</stringProp>
+assert rel.collectingEvent.data.id == vars.get(&quot;basic_collecting-event_uuid&quot;)
+assert rel.collection.data.id == vars.get(&quot;basic_collection_uuid&quot;)
+assert rel.preparationType.data.id == vars.get(&quot;basic_preparation-type_uuid&quot;)
+assert rel.preparationMethod.data.id == vars.get(&quot;basic_preparation-method_uuid&quot;)
+assert rel.preparedBy.data[0].id == props.get(&quot;person_uuid_1&quot;)
+assert rel.attachment.data[0].id == props.get(&quot;attachment_uuid_1&quot;)
+assert rel.preparationProtocol.data.id == vars.get(&quot;basic_protocol_uuid&quot;)
+assert rel.projects.data[0].id == vars.get(&quot;basic_project_uuid&quot;)
+assert rel.assemblages.data[0].id == vars.get(&quot;basic_assemblage_uuid&quot;)
+assert rel.organism.data[0].id == vars.get(&quot;basic_organism_uuid&quot;)
+assert rel.storageUnit.data.id == vars.get(&quot;basic_storage-unit_uuid&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
               </hashTree>
@@ -18342,20 +18344,21 @@ assert attr.isRestricted == ${isRestricted_4}
 assert attr.publiclyReleasable == ${publiclyReleasable_4}
 assert attr.notPubliclyReleasableReason == &quot;${notPubliclyReleasableReason_4}&quot;
 assert attr.allowDuplicateName == ${allowDuplicateName_4}
+assert attr.managedAttributes[vars.get(&quot;material-sample_managed-attribute_name&quot;)] == &quot;managed_attribute_1&quot;
 
 def rel = object.data.relationships
 
-assert rel.collectingEvent.data.id == &quot;${basic_collecting-event_uuid}&quot;
-assert rel.collection.data.id == &quot;${basic_collection_uuid}&quot;
-assert rel.preparationType.data.id == &quot;${basic_preparation-type_uuid}&quot;
-assert rel.preparationMethod.data.id == &quot;${basic_preparation-method_uuid}&quot;
-assert rel.preparedBy.data[0].id == &quot;${__P(person_uuid_1)}&quot;
-assert rel.attachment.data[0].id == &quot;${__P(attachment_uuid_1)}&quot;
-assert rel.preparationProtocol.data.id == &quot;${basic_protocol_uuid}&quot;
-assert rel.projects.data[0].id == &quot;${basic_project_uuid}&quot;
-assert rel.assemblages.data[0].id == &quot;${basic_assemblage_uuid}&quot;
-assert rel.organism.data[0].id == &quot;${basic_organism_uuid}&quot;
-assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</stringProp>
+assert rel.collectingEvent.data.id == vars.get(&quot;basic_collecting-event_uuid&quot;)
+assert rel.collection.data.id == vars.get(&quot;basic_collection_uuid&quot;)
+assert rel.preparationType.data.id == vars.get(&quot;basic_preparation-type_uuid&quot;)
+assert rel.preparationMethod.data.id == vars.get(&quot;basic_preparation-method_uuid&quot;)
+assert rel.preparedBy.data[0].id == props.get(&quot;person_uuid_1&quot;)
+assert rel.attachment.data[0].id == props.get(&quot;attachment_uuid_1&quot;)
+assert rel.preparationProtocol.data.id == vars.get(&quot;basic_protocol_uuid&quot;)
+assert rel.projects.data[0].id == vars.get(&quot;basic_project_uuid&quot;)
+assert rel.assemblages.data[0].id == vars.get(&quot;basic_assemblage_uuid&quot;)
+assert rel.organism.data[0].id == vars.get(&quot;basic_organism_uuid&quot;)
+assert rel.storageUnit.data.id == vars.get(&quot;basic_storage-unit_uuid&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
               </hashTree>
@@ -18776,7 +18779,7 @@ assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</string
             <hashTree/>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -18929,7 +18932,7 @@ assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</string
           </HTTPSamplerProxy>
           <hashTree/>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -18968,43 +18971,6 @@ assert rel.storageUnit.data.id == &quot;${basic_storage-unit_uuid}&quot;</string
         <hashTree/>
       </hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-        <boolProp name="ResultCollector.error_logging">false</boolProp>
-        <objProp>
-          <name>saveConfig</name>
-          <value class="SampleSaveConfiguration">
-            <time>true</time>
-            <latency>true</latency>
-            <timestamp>true</timestamp>
-            <success>true</success>
-            <label>true</label>
-            <code>true</code>
-            <message>true</message>
-            <threadName>true</threadName>
-            <dataType>true</dataType>
-            <encoding>false</encoding>
-            <assertions>true</assertions>
-            <subresults>true</subresults>
-            <responseData>false</responseData>
-            <samplerData>false</samplerData>
-            <xml>false</xml>
-            <fieldNames>true</fieldNames>
-            <responseHeaders>false</responseHeaders>
-            <requestHeaders>false</requestHeaders>
-            <responseDataOnError>false</responseDataOnError>
-            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-            <assertionsResultsToSave>0</assertionsResultsToSave>
-            <bytes>true</bytes>
-            <sentBytes>true</sentBytes>
-            <url>true</url>
-            <threadCounts>true</threadCounts>
-            <idleTime>true</idleTime>
-            <connectTime>true</connectTime>
-          </value>
-        </objProp>
-        <stringProp name="filename"></stringProp>
-      </ResultCollector>
-      <hashTree/>
-      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="Verbose Preparation Type" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
