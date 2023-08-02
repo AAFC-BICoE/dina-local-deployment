@@ -25,13 +25,30 @@ steps:
     mkcert -cert-file  $(Pipeline.Workspace)/s/certs/dina-local-cert.pem -key-file $(Pipeline.Workspace)/s/certs/dina-local-key.pem "dina.local" "api.dina.local" "keycloak.dina.local"
   displayName: Setting up certificates
 
-- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up &
+- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up&
   displayName: 'Start DockerCompose'
 
 - bash: |
-    echo Try to connect to Keycloak endpoint ...
-    curl --head -X GET --retry 25 --retry-delay 1 https://dina.local/auth
+    until [ "$response" = "303" ]; do
+      >&2 echo "Attempting to Reach Keycloak Server ..."
+      >&2 echo "Response Code: $(curl --head -X GET --write-out %{http_code} --silent --output /dev/null https://dina.local/auth)"
+      response=$(curl --head -X GET --write-out %{http_code} --silent --output /dev/null https://dina.local/auth)
+      sleep 1
+    done;
+    >&2 echo "Keycloak Server Reached!"
   displayName: 'Waiting for Keycloak ...'
+  
+- bash: |
+    token_res=$(curl -X POST --silent -u "dina-admin:dina-admin" -d "grant_type=password&username=dina-admin&password=dina-admin&client_id=dina-public&scope=openid" https://dina.local/auth/realms/dina/protocol/openid-connect/token)
+    token_var=$(echo $token_res | grep -Po '"access_token":[^\,]*' | sed -e 's/\"access_token"://g' -e 's/\"//g')
+    until [ "$response" = "200" ]; do
+      >&2 echo "Attempting to Access Collection Module ..."
+      >&2 echo "Response Code: $(curl -X GET --write-out %{http_code} --silent --output /dev/null -H "Content-Type: application/vnd.api+json" -H "Authorization: Bearer $token_var" https://dina.local/api/collection-api/material-sample)"
+      response=$(curl -X GET --write-out %{http_code} --silent --output /dev/null -H "Content-Type: application/vnd.api+json" -H "Authorization: Bearer $token_var" https://dina.local/api/collection-api/material-sample)
+      sleep 3
+    done;
+    >&2 echo "Collection Module Endpoint Accessed!"
+  displayName: 'Verify Collection Module Connection ...'
 
 - script: |
     wget -c https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.1.tgz

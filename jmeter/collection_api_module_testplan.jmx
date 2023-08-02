@@ -2,13 +2,11 @@
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.1">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
-      <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
-      <stringProp name="TestPlan.user_define_classpath"></stringProp>
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
     </TestPlan>
     <hashTree>
@@ -49,7 +47,7 @@
       </ConfigTestElement>
       <hashTree/>
       <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Retrieve Auth Token - setUp Thread Group" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stoptestnow</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <stringProp name="LoopController.loops">1</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -115,46 +113,10 @@
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="script">props.put(&quot;access_token&quot;, vars.get(&quot;access_token&quot;));</stringProp>
+              <stringProp name="script">props.put(&quot;access_token&quot;, vars.get(&quot;access_token&quot;));
+props.put(&quot;tokenGenerationTime&quot;, &quot;${__time()}&quot;)</stringProp>
               <stringProp name="TestPlan.comments">Sets the access_token variable to a property of the same name to allow use between thread groups - accessible now via ${__P(access_token)}</stringProp>
             </JSR223PostProcessor>
-            <hashTree/>
-            <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Request Tree Visualizer" enabled="false">
-              <boolProp name="ResultCollector.error_logging">false</boolProp>
-              <objProp>
-                <name>saveConfig</name>
-                <value class="SampleSaveConfiguration">
-                  <time>true</time>
-                  <latency>true</latency>
-                  <timestamp>true</timestamp>
-                  <success>true</success>
-                  <label>true</label>
-                  <code>true</code>
-                  <message>true</message>
-                  <threadName>true</threadName>
-                  <dataType>true</dataType>
-                  <encoding>false</encoding>
-                  <assertions>true</assertions>
-                  <subresults>true</subresults>
-                  <responseData>false</responseData>
-                  <samplerData>false</samplerData>
-                  <xml>false</xml>
-                  <fieldNames>true</fieldNames>
-                  <responseHeaders>false</responseHeaders>
-                  <requestHeaders>false</requestHeaders>
-                  <responseDataOnError>false</responseDataOnError>
-                  <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-                  <assertionsResultsToSave>0</assertionsResultsToSave>
-                  <bytes>true</bytes>
-                  <sentBytes>true</sentBytes>
-                  <url>true</url>
-                  <threadCounts>true</threadCounts>
-                  <idleTime>true</idleTime>
-                  <connectTime>true</connectTime>
-                </value>
-              </objProp>
-              <stringProp name="filename"></stringProp>
-            </ResultCollector>
             <hashTree/>
           </hashTree>
         </hashTree>
@@ -162,10 +124,10 @@
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Collection Managed Attribute End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">20</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">20</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -280,31 +242,32 @@
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
-
-ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-
-ctx.getVariables().put(&quot;key_1&quot;, ctx.getVariables().get(&quot;name_1&quot;))
-ctx.getVariables().put(&quot;key_2&quot;, ctx.getVariables().get(&quot;name_2&quot;))
-ctx.getVariables().put(&quot;key_3&quot;, ctx.getVariables().get(&quot;name_3&quot;))
-ctx.getVariables().put(&quot;key_4&quot;, ctx.getVariables().get(&quot;name_4&quot;))
+            <stringProp name="script">vars.put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
 </stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Managed Attributes" enabled="true"/>
         <hashTree>
@@ -407,8 +370,8 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;
-assert attr.key == &quot;${name_1}&quot;
+assert attr.name == vars.get(&quot;name_1&quot;)
+assert attr.key == vars.get(&quot;name_1&quot;)
 assert attr.vocabularyElementType == &quot;${vocabularyElementType_1}&quot;
 assert attr.managedAttributeComponent == &quot;${managedAttributeComponent_1}&quot;
 assert attr.group == &quot;${user_group}&quot;</stringProp>
@@ -518,8 +481,8 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
-assert attr.key == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
+assert attr.key == vars.get(&quot;name_2&quot;)
 assert attr.vocabularyElementType == &quot;${vocabularyElementType_2}&quot;
 assert attr.managedAttributeComponent == &quot;${managedAttributeComponent_2}&quot;
 assert attr.acceptedValues.toString() == &quot;${acceptedValues_2}&quot;
@@ -777,8 +740,8 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;
-assert attr.key == &quot;${name_1}&quot;
+assert attr.name == vars.get(&quot;name_1&quot;)
+assert attr.key == vars.get(&quot;name_1&quot;)
 assert attr.vocabularyElementType == &quot;${vocabularyElementType_3}&quot;
 assert attr.managedAttributeComponent == &quot;${managedAttributeComponent_3}&quot;
 assert attr.acceptedValues == ${acceptedValues_3}
@@ -884,8 +847,8 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
-assert attr.key == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
+assert attr.key == vars.get(&quot;name_2&quot;)
 assert attr.vocabularyElementType == &quot;${vocabularyElementType_4}&quot;
 assert attr.managedAttributeComponent == &quot;${managedAttributeComponent_3}&quot;
 assert attr.acceptedValues.toString() == &quot;${acceptedValues_4}&quot;
@@ -983,8 +946,8 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
-assert attr.key == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
+assert attr.key == vars.get(&quot;name_2&quot;)
 assert attr.vocabularyElementType == &quot;${vocabularyElementType_4}&quot;
 assert attr.managedAttributeComponent == &quot;${managedAttributeComponent_3}&quot;
 assert attr.acceptedValues.toString() == &quot;${acceptedValues_4}&quot;
@@ -1272,10 +1235,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Preparation Type End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">20</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">20</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -1330,25 +1293,31 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
-
-ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+            <stringProp name="script">vars.put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Preparation Type" enabled="true"/>
         <hashTree>
@@ -1449,7 +1418,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;
+assert attr.name == vars.get(&quot;name_1&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -1554,7 +1523,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -1813,7 +1782,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_3}&quot;
+assert attr.name == vars.get(&quot;name_3&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -1922,7 +1891,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -2027,7 +1996,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -2318,10 +2287,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Preparation Method End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">20</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">20</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -2376,25 +2345,31 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
-
-ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+            <stringProp name="script">vars.put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Preparation Method " enabled="true"/>
         <hashTree>
@@ -2495,7 +2470,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;
+assert attr.name == vars.get(&quot;name_1&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -2600,7 +2575,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -2859,7 +2834,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_3}&quot;
+assert attr.name == vars.get(&quot;name_3&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -2968,7 +2943,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -3073,7 +3048,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -3364,10 +3339,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Institution End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">20</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">20</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -3502,25 +3477,31 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
-
-ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+            <stringProp name="script">vars.put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Institution" enabled="true"/>
         <hashTree>
@@ -3620,7 +3601,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;</stringProp>
+assert attr.name == vars.get(&quot;name_1&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
               </hashTree>
@@ -3727,7 +3708,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
 assert attr.webpage == &quot;${webpage_2}&quot;
 assert attr.address == &quot;${address_2}&quot;
 assert attr.remarks == &quot;${remarks_2}&quot;</stringProp>
@@ -3951,7 +3932,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_3}&quot;
+assert attr.name == vars.get(&quot;name_3&quot;)
 assert attr.webpage == &quot;${webpage_3}&quot;
 assert attr.address == &quot;${address_3}&quot;
 assert attr.remarks == &quot;${remarks_3}&quot;</stringProp>
@@ -3984,7 +3965,7 @@ assert attr.remarks == &quot;${remarks_3}&quot;</stringProp>
             <stringProp name="TestPlan.comments">Updates the verbose record and asserts that all fields are set as intended.</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Patch - Update Verbose Institution" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Institution" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -4075,7 +4056,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.webpage == &quot;${webpage_4}&quot;
 assert attr.address == &quot;${address_4}&quot;
 assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
@@ -4108,7 +4089,7 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
             <stringProp name="TestPlan.comments">Updates the verbose record while providing no fields to update and asserts that no changes were made.</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Patch - Update Verbose Institution" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PATCH - Update Verbose Institution" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -4192,7 +4173,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.webpage == &quot;${webpage_4}&quot;
 assert attr.address == &quot;${address_4}&quot;
 assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
@@ -4498,10 +4479,10 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Storage Unit Type End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">20</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">20</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -4576,25 +4557,31 @@ assert attr.remarks == &quot;${remarks_4}&quot;</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
-
-ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+            <stringProp name="script">vars.put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Storage Unit Type" enabled="true"/>
         <hashTree>
@@ -4695,7 +4682,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;
+assert attr.name == vars.get(&quot;name_1&quot;)
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
@@ -4801,7 +4788,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
 assert attr.isInseperable == ${isInseperable_2}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -5062,7 +5049,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_3}&quot;
+assert attr.name == vars.get(&quot;name_3&quot;)
 assert attr.isInseperable == ${isInseperable_3}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -5173,7 +5160,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.isInseperable == ${isInseperable_4}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -5279,7 +5266,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.isInseperable == ${isInseperable_4}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -5572,10 +5559,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Form Template End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">20</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">20</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -5670,25 +5657,31 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
-
-ctx.getVariables().put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+            <stringProp name="script">vars.put(&quot;name_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;name_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Form Template" enabled="true"/>
         <hashTree>
@@ -5791,7 +5784,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_1}&quot;</stringProp>
+assert attr.name == vars.get(&quot;name_1&quot;)</stringProp>
                 </JSR223Assertion>
                 <hashTree/>
               </hashTree>
@@ -5897,7 +5890,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_2}&quot;
+assert attr.name == vars.get(&quot;name_2&quot;)
 assert attr.restrictToCreatedBy == ${restrictToCreatedBy_2}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -6170,7 +6163,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_3}&quot;
+assert attr.name == vars.get(&quot;name_3&quot;)
 assert attr.restrictToCreatedBy == ${restrictToCreatedBy_3}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -6292,7 +6285,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.restrictToCreatedBy == ${restrictToCreatedBy_4}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -6408,7 +6401,7 @@ def object = jsonSlurper.parseText(prev.getResponseDataAsString())
 
 def attr = object.data.attributes
 
-assert attr.name == &quot;${name_4}&quot;
+assert attr.name == vars.get(&quot;name_4&quot;)
 assert attr.restrictToCreatedBy == ${restrictToCreatedBy_4}
 assert attr.group == &quot;${user_group}&quot;</stringProp>
                 </JSR223Assertion>
@@ -6712,10 +6705,10 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Organism End2End Thread Group" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <stringProp name="LoopController.loops">15</stringProp>
+          <stringProp name="LoopController.loops">20</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.num_threads">20</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -7250,30 +7243,36 @@ assert attr.group == &quot;${user_group}&quot;</stringProp>
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">def ctx = org.apache.jmeter.threads.JMeterContextService.getContext()
+            <stringProp name="script">vars.put(&quot;determination_scientificName_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;determination_scientificName_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;determination_scientificName_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;determination_scientificName_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
 
-ctx.getVariables().put(&quot;determination_scientificName_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;determination_scientificName_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;determination_scientificName_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;determination_scientificName_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-
-ctx.getVariables().put(&quot;determination_verbatimScientificName_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;determination_verbatimScientificName_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;determination_verbatimScientificName_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
-ctx.getVariables().put(&quot;determination_verbatimScientificName_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
+vars.put(&quot;determination_verbatimScientificName_1&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;determination_verbatimScientificName_2&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;determination_verbatimScientificName_3&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)
+vars.put(&quot;determination_verbatimScientificName_4&quot;, &quot;${__RandomString(12,abcdefghijklmnopqrstuvwxyz,)}&quot;)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
-            <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="764597751">Test Plan</stringProp>
-              <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
-              <stringProp name="52452451">Token Controller</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Validate Token Timeout" enabled="true">
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+            <stringProp name="IfController.condition">${__groovy((${__time()} - ${__P(tokenGenerationTime)}) &gt;= 240000)}</stringProp>
+            <stringProp name="TestPlan.comments">Checks to see if time elapsed from last token refresh is greater than 240000 miliseconds (4 minutes)</stringProp>
+          </IfController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Token Controller" enabled="true">
+              <stringProp name="TestPlan.comments">Runs the Token Controller in the setUp thread group to refresh the access token</stringProp>
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="742131162">Retrieve Auth Token - setUp Thread Group</stringProp>
+                <stringProp name="52452451">Token Controller</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Create Organism" enabled="true"/>
         <hashTree>
@@ -7512,10 +7511,10 @@ assert attr.isTarget == ${isTarget_2}
 assert attr.lifeStage == &quot;${lifeStage_2}&quot;
 assert attr.sex == &quot;${sex_2}&quot;
 assert attr.remarks == &quot;${remarks_2}&quot;
-assert attr.determination[0].verbatimScientificName  == &quot;${determination_verbatimScientificName_2}&quot;
+assert attr.determination[0].verbatimScientificName  == vars.get(&quot;determination_verbatimScientificName_2&quot;)
 assert attr.determination[0].verbatimDeterminer == &quot;${determination_verbatimDeterminer_2}&quot;
 assert attr.determination[0].verbatimDate == &quot;${determination_verbatimDate_2}&quot;
-assert attr.determination[0].scientificName == &quot;${determination_scientificName_2}&quot;
+assert attr.determination[0].scientificName == vars.get(&quot;determination_scientificName_2&quot;)
 assert attr.determination[0].transcriberRemarks == &quot;${determination_transcriberRemarks_2}&quot;
 assert attr.determination[0].verbatimRemarks == &quot;${determination_verbatimRemarks_2}&quot;
 assert attr.determination[0].determinationRemarks == &quot;${determination_determinationRemarks_2}&quot;
@@ -7765,7 +7764,7 @@ assert attr.isTarget == ${isTarget_3}
 assert attr.lifeStage == &quot;${lifeStage_3}&quot;
 assert attr.sex == &quot;${sex_3}&quot;
 assert attr.remarks == &quot;${remarks_3}&quot;
-assert attr.determination[0].verbatimScientificName  == &quot;${determination_verbatimScientificName_3}&quot;
+assert attr.determination[0].verbatimScientificName  == vars.get(&quot;determination_verbatimScientificName_3&quot;)
 assert attr.determination[0].verbatimDeterminer == &quot;${determination_verbatimDeterminer_3}&quot;
 assert attr.determination[0].verbatimDate == &quot;${determination_verbatimDate_3}&quot;
 assert attr.determination[0].transcriberRemarks == &quot;${determination_transcriberRemarks_3}&quot;
@@ -7918,10 +7917,10 @@ assert attr.isTarget == ${isTarget_4}
 assert attr.lifeStage == &quot;${lifeStage_4}&quot;
 assert attr.sex == &quot;${sex_4}&quot;
 assert attr.remarks == &quot;${remarks_4}&quot;
-assert attr.determination[0].verbatimScientificName  == &quot;${determination_verbatimScientificName_4}&quot;
+assert attr.determination[0].verbatimScientificName  == vars.get(&quot;determination_verbatimScientificName_4&quot;)
 assert attr.determination[0].verbatimDeterminer == &quot;${determination_verbatimDeterminer_4}&quot;
 assert attr.determination[0].verbatimDate == &quot;${determination_verbatimDate_4}&quot;
-assert attr.determination[0].scientificName == &quot;${determination_scientificName_4}&quot;
+assert attr.determination[0].scientificName == vars.get(&quot;determination_scientificName_4&quot;)
 assert attr.determination[0].transcriberRemarks == &quot;${determination_transcriberRemarks_4}&quot;
 assert attr.determination[0].verbatimRemarks == &quot;${determination_verbatimRemarks_4}&quot;
 assert attr.determination[0].determinationRemarks == &quot;${determination_determinationRemarks_4}&quot;
@@ -8038,10 +8037,10 @@ assert attr.isTarget == ${isTarget_4}
 assert attr.lifeStage == &quot;${lifeStage_4}&quot;
 assert attr.sex == &quot;${sex_4}&quot;
 assert attr.remarks == &quot;${remarks_4}&quot;
-assert attr.determination[0].verbatimScientificName  == &quot;${determination_verbatimScientificName_4}&quot;
+assert attr.determination[0].verbatimScientificName  == vars.get(&quot;determination_verbatimScientificName_4&quot;)
 assert attr.determination[0].verbatimDeterminer == &quot;${determination_verbatimDeterminer_4}&quot;
 assert attr.determination[0].verbatimDate == &quot;${determination_verbatimDate_4}&quot;
-assert attr.determination[0].scientificName == &quot;${determination_scientificName_4}&quot;
+assert attr.determination[0].scientificName == vars.get(&quot;determination_scientificName_4&quot;)
 assert attr.determination[0].transcriberRemarks == &quot;${determination_transcriberRemarks_4}&quot;
 assert attr.determination[0].verbatimRemarks == &quot;${determination_verbatimRemarks_4}&quot;
 assert attr.determination[0].determinationRemarks == &quot;${determination_determinationRemarks_4}&quot;
