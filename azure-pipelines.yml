@@ -56,12 +56,22 @@ steps:
   displayName: 'Install the JMeter'
 
 - script: |
-    echo Java version:
-    java -version
     apache-jmeter-5.6.1/bin/./jmeter -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o report -j jmeter.log
     echo Done
-    cat jmeter.log
   displayName: 'Run JMeter'
 
 - bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml down
   displayName: 'Stop DockerCompose'
+
+- script: |
+    wget https://raw.githubusercontent.com/Azure-Samples/jmeter-aci-terraform/main/scripts/jtl_junit_converter.py
+    python3 jtl_junit_converter.py results/results.jtl results/results_junit.xml
+  displayName: 'Convert and assemble report'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'results/results_junit.xml'
+    failTaskOnFailedTests: true
+  displayName: 'Publish jMeter test results'
+  
