@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.126.0
+    image: aafcbicoe/dina-ui:0.131.0
     environment:
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
@@ -14,7 +14,7 @@ services:
       USER_API_ADDRESS: dina-user-api:8080
       SEARCH_API_ADDRESS: search-ws:8085
       LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
-      REPORT_LABEL_API_ADDRESS: report-label-api:8080
+      REPORT_LABEL_API_ADDRESS: dina-export-api:8080
       INSTANCE_MODE: ${INSTANCE_MODE}
     networks:
       - dina
@@ -77,7 +77,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.77.1
+    image: aafcbicoe/natural-history-collection-api:0.78
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -157,7 +157,7 @@ services:
         condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.5.1
+    image: aafcbicoe/object-store-api:1.6
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
@@ -188,28 +188,35 @@ services:
       init-db:
         condition: service_completed_successfully 
 
-  report-label-api:
-    image: afcbicoe/report-label-api:0.1
-    profiles: ["report_label_api"]
+  dina-export-api:
+    image: aafcbicoe/dina-export-api:0.3
+    profiles: ["export_api"]
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
-      spring.datasource.url: jdbc:postgresql://dina-db/report_label?currentSchema=report_label
-      spring.liquibase.user: ${REPORT_LABEL_MIGRATION_USER}
-      spring.liquibase.password: ${REPORT_LABEL_MIGRATION_USER_PW}
-      spring.datasource.username: ${REPORT_LABEL_WEB_USER}
-      spring.datasource.password: ${REPORT_LABEL_WEB_USER_PW}
-      spring.freemarker.template-loader-path: file:/tmp/templates/
+      spring.datasource.url: jdbc:postgresql://dina-db/export?currentSchema=export
+      spring.liquibase.user: ${EXPORT_MIGRATION_USER}
+      spring.liquibase.password: ${EXPORT_MIGRATION_USER_PW}
+      spring.liquibase.liquibase-schema: export
+      spring.datasource.username: ${EXPORT_WEB_USER}
+      spring.datasource.password: ${EXPORT_WEB_USER_PW}
+      spring.freemarker.template-loader-path: classpath:/templates/,file:/tmp/dina-data-export/templates/
+      dina.export.workingFolder: /tmp/dina-data-export
     labels:
-      # Opens http://api.dina.local/reportlabel/api/v1 module endpoint
-      - "traefik.http.middlewares.striplabels.stripprefix.prefixes=${REPORT_LABEL_API_PREFIX}"
-      - "traefik.http.routers.reportlabelapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${REPORT_LABEL_API_PREFIX}/`)"
-      - "traefik.http.routers.reportlabelapi.middlewares=striplabels@docker"
+      # Opens http://api.dina.local/export/api/v1 module endpoint
+      - "traefik.http.middlewares.stripreportlabel.stripprefix.prefixes=${EXPORT_API_PREFIX}"
+      - "traefik.http.routers.exportapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${EXPORT_API_PREFIX}/`)"
+      - "traefik.http.routers.exportapi.middlewares=stripreportlabel@docker"
     networks:
       - dina
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     volumes:
       - ./report-label/templates:/tmp/templates
+    depends_on:
+      init-db:
+        condition: service_completed_successfully 
 
   minio:
     image: minio/minio:RELEASE.2022-10-05T14-58-27Z
@@ -309,7 +316,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.24.1
+    image: aafcbicoe/dina-search-ws:0.25
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -321,7 +328,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.24.1
+    image: aafcbicoe/dina-search-cli:0.25
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/token
@@ -348,7 +355,7 @@ services:
       - api.dina.local:${TRAEFIK_IP}
 
   rabbitmq-dina:
-    image: rabbitmq:3.8.20-management-alpine
+    image: rabbitmq:3.9.29-management-alpine
     profiles: ["search_api"]
     container_name: 'rabbitmq-dina'
     hostname: rabbit_dina_node_1
@@ -356,8 +363,8 @@ services:
         - 5672:5672
         - 15672:15672
     volumes:
-        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+        - ./rabbitmq-data:/var/lib/rabbitmq
+    #    - ./rabbitmq-log:/var/log/rabbitmq
     networks:
         - dina_rabbitmq_net
         
