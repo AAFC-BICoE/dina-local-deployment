@@ -2,7 +2,30 @@
   "settings": {
     "index": {
       "number_of_shards": "1",
-      "number_of_replicas": "1"
+      "number_of_replicas": "1",
+      "max_ngram_diff": "10"
+    },
+    "analysis": {
+      "analyzer": {
+        "ngram_analyzer": {
+          "tokenizer": "ngram_tokenizer"
+        },
+        "keyword_lowercase_analyzer" : {
+          "tokenizer": "keyword",
+          "filter": [ "lowercase" ]
+        },
+        "keyword_lowercase_reverse_analyzer" : {
+          "tokenizer": "keyword",
+          "filter": [ "lowercase", "reverse" ]
+        }
+      },
+      "tokenizer": {
+        "ngram_tokenizer": {
+          "type": "ngram",
+          "min_gram": 3,
+          "max_gram": 10
+        }
+      }
     }
   },
   "mappings": {
@@ -75,6 +98,14 @@
               "originalFilename": {
                 "type": "text",
                 "fields": {
+                  "prefix": {
+                    "type": "text",
+                    "analyzer": "keyword_lowercase_analyzer",
+                    "index_prefixes": {
+                      "min_chars" : 1,
+                      "max_chars" : 10
+                    }
+                  },
                   "keyword": {
                     "type": "keyword",
                     "ignore_above": 256
