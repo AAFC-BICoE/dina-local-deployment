@@ -203,6 +203,8 @@ services:
       spring.datasource.password: ${EXPORT_WEB_USER_PW}
       spring.freemarker.template-loader-path: classpath:/templates/,file:/tmp/dina-data-export/templates/
       dina.export.workingFolder: /tmp/dina-data-export
+      elasticsearch.host: elasticsearch-dina
+      elasticsearch.port: 9200
     labels:
       # Opens http://api.dina.local/export/api/v1 module endpoint
       - "traefik.http.middlewares.stripreportlabel.stripprefix.prefixes=${EXPORT_API_PREFIX}"
