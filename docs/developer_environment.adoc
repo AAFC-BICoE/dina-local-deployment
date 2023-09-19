@@ -27,17 +27,25 @@ curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compo
 chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
 ----
 * Node.js
-+
+
+Install Node Version Manager (NVM): https://github.com/nvm-sh/nvm#installing-and-updating
+
+Install node 18 (codename hydrogen)
+
 [source, bash]
 ----
-sudo apt install nodejs
+nvm install hydrogen
 ----
+
 * Yarn
 +
 [source, bash]
 ----
-npm install -g yarn@latest
+corepack enable
+yarn set version stable
+yarn install
 ----
+
 * Maven
 +
 [source, bash]
