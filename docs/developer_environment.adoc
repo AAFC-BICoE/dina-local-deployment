@@ -34,7 +34,7 @@ Install node 18 (codename hydrogen)
 
 [source, bash]
 ----
-nvm install hydrogen
+nvm install Hydrogen
 ----
 
 * Yarn
