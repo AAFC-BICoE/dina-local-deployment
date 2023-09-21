@@ -560,17 +560,29 @@ chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose</code></pre>
 </li>
 <li>
 <p>Node.js</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Install Node Version Manager (NVM): <a href="https://github.com/nvm-sh/nvm#installing-and-updating" class="bare">https://github.com/nvm-sh/nvm#installing-and-updating</a></p>
+</div>
+<div class="paragraph">
+<p>Install node 18 (codename hydrogen)</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo apt install nodejs</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">nvm install Hydrogen</code></pre>
 </div>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Yarn</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">npm install -g yarn@latest</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">corepack enable
+yarn set version stable
+yarn install</code></pre>
 </div>
 </div>
 </li>
@@ -1557,7 +1569,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 17:53:03 UTC
+Last updated 2023-09-21 17:21:54 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
