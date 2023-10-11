@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.base.yml -c
+    kompose.version: 1.31.0 (a04ecdb9e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: keycloak-db
+  name: keycloak-db
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: keycloak-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.base.yml -c
+        kompose.version: 1.31.0 (a04ecdb9e)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/dina-local-deployment-dina: "true"
+        io.kompose.service: keycloak-db
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: keycloak_db
+            - name: POSTGRES_PASSWORD
+              value: keycloak_user
+            - name: POSTGRES_USER
+              value: keycloak_user
+          image: postgres:12
+          name: keycloak-db
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: keycloak-db-claim0
+      restartPolicy: Always
+      volumes:
+        - name: keycloak-db-claim0
+          persistentVolumeClaim:
+            claimName: keycloak-db-claim0
+status: {}

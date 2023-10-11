@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.base.yml -c
+    kompose.version: 1.31.0 (a04ecdb9e)
+    traefik.enable: "true"
+    traefik.http.routers.keycloak.rule: Host(``, ``) && PathPrefix(``)
+    traefik.http.routers.keycloak.tls: "true"
+    traefik.http.services.keycloak.loadbalancer.server.port: "8080"
+  creationTimestamp: null
+  labels:
+    io.kompose.service: keycloak
+  name: keycloak
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: keycloak
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.base.yml -c
+        kompose.version: 1.31.0 (a04ecdb9e)
+        traefik.enable: "true"
+        traefik.http.routers.keycloak.rule: Host(``, ``) && PathPrefix(``)
+        traefik.http.routers.keycloak.tls: "true"
+        traefik.http.services.keycloak.loadbalancer.server.port: "8080"
+      creationTimestamp: null
+      labels:
+        io.kompose.network/dina-local-deployment-dina: "true"
+        io.kompose.service: keycloak
+    spec:
+      containers:
+        - env:
+            - name: KC_DB_PASSWORD
+              value: keycloak_user
+            - name: KC_DB_URL_DATABASE
+              value: keycloak_db
+            - name: KC_DB_URL_HOST
+              value: keycloak-db
+            - name: KC_DB_USERNAME
+              value: keycloak_user
+            - name: KC_HOSTNAME
+            - name: KC_HOSTNAME_ADMIN
+            - name: KC_PROXY
+              value: edge
+            - name: KEYCLOAK_ADMIN
+              value: admin
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              value: admin
+          image: keycloak_pg:20.0.5
+          name: keycloak
+          ports:
+            - containerPort: 8443
+              hostPort: 8443
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /opt/keycloak/data/import/realm.json
+              name: keycloak-claim0
+            - mountPath: /opt/keycloak/themes/dina
+              name: keycloak-claim1
+            - mountPath: /etc/certs
+              name: keycloak-claim2
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: keycloak-claim0
+          persistentVolumeClaim:
+            claimName: keycloak-claim0
+        - name: keycloak-claim1
+          persistentVolumeClaim:
+            claimName: keycloak-claim1
+        - name: keycloak-claim2
+          persistentVolumeClaim:
+            claimName: keycloak-claim2
+            readOnly: true
+status: {}

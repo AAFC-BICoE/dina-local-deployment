@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "dina-helm-test.fullname" . }}-test-connection"
+  labels:
+    {{- include "dina-helm-test.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "dina-helm-test.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
