@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.135.0
+    image: aafcbicoe/dina-ui:0.136.0
     environment:
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
@@ -189,7 +189,7 @@ services:
         condition: service_completed_successfully 
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.3
+    image: aafcbicoe/dina-export-api:0.4
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
