@@ -1,0 +1,29 @@
+meta {
+  name: Update Preparation Method
+  type: http
+  seq: 5
+}
+
+patch {
+  url: http://dina.local/api/collection-api/preparation-method/885b2716-5b94-4f44-8f26-6ef22c76b84b
+  body: json
+  auth: none
+}
+
+headers {
+  : 
+  Content-Type: application/vnd.api+json
+}
+
+body:json {
+  {
+    "data": {
+      "type": "preparation-method",
+  		"id": "885b2716-5b94-4f44-8f26-6ef22c76b84b",
+      "attributes": {
+  			"group": "aafc",
+  			"name": "new test"
+      }
+    }
+  }
+}

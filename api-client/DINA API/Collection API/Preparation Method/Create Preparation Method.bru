@@ -1,0 +1,28 @@
+meta {
+  name: Create Preparation Method
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://dina.local/api/collection-api/preparation-method
+  body: json
+  auth: none
+}
+
+headers {
+  : 
+  Content-Type: application/vnd.api+json
+}
+
+body:json {
+  {
+    "data": {
+      "type": "preparation-method",
+      "attributes": {
+  			"group": "aafc",
+  			"name": "test"
+      }
+    }
+  }
+}

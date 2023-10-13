@@ -1,0 +1,27 @@
+meta {
+  name: Update managed attribute
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://dina.local/api/collection-api/managed-attribute/83707f2f-c6cc-4717-96e7-3c91c6bd0483
+  body: json
+  auth: none
+}
+
+headers {
+  : 
+  Content-Type: application/vnd.api+json
+}
+
+body:json {
+  {
+    "data": {
+      "type": "managed-attribute",
+      "attributes": {
+  			"managedAttributeComponent": "ASSEMBLAGE"
+      }
+    }
+  }
+}

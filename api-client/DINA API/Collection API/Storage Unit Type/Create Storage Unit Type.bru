@@ -1,0 +1,34 @@
+meta {
+  name: Create Storage Unit Type
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://dina.local/api/objectstore-api/metadata/cf4109a3-05d9-4f4b-8376-ee2c2fb67d7c
+  body: json
+  auth: none
+}
+
+headers {
+  : 
+  Content-Type: application/vnd.api+json
+}
+
+body:json {
+  {
+  	"data": {
+  		"id": "448a662b-9303-4007-9a00-1f5fbae184d5",
+  		"type": "storage-unit-type",
+  		"attributes": {
+  			"group": "aafc",
+  			"name": "test",
+  			"gridLayoutDefinition": {
+  				"fillDirection": "8a3f4e43-cf3a-4851-8f34-3f471b0fc677",
+  				"numberOfRows": 100,
+  				"numberOfColumns": 100
+  			}
+  		}
+  	}
+  }
+}

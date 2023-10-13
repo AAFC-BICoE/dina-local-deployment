@@ -1,0 +1,31 @@
+meta {
+  name: Create Collection Event
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://dina.local/api/report-label-api/file/8e5c4a2c-0527-464c-a4be-e5ef055d421d
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/vnd.api+json
+}
+
+body:json {
+  {
+  	"data": {
+  		"type": "export-request",
+  		"attributes": {
+  			"source": "dina_material_sample_index",
+  			"query": "{\"query\": {\"match_all\": {}}, \"sort\": [{\"data.attributes.createdOn\": \"asc\"}]}",
+  			"columns": [
+  				"materialSampleName",
+  				"collectingEvent.dwcVerbatimLocality"
+  			]
+  		}
+  	}
+  }
+}

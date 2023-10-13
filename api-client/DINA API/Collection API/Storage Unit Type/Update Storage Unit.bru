@@ -1,0 +1,32 @@
+meta {
+  name: Update Storage Unit
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://dina.local/api/collection-api/storage-unit-type/448a662b-9303-4007-9a00-1f5fbae184d5
+  body: json
+  auth: none
+}
+
+headers {
+  : 
+  Content-Type: application/vnd.api+json
+}
+
+body:json {
+  {
+  	"data": {
+  		"id": "448a662b-9303-4007-9a00-1f5fbae184d5",
+  		"type": "storage-unit-type",
+  		"attributes": {
+  			"gridLayoutDefinition": {
+  				"fillDirection": "BY_ROW",
+  				"numberOfRows": 1001,
+  				"numberOfColumns": 1001
+  			}
+  		}
+  	}
+  }
+}
