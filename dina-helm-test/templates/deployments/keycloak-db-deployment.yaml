@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-keycloak-db
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      service: keycloak-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  
+  template:
+    metadata:
+      annotations: {}
+      creationTimestamp: null
+      labels:
+        service: keycloak-service
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: "keycloak_db"
+            - name: POSTGRES_PASSWORD
+              value: "keycloak_user"
+            - name: POSTGRES_USER
+              value: "keycloak_user"
+          image: postgres:12
+          name: keycloak-db
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }} 
+              cpu: {{ .Values.resources.requests.cpu }} 
+            limits:
+              memory: {{ .Values.resources.limits.memory }} 
+              cpu: {{ .Values.resources.limits.cpu }} 
+          volumeMounts:
+            - name: keycloak-data-volume
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: keycloak-data-volume
+          configMap:
+            name: keycloak-data
+status: {}

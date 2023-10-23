@@ -3,7 +3,78 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
-
+app:
+  name: dina-helm-test
+  #namespace: default
+services:
+  dinadb:
+    image: "postgis/postgis:12-3.1-alpine"
+    pullPolicy: IfNotPresent
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
+      timeout: 5s
+      interval: 10s
+      retries: 10
+    environment:
+      POSTGRES_DB: dina
+      POSTGRES_PASSWORD: pg1234
+      POSTGRES_USER: pguser
+  initdb:
+    image: "aafcbicoe/dina-db-init-container:0.2"
+    environment:
+      POSTGRES_HOST: dina-db
+      POSTGRES_DB: dina
+      POSTGRES_PASSWORD: pg1234
+      POSTGRES_USER: pguser
+      DINA_DB: agent collection dina_user object_store seqdb loan_transaction export
+      MIGRATION_USER_agent: migration_user_agent
+      MIGRATION_USER_PW_agent: muagent123
+      WEB_USER_agent: web_user_agent
+      WEB_USER_PW_agent: wuagent321
+      MIGRATION_USER_collection: migration_user_coll
+      MIGRATION_USER_PW_collection: mucoll123
+      WEB_USER_collection: web_user_coll
+      WEB_USER_PW_collection: wucoll321
+      PG_EXTENSION_collection: postgis
+      MIGRATION_USER_dina_user: migration_user_dina_user
+      MIGRATION_USER_PW_dina_user: muuser123
+      WEB_USER_dina_user: web_user_dina_user
+      WEB_USER_PW_dina_user: wuuser321
+      MIGRATION_USER_object_store: migration_user_os
+      MIGRATION_USER_PW_object_store: muos123
+      WEB_USER_object_store: web_user_os
+      WEB_USER_PW_object_store: wuos321
+      MIGRATION_USER_seqdb: migration_user_seqdb
+      MIGRATION_USER_PW_seqdb: museqdb123
+      WEB_USER_seqdb: web_user_seqdb
+      WEB_USER_PW_seqdb: wuseqdb321
+      PG_EXTENSION_seqdb: pgcrypto
+      MIGRATION_USER_loan_transaction: migration_user_lt
+      MIGRATION_USER_PW_loan_transaction: mult123
+      WEB_USER_loan_transaction: web_user_lt
+      WEB_USER_PW_loan_transaction: wult123
+      MIGRATION_USER_export: migration_user_ex
+      MIGRATION_USER_PW_export: muex123
+      WEB_USER_export: web_user_ex
+      WEB_USER_PW_export: wuex321
+  keycloak:
+    image: "keycloak_pg:20.0.5"
+    environment:
+      KC_DB_PASSWORD: keycloak_user
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB_URL_HOST: keycloak-db
+      KC_DB_URL_DATABASE: keycloak_db
+      KC_DB_USERNAME: keycloak_user
+      KC_HOSTNAME: dina.local
+      KC_HOSTNAME_ADMIN: keycloak.dina.local
+      KC_PROXY: edge
+  keycloakdb:
+    image: "postgres:12"
+    environment:
+      POSTGRES_DB: keycloak_db
+      POSTGRES_PASSWORD: keycloak_user
+      POSTGRES_USER: keycloak_user
 image:
   repository: nginx
   pullPolicy: IfNotPresent
@@ -46,9 +117,9 @@ service:
 ingress:
   enabled: false
   className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
   hosts:
     - host: chart-example.local
       paths:
@@ -59,7 +130,10 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
+resources:
+  limits:
+    memory: 48Mi
+    cpu: 20m
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -67,9 +141,9 @@ resources: {}
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  requests:
+    cpu: 10m
+    memory: 24Mi
 
 autoscaling:
   enabled: false

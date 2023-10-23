@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.app.name }}-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ .Values.services.keycloak.environment.KC_HOSTNAME }}
+  rules:
+  - host: {{ .Values.services.keycloak.environment.KC_HOSTNAME }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.app.name }}
+            port:
+              number: 8080

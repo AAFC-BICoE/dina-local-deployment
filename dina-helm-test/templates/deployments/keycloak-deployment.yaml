@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  #namespace: {{ .Values.app.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-keycloak
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  
+  template:
+    metadata:
+      #annotations:
+      #  traefik.enable: "true"
+      #  traefik.http.routers.keycloak.rule: Host(``, ``) && PathPrefix(``)
+      #  traefik.http.routers.keycloak.tls: "true"
+      #  traefik.http.services.keycloak.loadbalancer.server.port: "8080"
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app.name }}
+    spec:
+      containers:
+        - name: keycloak
+          image: keycloak_pg:20.0.5
+          env:
+            - name: KC_DB_PASSWORD
+              value: {{ .Values.services.keycloak.environment.KC_DB_PASSWORD}}
+            - name: KC_DB_URL_DATABASE
+              value: {{ .Values.services.keycloak.environment.KC_DB_URL_DATABASE }}
+            - name: KC_DB_URL_HOST
+              value: {{ .Values.services.keycloak.environment.KC_DB_URL_HOST }}
+            - name: KC_DB_USERNAME
+              value: {{ .Values.services.keycloak.environment.KC_DB_USERNAME }}
+            - name: KC_HOSTNAME
+              value: {{ .Values.services.keycloak.environment.KC_HOSTNAME }}
+            - name: KC_HOSTNAME_ADMIN
+              value: {{ .Values.services.keycloak.environment.KC_HOSTNAME_ADMIN }}
+            - name: KC_PROXY
+              value: {{ .Values.services.keycloak.environment.KC_PROXY }}
+            - name: KEYCLOAK_ADMIN
+              value: {{ .Values.services.keycloak.environment.KEYCLOAK_ADMIN }}
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              value: {{ .Values.services.keycloak.environment.KEYCLOAK_ADMIN_PASSWORD }}
+          ports:
+            - containerPort: 8443
+              hostPort: 8443
+              protocol: TCP
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }} 
+              cpu: {{ .Values.resources.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.limits.memory }} 
+              cpu: {{ .Values.resources.limits.cpu }} 
+          volumeMounts:
+            - name: keycloak-dina-starter-volume
+              mountPath: /opt/keycloak/data/import/realm.json
+              subPath: realm.json
+            - name: keycloak-theme-volume
+              mountPath: /opt/keycloak/themes/dina
+            - name: certs-volume
+              mountPath: /etc/certs
+      volumes:
+        - name: keycloak-dina-starter-volume
+          configMap:
+              name: keycloak
+        - name: keycloak-theme-volume
+          configMap:
+            name: keycloak-theme
+        - name: certs-volume
+          configMap:
+            name: certs
+status: {}
