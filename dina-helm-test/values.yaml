@@ -58,7 +58,7 @@ services:
       WEB_USER_export: web_user_ex
       WEB_USER_PW_export: wuex321
   keycloak:
-    image: "keycloak_pg:20.0.5"
+    image: "hdosprazeres/keycloak-kube"
     environment:
       KC_DB_PASSWORD: keycloak_user
       KEYCLOAK_ADMIN: admin

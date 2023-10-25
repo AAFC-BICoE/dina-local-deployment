@@ -8,7 +8,7 @@ spec:
   replicas: 0
   selector:
     matchLabels:
-      service: keycloak-service
+      app: {{ .Values.app.name }}-keycloak-db
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -19,7 +19,7 @@ spec:
       annotations: {}
       creationTimestamp: null
       labels:
-        service: keycloak-service
+        app: {{ .Values.app.name }}-keycloak-db
     spec:
       containers:
         - env:
@@ -39,10 +39,10 @@ spec:
               memory: {{ .Values.resources.limits.memory }} 
               cpu: {{ .Values.resources.limits.cpu }} 
           volumeMounts:
-            - name: keycloak-data-volume
-              mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgresql/data
+              name: keycloak-db-claim
       volumes:
-        - name: keycloak-data-volume
-          configMap:
-            name: keycloak-data
+        - name: keycloak-db-claim
+          persistentVolumeClaim:
+            claimName: keycloak-db-claim
 status: {}
