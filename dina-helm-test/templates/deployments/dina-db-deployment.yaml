@@ -21,6 +21,9 @@ spec:
     spec:
       containers:
         - name: dina-db
+          #command: ['sh', '-c', 
+          #'until psql -d dina -U pguser; 
+          #do echo waiting for database; sleep 10; done;']
           image: {{ .Values.services.dinadb.image }}
           imagePullPolicy: {{ .Values.services.dinadb.pullPolicy }}
           env:

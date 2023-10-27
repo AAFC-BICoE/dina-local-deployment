@@ -29,6 +29,8 @@ spec:
               value: {{ .Values.services.keycloakdb.environment.POSTGRES_PASSWORD }}
             - name: POSTGRES_USER
               value: {{ .Values.services.keycloakdb.environment.POSTGRES_USER }}
+            - name: PGDATA
+              value: /var/lib/postgresql/data
           image: postgres:12
           name: keycloak-db
           resources:

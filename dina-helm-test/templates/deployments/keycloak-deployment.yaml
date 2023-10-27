@@ -28,9 +28,12 @@ spec:
     spec:
       containers:
         - name: keycloak
-          #command: ["/bin/sh", -c]
-          #args: ["./opt/bin/kc.sh","start", "--cache-stack=kubernetes"]
-          image: localhost:5000/keycloak:new
+          command:
+          - /bin/bash
+          - -ce
+          - /opt/keycloak/bin/kc.sh start --import-realm --optimized
+          - tail -f /dev/null
+          image: localhost:5000/keycloak:new2
           imagePullPolicy: IfNotPresent
           env:
             - name: KC_DB_PASSWORD
@@ -59,16 +62,21 @@ spec:
             - name: "https"
               containerPort: 8443
           readinessProbe:
+            failureThreshold: 10
             httpGet:
-              path: "/auth/realms/master"
-              port: http
+              path: /realms/master
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
           resources:
             requests:
-              memory: {{ .Values.resources.requests.memory }} 
-              cpu: {{ .Values.resources.requests.cpu }}            
+              memory: 2Gi
+              cpu: 500m            
             limits:
-              memory: {{ .Values.resources.limits.memory }} 
-              cpu: {{ .Values.resources.limits.cpu }} 
+              memory: 4Gi
+              cpu: 1
           volumeMounts:
             - name: keycloak-dina-starter-volume
               mountPath: /opt/keycloak/data/import
@@ -78,8 +86,6 @@ spec:
               mountPath: /opt/keycloak/scripts
             - name: certs-volume
               mountPath: /etc/certs
-            - name: keycloak-db-claim
-              mountPath: /var/lib/postgresql/data
       volumes:
         - name: keycloak-dina-starter-volume
           configMap:
@@ -93,7 +99,4 @@ spec:
         - name: certs-volume
           configMap:
             name: certs
-        - name: keycloak-db-claim
-          persistentVolumeClaim:
-            claimName: keycloak-db-claim
 status: {}
