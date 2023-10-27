@@ -2,10 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: {{ .Values.app.name }}
+    app: {{ .Values.app.name }}-keycloak-db
   name: {{ .Values.app.name }}-keycloak-db
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-keycloak-db
@@ -24,11 +24,11 @@ spec:
       containers:
         - env:
             - name: POSTGRES_DB
-              value: "keycloak_db"
+              value: {{ .Values.services.keycloakdb.environment.POSTGRES_DB }}
             - name: POSTGRES_PASSWORD
-              value: "keycloak_user"
+              value: {{ .Values.services.keycloakdb.environment.POSTGRES_PASSWORD }}
             - name: POSTGRES_USER
-              value: "keycloak_user"
+              value: {{ .Values.services.keycloakdb.environment.POSTGRES_USER }}
           image: postgres:12
           name: keycloak-db
           resources:

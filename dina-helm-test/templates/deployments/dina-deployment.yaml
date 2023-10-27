@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}-dina
+  labels:
+    app: {{ .Values.app.name }}-dina
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-dina
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}-dina
+    spec:
+      containers:
+      - name: initdb
+        image: aafcbicoe/dina-db-init-container:0.2
+        command: ['sh', '-c', 
+          'until pg_isready -h dina-db-service -p 5433; 
+          do echo waiting for database; sleep 2; done;']
+        env:
+          - name: DINA_DB
+            value: agent collection dina_user object_store seqdb loan_transaction export
+          - name: MIGRATION_USER_PW_agent
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_agent }}
+          - name: MIGRATION_USER_PW_collection
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_collection }}
+          - name: MIGRATION_USER_PW_dina_user
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_dina_user }}
+          - name: MIGRATION_USER_PW_export
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_export }}
+          - name: MIGRATION_USER_PW_loan_transaction
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_loan_transaction }}       
+          - name: MIGRATION_USER_PW_object_store
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_object_store }}    
+          - name: MIGRATION_USER_PW_seqdb
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_seqdb }}    
+          - name: MIGRATION_USER_agent
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_agent }}    
+          - name: MIGRATION_USER_collection
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_collection }}    
+          - name: MIGRATION_USER_dina_user
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_dina_user }}    
+          - name: MIGRATION_USER_export
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_export }}    
+          - name: MIGRATION_USER_loan_transaction
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_loan_transaction }}    
+          - name: MIGRATION_USER_object_store
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_object_store }}    
+          - name: MIGRATION_USER_seqdb
+            value: {{ .Values.services.initdb.environment.MIGRATION_USER_seqdb }}    
+          - name: PG_EXTENSION_collection
+            value: {{ .Values.services.initdb.environment.PG_EXTENSION_collection }}  
+          - name: PG_EXTENSION_seqdb
+            value: {{ .Values.services.initdb.environment.PG_EXTENSION_seqdb }}  
+          - name: POSTGRES_DB
+            value: {{ .Values.services.initdb.environment.POSTGRES_DB }}    
+          - name: POSTGRES_HOST
+            value: {{ .Values.services.initdb.environment.POSTGRES_HOST }}  
+          - name: POSTGRES_PASSWORD
+            value: {{ .Values.services.initdb.environment.POSTGRES_PASSWORD }}    
+          - name: POSTGRES_USER
+            value: {{ .Values.services.initdb.environment.POSTGRES_USER }}    
+          - name: WEB_USER_PW_agent
+            value: {{ .Values.services.initdb.environment.WEB_USER_PW_agent }}    
+          - name: WEB_USER_PW_collection
+            value: {{ .Values.services.initdb.environment.WEB_USER_PW_collection }}    
+          - name: WEB_USER_PW_dina_user
+            value: {{ .Values.services.initdb.environment.WEB_USER_PW_dina_user }}    
+          - name: WEB_USER_PW_export
+            value: {{ .Values.services.initdb.environment.WEB_USER_PW_export }}    
+          - name: WEB_USER_PW_loan_transaction
+            value: {{ .Values.services.initdb.environment.WEB_USER_PW_loan_transaction }}    
+          - name: WEB_USER_PW_object_store
+            value: {{ .Values.services.initdb.environment.WEB_USER_PW_object_store }}    
+          - name: WEB_USER_PW_seqdb
+            value: {{ .Values.services.initdb.environment.WEB_USER_PW_seqdb }}    
+          - name: WEB_USER_agent
+            value: {{ .Values.services.initdb.environment.WEB_USER_agent }}    
+          - name: WEB_USER_collection
+            value: {{ .Values.services.initdb.environment.WEB_USER_collection }}    
+          - name: WEB_USER_dina_user
+            value: {{ .Values.services.initdb.environment.WEB_USER_dina_user }}    
+          - name: WEB_USER_export
+            value: {{ .Values.services.initdb.environment.WEB_USER_export }}    
+          - name: WEB_USER_loan_transaction
+            value: {{ .Values.services.initdb.environment.WEB_USER_loan_transaction }}    
+          - name: WEB_USER_object_store
+            value: {{ .Values.services.initdb.environment.WEB_USER_object_store }}    
+          - name: WEB_USER_seqdb
+            value: {{ .Values.services.initdb.environment.WEB_USER_seqdb }}    
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory }} 
+            cpu: {{ .Values.resources.requests.cpu }} 
+          limits:
+            memory: {{ .Values.resources.limits.memory }} 
+            cpu: {{ .Values.resources.limits.cpu }}

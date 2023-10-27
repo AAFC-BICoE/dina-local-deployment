@@ -6,7 +6,7 @@ metadata:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-keycloak
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-keycloak
@@ -28,7 +28,9 @@ spec:
     spec:
       containers:
         - name: keycloak
-          image: localhost:5000/keycloak:latest
+          #command: ["/bin/sh", -c]
+          #args: ["./opt/bin/kc.sh","start", "--cache-stack=kubernetes"]
+          image: localhost:5000/keycloak:new
           imagePullPolicy: IfNotPresent
           env:
             - name: KC_DB_PASSWORD
@@ -49,15 +51,17 @@ spec:
               value: {{ .Values.services.keycloak.environment.KEYCLOAK_ADMIN }}
             - name: KEYCLOAK_ADMIN_PASSWORD
               value: {{ .Values.services.keycloak.environment.KEYCLOAK_ADMIN_PASSWORD }}
+            - name: KEYCLOAK_IMPORT
+              value: data/import/keycloak-dina-starter-realm.json
           ports:
             - name: "http"
               containerPort: 8080
             - name: "https"
               containerPort: 8443
           readinessProbe:
-              httpGet:
-                path: "/auth/realms/master"
-                port: 8080
+            httpGet:
+              path: "/auth/realms/master"
+              port: http
           resources:
             requests:
               memory: {{ .Values.resources.requests.memory }} 
@@ -67,10 +71,11 @@ spec:
               cpu: {{ .Values.resources.limits.cpu }} 
           volumeMounts:
             - name: keycloak-dina-starter-volume
-              mountPath: /opt/keycloak/data/import/realm.json
-              subPath: realm.json
+              mountPath: /opt/keycloak/data/import
             - name: keycloak-theme-volume
               mountPath: /opt/keycloak/themes/dina
+            - name: keycloak-scripts
+              mountPath: /opt/keycloak/scripts
             - name: certs-volume
               mountPath: /etc/certs
             - name: keycloak-db-claim
@@ -78,7 +83,10 @@ spec:
       volumes:
         - name: keycloak-dina-starter-volume
           configMap:
-              name: keycloak
+            name: keycloak
+        - name: keycloak-scripts
+          configMap:
+            name: scripts-configmap
         - name: keycloak-theme-volume
           configMap:
             name: keycloak-theme

@@ -5,11 +5,11 @@
 replicaCount: 1
 app:
   name: dina-helm-test
-  #namespace: default
 services:
   dinadb:
-    image: "postgis/postgis:12-3.1-alpine"
-    pullPolicy: IfNotPresent
+    #image: "postgis/postgis:12-3.1-alpine"
+    image: "postgres:13"
+    pullPolicy: Always
     healthcheck:
       test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
       timeout: 5s
@@ -17,12 +17,13 @@ services:
       retries: 10
     environment:
       POSTGRES_DB: dina
-      POSTGRES_PASSWORD: pg1234
+      POSTGRES_PASSWORD: pguser
       POSTGRES_USER: pguser
+    port: 5432
   initdb:
     image: "aafcbicoe/dina-db-init-container:0.2"
     environment:
-      POSTGRES_HOST: dina-db
+      POSTGRES_HOST: dina-db-service
       POSTGRES_DB: dina
       POSTGRES_PASSWORD: pg1234
       POSTGRES_USER: pguser
@@ -63,7 +64,7 @@ services:
       KC_DB_PASSWORD: keycloak_user
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB_URL_HOST: keycloak-db
+      KC_DB_URL_HOST: dina-helm-test-keycloak-db
       KC_DB_URL_DATABASE: keycloak_db
       KC_DB_USERNAME: keycloak_user
       KC_HOSTNAME: dina.local
@@ -110,9 +111,6 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-service:
-  type: ClusterIP
-  port: 80
 
 ingress:
   enabled: false

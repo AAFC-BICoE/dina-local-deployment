@@ -3,12 +3,12 @@ kind: Deployment
 metadata:
   name: {{ .Values.app.name }}-dina-db
   labels:
-    app: {{ .Values.app.name }}
+    app: {{ .Values.app.name }}-dina-db
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.app.name }}
+      app: {{ .Values.app.name }}-dina-db
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -17,120 +17,21 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.app.name }}
+        app: {{ .Values.app.name }}-dina-db
     spec:
-      initContainers:
-      - name: initdb
-        image: aafcbicoe/dina-db-init-container:0.2
-        command: ['sh', '-c', "until nslookup initdb; do echo waiting for initdb; sleep 2; done"]
-        env:
-          - name: DINA_DB
-            value: agent collection dina_user object_store seqdb loan_transaction export
-          - name: MIGRATION_USER_PW_agent
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_agent }}
-          - name: MIGRATION_USER_PW_collection
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_collection }}
-          - name: MIGRATION_USER_PW_dina_user
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_dina_user }}
-          - name: MIGRATION_USER_PW_export
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_export }}
-          - name: MIGRATION_USER_PW_loan_transaction
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_loan_transaction }}       
-          - name: MIGRATION_USER_PW_object_store
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_object_store }}    
-          - name: MIGRATION_USER_PW_seqdb
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_PW_seqdb }}    
-          - name: MIGRATION_USER_agent
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_agent }}    
-          - name: MIGRATION_USER_collection
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_collection }}    
-          - name: MIGRATION_USER_dina_user
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_dina_user }}    
-          - name: MIGRATION_USER_export
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_export }}    
-          - name: MIGRATION_USER_loan_transaction
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_loan_transaction }}    
-          - name: MIGRATION_USER_object_store
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_object_store }}    
-          - name: MIGRATION_USER_seqdb
-            value: {{ .Values.services.initdb.environment.MIGRATION_USER_seqdb }}    
-          - name: PG_EXTENSION_collection
-            value: {{ .Values.services.initdb.environment.PG_EXTENSION_collection }}  
-          - name: PG_EXTENSION_seqdb
-            value: {{ .Values.services.initdb.environment.PG_EXTENSION_seqdb }}  
-          - name: POSTGRES_DB
-            value: {{ .Values.services.initdb.environment.POSTGRES_DB }}    
-          - name: POSTGRES_HOST
-            value: {{ .Values.services.initdb.environment.POSTGRES_HOST }}  
-          - name: POSTGRES_PASSWORD
-            value: {{ .Values.services.initdb.environment.POSTGRES_PASSWORD }}    
-          - name: POSTGRES_USER
-            value: {{ .Values.services.initdb.environment.POSTGRES_USER }}    
-          - name: WEB_USER_PW_agent
-            value: {{ .Values.services.initdb.environment.WEB_USER_PW_agent }}    
-          - name: WEB_USER_PW_collection
-            value: {{ .Values.services.initdb.environment.WEB_USER_PW_collection }}    
-          - name: WEB_USER_PW_dina_user
-            value: {{ .Values.services.initdb.environment.WEB_USER_PW_dina_user }}    
-          - name: WEB_USER_PW_export
-            value: {{ .Values.services.initdb.environment.WEB_USER_PW_export }}    
-          - name: WEB_USER_PW_loan_transaction
-            value: {{ .Values.services.initdb.environment.WEB_USER_PW_loan_transaction }}    
-          - name: WEB_USER_PW_object_store
-            value: {{ .Values.services.initdb.environment.WEB_USER_PW_object_store }}    
-          - name: WEB_USER_PW_seqdb
-            value: {{ .Values.services.initdb.environment.WEB_USER_PW_seqdb }}    
-          - name: WEB_USER_agent
-            value: {{ .Values.services.initdb.environment.WEB_USER_agent }}    
-          - name: WEB_USER_collection
-            value: {{ .Values.services.initdb.environment.WEB_USER_collection }}    
-          - name: WEB_USER_dina_user
-            value: {{ .Values.services.initdb.environment.WEB_USER_dina_user }}    
-          - name: WEB_USER_export
-            value: {{ .Values.services.initdb.environment.WEB_USER_export }}    
-          - name: WEB_USER_loan_transaction
-            value: {{ .Values.services.initdb.environment.WEB_USER_loan_transaction }}    
-          - name: WEB_USER_object_store
-            value: {{ .Values.services.initdb.environment.WEB_USER_object_store }}    
-          - name: WEB_USER_seqdb
-            value: {{ .Values.services.initdb.environment.WEB_USER_seqdb }}    
-        resources:
-          requests:
-            memory: {{ .Values.resources.requests.memory }} 
-            cpu: {{ .Values.resources.requests.cpu }} 
-          limits:
-            memory: {{ .Values.resources.limits.memory }} 
-            cpu: {{ .Values.resources.limits.cpu }} 
       containers:
-        - name: dinadb
+        - name: dina-db
           image: {{ .Values.services.dinadb.image }}
           imagePullPolicy: {{ .Values.services.dinadb.pullPolicy }}
           env:
             - name: POSTGRES_DB
-              value: {{ .Values.services.initdb.environment.POSTGRES_DB }}    
+              value: {{ .Values.services.dinadb.environment.POSTGRES_DB }}    
             - name: POSTGRES_PASSWORD
-              value: {{ .Values.services.initdb.environment.POSTGRES_PASSWORD }}    
+              value: {{ .Values.services.dinadb.environment.POSTGRES_PASSWORD }}    
             - name: POSTGRES_USER
-              value: {{ .Values.services.initdb.environment.POSTGRES_USER }}    
+              value: {{ .Values.services.dinadb.environment.POSTGRES_USER }}
           ports:
-            - name: http
-              containerPort: {{ .Values.service.port }}
-              protocol: TCP
-          livenessProbe:
-            exec:
-              command:
-                - pg_isready
-                - -q
-                - -d
-                - "$(POSTGRES_DB)"
-                - -U
-                - "$(POSTGRES_USER)"
-            failureThreshold: 10
-            periodSeconds: 10
-            timeoutSeconds: 5
-            #httpGet:
-            #  path: /
-            #  port: {{ .Values.service.port }}
+            - containerPort: 5432
           resources:
             requests:
               memory: {{ .Values.resources.requests.memory }} 
@@ -140,12 +41,16 @@ spec:
               cpu: {{ .Values.resources.limits.cpu }}
           volumeMounts:
           - name: scripts-volume
-            mountPath: /docker-entrypoint-initdb.d/10_postgis.sh
-            subPath: 10_postgis.sh
+            mountPath: /docker-entrypoint-initdb.d
+          - name: dina-db-claim
+            mountPath: /var/lib/postgresql/data
       volumes:
       - name: scripts-volume
         configMap:
           name: scripts-configmap
+      - name: dina-db-claim
+        persistentVolumeClaim:
+          claimName: dina-db-claim
       nodeSelector:
       affinity:
       tolerations:
