@@ -9,7 +9,7 @@ services:
   dinadb:
     #image: "postgis/postgis:12-3.1-alpine"
     image: "postgres:13"
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
     healthcheck:
       test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
       timeout: 5s
@@ -25,7 +25,7 @@ services:
     environment:
       POSTGRES_HOST: dina-db-service
       POSTGRES_DB: dina
-      POSTGRES_PASSWORD: pg1234
+      POSTGRES_PASSWORD: pguser
       POSTGRES_USER: pguser
       DINA_DB: agent collection dina_user object_store seqdb loan_transaction export
       MIGRATION_USER_agent: migration_user_agent
@@ -64,7 +64,7 @@ services:
       KC_DB_PASSWORD: keycloak_user
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB_URL_HOST: dina-helm-test-keycloak-db
+      KC_DB_URL_HOST: keycloak-db-service
       KC_DB_URL_DATABASE: keycloak_db
       KC_DB_USERNAME: keycloak_user
       KC_HOSTNAME: dina.local

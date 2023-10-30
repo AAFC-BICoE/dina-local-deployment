@@ -18,8 +18,8 @@ spec:
             service:
               name: keycloak-service
               port:
-                number: 80
-    - host: "*."{{ .Values.services.keycloak.environment.KC_HOSTNAME }}
+                number: 8080
+    - host: "keycloak."{{ .Values.services.keycloak.environment.KC_HOSTNAME }}
       http:
         paths:
         - path: "/"
@@ -28,4 +28,4 @@ spec:
             service:
               name: keycloak-service
               port:
-                number: 80  
+                number: 8080
