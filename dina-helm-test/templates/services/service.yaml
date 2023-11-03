@@ -5,7 +5,7 @@ metadata:
   labels:
     app: keycloak-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8443
       targetPort: 8443
@@ -23,7 +23,7 @@ metadata:
   labels:
     app: keycloak-db-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 5432
       targetPort: 5432

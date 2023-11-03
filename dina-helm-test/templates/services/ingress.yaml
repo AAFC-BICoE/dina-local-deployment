@@ -8,6 +8,10 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - keycloak.dina.local
+    secretName: keycloak.dina.local-tls
   rules:
     - host: {{ .Values.services.keycloak.environment.KC_HOSTNAME }}
       http:

@@ -33,7 +33,7 @@ spec:
           - -ce
           args:
           - |
-            /opt/keycloak/bin/kc.sh start-dev --import-realm
+            /opt/keycloak/bin/kc.sh start --import-realm
             tail -f /dev/null
           image: quay.io/keycloak/keycloak:20.0.5
           imagePullPolicy: Always
@@ -58,16 +58,8 @@ spec:
               value: {{ .Values.services.keycloak.environment.KEYCLOAK_ADMIN_PASSWORD }}
             - name: KEYCLOAK_IMPORT
               value: data/import/keycloak-dina-starter-realm.json
-            - name: KC_HOSTNAME_STRICT_HTTPS
-              value: "false"
-            - name: KC_HOSTNAME_DEBUG
-              value: "true"
             - name: KC_HTTP_RELATIVE_PATH
               value: /auth
-            - name: PROXY_ADDRESS_FORWARDING
-              value: "true"
-            - name: KC_HTTP_ENABLED
-              value: "true"
           ports:
             - name: http
               containerPort: 8080
