@@ -26,6 +26,30 @@ spec:
       labels:
         app: {{ .Values.app.name }}-keycloak
     spec:
+      initContainers:
+        - name: check-db
+          image: aafcbicoe/dina-db-init-container:0.2
+          command:
+            - sh
+            - -c
+            - until pg_isready -h keycloak-db-service; do echo waiting for database; sleep 10; done;
+        - name: init-db
+          image: local/dina-db-init-container:dev
+          env:
+          - name: POSTGRES_DB
+            value: keycloak_db
+          - name: POSTGRES_PASSWORD
+            value: keycloak_user
+          - name: POSTGRES_HOST
+            value: keycloak-db-service
+          - name: POSTGRES_USER
+            value: keycloak_user
+          - name: USE_V2
+            value: "true"
+          - name : DB_USER
+            value: kc_user
+          - name: DB_PASSWORD
+            value: kc_user
       containers:
         - name: keycloak
           command:

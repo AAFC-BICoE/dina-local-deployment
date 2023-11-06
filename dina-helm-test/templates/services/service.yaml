@@ -29,17 +29,3 @@ spec:
       targetPort: 5432
   selector:
     app: {{ .Values.app.name }}-keycloak-db
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: dina-db-service
-  labels:
-    app: dina-db-service
-spec:
-  type: ClusterIP
-  ports:
-    - port: 5432
-      targetPort: 5432
-  selector:
-    app: {{ .Values.app.name }}-dina-db
