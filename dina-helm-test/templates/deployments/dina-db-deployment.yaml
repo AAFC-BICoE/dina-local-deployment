@@ -21,9 +21,15 @@ spec:
     spec:
       containers:
         - name: dina-db
-          #command: ['sh', '-c', 
-          #'until psql -d dina -U pguser; 
-          #do echo waiting for database; sleep 10; done;']
+          readinessProbe:
+            exec:
+              command: 
+              - sh
+              - -c
+              - psql -w -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c "SELECT 1"
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 120
           image: {{ .Values.services.dinadb.image }}
           imagePullPolicy: {{ .Values.services.dinadb.pullPolicy }}
           env:
@@ -33,8 +39,6 @@ spec:
               value: {{ .Values.services.dinadb.environment.POSTGRES_PASSWORD }}    
             - name: POSTGRES_USER
               value: {{ .Values.services.dinadb.environment.POSTGRES_USER }}
-          ports:
-            - containerPort: 5432
           resources:
             requests:
               memory: {{ .Values.resources.requests.memory }} 

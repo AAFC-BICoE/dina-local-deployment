@@ -33,10 +33,10 @@ spec:
           - -ce
           args:
           - |
-            /opt/keycloak/bin/kc.sh start --import-realm
-            tail -f /dev/null
+            /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path=/auth
+            /opt/keycloak/bin/kc.sh start --import-realm --optimized
           image: quay.io/keycloak/keycloak:20.0.5
-          imagePullPolicy: Always
+          imagePullPolicy: {{ .Values.services.keycloak.pullPolicy }}
           env:
             - name: KC_DB_PASSWORD
               value: {{ .Values.services.keycloak.environment.KC_DB_PASSWORD}}
@@ -58,8 +58,6 @@ spec:
               value: {{ .Values.services.keycloak.environment.KEYCLOAK_ADMIN_PASSWORD }}
             - name: KEYCLOAK_IMPORT
               value: data/import/keycloak-dina-starter-realm.json
-            - name: KC_HTTP_RELATIVE_PATH
-              value: /auth
           ports:
             - name: http
               containerPort: 8080

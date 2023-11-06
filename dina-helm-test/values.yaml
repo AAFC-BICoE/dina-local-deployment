@@ -8,24 +8,25 @@ app:
 services:
   dinadb:
     #image: "postgis/postgis:12-3.1-alpine"
-    image: "postgres:13"
+    image: "postgres:12"
     pullPolicy: IfNotPresent
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
-      timeout: 5s
-      interval: 10s
-      retries: 10
+    #healthcheck:
+      #test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
+      #timeout: 5s
+      #interval: 10s
+      #retries: 10
     environment:
       POSTGRES_DB: dina
-      POSTGRES_PASSWORD: pguser
+      POSTGRES_PASSWORD: pg1234
       POSTGRES_USER: pguser
     port: 5432
   initdb:
     image: "aafcbicoe/dina-db-init-container:0.2"
+    pullPolicy: IfNotPresent
     environment:
       POSTGRES_HOST: dina-db-service
       POSTGRES_DB: dina
-      POSTGRES_PASSWORD: pguser
+      POSTGRES_PASSWORD: pg1234
       POSTGRES_USER: pguser
       DINA_DB: agent collection dina_user object_store seqdb loan_transaction export
       MIGRATION_USER_agent: migration_user_agent
@@ -59,6 +60,7 @@ services:
       WEB_USER_export: web_user_ex
       WEB_USER_PW_export: wuex321
   keycloak:
+    pullPolicy: IfNotPresent
     image: "quay.io/keycloak/keycloak:20.0.5"
     environment:
       KC_DB_PASSWORD: keycloak_user
@@ -97,6 +99,17 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+ingress:
+  enabled: true
+  className: ""
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: dina.local/auth
+      paths:
+        - path: /
+          pathType: Prefix
 podAnnotations: {}
 podLabels: {}
 

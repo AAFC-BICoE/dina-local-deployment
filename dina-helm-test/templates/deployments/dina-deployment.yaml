@@ -21,19 +21,17 @@ spec:
     spec:
       containers:
       - name: initdb
-        command:
-        - /bin/bash
-        - -ce
-        - tail -f /dev/null
         image: aafcbicoe/dina-db-init-container:0.2
-        lifecycle:
-          postStart:
-            exec:
-              command:
-              - sh
-              - -c
-              - |
-                while ! pg_isready -h ${POSTGRES_HOST}; do sleep 1;done;
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - |
+              pg_isready -h ${POSTGRES_HOST}
+          initialDelaySeconds: 25
+          periodSeconds: 5
+          timeoutSeconds: 210
         env:
           - name: DINA_DB
             value: agent collection dina_user object_store seqdb loan_transaction export
