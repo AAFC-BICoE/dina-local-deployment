@@ -1,6 +1,7 @@
 Pre-requisites:
 1. Helm
 2. Minikube
+3. mkcert
 
 Installing Helm:
  
@@ -28,6 +29,9 @@ Deploying application:
 1.Generate mkcert (from dina-helm-test root):
 
     mkcert -cert-file config/certs/dina-local-cert.pem -key-file config/certs/dina-local-key.pem "dina.local" "api.dina.local" "keycloak.dina.local"
+    mkcert --install
+
+    reboot browsers(eg. chromium/firefox if already open)
 
 2.Deploy chart (Once minikube is running):
 
