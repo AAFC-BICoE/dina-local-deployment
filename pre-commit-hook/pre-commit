@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# private keys string
+pattern="-----BEGIN PRIVATE KEY-----"
+
+echo "Checking files with pre-commit hook ...."
+
+# Iterate through all staged files
+while IFS= read -r file; do
+  if grep -q -e "$pattern" "$file"; then
+    echo "Error: Found a private key in '$file'. Please remove it before committing."
+    exit 1
+  fi
+done < <(git diff --staged --name-only)
+
+# If no private keys are found, all good
+exit 0
