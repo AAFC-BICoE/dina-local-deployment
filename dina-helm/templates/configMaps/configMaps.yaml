@@ -27,18 +27,6 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: report-label
-data:
-  {{- $files := .Files }}
-  {{- range $key, $value := .Files }}
-  {{- if hasPrefix "config/report-label/templates/" $key }} 
-  {{ $key | trimPrefix "config/report-label/templates/" }}: {{ $files.Get $key | quote }} {{/* adapt $key as desired */}}
-  {{- end }}
-  {{- end }}
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
   name: keycloak-data
 data:
 {{ (.Files.Glob "config/keycloak-data/*").AsConfig | indent 2 }}
