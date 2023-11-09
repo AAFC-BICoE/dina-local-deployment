@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  #namespace: {{ .Values.app.namespace }}
   labels:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-keycloak
@@ -18,38 +17,33 @@ spec:
   template:
     metadata:
       annotations: {}
-      #  traefik.enable: "true"
-      #  traefik.http.routers.keycloak.rule: Host(``, ``) && PathPrefix(``)
-      #  traefik.http.routers.keycloak.tls: "true"
-      #  traefik.http.services.keycloak.loadbalancer.server.port: "8080"
-      creationTimestamp: null
       labels:
         app: {{ .Values.app.name }}-keycloak
     spec:
       initContainers:
         - name: check-db
-          image: aafcbicoe/dina-db-init-container:0.2
+          image: {{ .Values.services.initdb.image }}
           command:
             - sh
             - -c
             - until pg_isready -h keycloak-db-service; do echo waiting for database; sleep 10; done;
         - name: init-db
-          image: local/dina-db-init-container:dev
+          image: {{ .Values.services.initdb.image }}
           env:
           - name: POSTGRES_DB
-            value: keycloak_db
+            value: {{ .Values.services.keycloakdb.environment.POSTGRES_DB }}
           - name: POSTGRES_PASSWORD
-            value: keycloak_user
+            value: {{ .Values.services.keycloakdb.environment.POSTGRES_PASSWORD }}
           - name: POSTGRES_HOST
-            value: keycloak-db-service
+            value: {{ .Values.services.initdb.environment.POSTGRES_HOST }}
           - name: POSTGRES_USER
-            value: keycloak_user
+            value: {{ .Values.services.keycloakdb.environment.POSTGRES_USER }}
           - name: USE_V2
-            value: "true"
+            value: {{ .Values.services.keycloakdb.environment.USE_V2 | quote }}
           - name : DB_USER
-            value: kc_user
+            value: {{ .Values.services.keycloakdb.environment.DB_USER }}
           - name: DB_PASSWORD
-            value: kc_user
+            value: {{ .Values.services.keycloakdb.environment.DB_PASSWORD }}
       containers:
         - name: keycloak
           command:

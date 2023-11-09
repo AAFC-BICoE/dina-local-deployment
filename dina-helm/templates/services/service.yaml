@@ -29,3 +29,17 @@ spec:
       targetPort: 5432
   selector:
     app: {{ .Values.app.name }}-keycloak-db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dina-ui-service
+  labels:
+    app: dina-ui-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 2015
+  selector:
+    app: {{ .Values.app.name }}-dina-ui

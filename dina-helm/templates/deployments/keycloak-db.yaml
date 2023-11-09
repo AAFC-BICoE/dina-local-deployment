@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: {{ .Values.app.name }}-keycloak-db
+  name: {{ .Values.app.name }}-keycloak-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-keycloak-db
+  template:
+    metadata:
+      annotations: {}
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app.name }}-keycloak-db
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - env:
+          - name: POSTGRES_DB
+            value: {{ .Values.services.keycloakdb.environment.POSTGRES_DB }}
+          - name: POSTGRES_PASSWORD
+            value: {{ .Values.services.keycloakdb.environment.POSTGRES_PASSWORD }}
+          - name: POSTGRES_USER
+            value: {{ .Values.services.keycloakdb.environment.POSTGRES_USER }}
+          - name: PGDATA
+            value: /var/lib/postgresql/data
+          image: {{ .Values.services.keycloakdb.image }}
+          name: keycloak-db
+  volumeClaimTemplates:
+  - metadata:
+      name: keycloak-db-claim
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "localstorage"
+      resources:
+        requests:
+          storage: 2Gi
+      selector:
+        matchLabels:
+          type: local
+status: {}
