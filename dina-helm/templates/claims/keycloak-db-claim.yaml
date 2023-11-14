@@ -23,18 +23,3 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/mnt/postgresql01"
----
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: postgresql-02
-  labels:
-    type: local
-spec:
-  storageClassName: localstorage
-  capacity:
-    storage: 2Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/postgresql02"

@@ -34,13 +34,6 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: minio-data
-data:
-{{ (.Files.Glob "./minio-data/*").AsConfig | indent 2 }}
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
   name: certs
 data:
 {{ (.Files.Glob "config/certs/*").AsConfig | indent 2 }}
