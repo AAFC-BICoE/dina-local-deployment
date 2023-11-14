@@ -19,6 +19,8 @@ Starting minikube:
 
 minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true --kubernetes-version=stable --memory=6g
 
+Feel free to change the cpus and memory according to your vm resources.
+
 *Note: This is a sample command. The important flags here are:
  --addons=ingress 
  --cni=flannel 
@@ -31,10 +33,7 @@ Deploying application:
 
 1.Generate mkcert (from dina-helm-test root):
 
-    mkcert -cert-file config/certs/dina-local-cert.pem -key-file config/certs/dina-local-key.pem "dina.local" "api.dina.local" "keycloak.dina.local"
-    mkcert --install
-
-    reboot browsers(eg. chromium/firefox if already open)
+   Instructions at: https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates
 
 2.Edit etc/hosts file map ingress ip to addresses used:
 
@@ -55,11 +54,11 @@ Deploying application:
 3.Deploy chart (Once minikube is running):
 
 if ran from dina-local-deployment:
-helm install <chart name> ./helm-dina-test -f helm-dina-test/values.yaml
+helm install dina-helm ./dina-helm -f dina-helm/values.yaml
 
-or if ran from dina-helm-test:
+or if ran from dina-helm:
 
-helm install <chart name> . -f values.yaml
+helm install dina-helm . -f values.yaml
 
 
 
