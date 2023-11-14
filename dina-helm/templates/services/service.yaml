@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak-service
+  labels:
+    app: keycloak-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8443
+      targetPort: 8443
+      name: https
+    - port: 8080
+      name: http
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-keycloak
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak-db-service
+  labels:
+    app: keycloak-db-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: {{ .Values.app.name }}-keycloak-db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dina-ui-service
+  labels:
+    app: dina-ui-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 2015
+  selector:
+    app: {{ .Values.app.name }}-dina-ui

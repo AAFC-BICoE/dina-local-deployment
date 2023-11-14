@@ -1,0 +1,25 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+
+  name: localstorage
+
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: Immediate
+reclaimPolicy: Delete
+allowVolumeExpansion: True
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: postgresql-01
+  labels:
+    type: local
+spec:
+  storageClassName: localstorage
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/postgresql01"
