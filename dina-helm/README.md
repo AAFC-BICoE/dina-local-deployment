@@ -24,6 +24,9 @@ minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true --k
  --cni=flannel 
  --install-addons=true
 
+*Note:
+Useful alias for running kubectl commands: alias k="minikube kubectl --"
+
 Deploying application:
 
 1.Generate mkcert (from dina-helm-test root):
@@ -33,7 +36,23 @@ Deploying application:
 
     reboot browsers(eg. chromium/firefox if already open)
 
-2.Deploy chart (Once minikube is running):
+2.Edit etc/hosts file map ingress ip to addresses used:
+
+    Get ingress ip:
+        $k get nodes -o wide           (if you have enabled the alias, otherwise: minikube kubectl -- get nodes -o wide)
+        Sample output:
+        NAME       STATUS   ROLES           AGE     VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION     CONTAINER-RUNTIME
+        minikube   Ready    control-plane   4d18h   v1.27.4   192.168.49.2   <none>        Ubuntu 22.04.2 LTS   6.2.0-36-generic   docker://24.0.4
+
+        Ingress IP is listed under 'INTERNAL-IP'
+
+    In /etc/hosts file, add the following lines:
+
+    <INGRESS IP> dina.local
+    <INGRESS IP> keycloak.dina.local
+
+
+3.Deploy chart (Once minikube is running):
 
 if ran from dina-local-deployment:
 helm install <chart name> ./helm-dina-test -f helm-dina-test/values.yaml
