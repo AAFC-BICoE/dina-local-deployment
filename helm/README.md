@@ -73,3 +73,5 @@ In `/etc/hosts` file, add the following lines:
 From dina-local-deployment root:
 
 `helm install dina-helm ./helm -f helm/values.yaml`
+
+To remove the chart: `helm uninstall dina-helm`
