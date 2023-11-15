@@ -4,3 +4,4 @@ certs/*.pem
 keycloak-data
 rabbitmq-data
 logs/*
+*.pem

@@ -2,7 +2,7 @@
 
 1. Helm
 2. Minikube
-3. mkcert
+3. Local certificates
 
 ## Installing Helm
 
@@ -25,28 +25,33 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true --kubernetes-version=stable --memory=6g
 ```
 
-Feel free to change the cpus and memory according to your vm resources.
+Change the cpus and memory according to your local resources.
 
-*Note: This is a sample command. The important flags here are:
+Note: This is a sample command. The important flags here are:
+```
  --addons=ingress 
  --cni=flannel 
  --install-addons=true
+```
 
-*Note:
-Useful alias for running kubectl commands: alias k="minikube kubectl --"
+Note:
+Useful alias for running kubectl commands: `alias k="minikube kubectl --"`
 
 ## Deploying application
 
-1.Generate mkcert
+1. Local certificates
 
-See instructions at: https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates
+Local certificates are required to run the application locally without having warnings from the browser.
 
-2.Edit etc/hosts file map ingress ip to addresses used:
+If you already have the certificates from the docker-compose based local deployment, you can copy them.
+Otherwise, see [instructions](https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates) and make sure to install them in `helm/config/certs`.
+
+2. Edit etc/hosts file map ingress ip to addresses used:
 
 Get ingress ip:
 
 ```
-$minikube kubect get nodes -o wide
+minikube kubectl -- get nodes -o wide
 ```
 
 Sample output:
@@ -63,8 +68,8 @@ In `/etc/hosts` file, add the following lines:
 <INGRESS IP> keycloak.dina.local
 ```
 
-3.Deploy chart (Once minikube is running):
+3. Deploy chart (Once minikube is running):
 
 From dina-local-deployment root:
 
-`helm install dina-helm ./dina-helm -f dina-helm/values.yaml`
+`helm install dina-helm ./helm -f helm/values.yaml`
