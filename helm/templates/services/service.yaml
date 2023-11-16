@@ -40,7 +40,7 @@ spec:
   type: ClusterIP
   ports:
     - port: 8080
-      targetPort: 8085
+      targetPort: 8080
   selector:
     app: {{ .Values.app.name }}-collection-api
 ---

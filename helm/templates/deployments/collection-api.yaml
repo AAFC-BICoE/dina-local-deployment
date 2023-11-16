@@ -73,8 +73,7 @@ spec:
             - name: ACTUATOR_ALLOWEDIP
               value: {{ .Values.services.collectionapi.environment.actuator.allowedIP }}
           ports:
-            - name: http
-              containerPort: 8085
+            - containerPort: 8080
           resources:
             requests:
               memory: {{ .Values.resources.requests.memory }}
