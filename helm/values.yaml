@@ -8,8 +8,10 @@ app:
 global:
   environment:
     keycloak:
-      enabled: "true"
-      auth_server_url: http://keycloak-service:8080/auth
+      enabled: true
+      auth_server_url: "http://keycloak-service:8080/auth"
+  endpoints:
+    api: api.dina.local
 services:
   initdb:
     image: aafcbicoe/dina-db-init-container:0.3
@@ -19,6 +21,41 @@ services:
       POSTGRES_DB: dina
       POSTGRES_PASSWORD: pg1234
       POSTGRES_USER: pguser
+  collectionapi:
+    image: aafcbicoe/natural-history-collection-api:0.80
+    pullPolicy: IfNotPresent
+    environment:
+      spring:
+        datasource:
+          url: jdbc:postgresql://keycloak-db-service/collection?currentSchema=collection
+          username: web_user_coll
+          password: wucoll321
+        liquibase:
+          user: migration_user_coll
+          password: mucoll123
+      actuator:
+        allowedIP: prometheus
+      DINA_DB: collection
+      MIGRATION_USER_collection: migration_user_coll
+      MIGRATION_USER_PW_collection: mucoll123
+      WEB_USER_collection: web_user_coll
+      WEB_USER_PW_collection: wucoll321
+      PG_EXTENSION_collection: postgis
+  dinaui:
+    image: aafcbicoe/dina-ui:0.135.0
+    environment:
+      KEYCLOAK_CLIENTID: dina-public
+      KEYCLOAK_REALM: dina
+      KEYCLOAK_PUBLIC_URL: https://dina.local/auth
+      OBJECTSTORE_API_ADDRESS: object-store-api:8080
+      AGENT_API_ADDRESS: agent-api:8080
+      SEQDB_API_ADDRESS: seqdb-api:8080
+      COLLECTION_API_ADDRESS: collection-api:8080
+      USER_API_ADDRESS: dina-user-api:8080
+      SEARCH_API_ADDRESS: search-ws:8085
+      LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
+      REPORT_LABEL_API_ADDRESS: dina-export-api:8080
+      INSTANCE_MODE: developer
   keycloak:
     pullPolicy: IfNotPresent
     image: "quay.io/keycloak/keycloak:20.0.5"
@@ -33,7 +70,8 @@ services:
       KC_HOSTNAME_ADMIN: keycloak.dina.local
       KC_PROXY: edge
   keycloakdb:
-    image: "postgres:12"
+    image: "postgis/postgis:12-3.1-alpine"
+    #image: "postgres:12"
     environment:
       POSTGRES_DB: keycloak_db
       POSTGRES_PASSWORD: keycloak_user
@@ -67,11 +105,11 @@ securityContext: {}
 
 resources:
   limits:
-    memory: 48Mi
-    cpu: 20m
+    memory: 256Mi
+    cpu: 50m
   requests:
     cpu: 10m
-    memory: 24Mi
+    memory: 128Mi
 
 autoscaling:
   enabled: false

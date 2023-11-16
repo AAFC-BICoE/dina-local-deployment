@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-collection-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-collection-api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  
+  template:
+    metadata:
+      annotations: {}
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app.name }}-collection-api
+    spec:
+      initContainers:
+        - name: check-db
+          image: {{ .Values.services.initdb.image }}
+          command:
+            - sh
+            - -c
+            - until pg_isready -h keycloak-db-service; do echo waiting for database; sleep 10; done;
+        - name: init-db
+          image: {{ .Values.services.initdb.image }}
+          env:
+          - name: POSTGRES_DB
+            value: keycloak_db
+          - name: POSTGRES_PASSWORD
+            value: keycloak_user
+          - name: POSTGRES_HOST
+            value: keycloak-db-service
+          - name: POSTGRES_USER
+            value: keycloak_user
+          - name: DINA_DB
+            value: collection
+          - name: MIGRATION_USER_collection
+            value: migration_user_coll
+          - name: MIGRATION_USER_PW_collection
+            value: mucoll123
+          - name: WEB_USER_collection
+            value: web_user_coll
+          - name: WEB_USER_PW_collection
+            value: wucoll321
+          - name: PG_EXTENSION_collection
+            value: postgis
+      containers:
+        - name: collection-api
+          image: {{ .Values.services.collectionapi.image }}
+          imagePullPolicy: {{ .Values.services.keycloak.pullPolicy }}
+          env:
+            - name: KEYCLOAK_ENABLED
+              value: {{ .Values.global.environment.keycloak.enabled | quote }}         
+            - name: KEYCLOAK_AUTH-SERVER-URL
+              value: {{ .Values.global.environment.keycloak.auth_server_url }}
+            - name: SPRING_DATASOURCE_URL
+              value: {{ .Values.services.collectionapi.environment.spring.datasource.url }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.services.collectionapi.environment.spring.datasource.username }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.services.collectionapi.environment.spring.datasource.password }}
+            - name: SPRING_LIQUIBASE_USER
+              value: {{ .Values.services.collectionapi.environment.spring.liquibase.user }}
+            - name: SPRING_LIQUIBASE_PASSWORD
+              value: {{ .Values.services.collectionapi.environment.spring.liquibase.password }}
+            - name: ACTUATOR_ALLOWEDIP
+              value: {{ .Values.services.collectionapi.environment.actuator.allowedIP }}
+          ports:
+            - name: http
+              containerPort: 8085
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.limits.memory }} 
+              cpu: {{ .Values.resources.limits.cpu }}
+status: {}

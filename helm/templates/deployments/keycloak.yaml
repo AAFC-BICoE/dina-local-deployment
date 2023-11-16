@@ -53,7 +53,7 @@ spec:
           - |
             /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path=/auth
             /opt/keycloak/bin/kc.sh start --import-realm --optimized
-          image: quay.io/keycloak/keycloak:20.0.5
+          image: {{ .Values.services.keycloak.image }}
           imagePullPolicy: {{ .Values.services.keycloak.pullPolicy }}
           env:
             - name: KC_DB_PASSWORD
