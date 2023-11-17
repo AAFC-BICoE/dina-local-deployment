@@ -41,6 +41,13 @@ services:
       WEB_USER_collection: web_user_coll
       WEB_USER_PW_collection: wucoll321
       PG_EXTENSION_collection: postgis
+    resources:
+      limits:
+        memory: 512Mi
+        cpu: 70m
+      requests:
+        cpu: 10m
+        memory: 128Mi
   dinaui:
     image: aafcbicoe/dina-ui:0.135.0
     environment:
@@ -105,8 +112,8 @@ securityContext: {}
 
 resources:
   limits:
-    memory: 512Mi
-    cpu: 70m
+    memory: 256Mi
+    cpu: 20m
   requests:
     cpu: 10m
     memory: 128Mi
