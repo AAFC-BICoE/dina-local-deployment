@@ -53,7 +53,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 2015
-      targetPort: 80
+    - port: 8080
+      targetPort: 8080
   selector:
     app: {{ .Values.app.name }}-dina-ui
