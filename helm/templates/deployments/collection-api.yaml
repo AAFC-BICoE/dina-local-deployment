@@ -72,6 +72,12 @@ spec:
               value: {{ .Values.services.collectionapi.environment.spring.liquibase.password }}
             - name: ACTUATOR_ALLOWEDIP
               value: {{ .Values.services.collectionapi.environment.actuator.allowedIP }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 650
+            periodSeconds: 5
           ports:
             - containerPort: 8080
           resources:
