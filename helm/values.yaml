@@ -12,6 +12,8 @@ global:
       auth_server_url: "http://keycloak-service:8080/auth"
   endpoints:
     api: api.dina.local
+    ui: dina.local
+    keycloak: keycloak.dina.local
 services:
   initdb:
     image: aafcbicoe/dina-db-init-container:0.3
@@ -36,10 +38,6 @@ services:
       actuator:
         allowedIP: prometheus
       DINA_DB: collection
-      MIGRATION_USER_collection: migration_user_coll
-      MIGRATION_USER_PW_collection: mucoll123
-      WEB_USER_collection: web_user_coll
-      WEB_USER_PW_collection: wucoll321
       PG_EXTENSION_collection: postgis
     resources:
       limits:
@@ -71,20 +69,17 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_DB_URL_HOST: keycloak-db-service
-      KC_DB_URL_DATABASE: keycloak_db
+      KC_DB_URL_DATABASE: dina
       KC_DB_USERNAME: keycloak_user
       KC_HOSTNAME: dina.local
       KC_HOSTNAME_ADMIN: keycloak.dina.local
       KC_PROXY: edge
   keycloakdb:
     image: "postgis/postgis:12-3.1-alpine"
-    #image: "postgres:12"
     environment:
       POSTGRES_DB: keycloak_db
-      POSTGRES_PASSWORD: keycloak_user
-      POSTGRES_USER: keycloak_user
-      DB_USER: kc_user
-      DB_PASSWORD: kc_user
+      DB_USER: keycloak_user
+      DB_PASSWORD: keycloak_user
       USE_V2: "true"
 
 imagePullSecrets: []

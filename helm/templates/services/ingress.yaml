@@ -12,7 +12,7 @@ spec:
     - keycloak.dina.local
     secretName: keycloak.dina.local-tls
   rules:
-    - host: {{ .Values.services.keycloak.environment.KC_HOSTNAME }}
+    - host: {{ .Values.global.endpoints.ui }}
       http:
         paths:
         - path: "/auth"
@@ -22,7 +22,7 @@ spec:
               name: keycloak-service
               port:
                 number: 8080
-    - host: {{ .Values.services.keycloak.environment.KC_HOSTNAME_ADMIN }}
+    - host: {{ .Values.global.endpoints.keycloak }}
       http:
         paths:
         - path: "/auth"
@@ -69,7 +69,7 @@ spec:
     - dina.local
     secretName: keycloak.dina.local-tls
   rules:
-    - host: {{ .Values.services.keycloak.environment.KC_HOSTNAME }}
+    - host: {{ .Values.global.endpoints.ui }}
       http:
         paths:
         - path: "/"

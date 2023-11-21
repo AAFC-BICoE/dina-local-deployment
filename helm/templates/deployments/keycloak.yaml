@@ -31,13 +31,15 @@ spec:
           image: {{ .Values.services.initdb.image }}
           env:
           - name: POSTGRES_DB
-            value: {{ .Values.services.keycloakdb.environment.POSTGRES_DB }}
+            value: {{ .Values.services.initdb.environment.POSTGRES_DB }}
           - name: POSTGRES_PASSWORD
-            value: {{ .Values.services.keycloakdb.environment.POSTGRES_PASSWORD }}
+            value: {{ .Values.services.initdb.environment.POSTGRES_PASSWORD }}
           - name: POSTGRES_HOST
             value: {{ .Values.services.initdb.environment.POSTGRES_HOST }}
           - name: POSTGRES_USER
-            value: {{ .Values.services.keycloakdb.environment.POSTGRES_USER }}
+            value: {{ .Values.services.initdb.environment.POSTGRES_USER }}
+          - name: DB_NAME
+            value: {{ .Values.services.keycloakdb.environment.POSTGRES_DB }}
           - name: USE_V2
             value: {{ .Values.services.keycloakdb.environment.USE_V2 | quote }}
           - name : DB_USER
@@ -101,7 +103,7 @@ spec:
             - name: keycloak-dina-starter-volume
               mountPath: /opt/keycloak/data/import
             - name: keycloak-theme-volume
-              mountPath: /opt/keycloak/themes/dina
+              mountPath: /opt/keycloak/themes/dina/login
             - name: keycloak-scripts
               mountPath: /opt/keycloak/scripts
             - name: certs-volume
@@ -116,6 +118,15 @@ spec:
         - name: keycloak-theme-volume
           configMap:
             name: keycloak-theme
+            items:
+            - key: login.ftl
+              path: login.ftl
+            - key: theme.properties
+              path: theme.properties
+            - key: dina-login.css
+              path: resources/css/dina-login.css
+            - key: dina.png
+              path: resources/img/dina-tr-1344-1184.png
         - name: certs-volume
           configMap:
             name: certs

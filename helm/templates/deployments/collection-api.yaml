@@ -32,25 +32,25 @@ spec:
           image: {{ .Values.services.initdb.image }}
           env:
           - name: POSTGRES_DB
-            value: keycloak_db
+            value: {{ .Values.services.initdb.environment.POSTGRES_DB }}
           - name: POSTGRES_PASSWORD
-            value: keycloak_user
+            value: {{ .Values.services.initdb.environment.POSTGRES_PASSWORD }}
           - name: POSTGRES_HOST
-            value: keycloak-db-service
+            value: {{ .Values.services.initdb.environment.POSTGRES_HOST }}
           - name: POSTGRES_USER
-            value: keycloak_user
+            value: {{ .Values.services.initdb.environment.POSTGRES_USER }}
           - name: DINA_DB
-            value: collection
+            value: {{ .Values.services.collectionapi.environment.DINA_DB }}
           - name: MIGRATION_USER_collection
-            value: migration_user_coll
+            value: {{ .Values.services.collectionapi.environment.spring.liquibase.user }}
           - name: MIGRATION_USER_PW_collection
-            value: mucoll123
+            value: {{ .Values.services.collectionapi.environment.spring.liquibase.password }}
           - name: WEB_USER_collection
-            value: web_user_coll
+            value: {{ .Values.services.collectionapi.environment.spring.datasource.username }}
           - name: WEB_USER_PW_collection
-            value: wucoll321
+            value: {{ .Values.services.collectionapi.environment.spring.datasource.password }}
           - name: PG_EXTENSION_collection
-            value: postgis
+            value: {{ .Values.services.collectionapi.environment.PG_EXTENSION_collection }}
       containers:
         - name: collection-api
           image: {{ .Values.services.collectionapi.image }}
