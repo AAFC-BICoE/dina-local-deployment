@@ -1,0 +1,105 @@
+version: "3.9"
+
+services:
+  dina-ui:
+    environment:
+      DEV_USER_ENABLED: true
+      DEV_USER_GROUP_ROLE: /aafc/user, /bicoe/read-only
+
+  agent-api:
+    environment:
+      SPRING_APPLICATION_JSON: |-
+        {
+          "keycloak.enabled": false,
+          "dev-user": {
+            "enabled": true,
+            "groupRole": {
+              "aafc": ["user"],
+              "bicoe": ["read-only"]
+            }
+          }
+        }
+
+  collection-api:
+    environment:
+      SPRING_APPLICATION_JSON: |-
+        {
+          "keycloak.enabled": false,
+          "dev-user": {
+            "enabled": true,
+            "groupRole": {
+              "aafc": ["user"],
+              "bicoe": ["read-only"]
+            }
+          }
+        }
+
+  loan-transaction-api:
+    environment:
+      SPRING_APPLICATION_JSON: |-
+        {
+          "keycloak.enabled": false,
+          "dev-user": {
+            "enabled": true,
+            "groupRole": {
+              "aafc": ["user"],
+              "bicoe": ["read-only"]
+            }
+          }
+        }
+
+  dina-user-api:
+    environment:
+      SPRING_APPLICATION_JSON: |-
+        {
+          "keycloak.enabled": false,
+          "dev-user": {
+            "enabled": true,
+            "groupRole": {
+              "aafc": ["user"],
+              "bicoe": ["read-only"]
+            }
+          }
+        }
+
+  object-store-api:
+    environment:
+      SPRING_APPLICATION_JSON: |-
+        {
+          "keycloak.enabled": false,
+          "dev-user": {
+            "enabled": true,
+            "groupRole": {
+              "aafc": ["user"],
+              "bicoe": ["read-only"]
+            }
+          }
+        }
+
+  seqdb-api:
+    environment:
+      SPRING_APPLICATION_JSON: |-
+        {
+          "keycloak.enabled": false,
+          "dev-user": {
+            "enabled": true,
+            "groupRole": {
+              "aafc": ["user"],
+              "bicoe": ["read-only"]
+            }
+          }
+        }
+
+  dina-export-api:
+    environment:
+      SPRING_APPLICATION_JSON: |-
+        {
+          "keycloak.enabled": false,
+          "dev-user": {
+            "enabled": true,
+            "groupRole": {
+              "aafc": ["user"],
+              "bicoe": ["read-only"]
+            }
+          }
+        }
