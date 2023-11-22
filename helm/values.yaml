@@ -36,16 +36,16 @@ services:
           user: migration_user_coll
           password: mucoll123
       actuator:
-        allowedIP: localhost
+        allowedIP: prometheus
       DINA_DB: collection
       PG_EXTENSION_collection: postgis
     resources:
       limits:
-        memory: 512Mi
-        cpu: 70m
+        memory: 1Gi
+        cpu: 1
       requests:
-        cpu: 50m
-        memory: 256Mi
+        cpu: 80m
+        memory: 768Mi
   dinaui:
     image: aafcbicoe/dina-ui:0.135.0
     environment:
