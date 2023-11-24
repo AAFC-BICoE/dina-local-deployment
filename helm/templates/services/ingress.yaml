@@ -48,7 +48,7 @@ spec:
       http:
         paths:
         - path: "/collection/(.*)"
-          pathType: Prefix
+          pathType: ImplementationSpecific
           backend:
             service:
               name: collection-api-service
