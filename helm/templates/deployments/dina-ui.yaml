@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-dina-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-dina-ui
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  
+  template:
+    metadata:
+      annotations: {}
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app.name }}-dina-ui
+    spec:
+      containers:
+        - name: dina-ui
+          image: {{ .Values.services.dinaui.image }}
+          env:
+            - name: KEYCLOAK_CLIENTID
+              value: {{ .Values.services.dinaui.environment.KEYCLOAK_CLIENTID}}
+            - name: KEYCLOAK_REALM
+              value: {{ .Values.services.dinaui.environment.KEYCLOAK_REALM}}
+            - name: KEYCLOAK_PUBLIC_URL
+              value: {{ .Values.services.dinaui.environment.KEYCLOAK_PUBLIC_URL }}
+            - name: OBJECTSTORE_API_ADDRESS
+              value: {{ .Values.services.dinaui.environment.OBJECTSTORE_API_ADDRESS }}
+            - name: AGENT_API_ADDRESS
+              value: {{ .Values.services.dinaui.environment.AGENT_API_ADDRESS }}
+            - name: SEQDB_API_ADDRESS
+              value: {{ .Values.services.dinaui.environment.SEQDB_API_ADDRESS }}
+            - name: COLLECTION_API_ADDRESS
+              value: {{ .Values.services.dinaui.environment.COLLECTION_API_ADDRESS }}
+            - name: USER_API_ADDRESS
+              value: {{ .Values.services.dinaui.environment.USER_API_ADDRESS }}
+            - name: SEARCH_API_ADDRESS
+              value: {{ .Values.services.dinaui.environment.SEARCH_API_ADDRESS }}
+            - name: LOAN_TRANSACTION_API_ADDRESS
+              value: {{ .Values.services.dinaui.environment.LOAN_TRANSACTION_API_ADDRESS }}
+            - name: REPORT_LABEL_API_ADDRESS
+              value: {{ .Values.services.dinaui.environment.REPORT_LABEL_API_ADDRESS }}
+            - name: INSTANCE_MODE
+              value: {{ .Values.services.dinaui.environment.INSTANCE_MODE }}
+          ports:
+            - name: http
+              containerPort: 80
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.limits.memory }} 
+              cpu: {{ .Values.resources.limits.cpu }} 
+status: {}

@@ -3,10 +3,12 @@ kind: StorageClass
 metadata:
 
   name: localstorage
-
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+    
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: Immediate
-reclaimPolicy: Delete
+reclaimPolicy: Retain
 allowVolumeExpansion: True
 ---
 kind: PersistentVolume

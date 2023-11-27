@@ -17,12 +17,12 @@ kind: ConfigMap
 metadata:
   name: keycloak-theme
 data:
-  {{- $files := .Files }}
-  {{- range $key, $value := .Files }}
-  {{- if hasPrefix "config/theme/" $key }} 
-  {{ $key | trimPrefix "config/theme/" }}: {{ $files.Get $key | quote }} {{/* adapt $key as desired */}}
-  {{- end }}
-  {{- end }}
+{{ (.Files.Glob "config/theme/*.ftl").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/theme/*.properties").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/theme/*.css").AsConfig | indent 2 }}
+binaryData:
+  dina.png: |
+    {{ .Files.Get "config/theme/dina-tr-1344-1184.png" | b64enc }}
 ---
 apiVersion: v1
 kind: ConfigMap
