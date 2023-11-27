@@ -26,7 +26,7 @@ spec:
           command:
             - sh
             - -c
-            - until pg_isready -h keycloak-db-service; do echo waiting for database; sleep 10; done;
+            - until pg_isready -h dina-db-service; do echo waiting for database; sleep 10; done;
         - name: init-db
           image: {{ .Values.services.initdb.image }}
           env:
@@ -39,13 +39,13 @@ spec:
           - name: POSTGRES_USER
             value: {{ .Values.services.initdb.environment.POSTGRES_USER }}
           - name: DB_NAME
-            value: {{ .Values.services.keycloakdb.environment.POSTGRES_DB }}
+            value: {{ .Values.services.dinadb.environment.POSTGRES_DB }}
           - name: USE_V2
-            value: {{ .Values.services.keycloakdb.environment.USE_V2 | quote }}
+            value: {{ .Values.services.dinadb.environment.USE_V2 | quote }}
           - name : DB_USER
-            value: {{ .Values.services.keycloakdb.environment.DB_USER }}
+            value: {{ .Values.services.dinadb.environment.DB_USER }}
           - name: DB_PASSWORD
-            value: {{ .Values.services.keycloakdb.environment.DB_PASSWORD }}
+            value: {{ .Values.services.dinadb.environment.DB_PASSWORD }}
       containers:
         - name: keycloak
           command:

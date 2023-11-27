@@ -2,19 +2,19 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   labels:
-    app: {{ .Values.app.name }}-keycloak-db
-  name: {{ .Values.app.name }}-keycloak-db
+    app: {{ .Values.app.name }}-dina-db
+  name: {{ .Values.app.name }}-dina-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.app.name }}-keycloak-db
+      app: {{ .Values.app.name }}-dina-db
   template:
     metadata:
       annotations: {}
       creationTimestamp: null
       labels:
-        app: {{ .Values.app.name }}-keycloak-db
+        app: {{ .Values.app.name }}-dina-db
     spec:
       terminationGracePeriodSeconds: 10
       containers:
@@ -27,11 +27,11 @@ spec:
             value: {{ .Values.services.initdb.environment.POSTGRES_USER }}
           - name: PGDATA
             value: /var/lib/postgresql/data
-          image: {{ .Values.services.keycloakdb.image }}
-          name: keycloak-db
+          image: {{ .Values.services.dinadb.image }}
+          name: dina-db
   volumeClaimTemplates:
   - metadata:
-      name: keycloak-db-claim
+      name: dina-db-claim
     spec:
       accessModes: ["ReadWriteOnce"]
       storageClassName: "localstorage"

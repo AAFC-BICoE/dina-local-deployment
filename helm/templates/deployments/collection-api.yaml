@@ -27,7 +27,7 @@ spec:
           command:
             - sh
             - -c
-            - until pg_isready -h keycloak-db-service; do echo waiting for database; sleep 10; done;
+            - until pg_isready -h dina-db-service; do echo waiting for database; sleep 10; done;
         - name: init-db
           image: {{ .Values.services.initdb.image }}
           env:

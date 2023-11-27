@@ -19,7 +19,7 @@ services:
     image: aafcbicoe/dina-db-init-container:0.3
     pullPolicy: IfNotPresent
     environment:
-      POSTGRES_HOST: keycloak-db-service
+      POSTGRES_HOST: dina-db-service
       POSTGRES_DB: dina
       POSTGRES_PASSWORD: pg1234
       POSTGRES_USER: pguser
@@ -29,7 +29,7 @@ services:
     environment:
       spring:
         datasource:
-          url: jdbc:postgresql://keycloak-db-service/collection?currentSchema=collection
+          url: jdbc:postgresql://dina-db-service/collection?currentSchema=collection
           username: web_user_coll
           password: wucoll321
         liquibase:
@@ -68,13 +68,13 @@ services:
       KC_DB_PASSWORD: keycloak_user
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB_URL_HOST: keycloak-db-service
+      KC_DB_URL_HOST: dina-db-service
       KC_DB_URL_DATABASE: dina
       KC_DB_USERNAME: keycloak_user
       KC_HOSTNAME: dina.local
       KC_HOSTNAME_ADMIN: keycloak.dina.local
       KC_PROXY: edge
-  keycloakdb:
+  dinadb:
     image: "postgis/postgis:12-3.1-alpine"
     environment:
       POSTGRES_DB: keycloak_db
