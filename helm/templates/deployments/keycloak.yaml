@@ -31,21 +31,21 @@ spec:
           image: {{ .Values.services.initdb.image }}
           env:
           - name: POSTGRES_DB
-            value: {{ .Values.services.initdb.environment.POSTGRES_DB }}
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
           - name: POSTGRES_PASSWORD
-            value: {{ .Values.services.initdb.environment.POSTGRES_PASSWORD }}
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
           - name: POSTGRES_HOST
-            value: {{ .Values.services.initdb.environment.POSTGRES_HOST }}
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
           - name: POSTGRES_USER
-            value: {{ .Values.services.initdb.environment.POSTGRES_USER }}
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
           - name: DB_NAME
-            value: {{ .Values.services.dinadb.environment.POSTGRES_DB }}
+            value: {{ tpl .Values.services.dinadb.environment.POSTGRES_DB . }}
           - name: USE_V2
             value: {{ .Values.services.dinadb.environment.USE_V2 | quote }}
           - name : DB_USER
-            value: {{ .Values.services.dinadb.environment.DB_USER }}
+            value: {{ tpl .Values.services.dinadb.environment.DB_USER . }}
           - name: DB_PASSWORD
-            value: {{ .Values.services.dinadb.environment.DB_PASSWORD }}
+            value: {{ tpl .Values.services.dinadb.environment.DB_PASSWORD . }}
       containers:
         - name: keycloak
           command:
@@ -59,17 +59,17 @@ spec:
           imagePullPolicy: {{ .Values.services.keycloak.pullPolicy }}
           env:
             - name: KC_DB_PASSWORD
-              value: {{ .Values.services.keycloak.environment.KC_DB_PASSWORD}}
+              value: {{ tpl .Values.services.keycloak.environment.KC_DB_PASSWORD . }}
             - name: KC_DB_URL_DATABASE
-              value: {{ .Values.services.keycloak.environment.KC_DB_URL_DATABASE }}
+              value: {{ tpl .Values.services.keycloak.environment.KC_DB_URL_DATABASE . }}
             - name: KC_DB_URL_HOST
-              value: {{ .Values.services.keycloak.environment.KC_DB_URL_HOST }}
+              value: {{ tpl .Values.services.keycloak.environment.KC_DB_URL_HOST . }}
             - name: KC_DB_USERNAME
-              value: {{ .Values.services.keycloak.environment.KC_DB_USERNAME }}
+              value: {{ tpl .Values.services.keycloak.environment.KC_DB_USERNAME . }}
             - name: KC_HOSTNAME
-              value: {{ .Values.services.keycloak.environment.KC_HOSTNAME }}
+              value: {{ tpl .Values.services.keycloak.environment.KC_HOSTNAME . }}
             - name: KC_HOSTNAME_ADMIN
-              value: {{ .Values.services.keycloak.environment.KC_HOSTNAME_ADMIN }}
+              value: {{ tpl .Values.services.keycloak.environment.KC_HOSTNAME_ADMIN . }}
             - name: KC_PROXY
               value: {{ .Values.services.keycloak.environment.KC_PROXY }}
             - name: KEYCLOAK_ADMIN
@@ -94,10 +94,10 @@ spec:
             timeoutSeconds: 2
           resources:
             requests:
-              memory: 2Gi
+              memory: 1Gi
               cpu: 500m            
             limits:
-              memory: 4Gi
+              memory: 2Gi
               cpu: 1
           volumeMounts:
             - name: keycloak-dina-starter-volume

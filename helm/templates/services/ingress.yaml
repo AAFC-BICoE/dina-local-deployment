@@ -9,8 +9,8 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - keycloak.dina.local
-    secretName: keycloak.dina.local-tls
+    - {{ .Values.global.endpoints.keycloak }}
+    secretName: {{ .Values.global.endpoints.keycloak }}-tls
   rules:
     - host: {{ .Values.global.endpoints.ui }}
       http:
@@ -19,7 +19,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: keycloak-service
+              name: {{ .Values.global.environment.config.keycloak.service }}
               port:
                 number: 8080
     - host: {{ .Values.global.endpoints.keycloak }}
@@ -29,7 +29,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: keycloak-service
+              name: {{ .Values.global.environment.config.keycloak.service }}
               port:
                 number: 8080
 ---
@@ -51,7 +51,7 @@ spec:
           pathType: ImplementationSpecific
           backend:
             service:
-              name: collection-api-service
+              name: {{ .Values.global.environment.config.collection_api.service }}
               port:
                 number: 8080
 ---
@@ -66,8 +66,8 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - dina.local
-    secretName: keycloak.dina.local-tls
+    - {{ .Values.global.endpoints.ui }}
+    secretName: {{ .Values.global.endpoints.keycloak }}-tls
   rules:
     - host: {{ .Values.global.endpoints.ui }}
       http:
@@ -76,7 +76,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: dina-ui-service
+              name: {{ .Values.global.environment.config.dina_ui.service }}
               port:
                 number: 8080
                 

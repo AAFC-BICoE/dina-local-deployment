@@ -7,9 +7,28 @@ app:
   name: dina-helm
 global:
   environment:
+    config:
+      dina_db:
+        label: dina-db
+        service: dina-db-service
+        db_name: dina
+        db_password: pg1234
+        db_user: pguser
+      keycloak: 
+        label: keycloak
+        service: keycloak-service
+        db_name: keycloak_db
+        db_password: keycloak_user
+        db_user: keycloak_user
+      collection_api:
+        label: collection-api
+        service: collection-api-service
+      dina_ui: 
+        label: dina-ui
+        service: dina-ui-service
     keycloak:
       enabled: true
-      auth_server_url: "http://keycloak-service:8080/auth"
+      auth_server_url: "http://{{ .Values.global.environment.config.keycloak.service }}:8080/auth"
   endpoints:
     api: api.dina.local
     ui: dina.local
@@ -19,26 +38,32 @@ services:
     image: aafcbicoe/dina-db-init-container:0.3
     pullPolicy: IfNotPresent
     environment:
-      POSTGRES_HOST: dina-db-service
-      POSTGRES_DB: dina
-      POSTGRES_PASSWORD: pg1234
-      POSTGRES_USER: pguser
+      POSTGRES_DB: "{{ .Values.global.environment.config.dina_db.db_name }}"
+      POSTGRES_PASSWORD: "{{ .Values.global.environment.config.dina_db.db_password }}"
+      POSTGRES_USER: "{{ .Values.global.environment.config.dina_db.db_user }}"
+      POSTGRES_HOST: "{{ .Values.global.environment.config.dina_db.service }}"
+    config:
+      collectionapi:
+        DINA_DB: collection
+        spring:
+          datasource:
+            username: web_user_coll
+            password: wucoll321
+          liquibase:
+            user: migration_user_coll
+            password: mucoll123
+        actuator:
+          allowedIP: prometheus
+        PG_EXTENSION_collection: postgis
   collectionapi:
     image: aafcbicoe/natural-history-collection-api:0.80
     pullPolicy: IfNotPresent
     environment:
       spring:
         datasource:
-          url: jdbc:postgresql://dina-db-service/collection?currentSchema=collection
-          username: web_user_coll
-          password: wucoll321
-        liquibase:
-          user: migration_user_coll
-          password: mucoll123
+          url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/collection?currentSchema=collection
       actuator:
         allowedIP: prometheus
-      DINA_DB: collection
-      PG_EXTENSION_collection: postgis
     resources:
       limits:
         memory: 1Gi
@@ -51,7 +76,7 @@ services:
     environment:
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
-      KEYCLOAK_PUBLIC_URL: https://dina.local/auth
+      KEYCLOAK_PUBLIC_URL: https://{{ .Values.global.endpoints.ui }}/auth
       OBJECTSTORE_API_ADDRESS: object-store-api:8080
       AGENT_API_ADDRESS: agent-api:8080
       SEQDB_API_ADDRESS: seqdb-api:8080
@@ -65,21 +90,21 @@ services:
     pullPolicy: IfNotPresent
     image: "quay.io/keycloak/keycloak:20.0.5"
     environment:
-      KC_DB_PASSWORD: keycloak_user
+      KC_DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB_URL_HOST: dina-db-service
-      KC_DB_URL_DATABASE: dina
-      KC_DB_USERNAME: keycloak_user
-      KC_HOSTNAME: dina.local
-      KC_HOSTNAME_ADMIN: keycloak.dina.local
+      KC_DB_URL_HOST: "{{ .Values.global.environment.config.dina_db.service }}"
+      KC_DB_URL_DATABASE: "{{ .Values.global.environment.config.dina_db.db_name }}"
+      KC_DB_USERNAME: "{{ .Values.global.environment.config.keycloak.db_user }}"
+      KC_HOSTNAME: "{{ .Values.global.endpoints.ui }}"
+      KC_HOSTNAME_ADMIN: "{{ .Values.global.endpoints.keycloak }}"
       KC_PROXY: edge
   dinadb:
     image: "postgis/postgis:12-3.1-alpine"
     environment:
-      POSTGRES_DB: keycloak_db
-      DB_USER: keycloak_user
-      DB_PASSWORD: keycloak_user
+      POSTGRES_DB: "{{ .Values.global.environment.config.keycloak.db_name }}"
+      DB_USER: "{{ .Values.global.environment.config.keycloak.db_user }}"
+      DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
       USE_V2: "true"
 
 imagePullSecrets: []
@@ -90,11 +115,9 @@ ingress:
   enabled: true
   tls: true
   className: ""
-  annotations:
-    #kubernetes.io/ingress.class: nginx
-    #kubernetes.io/tls-acme: "true"
+
   hosts:
-    - host: keycloak.dina.local/auth
+    - host: dina.local
       paths:
         - path: /
           pathType: Prefix
