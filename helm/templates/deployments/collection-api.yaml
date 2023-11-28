@@ -40,17 +40,17 @@ spec:
           - name: POSTGRES_USER
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
           - name: DINA_DB
-            value: {{ .Values.services.collectionapi.environment.DINA_DB }}
+            value: {{ .Values.services.initdb.config.collectionapi.DINA_DB }}
           - name: MIGRATION_USER_collection
-            value: {{ .Values.services.collectionapi.environment.spring.liquibase.user }}
+            value: {{ .Values.services.initdb.config.collectionapi.spring.liquibase.user }}
           - name: MIGRATION_USER_PW_collection
-            value: {{ .Values.services.collectionapi.environment.spring.liquibase.password }}
+            value: {{ .Values.services.initdb.config.collectionapi.spring.liquibase.password }}
           - name: WEB_USER_collection
-            value: {{ .Values.services.collectionapi.environment.spring.datasource.username }}
+            value: {{ .Values.services.initdb.config.collectionapi.spring.datasource.username }}
           - name: WEB_USER_PW_collection
-            value: {{ .Values.services.collectionapi.environment.spring.datasource.password }}
+            value: {{ .Values.services.initdb.config.collectionapi.spring.datasource.password }}
           - name: PG_EXTENSION_collection
-            value: {{ .Values.services.collectionapi.environment.PG_EXTENSION_collection }}
+            value: {{ .Values.services.initdb.config.collectionapi.PG_EXTENSION_collection }}
       containers:
         - name: collection-api
           image: {{ .Values.services.collectionapi.image }}
@@ -63,13 +63,13 @@ spec:
             - name: SPRING_DATASOURCE_URL
               value: {{ tpl .Values.services.collectionapi.environment.spring.datasource.url . }}
             - name: SPRING_DATASOURCE_USERNAME
-              value: {{ .Values.services.collectionapi.environment.spring.datasource.username }}
+              value: {{ .Values.services.initdb.config.collectionapi.spring.datasource.username }}
             - name: SPRING_DATASOURCE_PASSWORD
-              value: {{ .Values.services.collectionapi.environment.spring.datasource.password }}
+              value: {{ .Values.services.initdb.config.collectionapi.spring.datasource.password }}
             - name: SPRING_LIQUIBASE_USER
-              value: {{ .Values.services.collectionapi.environment.spring.liquibase.user }}
+              value: {{ .Values.services.initdb.config.collectionapi.spring.liquibase.user }}
             - name: SPRING_LIQUIBASE_PASSWORD
-              value: {{ .Values.services.collectionapi.environment.spring.liquibase.password }}
+              value: {{ .Values.services.initdb.config.collectionapi.spring.liquibase.password }}
             - name: ACTUATOR_ALLOWEDIP
               value: {{ .Values.services.collectionapi.environment.actuator.allowedIP }}
           readinessProbe:

@@ -7,7 +7,7 @@ app:
   name: dina-helm
 global:
   environment:
-    services:
+    config:
       dina_db:
         label: dina-db
         service: dina-db-service
@@ -28,7 +28,7 @@ global:
         service: dina-ui-service
     keycloak:
       enabled: true
-      auth_server_url: "http://{{ .Values.global.environment.services.keycloak.service }}:8080/auth"
+      auth_server_url: "http://{{ .Values.global.environment.config.keycloak.service }}:8080/auth"
   endpoints:
     api: api.dina.local
     ui: dina.local
@@ -38,26 +38,32 @@ services:
     image: aafcbicoe/dina-db-init-container:0.3
     pullPolicy: IfNotPresent
     environment:
-      POSTGRES_DB: "{{ .Values.global.environment.services.dina_db.db_name }}"
-      POSTGRES_PASSWORD: "{{ .Values.global.environment.services.dina_db.db_password }}"
-      POSTGRES_USER: "{{ .Values.global.environment.services.dina_db.db_user }}"
-      POSTGRES_HOST: "{{ .Values.global.environment.services.dina_db.service }}"
+      POSTGRES_DB: "{{ .Values.global.environment.config.dina_db.db_name }}"
+      POSTGRES_PASSWORD: "{{ .Values.global.environment.config.dina_db.db_password }}"
+      POSTGRES_USER: "{{ .Values.global.environment.config.dina_db.db_user }}"
+      POSTGRES_HOST: "{{ .Values.global.environment.config.dina_db.service }}"
+    config:
+      collectionapi:
+        DINA_DB: collection
+        spring:
+          datasource:
+            username: web_user_coll
+            password: wucoll321
+          liquibase:
+            user: migration_user_coll
+            password: mucoll123
+        actuator:
+          allowedIP: prometheus
+        PG_EXTENSION_collection: postgis
   collectionapi:
     image: aafcbicoe/natural-history-collection-api:0.80
     pullPolicy: IfNotPresent
     environment:
-      DINA_DB: collection
       spring:
         datasource:
-          url: jdbc:postgresql://{{ .Values.global.environment.services.dina_db.service }}/collection?currentSchema=collection
-          username: web_user_coll
-          password: wucoll321
-        liquibase:
-          user: migration_user_coll
-          password: mucoll123
+          url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/collection?currentSchema=collection
       actuator:
         allowedIP: prometheus
-      PG_EXTENSION_collection: postgis
     resources:
       limits:
         memory: 1Gi
@@ -84,21 +90,21 @@ services:
     pullPolicy: IfNotPresent
     image: "quay.io/keycloak/keycloak:20.0.5"
     environment:
-      KC_DB_PASSWORD: "{{ .Values.global.environment.services.keycloak.db_password }}"
+      KC_DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB_URL_HOST: "{{ .Values.global.environment.services.dina_db.service }}"
-      KC_DB_URL_DATABASE: "{{ .Values.global.environment.services.dina_db.db_name }}"
-      KC_DB_USERNAME: "{{ .Values.global.environment.services.keycloak.db_user }}"
+      KC_DB_URL_HOST: "{{ .Values.global.environment.config.dina_db.service }}"
+      KC_DB_URL_DATABASE: "{{ .Values.global.environment.config.dina_db.db_name }}"
+      KC_DB_USERNAME: "{{ .Values.global.environment.config.keycloak.db_user }}"
       KC_HOSTNAME: "{{ .Values.global.endpoints.ui }}"
       KC_HOSTNAME_ADMIN: "{{ .Values.global.endpoints.keycloak }}"
       KC_PROXY: edge
   dinadb:
     image: "postgis/postgis:12-3.1-alpine"
     environment:
-      POSTGRES_DB: "{{ .Values.global.environment.services.keycloak.db_name }}"
-      DB_USER: "{{ .Values.global.environment.services.keycloak.db_user }}"
-      DB_PASSWORD: "{{ .Values.global.environment.services.keycloak.db_password }}"
+      POSTGRES_DB: "{{ .Values.global.environment.config.keycloak.db_name }}"
+      DB_USER: "{{ .Values.global.environment.config.keycloak.db_user }}"
+      DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
       USE_V2: "true"
 
 imagePullSecrets: []

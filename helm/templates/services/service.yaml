@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.global.environment.services.keycloak.service }}
+  name: {{ .Values.global.environment.config.keycloak.service }}
   labels:
-    app: {{ .Values.global.environment.services.keycloak.service }}
+    app: {{ .Values.global.environment.config.keycloak.service }}
 spec:
   type: ClusterIP
   ports:
@@ -14,46 +14,46 @@ spec:
       name: http
       targetPort: 8080
   selector:
-    app: {{ .Values.app.name }}-{{ .Values.global.environment.services.keycloak.label }}
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.keycloak.label }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.global.environment.services.dina_db.service }}
+  name: {{ .Values.global.environment.config.dina_db.service }}
   labels:
-    app: {{ .Values.global.environment.services.dina_db.service }}
+    app: {{ .Values.global.environment.config.dina_db.service }}
 spec:
   type: ClusterIP
   ports:
     - port: 5432
       targetPort: 5432
   selector:
-    app: {{ .Values.app.name }}-{{ .Values.global.environment.services.dina_db.label }}
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_db.label }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.global.environment.services.collection_api.service }}
+  name: {{ .Values.global.environment.config.collection_api.service }}
   labels:
-    app: {{ .Values.global.environment.services.collection_api.service }}
+    app: {{ .Values.global.environment.config.collection_api.service }}
 spec:
   type: ClusterIP
   ports:
     - port: 8080
       targetPort: 8080
   selector:
-    app: {{ .Values.app.name }}-{{ .Values.global.environment.services.collection_api.label }}
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.collection_api.label }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.global.environment.services.dina_ui.service }}
+  name: {{ .Values.global.environment.config.dina_ui.service }}
   labels:
-    app: {{ .Values.global.environment.services.dina_ui.service }}
+    app: {{ .Values.global.environment.config.dina_ui.service }}
 spec:
   type: ClusterIP
   ports:
     - port: 8080
       targetPort: 8080
   selector:
-    app: {{ .Values.app.name }}-{{ .Values.global.environment.services.dina_ui.label }}
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_ui.label }}

@@ -19,7 +19,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: {{ .Values.global.environment.services.keycloak.service }}
+              name: {{ .Values.global.environment.config.keycloak.service }}
               port:
                 number: 8080
     - host: {{ .Values.global.endpoints.keycloak }}
@@ -29,7 +29,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: {{ .Values.global.environment.services.keycloak.service }}
+              name: {{ .Values.global.environment.config.keycloak.service }}
               port:
                 number: 8080
 ---
@@ -51,7 +51,7 @@ spec:
           pathType: ImplementationSpecific
           backend:
             service:
-              name: {{ .Values.global.environment.services.collection_api.service }}
+              name: {{ .Values.global.environment.config.collection_api.service }}
               port:
                 number: 8080
 ---
@@ -76,7 +76,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: {{ .Values.global.environment.services.dina_ui.service }}
+              name: {{ .Values.global.environment.config.dina_ui.service }}
               port:
                 number: 8080
                 
