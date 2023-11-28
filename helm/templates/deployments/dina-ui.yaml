@@ -30,7 +30,7 @@ spec:
             - name: KEYCLOAK_REALM
               value: {{ .Values.services.dinaui.environment.KEYCLOAK_REALM}}
             - name: KEYCLOAK_PUBLIC_URL
-              value: {{ .Values.services.dinaui.environment.KEYCLOAK_PUBLIC_URL }}
+              value: {{ tpl .Values.services.dinaui.environment.KEYCLOAK_PUBLIC_URL . }}
             - name: OBJECTSTORE_API_ADDRESS
               value: {{ .Values.services.dinaui.environment.OBJECTSTORE_API_ADDRESS }}
             - name: AGENT_API_ADDRESS

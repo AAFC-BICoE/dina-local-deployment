@@ -32,13 +32,13 @@ spec:
           image: {{ .Values.services.initdb.image }}
           env:
           - name: POSTGRES_DB
-            value: {{ .Values.services.initdb.environment.POSTGRES_DB }}
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
           - name: POSTGRES_PASSWORD
-            value: {{ .Values.services.initdb.environment.POSTGRES_PASSWORD }}
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
           - name: POSTGRES_HOST
-            value: {{ .Values.services.initdb.environment.POSTGRES_HOST }}
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
           - name: POSTGRES_USER
-            value: {{ .Values.services.initdb.environment.POSTGRES_USER }}
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
           - name: DINA_DB
             value: {{ .Values.services.collectionapi.environment.DINA_DB }}
           - name: MIGRATION_USER_collection
@@ -59,9 +59,9 @@ spec:
             - name: KEYCLOAK_ENABLED
               value: {{ .Values.global.environment.keycloak.enabled | quote }}         
             - name: KEYCLOAK_AUTH-SERVER-URL
-              value: {{ .Values.global.environment.keycloak.auth_server_url }}
+              value: {{ tpl .Values.global.environment.keycloak.auth_server_url . }}
             - name: SPRING_DATASOURCE_URL
-              value: {{ .Values.services.collectionapi.environment.spring.datasource.url }}
+              value: {{ tpl .Values.services.collectionapi.environment.spring.datasource.url . }}
             - name: SPRING_DATASOURCE_USERNAME
               value: {{ .Values.services.collectionapi.environment.spring.datasource.username }}
             - name: SPRING_DATASOURCE_PASSWORD
