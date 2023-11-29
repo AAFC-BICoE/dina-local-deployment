@@ -72,7 +72,7 @@ In `/etc/hosts` file, add the following lines:
 
 ### Passwords
 
-Unless a password is explicitly provided in `values.yml`, the chart will automaticly generate them and store them in a secret for future run.
+Unless a password is explicitly provided in `values.yaml`, the chart will automaticly generate them and store them in a secret for future run.
 
 ### Deploy chart
 
