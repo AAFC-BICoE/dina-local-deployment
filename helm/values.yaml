@@ -12,17 +12,23 @@ global:
         label: dina-db
         service: dina-db-service
         db_name: dina
-        db_password: pg1234
+        db_password: 
         db_user: pguser
       keycloak: 
         label: keycloak
         service: keycloak-service
         db_name: keycloak_db
-        db_password: keycloak_user
+        db_password: 
         db_user: keycloak_user
+        keycloak_admin: admin
+        keycloak_admin_password: admin
       collection_api:
         label: collection-api
         service: collection-api-service
+        datasource_password: 
+        datasource_user: web_user_coll
+        liquibase_user: migration_user_coll
+        liquibase_password: 
       dina_ui: 
         label: dina-ui
         service: dina-ui-service
@@ -47,11 +53,11 @@ services:
         DINA_DB: collection
         spring:
           datasource:
-            username: web_user_coll
-            password: wucoll321
+            username: "{{ .Values.global.environment.config.collection_api.datasource_user }}"
+            password: "{{ .Values.global.environment.config.collection_api.datasource_password }}"
           liquibase:
-            user: migration_user_coll
-            password: mucoll123
+            user: "{{ .Values.global.environment.config.collection_api.liquibase_user }}"
+            password: "{{ .Values.global.environment.config.collection_api.liquibase_password }}"
         actuator:
           allowedIP: prometheus
         PG_EXTENSION_collection: postgis
@@ -91,8 +97,8 @@ services:
     image: "quay.io/keycloak/keycloak:20.0.5"
     environment:
       KC_DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
+      KEYCLOAK_ADMIN: "{{ .Values.global.environment.config.keycloak.keycloak_admin }}"
+      KEYCLOAK_ADMIN_PASSWORD: "{{ .Values.global.environment.config.keycloak.keycloak_admin_password }}"
       KC_DB_URL_HOST: "{{ .Values.global.environment.config.dina_db.service }}"
       KC_DB_URL_DATABASE: "{{ .Values.global.environment.config.dina_db.db_name }}"
       KC_DB_USERNAME: "{{ .Values.global.environment.config.keycloak.db_user }}"
