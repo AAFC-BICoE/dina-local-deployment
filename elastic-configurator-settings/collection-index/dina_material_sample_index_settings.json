@@ -6,6 +6,8 @@
     }
   },
   "mappings": {
+    "date_detection": true,
+    "numeric_detection": true,
     "dynamic_templates": [
       {
         "includes_as_nested": {
@@ -31,6 +33,14 @@
           "match":   "type",
           "mapping": {
             "type": "keyword"
+          }
+        }
+      },
+      {
+        "verbatim_as_text": {
+          "match": "*verbatim*",
+          "mapping": {
+            "type": "text"
           }
         }
       }
@@ -178,6 +188,26 @@
                     "ignore_above": 256
                   }
                 }
+              },
+              "startEventDateTime": {
+                "type": "date"
+              },
+              "endEventDateTime": {
+                "type": "date"
+              },
+              "hierarchy": {
+                "type": "nested",
+                "properties": {
+                  "uuid": {
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "type": "keyword"
+                  },
+                  "rank": {
+                    "type": "integer"
+                  }
+                }
               }
             }
           },
@@ -269,6 +299,18 @@
                     }
                   }
                 }
+              },
+              "projects": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "project"
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -280,6 +322,15 @@
         "properties" : {
           "attributes" : {
             "properties" : {
+              "dwcRecordNumber": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
               "dwcRecordedBy": {
                 "type": "text",
                 "fields": {

@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scripts-configmap
+data:
+{{ (.Files.Glob "config/scripts/skipPostGisExtensions.sh").AsConfig | indent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak
+data:
+{{ (.Files.Glob "config/keycloak/*").AsConfig | indent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-theme
+data:
+{{ (.Files.Glob "config/theme/*.ftl").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/theme/*.properties").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/theme/*.css").AsConfig | indent 2 }}
+binaryData:
+  dina.png: |
+    {{ .Files.Get "config/theme/dina-tr-1344-1184.png" | b64enc }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-data
+data:
+{{ (.Files.Glob "config/keycloak-data/*").AsConfig | indent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: certs
+data:
+{{ (.Files.Glob "config/certs/*").AsConfig | indent 2 }}

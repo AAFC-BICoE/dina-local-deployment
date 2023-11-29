@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: {{ .Values.app.name }}-dina-db
+  name: {{ .Values.app.name }}-dina-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-dina-db
+  template:
+    metadata:
+      annotations: {}
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app.name }}-dina-db
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - env:
+          - name: POSTGRES_DB
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
+          - name: POSTGRES_PASSWORD
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
+          - name: POSTGRES_USER
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
+          - name: PGDATA
+            value: /var/lib/postgresql/data
+          image: {{ .Values.services.dinadb.image }}
+          name: dina-db
+  volumeClaimTemplates:
+  - metadata:
+      name: dina-db-claim
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "localstorage"
+      resources:
+        requests:
+          storage: 2Gi
+      selector:
+        matchLabels:
+          type: local
+status: {}

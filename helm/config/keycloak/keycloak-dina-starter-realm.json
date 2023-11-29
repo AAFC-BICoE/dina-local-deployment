@@ -105,8 +105,8 @@
       ]
     },
     {
-      "id": "fe3ef8c1-e615-4528-960b-e86b3102c7c0",
-      "clientId": "objectstore",
+      "id": "6d51fede-7a8e-4761-a363-fffcd0cb4428",
+      "clientId": "dina-public",
       "enabled": true,
       "directAccessGrantsEnabled": true,
       "publicClient": true,
@@ -157,24 +157,20 @@
   "roles": {
     "realm": [
       {
-        "id": "1814de78-f3a8-4950-9077-e4cfff8a25b5",
+        "id": "c1c775f0-cd30-4bc3-b9ca-4d39380385a6",
+        "name": "dina-realm-user"
+      },
+      {
+        "id": "ce04ac27-4080-4995-8e2b-80a1f5d2a91e",
+        "name": "super-user"
+      },
+      {
+        "id": "0f9ee262-93c3-4212-8ce7-3eebfe39403d",
         "name": "user"
       },
       {
-        "id": "90bc503d-ab0c-40a5-a0de-eedba9d09fc8",
-        "name": "admin"
-      },
-      {
-        "id": "62f69b76-740e-42f2-ba99-8adf42d8edd4",
-        "name": "collection-manager"
-      },
-      {
-        "id": "bf8685f9-8a74-40f2-a4bc-746f239e230c",
-        "name": "staff"
-      },
-      {
-        "id": "17bf4eea-1796-4474-b0f8-4e5d52357664",
-        "name": "student"
+        "id": "9d4fbc98-abec-4b2a-866d-1ad4120048c6",
+        "name": "guest"
       },
       {
         "id": "2d7967df-b27a-4010-923c-73b803635709",
@@ -183,6 +179,10 @@
       {
         "id": "2a806ec6-f09e-44b0-aa32-19640fbbd2ab",
         "name": "dina-admin"
+      },
+      {
+        "id": "09ac5781-8dc9-4c8d-a484-85ea66e818fd",
+        "name": "read-only-admin"
       }
     ],
     "client": {
@@ -417,12 +417,12 @@
       "clientRoles": {},
       "subGroups": [
         {
-          "id": "c2bc6a7f-4e72-4011-822b-05ae8032d927",
-          "name": "collection-manager",
-          "path": "/aafc/collection-manager",
+          "id": "c7be2b30-9989-4e1d-bdf7-1515b3c7e7ba",
+          "name": "super-user",
+          "path": "/aafc/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -439,23 +439,23 @@
           "subGroups": []
         },
         {
-          "id": "7c7a9cae-a36c-4ee2-b01c-fce91653001f",
-          "name": "staff",
-          "path": "/aafc/staff",
+          "id": "a2597c35-e44d-44a5-82ca-07146675d7cf",
+          "name": "user",
+          "path": "/aafc/user",
           "attributes": {},
           "realmRoles": [
-            "staff"
+            "user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "e3068573-8b6b-4daf-9dcd-97918efbc52b",
-          "name": "student",
-          "path": "/aafc/student",
+          "id": "e4f5ccda-772f-477b-8c28-c95ac82c4d14",
+          "name": "guest",
+          "path": "/aafc/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -486,34 +486,34 @@
       "clientRoles": {},
       "subGroups": [
         {
-          "id": "e94a5a59-56e1-4779-b80d-27898e875af2",
-          "name": "staff",
-          "path": "/amf/staff",
+          "id": "45470524-b1da-4d11-8a60-ac2af2098b2e",
+          "name": "user",
+          "path": "/amf/user",
           "attributes": {},
           "realmRoles": [
-            "staff"
+            "user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "cf35d033-3aea-4696-acbd-8e8abc640fe3",
-          "name": "collection-manager",
-          "path": "/amf/collection-manager",
+          "id": "94ff8b02-9659-4ad0-b7f0-8ae2218fe1c8",
+          "name": "super-user",
+          "path": "/amf/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "f217eab8-1cd1-4689-a8b3-093f19c66c45",
-          "name": "student",
-          "path": "/amf/student",
+          "id": "4969d535-d665-4cb2-ad6a-5cf6d55e71ae",
+          "name": "guest",
+          "path": "/amf/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -544,34 +544,34 @@
       "clientRoles": {},
       "subGroups": [
         {
-          "id": "1b8dc5d5-0dbf-4276-b973-4490da0ef4d4",
-          "name": "staff",
-          "path": "/ccfc/staff",
+          "id": "9b1ff1e8-68a2-4569-bff5-43f671f8a0f0",
+          "name": "user",
+          "path": "/ccfc/user",
           "attributes": {},
           "realmRoles": [
-            "staff"
+            "user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "12bb53c8-97d4-45e8-b14c-77306b764139",
-          "name": "collection-manager",
-          "path": "/ccfc/collection-manager",
+          "id": "3c018b06-cc0e-4ff1-9d0c-cc1b3205070b",
+          "name": "super-user",
+          "path": "/ccfc/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "40a46336-4eb7-4934-9e95-a53c79e9ba53",
-          "name": "student",
-          "path": "/ccfc/student",
+          "id": "709c1a53-2ce8-4347-8f9e-1ddb880ac444",
+          "name": "guest",
+          "path": "/ccfc/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -602,34 +602,34 @@
       "clientRoles": {},
       "subGroups": [
         {
-          "id": "a802bf67-9bd6-4df3-a64a-d970ec6aa14a",
-          "name": "staff",
-          "path": "/cnc/staff",
+          "id": "014583bc-fb15-46d8-9bfd-2f29f0505927",
+          "name": "user",
+          "path": "/cnc/user",
           "attributes": {},
           "realmRoles": [
-            "staff"
+            "user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "0b10b8c4-897d-4668-a3cc-446003418fa4",
-          "name": "collection-manager",
-          "path": "/cnc/collection-manager",
+          "id": "feca1d5e-7327-4535-847a-c6befe675c8e",
+          "name": "super-user",
+          "path": "/cnc/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "7ee353bb-fbf5-4a4b-ab1d-2511a07b0526",
-          "name": "student",
-          "path": "/cnc/student",
+          "id": "8db27f00-a98b-4ff9-b630-9540f5188e3b",
+          "name": "guest",
+          "path": "/cnc/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -660,34 +660,34 @@
       "clientRoles": {},
       "subGroups": [
         {
-          "id": "f5b6073e-1b33-48a0-9acb-837cf26d7765",
-          "name": "staff",
-          "path": "/cpvc/staff",
+          "id": "98c063db-c7b1-467c-a0b0-87b2248ab510",
+          "name": "user",
+          "path": "/cpvc/user",
           "attributes": {},
           "realmRoles": [
-            "staff"
+            "user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "df2338b2-a240-4038-90a2-4307d34ee7c5",
-          "name": "student",
-          "path": "/cpvc/student",
+          "id": "cc0c5c8c-b3d8-4623-814c-adfc71f43b96",
+          "name": "guest",
+          "path": "/cpvc/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "b1b8651f-322a-4973-9a99-affc9958d8d0",
-          "name": "collection-manager",
-          "path": "/cpvc/collection-manager",
+          "id": "12ee1bc5-fc61-47c1-8416-d09c6ad1406d",
+          "name": "super-user",
+          "path": "/cpvc/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -718,34 +718,34 @@
       "clientRoles": {},
       "subGroups": [
         {
-          "id": "e0233df3-90bc-4bd4-91d5-3233bd0a3ee7",
-          "name": "collection-manager",
-          "path": "/dao/collection-manager",
+          "id": "da09d31a-2eac-4d6a-a7a4-fcab1e215076",
+          "name": "super-user",
+          "path": "/dao/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "94d74312-2fda-4998-9788-2a074bd8cd1a",
-          "name": "staff",
-          "path": "/dao/staff",
+          "id": "1125b80e-3385-42ef-8675-ce1aad2ce67f",
+          "name": "user",
+          "path": "/dao/user",
           "attributes": {},
           "realmRoles": [
-            "staff"
+            "user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "6b129038-0098-4e29-a2b7-635f1e4087e3",
-          "name": "student",
-          "path": "/dao/student",
+          "id": "b839da21-cc09-4660-8c8d-6477acbf9749",
+          "name": "guest",
+          "path": "/dao/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -779,34 +779,34 @@
       "clientRoles": {},
       "subGroups": [
         {
-          "id": "486c5b8b-da57-4b30-9891-f3a801a8d64c",
-          "name": "collection-manager",
-          "path": "/daom/collection-manager",
+          "id": "7affccc6-c145-42c8-ae55-61e57219589e",
+          "name": "super-user",
+          "path": "/daom/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "f321f05d-a161-4949-a370-b115eeea7cb6",
-          "name": "staff",
-          "path": "/daom/staff",
+          "id": "39e2ef0d-8a1b-4746-9cf7-6170a0f342c1",
+          "name": "user",
+          "path": "/daom/user",
           "attributes": {},
           "realmRoles": [
-            "staff"
+            "user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "a03428f5-1096-46ac-ab23-7859be98a313",
-          "name": "student",
-          "path": "/daom/student",
+          "id": "430efc78-cbcc-484b-852c-25f9eddd8336",
+          "name": "guest",
+          "path": "/daom/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -837,34 +837,34 @@
       "clientRoles": {},
       "subGroups": [
         {
-          "id": "38279572-b5e1-4545-99d8-9803c1b8febe",
-          "name": "staff",
-          "path": "/ml/staff",
+          "id": "84f4953f-ed66-407f-94ac-293460ae9fe3",
+          "name": "user",
+          "path": "/ml/user",
           "attributes": {},
           "realmRoles": [
-            "staff"
+            "user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "e6c9ee22-11fc-4d41-a55f-8843c4f4eed7",
-          "name": "collection-manager",
-          "path": "/ml/collection-manager",
+          "id": "2155ca86-9817-435f-98a6-2dabf490da73",
+          "name": "super-user",
+          "path": "/ml/super-user",
           "attributes": {},
           "realmRoles": [
-            "collection-manager"
+            "super-user"
           ],
           "clientRoles": {},
           "subGroups": []
         },
         {
-          "id": "e5f06cc3-68fb-4d45-8609-8cedf1d7670d",
-          "name": "student",
-          "path": "/ml/student",
+          "id": "50a5605b-839c-44fd-88d6-920f4c8d50e6",
+          "name": "guest",
+          "path": "/ml/guest",
           "attributes": {},
           "realmRoles": [
-            "student"
+            "guest"
           ],
           "clientRoles": {},
           "subGroups": []
@@ -883,7 +883,7 @@
       ]
     }
   ],
-  "defaultRoles": ["user"],
+  "defaultRoles": ["dina-realm-user"],
   "clientScopes": [
     {
       "id": "9a822b42-c6c6-4e1c-b216-6a76cdeb2179",
@@ -1288,34 +1288,15 @@
     {
       "clientScope": "dina-agent",
       "roles": [
-        "user"
+        "dina-realm-user"
       ]
     }
   ],
   "users": [
     {
-      "username": "admin",
-      "enabled": true,
-      "realmRoles": ["admin", "user"],
-      "credentials": [{ "type": "password", "value": "admin" }],
-      "attributes": {
-        "agentId": "fdb72d9d-4ea1-4edf-baf2-6feafb90fd12"
-      }
-    },
-    {
-      "username": "user",
-      "enabled": true,
-      "realmRoles": ["user"],
-      "groups": ["aafc", "cnc"],
-      "credentials": [{ "type": "password", "value": "user" }],
-      "attributes": {
-        "agentId": "9c403c4b-c849-43c4-bbc1-8bd10b1997e1"
-      }
-    },
-    {
       "username": "dina-admin",
       "enabled": true,
-      "realmRoles": ["user", "dina-admin"],
+      "realmRoles": ["dina-realm-user", "dina-admin"],
       "groups": ["aafc/dina-admin"],
       "credentials": [{ "type": "password", "value": "dina-admin" }],
       "attributes": {
@@ -1323,31 +1304,31 @@
       }
     },
     {
-      "username": "cnc-cm",
+      "username": "cnc-su",
       "enabled": true,
-      "realmRoles": ["user"],
-      "groups": ["cnc/collection-manager"],
-      "credentials": [{ "type": "password", "value": "cnc-cm" }],
+      "realmRoles": ["dina-realm-user"],
+      "groups": ["cnc/super-user"],
+      "credentials": [{ "type": "password", "value": "cnc-su" }],
       "attributes": {
         "agentId": "ba05d46b-6c75-4c92-82d6-e72237d9982f"
       }
     },
     {
-      "username": "cnc-staff",
+      "username": "cnc-user",
       "enabled": true,
-      "realmRoles": ["user"],
-      "groups": ["cnc/staff"],
-      "credentials": [{ "type": "password", "value": "cnc-staff" }],
+      "realmRoles": ["dina-realm-user"],
+      "groups": ["cnc/user"],
+      "credentials": [{ "type": "password", "value": "cnc-user" }],
       "attributes": {
         "agentId": "34e1de96-cc79-4ce1-8cf6-d0be70ec7bed"
       }
     },
     {
-      "username": "cnc-student",
+      "username": "cnc-guest",
       "enabled": true,
-      "realmRoles": ["user"],
-      "groups": ["cnc/student"],
-      "credentials": [{ "type": "password", "value": "cnc-student" }],
+      "realmRoles": ["dina-realm-user"],
+      "groups": ["cnc/guest"],
+      "credentials": [{ "type": "password", "value": "cnc-guest" }],
       "attributes": {
         "agentId": "21d4f7ef-98b8-4f46-9963-d843f2fdf65a"
       }
@@ -1355,7 +1336,7 @@
     {
       "username": "cnc-ro",
       "enabled": true,
-      "realmRoles": ["user"],
+      "realmRoles": ["dina-realm-user"],
       "groups": ["cnc/read-only"],
       "credentials": [{ "type": "password", "value": "cnc-ro" }],
       "attributes": {
@@ -1363,21 +1344,21 @@
       }
     },
     {
-      "username": "ccfc-cm",
+      "username": "ccfc-su",
       "enabled": true,
-      "realmRoles": ["user"],
-      "groups": ["ccfc/collection-manager"],
-      "credentials": [{ "type": "password", "value": "ccfc-cm" }],
+      "realmRoles": ["dina-realm-user"],
+      "groups": ["ccfc/super-user"],
+      "credentials": [{ "type": "password", "value": "ccfc-su" }],
       "attributes": {
         "agentId": "4851a8af-705f-4415-a9b6-b661382d4da5"
       }
     },
     {
-      "username": "dao-cm",
+      "username": "dao-su",
       "enabled": true,
-      "realmRoles": ["user"],
-      "groups": ["dao/collection-manager"],
-      "credentials": [{ "type": "password", "value": "dao-cm" }],
+      "realmRoles": ["dina-realm-user"],
+      "groups": ["dao/super-user"],
+      "credentials": [{ "type": "password", "value": "dao-su" }],
       "attributes": {
         "agentId": "b5e79585-ce26-44d2-95e5-6272c3799581"
       }
@@ -1389,7 +1370,7 @@
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
-        "user",
+        "dina-realm-user",
         "uma_authorization",
         "offline_access"
       ],

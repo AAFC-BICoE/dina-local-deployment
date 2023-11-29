@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.keycloak.service }}
+  labels:
+    app: {{ .Values.global.environment.config.keycloak.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8443
+      targetPort: 8443
+      name: https
+    - port: 8080
+      name: http
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.keycloak.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.dina_db.service }}
+  labels:
+    app: {{ .Values.global.environment.config.dina_db.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_db.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.collection_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.collection_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.collection_api.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.dina_ui.service }}
+  labels:
+    app: {{ .Values.global.environment.config.dina_ui.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_ui.label }}

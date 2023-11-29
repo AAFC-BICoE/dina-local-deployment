@@ -1,0 +1,72 @@
+version: "3.9"
+
+services:
+  agent-api:
+    environment:
+      spring.jpa.show-sql: true
+      spring.jpa.properties.hibernate.format_sql: true
+      logging.level.org.hibernate.SQL: DEBUG
+      logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${AGENT_DEBUG_PORT}
+    ports:
+      - ${AGENT_DEBUG_PORT}:${AGENT_DEBUG_PORT}
+
+  collection-api:
+    environment:
+      spring.jpa.show-sql: true
+      spring.jpa.properties.hibernate.format_sql: true
+      logging.level.org.hibernate.SQL: DEBUG
+      logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${COLLECTION_DEBUG_PORT}
+    ports:
+      - ${COLLECTION_DEBUG_PORT}:${COLLECTION_DEBUG_PORT}
+
+  loan-transaction-api:
+    environment:
+      spring.jpa.show-sql: true
+      spring.jpa.properties.hibernate.format_sql: true
+      logging.level.org.hibernate.SQL: DEBUG
+      logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${LOAN_TRANSACTION_DEBUG_PORT}
+    ports:
+      - ${LOAN_TRANSACTION_DEBUG_PORT}:${LOAN_TRANSACTION_DEBUG_PORT}
+
+  dina-user-api:
+    environment:
+      spring.jpa.show-sql: true
+      spring.jpa.properties.hibernate.format_sql: true
+      logging.level.org.hibernate.SQL: DEBUG
+      logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${USER_DEBUG_PORT}
+    ports:
+      - ${USER_DEBUG_PORT}:${USER_DEBUG_PORT}
+
+  object-store-api:
+    environment:
+      spring.jpa.show-sql: true
+      spring.jpa.properties.hibernate.format_sql: true
+      logging.level.org.hibernate.SQL: DEBUG
+      logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${OBJECT_STORE_DEBUG_PORT}
+    ports:
+      - ${OBJECT_STORE_DEBUG_PORT}:${OBJECT_STORE_DEBUG_PORT}
+
+  seqdb-api:
+    environment:
+      spring.jpa.show-sql: true
+      spring.jpa.properties.hibernate.format_sql: true
+      logging.level.org.hibernate.SQL: DEBUG
+      logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${SEQDB_DEBUG_PORT}
+    ports:
+      - ${SEQDB_DEBUG_PORT}:${SEQDB_DEBUG_PORT}
+
+  dina-export-api:
+    environment:
+      spring.jpa.show-sql: true
+      spring.jpa.properties.hibernate.format_sql: true
+      logging.level.org.hibernate.SQL: DEBUG
+      logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${EXPORT_API_DEBUG_PORT}
+    ports:
+      - ${EXPORT_API_DEBUG_PORT}:${EXPORT_API_DEBUG_PORT}

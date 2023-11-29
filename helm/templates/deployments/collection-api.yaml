@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-collection-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-collection-api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  
+  template:
+    metadata:
+      annotations: {}
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app.name }}-collection-api
+    spec:
+      initContainers:
+        - name: check-db
+          image: {{ .Values.services.initdb.image }}
+          command:
+            - sh
+            - -c
+            - until pg_isready -h dina-db-service; do echo waiting for database; sleep 10; done;
+        - name: init-db
+          image: {{ .Values.services.initdb.image }}
+          env:
+          - name: POSTGRES_DB
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
+          - name: POSTGRES_PASSWORD
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
+          - name: POSTGRES_HOST
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
+          - name: POSTGRES_USER
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
+          - name: DINA_DB
+            value: {{ .Values.services.initdb.config.collectionapi.DINA_DB }}
+          - name: MIGRATION_USER_collection
+            value: {{ .Values.services.initdb.config.collectionapi.spring.liquibase.user }}
+          - name: MIGRATION_USER_PW_collection
+            value: {{ .Values.services.initdb.config.collectionapi.spring.liquibase.password }}
+          - name: WEB_USER_collection
+            value: {{ .Values.services.initdb.config.collectionapi.spring.datasource.username }}
+          - name: WEB_USER_PW_collection
+            value: {{ .Values.services.initdb.config.collectionapi.spring.datasource.password }}
+          - name: PG_EXTENSION_collection
+            value: {{ .Values.services.initdb.config.collectionapi.PG_EXTENSION_collection }}
+      containers:
+        - name: collection-api
+          image: {{ .Values.services.collectionapi.image }}
+          imagePullPolicy: {{ .Values.services.keycloak.pullPolicy }}
+          env:
+            - name: KEYCLOAK_ENABLED
+              value: {{ .Values.global.environment.keycloak.enabled | quote }}         
+            - name: KEYCLOAK_AUTH-SERVER-URL
+              value: {{ tpl .Values.global.environment.keycloak.auth_server_url . }}
+            - name: SPRING_DATASOURCE_URL
+              value: {{ tpl .Values.services.collectionapi.environment.spring.datasource.url . }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.services.initdb.config.collectionapi.spring.datasource.username }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.services.initdb.config.collectionapi.spring.datasource.password }}
+            - name: SPRING_LIQUIBASE_USER
+              value: {{ .Values.services.initdb.config.collectionapi.spring.liquibase.user }}
+            - name: SPRING_LIQUIBASE_PASSWORD
+              value: {{ .Values.services.initdb.config.collectionapi.spring.liquibase.password }}
+            - name: ACTUATOR_ALLOWEDIP
+              value: {{ .Values.services.collectionapi.environment.actuator.allowedIP }}
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 1
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: {{ .Values.services.collectionapi.resources.requests.memory }}
+              cpu: {{ .Values.services.collectionapi.resources.requests.cpu }}            
+            limits:
+              memory: {{ .Values.services.collectionapi.resources.limits.memory }} 
+              cpu: {{ .Values.services.collectionapi.resources.limits.cpu }}
+status: {}
