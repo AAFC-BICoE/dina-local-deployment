@@ -33,7 +33,14 @@ spec:
           - name: POSTGRES_DB
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
           - name: POSTGRES_PASSWORD
+            {{- if not .Values.global.environment.config.dina_db.manualSecret }}
+            valueFrom:
+              secretKeyRef:
+                name: dina-db-secret
+                key: password
+            {{- else }}
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
+            {{- end }}
           - name: POSTGRES_HOST
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
           - name: POSTGRES_USER
@@ -45,7 +52,14 @@ spec:
           - name : DB_USER
             value: {{ tpl .Values.services.dinadb.environment.DB_USER . }}
           - name: DB_PASSWORD
+            {{- if not .Values.global.environment.config.keycloak.manualSecret }}
+            valueFrom:
+              secretKeyRef:
+                name: keycloak-db-secret
+                key: password
+            {{- else }}
             value: {{ tpl .Values.services.dinadb.environment.DB_PASSWORD . }}
+            {{- end }}
       containers:
         - name: keycloak
           command:
@@ -59,7 +73,14 @@ spec:
           imagePullPolicy: {{ .Values.services.keycloak.pullPolicy }}
           env:
             - name: KC_DB_PASSWORD
+              {{- if not .Values.global.environment.config.keycloak.manualSecret }}
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-db-secret
+                  key: password
+              {{- else }}
               value: {{ tpl .Values.services.keycloak.environment.KC_DB_PASSWORD . }}
+            {{- end }}
             - name: KC_DB_URL_DATABASE
               value: {{ tpl .Values.services.keycloak.environment.KC_DB_URL_DATABASE . }}
             - name: KC_DB_URL_HOST
@@ -73,9 +94,9 @@ spec:
             - name: KC_PROXY
               value: {{ .Values.services.keycloak.environment.KC_PROXY }}
             - name: KEYCLOAK_ADMIN
-              value: {{ .Values.services.keycloak.environment.KEYCLOAK_ADMIN }}
+              value: {{ tpl .Values.services.keycloak.environment.KEYCLOAK_ADMIN . }}
             - name: KEYCLOAK_ADMIN_PASSWORD
-              value: {{ .Values.services.keycloak.environment.KEYCLOAK_ADMIN_PASSWORD }}
+              value: {{ tpl .Values.services.keycloak.environment.KEYCLOAK_ADMIN_PASSWORD . }}
             - name: KEYCLOAK_IMPORT
               value: data/import/keycloak-dina-starter-realm.json
           ports:
