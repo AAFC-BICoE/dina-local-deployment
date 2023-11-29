@@ -9,14 +9,12 @@ global:
   environment:
     config:
       dina_db:
-        manualSecret: false
         label: dina-db
         service: dina-db-service
         db_name: dina
         db_password: 
         db_user: pguser
       keycloak: 
-        manualSecret: false
         label: keycloak
         service: keycloak-service
         db_name: keycloak_db
@@ -25,7 +23,6 @@ global:
         keycloak_admin: admin
         keycloak_admin_password: admin
       collection_api:
-        manualSecret: false
         label: collection-api
         service: collection-api-service
         datasource_password: 

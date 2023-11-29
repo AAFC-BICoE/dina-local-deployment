@@ -22,7 +22,7 @@ spec:
           - name: POSTGRES_DB
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
           - name: POSTGRES_PASSWORD
-            {{- if not .Values.global.environment.config.dina_db.manualSecret }}
+            {{- if not .Values.global.environment.config.dina_db.db_password }}
             valueFrom:
               secretKeyRef:
                 name: dina-db-secret

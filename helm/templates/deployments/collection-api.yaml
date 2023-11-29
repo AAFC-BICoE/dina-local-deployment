@@ -34,7 +34,7 @@ spec:
           - name: POSTGRES_DB
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
           - name: POSTGRES_PASSWORD
-            {{- if not .Values.global.environment.config.dina_db.manualSecret }}
+            {{- if not .Values.global.environment.config.dina_db.db_password }}
             valueFrom:
               secretKeyRef:
                 name: dina-db-secret
@@ -51,7 +51,7 @@ spec:
           - name: MIGRATION_USER_collection
             value: {{ tpl .Values.services.initdb.config.collectionapi.spring.liquibase.user . }}
           - name: MIGRATION_USER_PW_collection
-            {{- if not .Values.global.environment.config.collection_api.manualSecret }}
+            {{- if not .Values.global.environment.config.collection_api.liquibase_password }}
             valueFrom:
               secretKeyRef:
                 name: collection-liquibase-secret
@@ -62,7 +62,7 @@ spec:
           - name: WEB_USER_collection
             value: {{ tpl .Values.services.initdb.config.collectionapi.spring.datasource.username . }}
           - name: WEB_USER_PW_collection
-            {{- if not .Values.global.environment.config.collection_api.manualSecret }}
+            {{- if not .Values.global.environment.config.collection_api.datasource_password }}
             valueFrom:
               secretKeyRef:
                 name: collection-datasource-secret
@@ -86,7 +86,7 @@ spec:
             - name: SPRING_DATASOURCE_USERNAME
               value: {{ tpl .Values.services.initdb.config.collectionapi.spring.datasource.username . }}
             - name: SPRING_DATASOURCE_PASSWORD
-              {{- if not .Values.global.environment.config.collection_api.manualSecret }}
+              {{- if not .Values.global.environment.config.collection_api.datasource_password }}
               valueFrom:
                 secretKeyRef:
                   name: collection-datasource-secret
@@ -97,7 +97,7 @@ spec:
             - name: SPRING_LIQUIBASE_USER
               value: {{ tpl .Values.services.initdb.config.collectionapi.spring.liquibase.user . }}
             - name: SPRING_LIQUIBASE_PASSWORD
-              {{- if not .Values.global.environment.config.collection_api.manualSecret }}
+              {{- if not .Values.global.environment.config.collection_api.liquibase_password }}
               valueFrom:
                 secretKeyRef:
                   name: collection-liquibase-secret

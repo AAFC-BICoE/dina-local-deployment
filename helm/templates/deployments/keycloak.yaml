@@ -33,7 +33,7 @@ spec:
           - name: POSTGRES_DB
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
           - name: POSTGRES_PASSWORD
-            {{- if not .Values.global.environment.config.dina_db.manualSecret }}
+            {{- if not .Values.global.environment.config.dina_db.db_password }}
             valueFrom:
               secretKeyRef:
                 name: dina-db-secret
@@ -52,7 +52,7 @@ spec:
           - name : DB_USER
             value: {{ tpl .Values.services.dinadb.environment.DB_USER . }}
           - name: DB_PASSWORD
-            {{- if not .Values.global.environment.config.keycloak.manualSecret }}
+            {{- if not .Values.global.environment.config.keycloak.db_password }}
             valueFrom:
               secretKeyRef:
                 name: keycloak-db-secret
@@ -73,7 +73,7 @@ spec:
           imagePullPolicy: {{ .Values.services.keycloak.pullPolicy }}
           env:
             - name: KC_DB_PASSWORD
-              {{- if not .Values.global.environment.config.keycloak.manualSecret }}
+              {{- if not .Values.global.environment.config.keycloak.db_password }}
               valueFrom:
                 secretKeyRef:
                   name: keycloak-db-secret
