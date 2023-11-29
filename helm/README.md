@@ -39,14 +39,16 @@ Useful alias for running kubectl commands: `alias k="minikube kubectl --"`
 
 ## Deploying application
 
-1. Local certificates
+### Local certificates
 
 Local certificates are required to run the application locally without having warnings from the browser.
 
 If you already have the certificates from the docker-compose based local deployment, you can copy them.
 Otherwise, see [instructions](https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates) and make sure to install them in `helm/config/certs`.
 
-2. Edit etc/hosts file map ingress ip to addresses used:
+### hosts file
+
+Edit etc/hosts file map ingress ip to addresses used:
 
 Get ingress ip:
 
@@ -68,7 +70,11 @@ In `/etc/hosts` file, add the following lines:
 <INGRESS IP> keycloak.dina.local
 ```
 
-3. Deploy chart (Once minikube is running):
+### Passwords
+
+Unless a password is explicitly provided in `values.yml`, the chart will automaticly generate them and store them in a secret for future run.
+
+### Deploy chart
 
 From dina-local-deployment root:
 
