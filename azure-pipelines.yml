@@ -11,7 +11,7 @@ pool:
 steps:
 - task: HelmDeploy@0
   inputs:
-    command: 'save'
+    command: 'package'
     chartPathForACR: 'helm'
     chartNameForACR: 'dina'
     azureSubscriptionForACR: $(sc)
