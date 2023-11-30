@@ -11,12 +11,12 @@ pool:
 steps:
 - task: HelmDeploy@0
   inputs:
-    command: 'save'
+    command: 'package'
     chartPath: 'helm'
     chartPathForACR: 'helm'
-    chartNameForACR: 'dina'
+    chartNameForACR: $(ACRName).azurecr.io/helm/dina:latest
     azureSubscriptionForACR: $(sc)
-    azureContainerRegistry: 'aafcbicoe'
+    azureContainerRegistry: $(ACRName)
 
 - script: |
     sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
