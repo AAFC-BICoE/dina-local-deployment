@@ -13,6 +13,7 @@ steps:
   inputs:
     command: 'save'
     chartPath: 'helm'
+    chartNameForACR: 'dina'
     azureSubscriptionForACR: $(sc)
     azureContainerRegistry: 'aafcbicoe'
 
