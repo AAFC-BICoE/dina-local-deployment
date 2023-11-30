@@ -13,7 +13,7 @@ steps:
   inputs:
     command: 'save'
     chartPath: 'helm'
-    azureSubscriptionForACR: 'aafcbicoe-container-registry'
+    azureSubscriptionForACR: $(sc)
     azureContainerRegistry: 'aafcbicoe'
 
 - script: |
