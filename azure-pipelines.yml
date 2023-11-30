@@ -12,7 +12,7 @@ steps:
 - task: HelmDeploy@0
   inputs:
     command: 'save'
-    chartPath: 'helm'
+    chartPathForACR: 'helm'
     chartNameForACR: 'dina'
     azureSubscriptionForACR: $(sc)
     azureContainerRegistry: 'aafcbicoe'
