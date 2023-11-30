@@ -10,8 +10,10 @@ pool:
 
 steps:
 - task: HelmDeploy@0
+  env:
+    HELM_EXPERIMENTAL_OCI: 1
   inputs:
-    command: 'package'
+    command: 'save'
     chartPath: 'helm'
     chartPathForACR: 'helm'
     chartNameForACR: $(ACRName).azurecr.io/helm/dina:latest
