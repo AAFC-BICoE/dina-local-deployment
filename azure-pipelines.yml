@@ -19,7 +19,7 @@ steps:
     command: 'save'
     chartPath: 'helm'
     chartPathForACR: 'helm'
-    chartNameForACR: $(ACRName).azurecr.io/helm/dina:latest
+    chartNameForACR: $(ACRName).azurecr.io/dina:latest
     azureSubscriptionForACR: $(sc)
     azureContainerRegistry: $(ACRName)
 
