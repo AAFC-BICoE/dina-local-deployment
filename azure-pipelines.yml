@@ -11,7 +11,7 @@ pool:
 steps:
 - task: HelmDeploy@0
   inputs:
-    command: 'package'
+    command: 'save'
     chartPath: 'helm'
     chartPathForACR: 'helm'
     chartNameForACR: 'dina'
