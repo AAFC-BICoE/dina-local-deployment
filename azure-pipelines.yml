@@ -9,9 +9,12 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: HelmInstaller@0
+  inputs:
+    helmVersion: '3.6.3'
+    checkLatestHelmVersion: false
+    installKubectl: false
 - task: HelmDeploy@0
-  env:
-    HELM_EXPERIMENTAL_OCI: 1
   inputs:
     command: 'save'
     chartPath: 'helm'
