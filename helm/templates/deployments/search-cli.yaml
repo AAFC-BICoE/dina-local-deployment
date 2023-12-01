@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-search-cli
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-search-cli
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  
+  template:
+    metadata:
+      annotations: {}
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app.name }}-search-cli
+    spec:
+      containers:
+        - name: search-cli
+          image: {{ .Values.services.searchcli.image }}
+          env:
+            - name: keycloak.auth_server_url
+              value: {{ tpl .Values.services.searchcli.environment.keycloak.auth_server_url . }}
+            - name: keycloak.client_id
+              value: {{ tpl .Values.services.searchcli.environment.keycloak.client_id . }}
+            - name: keycloak.username
+              value: {{ tpl .Values.services.searchcli.environment.keycloak.username . }}
+            - name: keycloak.password
+              {{- if not .Values.global.environment.config.search_cli.password }}
+              valueFrom:
+                secretKeyRef:
+                  name: searchcli-secret
+                  key: password
+              {{- else }}
+              value: {{ tpl .Values.services.searchcli.environment.keycloak.password . }}
+            {{- end }}
+            - name: ELASTICSEARCH_URL
+              value: {{ tpl .Values.services.searchcli.environment.ELASTICSEARCH_URL . }}
+            - name: MATERIAL_SAMPLE_URL
+              value: {{ tpl .Values.services.searchcli.environment.MATERIAL_SAMPLE_URL . }}
+            - name: METADATA_URL
+              value: {{ .Values.services.searchcli.environment.METADATA_URL }}
+            - name: ORGANIZATION_URL
+              value: {{ .Values.services.searchcli.environment.ORGANIZATION_URL }}
+            - name: PERSON_URL
+              value: {{ .Values.services.searchcli.environment.PERSON_URL }}
+            - name: STORAGE_UNIT_URL
+              value: {{ tpl .Values.services.searchcli.environment.STORAGE_UNIT_URL . }}
+            - name: LOAN_TRANSACTION_URL
+              value: {{ .Values.services.searchcli.environment.LOAN_TRANSACTION_URL }}
+            - name: RABBITMQ_HOSTNAME
+              value: {{ tpl .Values.services.searchcli.environment.RABBITMQ_HOSTNAME . }}
+            - name: IS_MESSAGE_CONSUMER
+              value: {{ .Values.services.searchcli.environment.IS_MESSAGE_CONSUMER | quote }}
+            - name: IS_MESSAGE_PRODUCER
+              value: {{ .Values.services.searchcli.environment.IS_MESSAGE_PRODUCER | quote }}
+          stdin: true
+          tty: true
+          resources:
+            requests:
+              memory: {{ .Values.resources.apis.requests.memory }}
+              cpu: {{ .Values.resources.apis.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.apis.limits.memory }} 
+              cpu: {{ .Values.resources.apis.limits.cpu }}

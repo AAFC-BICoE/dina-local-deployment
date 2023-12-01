@@ -54,6 +54,13 @@ spec:
               name: {{ .Values.global.environment.config.collection_api.service }}
               port:
                 number: 8080
+        - path: "/search/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.search_ws.service }}
+              port:
+                number: 8085
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -79,4 +86,25 @@ spec:
               name: {{ .Values.global.environment.config.dina_ui.service }}
               port:
                 number: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.app.name }}-elasticsearch-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 2500m
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 12k
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.global.endpoints.elasticsearch }}
+      http:
+        paths:
+        - path: "/"
+          pathType: Prefix
+          backend:
+            service:
+              name: elasticsearch-dina-service
+              port:
+                number: 9200
                 

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-rabbitmq-dina
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-rabbitmq-dina
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  
+  template:
+    metadata:
+      annotations: {}
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app.name }}-rabbitmq-dina
+    spec:
+      hostname: rabbit-dina-node-1
+      containers:
+        - name: rabbitmq-dina
+          image: {{ .Values.services.rabbitmq.image }}
+          ports:
+            - name: producer-port
+              containerPort: 5672
+            - name: consumer-port
+              containerPort: 15672
+          readinessProbe:
+            tcpSocket:
+              port: 5672
+            initialDelaySeconds: 5
+            periodSeconds: 1
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 80m          
+            limits:
+              memory: 512Mi
+              cpu: 100m
+          volumeMounts:
+            - name: rabbit-data-pv
+              mountPath: /var/lib/rabbitmq
+      volumes:
+        - name: rabbit-data-pv
+          hostPath:
+            path: "{{tpl .Values.workingDirPath . }}/rabbitmq-data"
