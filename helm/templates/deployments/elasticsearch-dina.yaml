@@ -30,7 +30,7 @@ spec:
           args:
           - |
             /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu &&
-            echo 'ElasticSearch being restarted' &&
+            echo 'ElasticSearch is restarting' &&
             ./bin/elasticsearch
           env:
             - name: xpack.security.enabled
@@ -65,7 +65,5 @@ spec:
               mountPath: /var/lib/elasticsearch/data
       volumes:
         - name: elastic-data-pv
-          hostPath:
-            path: "{{tpl .Values.workingDirPath . }}/elasticsearch-data"
-
+          emptyDir: {}
 status: {}

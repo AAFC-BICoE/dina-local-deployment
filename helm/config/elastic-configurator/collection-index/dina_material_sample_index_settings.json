@@ -1,0 +1,377 @@
+{
+  "settings": {
+    "index": {
+      "number_of_shards": "1",
+      "number_of_replicas": "1"
+    }
+  },
+  "mappings": {
+    "date_detection": true,
+    "numeric_detection": true,
+    "dynamic_templates": [
+      {
+        "includes_as_nested": {
+          "match_mapping_type": "object",
+          "match":   "included",
+          "mapping": {
+            "type": "nested"
+          }
+        }
+      },
+      {
+        "id_as_keywords": {
+          "match_mapping_type": "string",
+          "match":   "id",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      },
+      {
+        "type_as_keywords": {
+          "match_mapping_type": "string",
+          "match":   "type",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      },
+      {
+        "verbatim_as_text": {
+          "match": "*verbatim*",
+          "mapping": {
+            "type": "text"
+          }
+        }
+      }
+    ],
+    "properties": {
+      "data": {
+        "properties": {
+          "type": {
+            "type": "constant_keyword",
+            "value": "material-sample"
+          },
+          "attributes": {
+            "properties": {
+              "group": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "createdBy": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "createdOn": {
+                "type": "date"
+              },
+              "dwcCatalogNumber": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcOtherCatalogNumbers": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "materialSampleName": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "preparationDate": {
+                "type": "date"
+              },
+              "managedAttributes": {
+                "type": "object"
+              },
+              "preparationRemarks": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcDegreeOfEstablishment": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "host": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "barcode": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "publiclyReleasable": {
+                "type": "boolean"
+              },
+              "notPubliclyReleasableReason": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "tags": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "materialSampleState": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "materialSampleRemarks": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "startEventDateTime": {
+                "type": "date"
+              },
+              "endEventDateTime": {
+                "type": "date"
+              },
+              "hierarchy": {
+                "type": "nested",
+                "properties": {
+                  "uuid": {
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "type": "keyword"
+                  },
+                  "rank": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "relationships": {
+            "properties": {
+              "attachment": {
+                "type": "object"
+              },
+              "collectingEvent": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "collecting-event"
+                      }
+                    }
+                  }
+                }
+              },
+              "organism": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "organism"
+                      }
+                    }
+                  }
+                }
+              },
+              "storageUnit": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "storage-unit"
+                      }
+                    }
+                  }
+                }
+              },
+              "collection": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "collection"
+                      }
+                    }
+                  }
+                }
+              },
+              "preparationType": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "preparation-type"
+                      }
+                    }
+                  }
+                }
+              },
+              "preparationMethod": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "preparation-method"
+                      }
+                    }
+                  }
+                }
+              },
+              "assemblages": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "assemblage"
+                      }
+                    }
+                  }
+                }
+              },
+              "projects": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "project"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "included" : {
+        "type": "nested",
+        "include_in_parent" : true,
+        "properties" : {
+          "attributes" : {
+            "properties" : {
+              "dwcRecordNumber": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcRecordedBy": {
+                "type": "text",
+                "fields": {
+                  "autocomplete": {
+                    "type": "search_as_you_type",
+                    "max_shingle_size": 3
+                  },
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "determination" : {
+                "properties" : {
+                  "verbatimDeterminer": {
+                    "type": "text",
+                    "fields": {
+                      "autocomplete": {
+                        "type": "search_as_you_type",
+                        "max_shingle_size": 3
+                      },
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "meta": {
+        "properties": {
+          "moduleVersion": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -47,5 +47,4 @@ spec:
               mountPath: /var/lib/rabbitmq
       volumes:
         - name: rabbit-data-pv
-          hostPath:
-            path: "{{tpl .Values.workingDirPath . }}/rabbitmq-data"
+          emptyDir: {}

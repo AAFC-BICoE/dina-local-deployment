@@ -104,7 +104,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: elasticsearch-dina-service
+              name: {{ .Values.global.environment.config.elasticsearch.service }}
               port:
                 number: 9200
                 
