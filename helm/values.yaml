@@ -82,6 +82,10 @@ services:
     image: aafcbicoe/natural-history-collection-api:0.80
     pullPolicy: IfNotPresent
     environment:
+      rabbitmq:
+        host: "{{ .Values.global.environment.config.rabbitmq.service }}"
+      messaging:
+        isProducer: true
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/collection?currentSchema=collection
