@@ -43,6 +43,14 @@
             "type": "text"
           }
         }
+      },
+      {
+        "dwc_verbatim_as_text": {
+          "match": "dwcVerbatim*",
+          "mapping": {
+            "type": "text"
+          }
+        }
       }
     ],
     "properties": {
