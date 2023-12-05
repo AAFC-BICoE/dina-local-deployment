@@ -86,25 +86,3 @@ spec:
               name: {{ .Values.global.environment.config.dina_ui.service }}
               port:
                 number: 8080
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: {{ .Values.app.name }}-elasticsearch-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: 2500m
-    nginx.ingress.kubernetes.io/proxy-buffer-size: 12k
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: {{ .Values.global.endpoints.elasticsearch }}
-      http:
-        paths:
-        - path: "/"
-          pathType: Prefix
-          backend:
-            service:
-              name: {{ .Values.global.environment.config.elasticsearch.service }}
-              port:
-                number: 9200
-                

@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   labels:
     app: {{ .Values.app.name }}
@@ -9,15 +9,8 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-elasticsearch-dina
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0  
   template:
     metadata:
-      annotations: {}
-      creationTimestamp: null
       labels:
         app: {{ .Values.app.name }}-elasticsearch-dina
     spec:
@@ -61,9 +54,15 @@ spec:
               memory: 3Gi
               cpu: 2
           volumeMounts:
-            - name: elastic-data-pv
-              mountPath: /var/lib/elasticsearch/data
-      volumes:
-        - name: elastic-data-pv
-          emptyDir: {}
+            - name: es-data
+              mountPath: /usr/share/elasticsearch/data
+  volumeClaimTemplates:
+  - metadata:
+      name: es-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "standard"
+      resources:
+        requests:
+          storage: 512Mi
 status: {}
