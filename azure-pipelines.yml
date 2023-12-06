@@ -15,7 +15,7 @@ steps:
     chartPath: 'helm'
 - task: AzurePowerShell@5
   inputs:
-    azureSubscription: '$(sc)'
+    azureSubscription: $(sc)
     ScriptType: 'InlineScript'
     Inline: 'az --version'
     
