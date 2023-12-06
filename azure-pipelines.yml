@@ -22,7 +22,7 @@ steps:
 - task: AzureCLI@2
   displayName: Login to Azure Container Registry
   inputs:
-    azureSubscription: $(sc)
+    connectedServiceNameARM: $(sc)
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
