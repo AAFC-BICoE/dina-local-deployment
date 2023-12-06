@@ -13,11 +13,11 @@ steps:
   inputs:
     command: 'package'
     chartPath: 'helm'
-- task: AzurePowerShell@5
-  inputs:
-    ConnectedServiceNameARM: $(sc)
-    ScriptType: 'InlineScript'
-    Inline: 'az --version'
+# - task: AzurePowerShell@5
+#   inputs:
+#     ConnectedServiceNameARM: $(sc)
+#     ScriptType: 'InlineScript'
+#     Inline: 'az --version'
     
 - task: AzureCLI@2
   displayName: Login to Azure Container Registry
