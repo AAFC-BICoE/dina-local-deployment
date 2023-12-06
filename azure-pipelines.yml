@@ -9,86 +9,86 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: HelmInstaller@0
-  inputs:
-    helmVersion: '3.6.3'
-    checkLatestHelmVersion: false
-    installKubectl: false
 - task: HelmDeploy@0
   inputs:
-    command: 'save'
+    command: 'package'
     chartPath: 'helm'
-    chartPathForACR: 'helm'
-    chartNameForACR: $(ACRName).azurecr.io/dina:latest
-    azureSubscriptionForACR: $(sc)
-    azureContainerRegistry: $(ACRName)
 
-- script: |
-    sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
-    sudo sh -c "echo '192.19.33.9 api.dina.local' >> /etc/hosts"
-    sudo sh -c "echo '192.19.33.9 keycloak.dina.local' >> /etc/hosts"
-  displayName: 'Setting up hosts name'
-
-- script: |
-    sudo apt-get install wget libnss3-tools -y
-    wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
-    sudo chmod +x mkcert-v1.4.3-linux-amd64
-    sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert
-    mkcert --install
-    mkcert -cert-file  $(Pipeline.Workspace)/s/certs/dina-local-cert.pem -key-file $(Pipeline.Workspace)/s/certs/dina-local-key.pem "dina.local" "api.dina.local" "keycloak.dina.local"
-  displayName: Setting up certificates
-
-- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up&
-  displayName: 'Start DockerCompose'
-
-- bash: |
-    until [ "$response" = "303" ]; do
-      >&2 echo "Attempting to Reach Keycloak Server ..."
-      >&2 echo "Response Code: $(curl --head -X GET --write-out %{http_code} --silent --output /dev/null https://dina.local/auth)"
-      response=$(curl --head -X GET --write-out %{http_code} --silent --output /dev/null https://dina.local/auth)
-      sleep 1
-    done;
-    >&2 echo "Keycloak Server Reached!"
-  displayName: 'Waiting for Keycloak ...'
-  
-- bash: |
-    token_res=$(curl -X POST --silent -u "dina-admin:dina-admin" -d "grant_type=password&username=dina-admin&password=dina-admin&client_id=dina-public&scope=openid" https://dina.local/auth/realms/dina/protocol/openid-connect/token)
-    token_var=$(echo $token_res | grep -Po '"access_token":[^\,]*' | sed -e 's/\"access_token"://g' -e 's/\"//g')
-    until [ "$response" = "200" ]; do
-      >&2 echo "Attempting to Access Collection Module ..."
-      >&2 echo "Response Code: $(curl -X GET --write-out %{http_code} --silent --output /dev/null -H "Content-Type: application/vnd.api+json" -H "Authorization: Bearer $token_var" https://dina.local/api/collection-api/material-sample)"
-      response=$(curl -X GET --write-out %{http_code} --silent --output /dev/null -H "Content-Type: application/vnd.api+json" -H "Authorization: Bearer $token_var" https://dina.local/api/collection-api/material-sample)
-      sleep 3
-    done;
-    >&2 echo "Collection Module Endpoint Accessed!"
-  displayName: 'Verify Collection Module Connection ...'
-
-- script: |
-    wget -c https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.1.tgz
-    tar -xf apache-jmeter-5.6.1.tgz
-  displayName: 'Install the JMeter'
-
-- script: |
-    apache-jmeter-5.6.1/bin/./jmeter -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o jmeter_report -j jmeter.log
-    echo Done
-  displayName: 'Run JMeter'
-
-- bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml down
-  displayName: 'Stop DockerCompose'
-
-- script: |
-    wget https://raw.githubusercontent.com/Azure-Samples/jmeter-aci-terraform/main/scripts/jtl_junit_converter.py
-    python3 jtl_junit_converter.py results/results.jtl results/results_junit.xml
-  displayName: 'Convert and assemble report'
-
-- task: PublishTestResults@2
+- task: AzureCLI@2
+  displayName: Login to Azure Container Registry
   inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: 'results/results_junit.xml'
-    failTaskOnFailedTests: true
-  displayName: 'Publish jMeter test results'
+    azureSubscription: $(sc)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az acr login --name $(ACRName).azurecr.io
 
-- publish: jmeter_report
-  artifact: JMeterResults
-  displayName: 'Publich jMeter artifacts'
+# - script: |
+#     sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
+#     sudo sh -c "echo '192.19.33.9 api.dina.local' >> /etc/hosts"
+#     sudo sh -c "echo '192.19.33.9 keycloak.dina.local' >> /etc/hosts"
+#   displayName: 'Setting up hosts name'
+
+# - script: |
+#     sudo apt-get install wget libnss3-tools -y
+#     wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
+#     sudo chmod +x mkcert-v1.4.3-linux-amd64
+#     sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert
+#     mkcert --install
+#     mkcert -cert-file  $(Pipeline.Workspace)/s/certs/dina-local-cert.pem -key-file $(Pipeline.Workspace)/s/certs/dina-local-key.pem "dina.local" "api.dina.local" "keycloak.dina.local"
+#   displayName: Setting up certificates
+
+# - bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml up&
+#   displayName: 'Start DockerCompose'
+
+# - bash: |
+#     until [ "$response" = "303" ]; do
+#       >&2 echo "Attempting to Reach Keycloak Server ..."
+#       >&2 echo "Response Code: $(curl --head -X GET --write-out %{http_code} --silent --output /dev/null https://dina.local/auth)"
+#       response=$(curl --head -X GET --write-out %{http_code} --silent --output /dev/null https://dina.local/auth)
+#       sleep 1
+#     done;
+#     >&2 echo "Keycloak Server Reached!"
+#   displayName: 'Waiting for Keycloak ...'
+  
+# - bash: |
+#     token_res=$(curl -X POST --silent -u "dina-admin:dina-admin" -d "grant_type=password&username=dina-admin&password=dina-admin&client_id=dina-public&scope=openid" https://dina.local/auth/realms/dina/protocol/openid-connect/token)
+#     token_var=$(echo $token_res | grep -Po '"access_token":[^\,]*' | sed -e 's/\"access_token"://g' -e 's/\"//g')
+#     until [ "$response" = "200" ]; do
+#       >&2 echo "Attempting to Access Collection Module ..."
+#       >&2 echo "Response Code: $(curl -X GET --write-out %{http_code} --silent --output /dev/null -H "Content-Type: application/vnd.api+json" -H "Authorization: Bearer $token_var" https://dina.local/api/collection-api/material-sample)"
+#       response=$(curl -X GET --write-out %{http_code} --silent --output /dev/null -H "Content-Type: application/vnd.api+json" -H "Authorization: Bearer $token_var" https://dina.local/api/collection-api/material-sample)
+#       sleep 3
+#     done;
+#     >&2 echo "Collection Module Endpoint Accessed!"
+#   displayName: 'Verify Collection Module Connection ...'
+
+# - script: |
+#     wget -c https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.1.tgz
+#     tar -xf apache-jmeter-5.6.1.tgz
+#   displayName: 'Install the JMeter'
+
+# - script: |
+#     apache-jmeter-5.6.1/bin/./jmeter -n -t jmeter/collection_api_module_testplan.jmx -l results/results.jtl -e -o jmeter_report -j jmeter.log
+#     echo Done
+#   displayName: 'Run JMeter'
+
+# - bash: docker compose -f docker-compose.base.yml -f docker-compose.local.yml down
+#   displayName: 'Stop DockerCompose'
+
+# - script: |
+#     wget https://raw.githubusercontent.com/Azure-Samples/jmeter-aci-terraform/main/scripts/jtl_junit_converter.py
+#     python3 jtl_junit_converter.py results/results.jtl results/results_junit.xml
+#   displayName: 'Convert and assemble report'
+
+# - task: PublishTestResults@2
+#   inputs:
+#     testResultsFormat: 'JUnit'
+#     testResultsFiles: 'results/results_junit.xml'
+#     failTaskOnFailedTests: true
+#   displayName: 'Publish jMeter test results'
+
+# - publish: jmeter_report
+#   artifact: JMeterResults
+#   displayName: 'Publich jMeter artifacts'
   
