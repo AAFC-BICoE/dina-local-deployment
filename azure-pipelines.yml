@@ -8,21 +8,19 @@ name: dina-local-deployment pipeline
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  AZ_SC: $(ServiceConnection)
+
 steps:
 - task: HelmDeploy@0
   inputs:
     command: 'package'
     chartPath: 'helm'
-# - task: AzurePowerShell@5
-#   inputs:
-#     ConnectedServiceNameARM: $(sc)
-#     ScriptType: 'InlineScript'
-#     Inline: 'az --version'
     
 - task: AzureCLI@2
   displayName: Login to Azure Container Registry
   inputs:
-    connectedServiceNameARM: $(sc)
+    connectedServiceNameARM: ${{ variables.AZ_SC }}
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
