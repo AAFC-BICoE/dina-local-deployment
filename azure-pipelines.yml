@@ -26,6 +26,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az acr login --name ${{ variables.AZ_ACR }}.azurecr.io
+      helm push dina-helm-0.1.0.tgz oci://${{ variables.AZ_ACR }}.azurecr.io/helm
 
 # - script: |
 #     sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
