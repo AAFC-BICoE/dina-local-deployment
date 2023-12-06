@@ -177,7 +177,7 @@ services:
         username: "{{ .Values.global.environment.config.search_cli.username }}"
         password: "{{ .Values.global.environment.config.search_cli.password }}"
       ELASTICSEARCH_URL: "{{ .Values.global.environment.config.elasticsearch.service }}"
-      MATERIAL_SAMPLE_URL: http://{{ .Values.global.environment.config.elasticsearch.service }}:8080/api/v1/material-sample
+      MATERIAL_SAMPLE_URL: http://{{ .Values.global.environment.config.collection_api.service }}:8080/api/v1/material-sample
       METADATA_URL: http://object-store-api:8080/api/v1/metadata
       ORGANIZATION_URL: http://agent-api:8080/api/v1/organization
       PERSON_URL: http://agent-api:8080/api/v1/person
