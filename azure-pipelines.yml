@@ -19,6 +19,11 @@ steps:
     command: 'package'
     chartPath: 'helm'
     destination: ${{ variables.HELM_PACKAGE }}
+
+- script: |
+    version=$(helm inspect chart . | grep -Po '(?<=version:\s)[0-9.]+')
+    echo "##vso[task.setvariable variable=HELM_FILE;]$version"
+  displayName: 'Setting Helm information for Azure Container Registry'
     
 - task: AzureCLI@2
   displayName: Login to Azure Container Registry
@@ -28,6 +33,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az acr login --name ${{ variables.AZ_ACR }}.azurecr.io
+      echo $HELM_FILE
       helm push ${{ variables.HELM_PACKAGE }}/dina-helm-0.1.0.tgz oci://${{ variables.AZ_ACR }}.azurecr.io/helm
 
 # - script: |
