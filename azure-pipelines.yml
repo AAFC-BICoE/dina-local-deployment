@@ -13,12 +13,11 @@ steps:
   inputs:
     command: 'package'
     chartPath: 'helm'
-- task: AzureCLI@2
+- task: AzurePowerShell@5
   inputs:
     azureSubscription: '$(sc)'
-    scriptType: 'pscore'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az --version'
+    ScriptType: 'InlineScript'
+    Inline: 'az --version'
     
 - task: AzureCLI@2
   displayName: Login to Azure Container Registry
