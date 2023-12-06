@@ -13,11 +13,15 @@ steps:
   inputs:
     command: 'package'
     chartPath: 'helm'
-
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: '$(sc)'
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az --version'
+    
 - task: AzureCLI@2
   displayName: Login to Azure Container Registry
-  env:
-    acrName: $(ACRName)
   inputs:
     azureSubscription: $(sc)
     scriptType: bash
