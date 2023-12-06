@@ -21,7 +21,7 @@ steps:
     destination: ${{ variables.HELM_PACKAGE }}
 
 - script: |
-    version=$(helm inspect chart . | grep -Po '(?<=version:\s)[0-9.]+')
+    version=$(helm inspect chart helm/ | grep -Po '(?<=version:\s)[0-9.]+')
     echo "##vso[task.setvariable variable=HELM_FILE;]$version"
   displayName: 'Setting Helm information for Azure Container Registry'
     
