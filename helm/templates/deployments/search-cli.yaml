@@ -61,6 +61,9 @@ spec:
           volumeMounts:
             - name: elastic-pv
               mountPath: /usr/share/elastic-configurator/settings
+        - name: check-rabbitmq-ready
+          image: busybox
+          command: ['sh', '-c', 'until wget http://guest:guest@{{ .Values.global.environment.config.rabbitmq.service }}:15672/api/aliveness-test/%2F; do echo waiting for rabbitmq; sleep 2; done;']
       containers:
         - name: search-cli
           image: {{ .Values.services.searchcli.image }}
@@ -102,14 +105,6 @@ spec:
               value: {{ .Values.services.searchcli.environment.IS_MESSAGE_PRODUCER | quote }}
           stdin: true
           tty: true
-          readinessProbe:
-            exec:
-              command:
-              - sh
-              - -c
-              - curl --output /dev/null --silent --head --fail http://{{ .Values.global.environment.config.rabbitmq.service }}:15672 || exit 1
-            initialDelaySeconds: 5
-            periodSeconds: 5
           resources:
             requests:
               memory: {{ .Values.resources.apis.requests.memory }}
