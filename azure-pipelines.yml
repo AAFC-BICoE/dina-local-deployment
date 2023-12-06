@@ -16,8 +16,10 @@ steps:
 
 - task: AzureCLI@2
   displayName: Login to Azure Container Registry
+  env:
+    azSubSubscription: $(sc)
   inputs:
-    azureSubscription: $(sc)
+    azureSubscription: $(azSubSubscription)
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
