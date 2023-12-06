@@ -17,13 +17,13 @@ steps:
 - task: AzureCLI@2
   displayName: Login to Azure Container Registry
   env:
-    azSubscription: $(sc)
+    acrName: $(ACRName)
   inputs:
-    azureSubscription: $(env.azSubscription)
+    azureSubscription: $(sc)
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
-      az acr login --name $(ACRName).azurecr.io
+      az acr login --name $(ACRNAME).azurecr.io
 
 # - script: |
 #     sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
