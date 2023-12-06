@@ -11,12 +11,14 @@ pool:
 variables:
   AZ_SC: $(ServiceConnection)
   AZ_ACR: $(ContainerRegistry)
+  HELM_PACKAGE: $(Pipeline.Workspace)/helm/output/
 
 steps:
 - task: HelmDeploy@0
   inputs:
     command: 'package'
     chartPath: 'helm'
+    destination: ${{ variables.HELM_PACKAGE }}
     
 - task: AzureCLI@2
   displayName: Login to Azure Container Registry
@@ -26,7 +28,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az acr login --name ${{ variables.AZ_ACR }}.azurecr.io
-      helm push dina-helm-0.1.0.tgz oci://${{ variables.AZ_ACR }}.azurecr.io/helm
+      helm push ${{ variables.HELM_PACKAGE }}/dina-helm-0.1.0.tgz oci://${{ variables.AZ_ACR }}.azurecr.io/helm
 
 # - script: |
 #     sudo sh -c "echo '192.19.33.9 dina.local' >> /etc/hosts"
