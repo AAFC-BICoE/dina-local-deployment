@@ -98,6 +98,14 @@ spec:
               value: {{ .Values.services.searchcli.environment.IS_MESSAGE_PRODUCER | quote }}
           stdin: true
           tty: true
+          readinessProbe:
+            exec:
+              command:
+              - sh
+              - -c
+              - curl --output /dev/null --silent --head --fail http://{{ .Values.global.environment.config.rabbitmq.service }}:15672 || exit 1
+            initialDelaySeconds: 5
+            periodSeconds: 5
           resources:
             requests:
               memory: {{ .Values.resources.apis.requests.memory }}
