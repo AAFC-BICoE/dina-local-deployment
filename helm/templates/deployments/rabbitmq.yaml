@@ -38,10 +38,10 @@ spec:
           resources:
             requests:
               memory: 256Mi
-              cpu: 80m          
+              cpu: 300m          
             limits:
               memory: 512Mi
-              cpu: 100m
+              cpu: 600m
           volumeMounts:
             - name: rabbit-data-pv
               mountPath: /var/lib/rabbitmq
