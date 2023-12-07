@@ -68,8 +68,8 @@ spec:
         - name: search-cli
           image: {{ .Values.services.searchcli.image }}
           env:
-            - name: KEYCLOAK_AUTH-SERVER-URL
-              value: {{ tpl .Values.services.searchcli.environment.keycloak.auth_server_url . }}
+            - name: KEYCLOAK_OPENID-AUTH-SERVER
+              value: {{ tpl .Values.services.searchcli.environment.keycloak.openid_auth_server . }}
             - name: KEYCLOAK_CLIENT-ID
               value: {{ tpl .Values.services.searchcli.environment.keycloak.client_id . }}
             - name: KEYCLOAK_USERNAME

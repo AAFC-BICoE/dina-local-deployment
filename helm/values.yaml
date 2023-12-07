@@ -172,7 +172,7 @@ services:
     image: aafcbicoe/dina-search-cli:0.26
     environment:
       keycloak:
-        auth_server_url: "{{ .Values.global.environment.keycloak.auth_server_url }}"
+        openid_auth_server: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/token"
         client_id: "{{ .Values.global.environment.keycloak.client_id }}"
         username: "{{ .Values.global.environment.config.search_cli.username }}"
         password: "{{ .Values.global.environment.config.search_cli.password }}"
