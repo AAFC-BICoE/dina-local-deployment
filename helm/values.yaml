@@ -35,7 +35,7 @@ global:
       search_cli:
         label: search-cli
         username: cnc-su
-        password:
+        password: cnc-su
       search_ws:
         label: search-ws
         service: searchws-service

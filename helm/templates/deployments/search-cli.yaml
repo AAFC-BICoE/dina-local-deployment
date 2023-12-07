@@ -68,21 +68,14 @@ spec:
         - name: search-cli
           image: {{ .Values.services.searchcli.image }}
           env:
-            - name: keycloak.auth_server_url
+            - name: KEYCLOAK_AUTH-SERVER-URL
               value: {{ tpl .Values.services.searchcli.environment.keycloak.auth_server_url . }}
-            - name: keycloak.client_id
+            - name: KEYCLOAK_CLIENT-ID
               value: {{ tpl .Values.services.searchcli.environment.keycloak.client_id . }}
-            - name: keycloak.username
+            - name: KEYCLOAK_USERNAME
               value: {{ tpl .Values.services.searchcli.environment.keycloak.username . }}
-            - name: keycloak.password
-              {{- if not .Values.global.environment.config.search_cli.password }}
-              valueFrom:
-                secretKeyRef:
-                  name: searchcli-secret
-                  key: password
-              {{- else }}
+            - name: KEYCLOAK_PASSWORD
               value: {{ tpl .Values.services.searchcli.environment.keycloak.password . }}
-            {{- end }}
             - name: ELASTICSEARCH_URL
               value: {{ tpl .Values.services.searchcli.environment.ELASTICSEARCH_URL . }}
             - name: MATERIAL_SAMPLE_URL
