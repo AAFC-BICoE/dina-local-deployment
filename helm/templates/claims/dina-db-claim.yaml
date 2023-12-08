@@ -17,6 +17,7 @@ metadata:
   name: postgresql-01
   labels:
     type: local
+    app: postgresql
 spec:
   storageClassName: localstorage
   capacity:
@@ -25,3 +26,19 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/mnt/postgresql01"
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: esdata-01
+  labels:
+    type: local
+    app: elasticsearch
+spec:
+  storageClassName: localstorage
+  capacity:
+    storage: 512Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/esdata01"

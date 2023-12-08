@@ -54,6 +54,13 @@ spec:
               name: {{ .Values.global.environment.config.collection_api.service }}
               port:
                 number: 8080
+        - path: "/search/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.search_ws.service }}
+              port:
+                number: 8085
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -79,4 +86,3 @@ spec:
               name: {{ .Values.global.environment.config.dina_ui.service }}
               port:
                 number: 8080
-                

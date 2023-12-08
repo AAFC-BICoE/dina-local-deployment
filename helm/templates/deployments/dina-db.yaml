@@ -40,12 +40,9 @@ spec:
   - metadata:
       name: dina-db-claim
     spec:
-      accessModes: ["ReadWriteOnce"]
-      storageClassName: "localstorage"
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "standard"
       resources:
         requests:
           storage: 2Gi
-      selector:
-        matchLabels:
-          type: local
 status: {}

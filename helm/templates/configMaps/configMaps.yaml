@@ -27,13 +27,17 @@ binaryData:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: keycloak-data
+  name: certs
 data:
-{{ (.Files.Glob "config/keycloak-data/*").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/certs/*").AsConfig | indent 2 }}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: certs
+  name: elastic-settings
 data:
-{{ (.Files.Glob "config/certs/*").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/elastic-configurator/*").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/elastic-configurator/agent-index/*").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/elastic-configurator/object-store-index/*").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/elastic-configurator/collection-index/*").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/elastic-configurator/storage-index/*").AsConfig | indent 2 }}
