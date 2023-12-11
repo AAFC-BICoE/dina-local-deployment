@@ -47,6 +47,20 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: {{ .Values.global.environment.config.objectstore_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.objectstore_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}   
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: {{ .Values.global.environment.config.dina_ui.service }}
   labels:
     app: {{ .Values.global.environment.config.dina_ui.service }}
@@ -103,3 +117,17 @@ spec:
       targetPort: 15672
   selector:
     app: {{ .Values.app.name }}-{{ .Values.global.environment.config.rabbitmq.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-service
+  labels:
+    app: minio-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9000
+      targetPort: 9000
+  selector:
+    app: {{ .Values.app.name }}-minio

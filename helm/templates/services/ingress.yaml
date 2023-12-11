@@ -61,6 +61,13 @@ spec:
               name: {{ .Values.global.environment.config.search_ws.service }}
               port:
                 number: 8085
+        - path: "/objectstore/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.objectstore_api.service }}
+              port:
+                number: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
