@@ -3,12 +3,12 @@ kind: Deployment
 metadata:
   labels:
     app: {{ .Values.app.name }}
-  name: {{ .Values.app.name }}-collection-api
+  name: {{ .Values.app.name }}-{{ .Values.global.environment.config.collection_api.label }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.app.name }}-collection-api
+      app: {{ .Values.app.name }}-{{ .Values.global.environment.config.collection_api.label }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -19,7 +19,7 @@ spec:
       annotations: {}
       creationTimestamp: null
       labels:
-        app: {{ .Values.app.name }}-collection-api
+        app: {{ .Values.app.name }}-{{ .Values.global.environment.config.collection_api.label }}
     spec:
       initContainers:
         - name: check-db
@@ -27,7 +27,7 @@ spec:
           command:
             - sh
             - -c
-            - until pg_isready -h dina-db-service; do echo waiting for database; sleep 10; done;
+            - until pg_isready -h {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}; do echo waiting for database; sleep 10; done;
         - name: init-db
           image: {{ .Values.services.initdb.image }}
           env:
