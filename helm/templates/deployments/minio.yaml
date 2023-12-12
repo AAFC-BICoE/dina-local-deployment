@@ -27,9 +27,9 @@ spec:
             minio server /data
           env:
             - name: MINIO_ROOT_USER
-              value: {{ .Values.services.minio.environment.MINIO_ACCESS_KEY }}         
+              value: {{ tpl .Values.services.minio.environment.MINIO_ROOT_USER . }}         
             - name: MINIO_ROOT_PASSWORD
-              value: {{ .Values.services.minio.environment.MINIO_SECRET_KEY }}
+              value: {{ tpl .Values.services.minio.environment.MINIO_ROOT_PASSWORD . }}
             - name: MINIO_VOLUMES
               value: /data
           resources:

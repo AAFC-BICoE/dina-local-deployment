@@ -81,16 +81,16 @@ spec:
             - name: DEV-USER_ENABLED
               value: "false"
             - name: SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE
-              value: 1GB
+              value: {{ .Values.services.objectstoreapi.environment.spring.servlet.multipart.max_file_size }}
             - name: SPRING_SERVLET_MULTIPART_MAX-REQUEST-SIZE
-              value: 1GB
+              value: {{ .Values.services.objectstoreapi.environment.spring.servlet.multipart.max_request_size }}
             - name: MESSAGING_ISPRODUCER
               value: {{ .Values.services.objectstoreapi.environment.messaging.isProducer | quote}}
             - name: MINIO_HOST
               value: {{ tpl .Values.services.objectstoreapi.environment.minio.host . }}
-            - name: MINIO_ACCESS_KEY
+            - name: MINIO_ACCESSKEY
               value: {{ tpl .Values.services.objectstoreapi.environment.minio.accessKey . }}
-            - name: MINIO_SECRET_KEY
+            - name: MINIO_SECRETKEY
               value: {{ tpl .Values.services.objectstoreapi.environment.minio.secretKey . }}
             - name: RABBITMQ_HOST
               value: {{ tpl .Values.services.objectstoreapi.environment.rabbitmq.host .}}

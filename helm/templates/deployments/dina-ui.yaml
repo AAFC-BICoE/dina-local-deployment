@@ -32,7 +32,7 @@ spec:
             - name: KEYCLOAK_PUBLIC_URL
               value: {{ tpl .Values.services.dinaui.environment.KEYCLOAK_PUBLIC_URL . }}
             - name: OBJECTSTORE_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.OBJECTSTORE_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.OBJECTSTORE_API_ADDRESS . }}
             - name: AGENT_API_ADDRESS
               value: {{ .Values.services.dinaui.environment.AGENT_API_ADDRESS }}
             - name: SEQDB_API_ADDRESS
