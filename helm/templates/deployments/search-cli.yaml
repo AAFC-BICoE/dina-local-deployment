@@ -81,7 +81,7 @@ spec:
             - name: MATERIAL_SAMPLE_URL
               value: {{ tpl .Values.services.searchcli.environment.MATERIAL_SAMPLE_URL . }}
             - name: METADATA_URL
-              value: {{ .Values.services.searchcli.environment.METADATA_URL }}
+              value: {{ tpl .Values.services.searchcli.environment.METADATA_URL . }}
             - name: ORGANIZATION_URL
               value: {{ .Values.services.searchcli.environment.ORGANIZATION_URL }}
             - name: PERSON_URL
