@@ -1,6 +1,25 @@
 # Default values for dina-helm-test.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+profiles:
+  agent_api: #agent_api
+    enabled: false
+  export_api: #dina-export-api
+    enabled: false
+  loan_transaction_api: #loan
+    enabled: false
+  object_store_api:  #minio and objectstore
+    enabled: false
+  search_api:
+    enabled: false # ws, cli, rabbitmq, elastic
+  seqdb_api: #seqdb_api
+    enabled: false
+  user_api: #user_api
+    enabled: false
+  kibana: #kibana
+    enabled: false
+  prometheus: #prometheus
+    enabled: false
 
 replicaCount: 1
 app:
