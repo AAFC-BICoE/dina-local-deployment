@@ -14,6 +14,10 @@ global:
         db_name: dina
         db_password: 
         db_user: pguser
+      minio:
+        service: minio-service
+        accessKey: minio
+        secretKey: minio123
       keycloak: 
         label: keycloak
         service: keycloak-service
@@ -28,7 +32,15 @@ global:
         datasource_password: 
         datasource_user: web_user_coll
         liquibase_user: migration_user_coll
-        liquibase_password: 
+        liquibase_password:
+      objectstore_api:
+        DINA_DB: object_store
+        label: objectstore-api
+        service: objectstore-api-service
+        datasource_password: 
+        datasource_user: web_user_os
+        liquibase_user: migration_user_os
+        liquibase_password:
       dina_ui: 
         label: dina-ui
         service: dina-ui-service
@@ -77,6 +89,15 @@ services:
         actuator:
           allowedIP: prometheus
         PG_EXTENSION_collection: postgis
+      objectstoreapi:
+        DINA_DB: object_store
+        spring:
+          datasource:
+            username: "{{ .Values.global.environment.config.objectstore_api.datasource_user }}"
+            password: "{{ .Values.global.environment.config.objectstore_api.datasource_password }}"
+          liquibase:
+            username: "{{ .Values.global.environment.config.objectstore_api.liquibase_user }}"
+            password: "{{ .Values.global.environment.config.objectstore_api.liquibase_password }}"
   collectionapi:
     image: aafcbicoe/natural-history-collection-api:0.80
     pullPolicy: IfNotPresent
@@ -103,7 +124,7 @@ services:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
       KEYCLOAK_PUBLIC_URL: https://{{ .Values.global.endpoints.ui }}/auth
-      OBJECTSTORE_API_ADDRESS: object-store-api:8080
+      OBJECTSTORE_API_ADDRESS: "{{ .Values.global.environment.config.objectstore_api.service }}:8080"
       AGENT_API_ADDRESS: agent-api:8080
       SEQDB_API_ADDRESS: seqdb-api:8080
       COLLECTION_API_ADDRESS: "{{ .Values.global.environment.config.collection_api.service }}:8080"
@@ -112,6 +133,35 @@ services:
       LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
       REPORT_LABEL_API_ADDRESS: dina-export-api:8080
       INSTANCE_MODE: developer
+  objectstoreapi:
+    image: aafcbicoe/object-store-api:1.8
+    environment:
+      rabbitmq:
+        host: "{{ .Values.global.environment.config.rabbitmq.service }}"
+        queue: dina.search.queue
+        exchange: dina.search.exchange
+        routingkey: dina.search.routingkey
+        username: guest
+        password: guest
+        port: 15672
+      messaging:
+        isProducer: true
+      spring:
+        datasource:
+          url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/object_store?currentSchema=object_store
+        servlet:
+          multipart:
+            max_file_size: 1GB
+            max_request_size: 1GB
+      minio: 
+        host: "{{ .Values.global.environment.config.minio.service }}"
+        accessKey: "{{ .Values.global.environment.config.minio.accessKey }}"
+        secretKey: "{{ .Values.global.environment.config.minio.secretKey }}"
+  minio:
+    image: minio/minio:RELEASE.2022-10-05T14-58-27Z
+    environment:
+      MINIO_ROOT_USER: "{{ .Values.global.environment.config.minio.accessKey }}"
+      MINIO_ROOT_PASSWORD: "{{ .Values.global.environment.config.minio.secretKey }}"
   keycloak:
     pullPolicy: IfNotPresent
     image: "quay.io/keycloak/keycloak:20.0.5"
@@ -157,7 +207,7 @@ services:
       DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/collection-index/dina_material_sample_index_settings.json
       DINA_STORAGE_INDEX_NAME: dina_storage_index
       DINA_STORAGE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/storage-index/dina_storage_index_settings.json
-      DINA_OBJECT_STORE_INDEX_NAME: dina_storage_index
+      DINA_OBJECT_STORE_INDEX_NAME: dina_object_store_index
       DINA_OBJECT_STORE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/object-store-index/object_store_index_settings.json
       DINA_TRANSACTION_INDEX_NAME: dina_loan_transaction_index
       DINA_TRANSACTION_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_loan_transaction_index_settings.json
@@ -178,7 +228,7 @@ services:
         password: "{{ .Values.global.environment.config.search_cli.password }}"
       ELASTICSEARCH_URL: "{{ .Values.global.environment.config.elasticsearch.service }}"
       MATERIAL_SAMPLE_URL: http://{{ .Values.global.environment.config.collection_api.service }}:8080/api/v1/material-sample
-      METADATA_URL: http://object-store-api:8080/api/v1/metadata
+      METADATA_URL: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1/metadata
       ORGANIZATION_URL: http://agent-api:8080/api/v1/organization
       PERSON_URL: http://agent-api:8080/api/v1/person
       STORAGE_UNIT_URL: http://{{ .Values.global.environment.config.collection_api.service }}:8080/api/v1/storage-unit
