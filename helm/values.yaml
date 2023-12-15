@@ -98,9 +98,6 @@ services:
           liquibase:
             username: "{{ .Values.global.environment.config.objectstore_api.liquibase_user }}"
             password: "{{ .Values.global.environment.config.objectstore_api.liquibase_password }}"
-        actuator:
-          allowedIP: prometheus
-        PG_EXTENSION_object_store: postgis
   collectionapi:
     image: aafcbicoe/natural-history-collection-api:0.80
     pullPolicy: IfNotPresent
