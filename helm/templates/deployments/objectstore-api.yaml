@@ -70,8 +70,6 @@ spec:
             {{- else }}
             value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.password . }}
             {{- end }}
-          - name: PG_EXTENSION_object_store
-            value: {{ .Values.services.initdb.config.objectstoreapi.PG_EXTENSION_object_store }}
       containers:
         - name: object-store-api
           image: {{ .Values.services.objectstoreapi.image }}
