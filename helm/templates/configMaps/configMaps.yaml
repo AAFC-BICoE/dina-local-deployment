@@ -41,3 +41,17 @@ data:
 {{ (.Files.Glob "config/elastic-configurator/object-store-index/*").AsConfig | indent 2 }}
 {{ (.Files.Glob "config/elastic-configurator/collection-index/*").AsConfig | indent 2 }}
 {{ (.Files.Glob "config/elastic-configurator/storage-index/*").AsConfig | indent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: message-producer-override-objectstore
+data:
+  MESSAGING_ISPRODUCER: {{ .Values.services.objectstoreapi.environment.messaging.isProducer | quote }}
+  RABBITMQ_HOST: {{ tpl .Values.services.objectstoreapi.environment.rabbitmq.host . }}
+  RABBITMQ_QUEUE: {{ .Values.services.objectstoreapi.environment.rabbitmq.queue }}
+  RABBITMQ_EXCHANGE: {{ .Values.services.objectstoreapi.environment.rabbitmq.exchange }}
+  RABBITMQ_ROUTINGKEY: {{ .Values.services.objectstoreapi.environment.rabbitmq.routingkey }}
+  RABBITMQ_USERNAME: {{ .Values.services.objectstoreapi.environment.rabbitmq.username }}
+  RABBITMQ_PASSWORD: {{ .Values.services.objectstoreapi.environment.rabbitmq.password }}
+  RABBITMQ_PORT: {{ .Values.services.objectstoreapi.environment.rabbitmq.port | quote }}
