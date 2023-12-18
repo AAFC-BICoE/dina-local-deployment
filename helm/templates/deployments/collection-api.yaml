@@ -77,10 +77,12 @@ spec:
           image: {{ .Values.services.collectionapi.image }}
           imagePullPolicy: {{ .Values.services.keycloak.pullPolicy }}
           env:
+            {{- if .Values.messageProducerOverride.enabled }}
             - name: MESSAGING_ISPRODUCER
               value: {{ .Values.services.collectionapi.environment.messaging.isProducer | quote}}
             - name: RABBITMQ_HOST
               value: {{ tpl .Values.services.collectionapi.environment.rabbitmq.host . }}
+            {{- end }}
             - name: KEYCLOAK_ENABLED
               value: {{ .Values.global.environment.keycloak.enabled | quote }}         
             - name: KEYCLOAK_AUTH-SERVER-URL
