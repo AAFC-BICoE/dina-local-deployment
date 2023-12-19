@@ -55,3 +55,11 @@ data:
   RABBITMQ_USERNAME: {{ .Values.services.objectstoreapi.environment.rabbitmq.username }}
   RABBITMQ_PASSWORD: {{ .Values.services.objectstoreapi.environment.rabbitmq.password }}
   RABBITMQ_PORT: {{ .Values.services.objectstoreapi.environment.rabbitmq.port | quote }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: message-producer-override-collection
+data:
+  MESSAGING_ISPRODUCER: {{ .Values.services.collectionapi.environment.messaging.isProducer | quote }}
+  RABBITMQ_HOST: {{ tpl .Values.services.collectionapi.environment.rabbitmq.host . }}
