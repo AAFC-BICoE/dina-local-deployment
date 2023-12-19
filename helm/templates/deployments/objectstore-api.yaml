@@ -5,7 +5,7 @@ metadata:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
 spec:
-  replicas: 1
+  replicas: {{ if .Values.profiles.object_store_api.enabled }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
@@ -73,6 +73,11 @@ spec:
       containers:
         - name: object-store-api
           image: {{ .Values.services.objectstoreapi.image }}
+          {{- if .Values.messageProducerOverride.enabled }}
+          envFrom:
+            - configMapRef:
+                name: message-producer-override-objectstore
+          {{- end }}
           env:
             - name: KEYCLOAK_ENABLED
               value: {{ .Values.global.environment.keycloak.enabled | quote }}
@@ -82,28 +87,12 @@ spec:
               value: {{ .Values.services.objectstoreapi.environment.spring.servlet.multipart.max_file_size }}
             - name: SPRING_SERVLET_MULTIPART_MAX-REQUEST-SIZE
               value: {{ .Values.services.objectstoreapi.environment.spring.servlet.multipart.max_request_size }}
-            - name: MESSAGING_ISPRODUCER
-              value: {{ .Values.services.objectstoreapi.environment.messaging.isProducer | quote}}
             - name: MINIO_HOST
               value: {{ tpl .Values.services.objectstoreapi.environment.minio.host . }}
             - name: MINIO_ACCESSKEY
               value: {{ tpl .Values.services.objectstoreapi.environment.minio.accessKey . }}
             - name: MINIO_SECRETKEY
               value: {{ tpl .Values.services.objectstoreapi.environment.minio.secretKey . }}
-            - name: RABBITMQ_HOST
-              value: {{ tpl .Values.services.objectstoreapi.environment.rabbitmq.host .}}
-            - name: RABBITMQ_QUEUE
-              value: {{ .Values.services.objectstoreapi.environment.rabbitmq.queue }}
-            - name: RABBITMQ_EXCHANGE
-              value: {{ .Values.services.objectstoreapi.environment.rabbitmq.exchange }}
-            - name: RABBITMQ_ROUTINGKEY
-              value: {{ .Values.services.objectstoreapi.environment.rabbitmq.routingkey }}
-            - name: RABBITMQ_USERNAME
-              value: {{ .Values.services.objectstoreapi.environment.rabbitmq.username }}
-            - name: RABBITMQ_PASSWORD
-              value: {{ .Values.services.objectstoreapi.environment.rabbitmq.password }}
-            - name: RABBITMQ_PORT
-              value: {{ .Values.services.objectstoreapi.environment.rabbitmq.port | quote }}
             - name: KEYCLOAK_AUTH-SERVER-URL
               value: {{ tpl .Values.global.environment.keycloak.auth_server_url . }}
             - name: SPRING_DATASOURCE_URL

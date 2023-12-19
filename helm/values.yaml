@@ -1,7 +1,13 @@
 # Default values for dina-helm-test.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
+profiles:
+  object_store_api:  #minio and objectstore
+    enabled: true
+  search_api:
+    enabled: true # ws, cli, rabbitmq, elastic
+messageProducerOverride:
+  enabled: true
 replicaCount: 1
 app:
   name: dina-helm
