@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>AAFC Zebra ZT410 Labels</title>
+
+    <style>
+
+      @page {
+        background: white;
+        font-family: Arial, sans-serif;
+        font-size: 7pt;
+        width: 210mm;
+    	height: 297mm;
+    	margin-top: 0mm;
+        margin-left: 0mm;
+        margin-bottom: 0mm;
+        margin-right: 10mm;
+      }
+
+	  @font-face {
+
+		font-family: "Arial";
+		font-style: normal;
+		font-weight: 350;
+		-fs-font-subset: complete-font;
+	  }
+
+      html {
+        background-color: transparent;
+		min-width: 210mm;
+		min-height: 297mm;
+      }
+      body {
+        background-color: white;
+        font-family: Arial, sans-serif;
+        font-size: 7pt;
+		letter-spacing: 0pt;
+       /* border: 1px solid black;*/
+        margin: 0;
+		margin-left: 5mm;
+        padding: 0;
+        text-align: left;
+		width: 210mm;
+		height: 297mm;
+      }
+
+      table { page-break-inside:auto }
+      tr    { page-break-inside:avoid; page-break-after:auto }
+
+	  table {
+		border: none;
+		border-collapse: collapse;
+		margin: 0;
+		padding: 0;
+   	  }
+
+	  td, th {
+		/*border: 1px blue dotted;*/
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		text-overflow: "*";  /* attach star when text bigger than expected */
+    	white-space: nowrap;
+	  }
+
+	  div.clip {
+		overflow: hidden;
+		text-overflow: "*";  /* attach star when text bigger than expected */
+		white-space: nowrap;
+	  }
+
+	  table.maintable {
+	  	width: 8inch !important;
+		max-width: 8inch;
+		min-width: 8inch;
+
+		/*height: 2inch !important;
+		max-height: 2inch;*/
+
+		margin: 0;
+		padding: 0;
+		border-spacing: 0px;
+		border-collapse: collapse;
+		table-layout:fixed;
+
+		page-break-inside:avoid;
+		page-break-after:always;
+	  }
+
+	  table.maintable tr {
+	  	page-break-inside:avoid;
+	  	page-break-after:auto;
+	  }
+
+	  td.main {
+	    width: 4inch;
+		min-width: 4inch;
+		max-width: 4inch;
+		height: 2inch !important;
+	  	max-height: 2inch;
+	  	min-height: 2inch;
+
+		border: 1px #EEEEEE dotted;
+		border-left: none;
+		border-top: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		word-wrap:break-word;
+		font-size: 7pt;
+		/*vertical-align: middle;*/
+	  }
+
+	  td.col-1 {
+		margin-left: 0mm;
+		margin-right: 0mm;
+		padding: 0;
+	  }
+
+	  td.col-2 {
+		padding-left: 5mm;
+		padding-right: 0mm;
+	  }
+
+	  table.subtable {
+	  	border: 1px lightgrey solid;
+	  	width: 4inch;
+	  	max-width: 4inch;
+		overflow: hidden;
+	  	margin: 0;
+	  	margin-top: 3mm;
+	  }
+
+	   table.subtable td {
+	  	width: 4inch;
+	  	max-width: 4inch;
+	  }
+
+	  table.subtable table th{
+	  	font-weight: normal;
+	  	max-width: 15mm;
+	  	padding-bottom: 2px;
+	  	padding-right: 7px;
+	  }
+
+	  table.subtable table td{
+	  	font-weight: normal;
+	  	min-width: 60mm;
+	  	max-width: 60mm;
+	  	width: 60mm;
+	  	padding-bottom: 2px;
+		overflow: hidden;
+	 	/*border: 1px blue dashed;*/
+	  }
+
+	  table.subtable td.left{
+	    width: 50mm;
+	  	max-width: 50mm !important;
+	  	min-width: 50mm;
+
+	  	padding-left: 3mm;
+	  	/*padding-right: 2mm;*/
+	  	text-align: left;
+	  	vertical-align: top;
+	  }
+
+	  table.subtable td.left2{
+	    width: 60mm;
+	  	max-width: 60mm;
+	  	min-width: 60mm;
+
+	  	padding-left: 3mm;
+	  	padding-right: 2mm;
+	  	text-align: left;
+	  	vertical-align: top;
+	  }
+
+	  table.subtable td.center{
+	    width: 14mm;
+	  	max-width: 14mm !important;
+	  	min-width: 14mm;
+	  	padding: 0;
+	  }
+
+	  table.subtable td.right{
+	  	width: 4mm !important;
+	  	max-width: 4mm;
+	  	min-width: 4mm;
+	  	height: 4mm !important;
+	  	/*max-height: 44mm;
+	  	min-height: 44mm;*/
+	  	padding: 0;
+	  	padding-bottom: 1mm;
+	  	text-align: left;
+	  	vertical-align: bottom;
+	  	overflow: hidden;
+	  }
+
+	  table.subtable td.right div {
+	  	padding: 0;
+	  	margin: 0;
+	  	margin-bottom: 3mm;
+	  	width: 4mm;
+	  	/*overflow: hidden;*/
+	  	/*height: 4mm;*/
+	 	display: block;
+	 	transform: rotate(-90deg);
+	 	white-space: nowrap;
+	 	text-align: left;
+	 	font-size: 6px;
+	  }
+
+	  table.subtable tr.firstRow {
+	  	height: 12mm !important;
+	  	padding: 0;
+	  	margin: 0;
+	  }
+
+	  .data {
+		/*line-height: 8pt;*/
+	  }
+
+
+	  .GIN {
+	  	max-height: 12mm;
+	  	padding: 0;
+	  	margin: 0;
+	  }
+
+	  .GIN-prefix {
+	  	font-size: 9pt;
+	  }
+	  .materialSampleName {
+	  	font-size: 15pt;
+	  	font-weight: bold;
+	  	/*letter-spacing: 2pt;*/
+	  }
+
+	  .qrcode {
+		width: 14mm;
+		height: 14mm;
+		/*border: 1px black solid;*/
+		margin-right: 4mm;
+		margin-left:6px;
+
+	  }
+	  #header {
+		/*position: absolute;*/
+		top: 0px;
+		font-weight: bold;
+	  }
+
+    </style>
+  </head>
+  <body>
+
+{% set i = 0 %}
+{% set p = 0 %}
+{% set d = 0 %}
+{% set max = dataArray|length %}
+<!-- Set cells for your lebels here
+If your labels have 2 cells change it to 2 and so on
+-->
+{% set cells = 1 %}
+{% set cellsPerPage = 12 %}
+
+	{% for data in dataArray %}
+		{% if p == 0 %}
+			<table class="maintable">
+			<tbody>
+		{% endif %}
+		{% if i == 0 %}
+			<tr>
+		{% endif %}
+		{# Rules for QR codes #}
+    		{% if (data.materialSampleName is defined) and (data.materialSampleName is not empty) and (data.materialSampleName is not null) %}
+    		    <!-- This is he function to generate the QR code -->
+    		    {% set qrImage = generateCode(data.materialSampleName, "" , 'QR-Code', '{ \'margin\' : 4 }') %}
+    		{% endif %}
+
+			{% set columnClass = 'col-' ~ (i+1) %}
+			{% set dotClass = 'dot-' ~ (i+1) %}
+
+		<td class="main {{ columnClass }}">
+			<div class="dot {{ dotClass }}"></div>
+			<table style="width:100%;">
+				<tr>
+					<!--
+					<th rowspan="3"><span STYLE="font-size:6px;">S<br/>P<br/>E<br/>C<br/>I<br/>M<br/>E<br/>N</span></th>
+					-->
+					<th rowspan="3"><span STYLE="font-size:6px;">S<br/>P<br/>E<br/></span></th>
+					<th rowspan="3"><img class="qrcode" src="{{ qrImage }}"/></th>
+					{# <td style="width:50px; padding-top: 3px;">{{ null2empty(data.rejuv_date) }}</td> #}
+					<td style="width:25px; padding-top: 3px;">TR</td>
+					<th rowspan="3" style="width:80px;" align="center">DAOMC<br/>229536<br/>2<br/></th>
+				</tr>
+				<tr>
+					{# <td style="width:60px; padding-top: 0px;">{{ data.host }}</td> #}
+					<td style="width:30px;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					{# <td style="width:60px;">{{ data.variety }}</td> #}
+					<td style="width:30px;">a</td>
+					<td></td>
+				</tr>
+				<tr>
+					&nbsp;
+				</tr>
+			</table>
+		</td>
+
+    {% if i == cells-1 or p == cellsPerPage-1 or d == max-1 %}
+		</tr>
+		{% set i = 0 %}
+	{% else %}
+		{% set i = i+1 %}
+	{% endif %}
+
+	{% if p == cellsPerPage-1 or d == max-1 %}
+		</tbody></table>
+		{% set p = 0 %}
+		{% set i = 0 %}
+	{% else %}
+		{% set p = p+1 %}
+	{% endif %}
+
+	{% set d = d+1 %}
+
+{% endfor %}
+  </body>
+</html>

@@ -3,12 +3,12 @@ kind: Deployment
 metadata:
   labels:
     app: {{ .Values.app.name }}
-  name: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
+  name: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_export_api.label }}
 spec:
-  replicas: {{ if .Values.profiles.object_store_api.enabled }}1{{ else }}0{{ end }}
+  replicas: {{ if .Values.profiles.export_api.enabled }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
-      app: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
+      app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_export_api.label }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -19,7 +19,7 @@ spec:
       annotations: {}
       creationTimestamp: null
       labels:
-        app: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
+        app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_export_api.label }}
     spec:
       initContainers:
         - name: check-db
@@ -54,28 +54,28 @@ spec:
           - name: POSTGRES_USER
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
           - name: DINA_DB
-            value: {{ .Values.services.initdb.config.objectstoreapi.DINA_DB }}
-          - name: MIGRATION_USER_object_store
-            value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.username . }}
-          - name: MIGRATION_USER_PW_object_store
-            {{- if not .Values.global.environment.config.objectstore_api.liquibase_password }}
+            value: {{ .Values.services.initdb.config.dinaexportapi.DINA_DB }}
+          - name: MIGRATION_USER_export
+            value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.liquibase.username . }}
+          - name: MIGRATION_USER_PW_export
+            {{- if not .Values.global.environment.config.dina_export_api.liquibase_password }}
             valueFrom:
               secretKeyRef:
-                name: objectstore-liquibase-secret
+                name: dinaexportapi-liquibase-secret
                 key: password
             {{- else }}
-            value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.password . }}
+            value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.liquibase.password . }}
             {{- end }}
-          - name: WEB_USER_object_store
-            value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.username . }}
-          - name: WEB_USER_PW_object_store
-            {{- if not .Values.global.environment.config.objectstore_api.datasource_password }}
+          - name: WEB_USER_export
+            value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.datasource.username . }}
+          - name: WEB_USER_PW_export
+            {{- if not .Values.global.environment.config.dina_export_api.datasource_password }}
             valueFrom:
               secretKeyRef:
-                name: objectstore-datasource-secret
+                name: dinaexportapi-datasource-secret
                 key: password
             {{- else }}
-            value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.password . }}
+            value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.datasource.password . }}
             {{- end }}
           resources:
             requests:
@@ -85,59 +85,53 @@ spec:
               memory: {{ .Values.resources.initcontainers.limits.memory }} 
               cpu: {{ .Values.resources.initcontainers.limits.cpu }}
       containers:
-        - name: object-store-api
-          image: {{ .Values.services.objectstoreapi.image }}
-          {{- if .Values.messageProducerOverride.enabled }}
-          envFrom:
-            - configMapRef:
-                name: message-producer-override-objectstore
-          {{- end }}
+        - name: dina-export-api
+          image: {{ .Values.services.dinaexportapi.image }}
           env:
             - name: KEYCLOAK_ENABLED
               value: {{ .Values.global.environment.keycloak.enabled | quote }}
-            - name: DEV-USER_ENABLED
-              value: "false"
-            - name: SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE
-              value: {{ .Values.services.objectstoreapi.environment.spring.servlet.multipart.max_file_size }}
-            - name: SPRING_SERVLET_MULTIPART_MAX-REQUEST-SIZE
-              value: {{ .Values.services.objectstoreapi.environment.spring.servlet.multipart.max_request_size }}
-            - name: MINIO_HOST
-              value: {{ tpl .Values.services.objectstoreapi.environment.minio.host . }}
-            - name: MINIO_ACCESSKEY
-              value: {{ tpl .Values.services.objectstoreapi.environment.minio.accessKey . }}
-            - name: MINIO_SECRETKEY
-              value: {{ tpl .Values.services.objectstoreapi.environment.minio.secretKey . }}
             - name: KEYCLOAK_AUTH-SERVER-URL
               value: {{ tpl .Values.global.environment.keycloak.auth_server_url . }}
             - name: SPRING_DATASOURCE_URL
-              value: {{ tpl .Values.services.objectstoreapi.environment.spring.datasource.url . }}
+              value: {{ tpl .Values.services.dinaexportapi.environment.spring.datasource.url . }}
             - name: SPRING_DATASOURCE_USERNAME
-              value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.username . }}
+              value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.datasource.username . }}
             - name: SPRING_DATASOURCE_PASSWORD
-              {{- if not .Values.global.environment.config.objectstore_api.datasource_password }}
+              {{- if not .Values.global.environment.config.dina_export_api.datasource_password }}
               valueFrom:
                 secretKeyRef:
-                  name: objectstore-datasource-secret
+                  name: dinaexportapi-datasource-secret
                   key: password
               {{- else }}
-              value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.password . }}
+              value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.datasource.password . }}
               {{- end }}
             - name: SPRING_LIQUIBASE_USER
-              value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.username . }}
+              value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.liquibase.username . }}
             - name: SPRING_LIQUIBASE_PASSWORD
-              {{- if not .Values.global.environment.config.objectstore_api.liquibase_password }}
+              {{- if not .Values.global.environment.config.dina_export_api.liquibase_password }}
               valueFrom:
                 secretKeyRef:
-                  name: objectstore-liquibase-secret
+                  name: dinaexportapi-liquibase-secret
                   key: password
               {{- else }}
-              value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.password . }}
+              value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.liquibase.password . }}
               {{- end }}
+            - name: SPRING_FREEMARKER_TEMPLATE-LOADER-PATH
+              value: {{ .Values.services.dinaexportapi.environment.spring.freemarker.template_loader_path }}
+            - name: DINA_EXPORT_WORKINGFOLDER
+              value: {{ .Values.services.dinaexportapi.environment.dina.export.workingFolder }}
+            - name: ELASTICSEARCH_HOST
+              value: {{ tpl .Values.services.dinaexportapi.environment.elasticsearch.host . }}
+            - name: ELASTICSEARCH_PORT
+              value: {{ .Values.services.dinaexportapi.environment.elasticsearch.port | quote }}
           readinessProbe:
             tcpSocket:
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 1
+          volumeMounts:
+            - name: dina-export-pv
+              mountPath: /tmp/templates
           resources:
             requests:
               memory: {{ .Values.resources.apis.requests.memory }}
@@ -145,4 +139,15 @@ spec:
             limits:
               memory: {{ .Values.resources.apis.limits.memory }} 
               cpu: {{ .Values.resources.apis.limits.cpu }}
+      volumes:
+        - name: dina-export-pv
+          configMap:
+            name: report-label
+            items:
+            - key: AAFC_Beaver_ZT410.twig
+              path: templates/AAFC_Beaver_ZT410.twig
+            - key: AAFC_Zebra_ZT410.twig
+              path: templates/AAFC_Zebra_ZT410.twig
+            - key: submit.html
+              path: templates/submit.html
 status: {}

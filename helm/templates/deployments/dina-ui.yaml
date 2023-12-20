@@ -34,21 +34,21 @@ spec:
             - name: OBJECTSTORE_API_ADDRESS
               value: {{ tpl .Values.services.dinaui.environment.OBJECTSTORE_API_ADDRESS . }}
             - name: AGENT_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.AGENT_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.AGENT_API_ADDRESS . }}
             - name: SEQDB_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.SEQDB_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.SEQDB_API_ADDRESS . }}
             - name: COLLECTION_API_ADDRESS
               value: {{ tpl .Values.services.dinaui.environment.COLLECTION_API_ADDRESS . }}
             - name: USER_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.USER_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.USER_API_ADDRESS . }}
             - name: SEARCH_API_ADDRESS
               value: {{ tpl .Values.services.dinaui.environment.SEARCH_API_ADDRESS . }}
             - name: LOAN_TRANSACTION_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.LOAN_TRANSACTION_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.LOAN_TRANSACTION_API_ADDRESS . }}
             - name: REPORT_LABEL_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.REPORT_LABEL_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.REPORT_LABEL_API_ADDRESS . }}
             - name: INSTANCE_MODE
-              value: {{ .Values.services.dinaui.environment.INSTANCE_MODE }}
+              value: {{ tpl .Values.services.dinaui.environment.INSTANCE_MODE . }}
           ports:
             - name: http
               containerPort: 80
