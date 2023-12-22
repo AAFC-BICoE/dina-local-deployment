@@ -416,25 +416,25 @@ securityContext: {}
 resources:
   general:
     limits:
+      memory: 2Gi
+      cpu: 1
+    requests:
+      cpu: 400m
+      memory: 1Gi
+  apis:
+    limits:
+      memory: 768Mi
+      cpu: 400m
+    requests:
+      cpu: 80m
+      memory: 256Mi
+  initcontainers:
+    limits:
       memory: 256Mi
       cpu: 20m
     requests:
       cpu: 10m
       memory: 128Mi
-  apis:
-    limits:
-      memory: 1Gi
-      cpu: 1
-    requests:
-      cpu: 80m
-      memory: 768Mi
-  initcontainers:
-    limits:
-      memory: 64Mi
-      cpu: 20m
-    requests:
-      cpu: 10m
-      memory: 32Mi
 autoscaling:
   enabled: false
   minReplicas: 1

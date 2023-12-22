@@ -36,6 +36,13 @@ spec:
             value: /var/lib/postgresql/data
           image: {{ .Values.services.dinadb.image }}
           name: dina-db
+          resources:
+            requests:
+              memory: {{ .Values.resources.apis.requests.memory }}
+              cpu: {{ .Values.resources.apis.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.apis.limits.memory }} 
+              cpu: {{ .Values.resources.apis.limits.cpu }}
   volumeClaimTemplates:
   - metadata:
       name: dina-db-claim

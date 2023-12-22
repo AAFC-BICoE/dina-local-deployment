@@ -79,10 +79,3 @@ metadata:
 data:
   MESSAGING_ISPRODUCER: {{ .Values.services.agentapi.environment.messaging.isProducer | quote }}
   RABBITMQ_HOST: {{ tpl .Values.services.agentapi.environment.rabbitmq.host . }}
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: report-label
-data:
-{{ (.Files.Glob "config/report-label/templates/*").AsConfig | indent 2 }}

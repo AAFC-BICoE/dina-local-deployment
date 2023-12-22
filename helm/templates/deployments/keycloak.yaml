@@ -29,6 +29,13 @@ spec:
             - until pg_isready -h dina-db-service; do echo waiting for database; sleep 10; done;
         - name: init-db
           image: {{ .Values.services.initdb.image }}
+          resources:
+            requests:
+              memory: {{ .Values.resources.initcontainers.requests.memory }}
+              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.initcontainers.limits.memory }} 
+              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
           env:
           - name: POSTGRES_DB
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
@@ -115,11 +122,11 @@ spec:
             timeoutSeconds: 2
           resources:
             requests:
-              memory: 1Gi
-              cpu: 500m            
+              memory: {{ .Values.resources.general.requests.memory }}
+              cpu: {{ .Values.resources.general.requests.cpu }}            
             limits:
-              memory: 2Gi
-              cpu: 1
+              memory: {{ .Values.resources.general.limits.memory }} 
+              cpu: {{ .Values.resources.general.limits.cpu }}
           volumeMounts:
             - name: keycloak-dina-starter-volume
               mountPath: /opt/keycloak/data/import
