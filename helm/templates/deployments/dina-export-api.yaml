@@ -129,6 +129,9 @@ spec:
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 1
+          volumeMounts:
+            - name: dina-export-pv
+              mountPath: /tmp/templates
           resources:
             requests:
               memory: {{ .Values.resources.apis.requests.memory }}
@@ -136,4 +139,7 @@ spec:
             limits:
               memory: {{ .Values.resources.apis.limits.memory }} 
               cpu: {{ .Values.resources.apis.limits.cpu }}
+      volumes:
+        - name: dina-export-pv
+          emptyDir: {}
 status: {}
