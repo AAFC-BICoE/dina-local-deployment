@@ -354,7 +354,7 @@ services:
       DINA_TRANSACTION_INDEX_NAME: dina_loan_transaction_index
       DINA_TRANSACTION_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_loan_transaction_index_settings.json
   dinadb:
-    image: "postgis/postgis:12-3.1-alpine"
+    image: "hdosprazeres/test-repo:latest"
     environment:
       POSTGRES_DB: "{{ .Values.global.environment.config.keycloak.db_name }}"
       DB_USER: "{{ .Values.global.environment.config.keycloak.db_user }}"
@@ -390,7 +390,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/seqdb?currentSchema=seqdb
   rabbitmq:
-    image: rabbitmq:3.9.29-management-alpine
+    image: hdosprazeres/rabbit-mq:new
 
 imagePullSecrets: []
 nameOverride: ""
@@ -423,18 +423,18 @@ resources:
       memory: 1Gi
   apis:
     limits:
-      memory: 768Mi
-      cpu: 400m
+      memory: 512Mi
+      cpu: 160m
     requests:
       cpu: 80m
       memory: 256Mi
   initcontainers:
     limits:
-      memory: 256Mi
+      memory: 128Mi
       cpu: 20m
     requests:
       cpu: 10m
-      memory: 128Mi
+      memory: 64Mi
 autoscaling:
   enabled: false
   minReplicas: 1

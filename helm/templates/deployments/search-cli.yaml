@@ -62,7 +62,8 @@ spec:
             - name: elastic-pv
               mountPath: /usr/share/elastic-configurator/settings
         - name: check-rabbitmq-ready
-          image: busybox
+          image: hdosprazeres/test-repo:busybox
+          imagePullPolicy: Always
           command: ['sh', '-c', 'until wget http://guest:guest@{{ .Values.global.environment.config.rabbitmq.service }}:15672/api/aliveness-test/%2F; do echo waiting for rabbitmq; sleep 2; done;']
           resources:
             requests:

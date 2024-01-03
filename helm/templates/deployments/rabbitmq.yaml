@@ -25,6 +25,7 @@ spec:
       containers:
         - name: rabbitmq-dina
           image: {{ .Values.services.rabbitmq.image }}
+          imagePullPolicy: Always
           ports:
             - name: producer-port
               containerPort: 5672

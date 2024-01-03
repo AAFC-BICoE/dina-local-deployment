@@ -5,6 +5,7 @@ metadata:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-elasticsearch-dina
 spec:
+  serviceName: {{ .Values.app.name }}-elasticsearch-dina
   replicas: {{ if .Values.profiles.search_api.enabled }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
@@ -37,10 +38,7 @@ spec:
               containerPort: 9200
             - name: internal
               containerPort: 9300
-          securityContext:
-            capabilities:
-              add: ["IPC_LOCK"]
-            runAsUser: 1000
+          securityContext: {}
           readinessProbe:
             tcpSocket:
               port: 9200
@@ -61,8 +59,7 @@ spec:
       name: es-data
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "standard"
+      storageClassName: gpfs-fileset-0
       resources:
         requests:
           storage: 512Mi
-status: {}
