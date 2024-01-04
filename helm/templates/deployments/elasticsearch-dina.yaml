@@ -48,11 +48,11 @@ spec:
             periodSeconds: 1
           resources:
             requests:
-              memory: 2Gi
-              cpu: 1            
+              memory: {{ .Values.resources.general.requests.memory }}
+              cpu: {{ .Values.resources.general.requests.cpu }}            
             limits:
-              memory: 3Gi
-              cpu: 2
+              memory: {{ .Values.resources.general.limits.memory }} 
+              cpu: {{ .Values.resources.general.limits.cpu }}
           volumeMounts:
             - name: es-data
               mountPath: /usr/share/elasticsearch/data

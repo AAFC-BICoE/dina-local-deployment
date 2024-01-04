@@ -34,11 +34,11 @@ spec:
               value: /data
           resources:
             requests:
-              memory: {{ .Values.resources.general.requests.memory }}
-              cpu: {{ .Values.resources.general.requests.cpu }}            
+              memory: {{ .Values.resources.apis.requests.memory }}
+              cpu: {{ .Values.resources.apis.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.general.limits.memory }} 
-              cpu: {{ .Values.resources.general.limits.cpu }} 
+              memory: {{ .Values.resources.apis.limits.memory }} 
+              cpu: {{ .Values.resources.apis.limits.cpu }} 
           volumeMounts:
             - name: minio-pv
               mountPath: /data

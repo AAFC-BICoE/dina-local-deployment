@@ -47,6 +47,13 @@ spec:
     - host: {{ .Values.global.endpoints.api }}
       http:
         paths:
+        - path: "/agent/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.agent_api.service }}
+              port:
+                number: 8080
         - path: "/collection/(.*)"
           pathType: ImplementationSpecific
           backend:
@@ -54,11 +61,39 @@ spec:
               name: {{ .Values.global.environment.config.collection_api.service }}
               port:
                 number: 8080
+        - path: "/dinauser/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.dina_user_api.service }}
+              port:
+                number: 8080
+        - path: "/export/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.dina_export_api.service }}
+              port:
+                number: 8080
+        - path: "/transaction/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.loan_transaction_api.service }}
+              port:
+                number: 8080
         - path: "/search/(.*)"
           pathType: ImplementationSpecific
           backend:
             service:
               name: {{ .Values.global.environment.config.search_ws.service }}
+              port:
+                number: 8085
+        - path: "/seqdb/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.seqdb_api.service }}
               port:
                 number: 8085
         - path: "/objectstore/(.*)"

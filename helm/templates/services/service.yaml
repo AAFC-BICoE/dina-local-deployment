@@ -56,7 +56,77 @@ spec:
     - port: 8080
       targetPort: 8080
   selector:
-    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}   
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.agent_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.agent_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.agent_api.label }}   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.dina_export_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.dina_export_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_export_api.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.dina_user_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.dina_user_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_user_api.label }}   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.loan_transaction_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.loan_transaction_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.loan_transaction_api.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.seqdb_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.seqdb_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.seqdb_api.label }}
 ---
 apiVersion: v1
 kind: Service

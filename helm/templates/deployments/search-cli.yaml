@@ -64,6 +64,13 @@ spec:
         - name: check-rabbitmq-ready
           image: busybox
           command: ['sh', '-c', 'until wget http://guest:guest@{{ .Values.global.environment.config.rabbitmq.service }}:15672/api/aliveness-test/%2F; do echo waiting for rabbitmq; sleep 2; done;']
+          resources:
+            requests:
+              memory: {{ .Values.resources.initcontainers.requests.memory }}
+              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.initcontainers.limits.memory }} 
+              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
       containers:
         - name: search-cli
           image: {{ .Values.services.searchcli.image }}
@@ -83,13 +90,13 @@ spec:
             - name: METADATA_URL
               value: {{ tpl .Values.services.searchcli.environment.METADATA_URL . }}
             - name: ORGANIZATION_URL
-              value: {{ .Values.services.searchcli.environment.ORGANIZATION_URL }}
+              value: {{ tpl .Values.services.searchcli.environment.ORGANIZATION_URL . }}
             - name: PERSON_URL
-              value: {{ .Values.services.searchcli.environment.PERSON_URL }}
+              value: {{ tpl .Values.services.searchcli.environment.PERSON_URL . }}
             - name: STORAGE_UNIT_URL
               value: {{ tpl .Values.services.searchcli.environment.STORAGE_UNIT_URL . }}
             - name: LOAN_TRANSACTION_URL
-              value: {{ .Values.services.searchcli.environment.LOAN_TRANSACTION_URL }}
+              value: {{ tpl .Values.services.searchcli.environment.LOAN_TRANSACTION_URL . }}
             - name: RABBITMQ_HOSTNAME
               value: {{ tpl .Values.services.searchcli.environment.RABBITMQ_HOSTNAME . }}
             - name: IS_MESSAGE_CONSUMER

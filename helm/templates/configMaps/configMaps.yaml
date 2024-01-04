@@ -63,3 +63,19 @@ metadata:
 data:
   MESSAGING_ISPRODUCER: {{ .Values.services.collectionapi.environment.messaging.isProducer | quote }}
   RABBITMQ_HOST: {{ tpl .Values.services.collectionapi.environment.rabbitmq.host . }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: message-producer-override-loantransaction
+data:
+  MESSAGING_ISPRODUCER: {{ .Values.services.loantransactionapi.environment.messaging.isProducer | quote }}
+  RABBITMQ_HOST: {{ tpl .Values.services.loantransactionapi.environment.rabbitmq.host . }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: message-producer-override-agentapi
+data:
+  MESSAGING_ISPRODUCER: {{ .Values.services.agentapi.environment.messaging.isProducer | quote }}
+  RABBITMQ_HOST: {{ tpl .Values.services.agentapi.environment.rabbitmq.host . }}
