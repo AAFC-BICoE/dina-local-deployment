@@ -61,16 +61,6 @@ spec:
           volumeMounts:
             - name: elastic-pv
               mountPath: /usr/share/elastic-configurator/settings
-        - name: check-rabbitmq-ready
-          image: busybox
-          command: ['sh', '-c', 'until wget http://guest:guest@{{ .Values.global.environment.config.rabbitmq.service }}:15672/api/aliveness-test/%2F; do echo waiting for rabbitmq; sleep 2; done;']
-          resources:
-            requests:
-              memory: {{ .Values.resources.initcontainers.requests.memory }}
-              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
-            limits:
-              memory: {{ .Values.resources.initcontainers.limits.memory }} 
-              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
       containers:
         - name: search-cli
           image: {{ .Values.services.searchcli.image }}

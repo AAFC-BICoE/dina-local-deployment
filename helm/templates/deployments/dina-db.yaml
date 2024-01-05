@@ -5,6 +5,7 @@ metadata:
     app: {{ .Values.app.name }}-dina-db
   name: {{ .Values.app.name }}-dina-db
 spec:
+  serviceName: {{ .Values.app.name }}-dina-db
   replicas: 1
   selector:
     matchLabels:
@@ -48,7 +49,7 @@ spec:
       name: dina-db-claim
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "standard"
+      storageClassName: {{ .Values.global.environment.storageClass }}
       resources:
         requests:
           storage: 2Gi

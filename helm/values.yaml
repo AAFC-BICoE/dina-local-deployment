@@ -115,6 +115,9 @@ global:
       realm: dina
       enabled: true
       auth_server_url: http://{{ .Values.global.environment.config.keycloak.service }}:8080/auth
+    storageClass: standard
+    securityContext:
+      enabled: true
   endpoints:
     api: api.dina.local
     ui: dina.local
