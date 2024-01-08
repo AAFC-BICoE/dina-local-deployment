@@ -48,7 +48,7 @@ spec:
       name: minio-pv
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "standard"
+      storageClassName: {{ .Values.global.environment.storageClass }}
       resources:
         requests:
           storage: 2Gi
