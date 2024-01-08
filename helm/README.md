@@ -81,3 +81,14 @@ From dina-local-deployment root:
 `helm install dina-helm ./helm -f helm/values.yaml`
 
 To remove the chart: `helm uninstall dina-helm`
+
+
+### Deploying chart in OKD environment or alternative environments.
+
+From dina-local-deployment root
+
+`helm install dina-helm ./helm -f helm/values.yaml -f helm/<additional_value_injection.yaml>`
+
+In this repo, as an example, the 'okd-values.yaml' overrides some values already provided by the general injection file ('values.yaml'). In Helm, when multiple injection values are passed as arguments, such as in this example, the rightmost file takes precedence in overriding previously injected values.
+
+In this example, aside from changing the storageClassName to match that used in GRDI OKD environment, a securityContext flag (securityContext.enabled=false) is set to false due to an environment constraint. Note that if you require additional alternative override values it is always preferrable to define it in a new injection file.

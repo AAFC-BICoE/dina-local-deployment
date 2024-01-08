@@ -27,6 +27,13 @@ spec:
             - sh
             - -c
             - until pg_isready -h dina-db-service; do echo waiting for database; sleep 10; done;
+          resources:
+            requests:
+              memory: {{ .Values.resources.initcontainers.requests.memory }}
+              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.initcontainers.limits.memory }} 
+              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
         - name: init-db
           image: {{ .Values.services.initdb.image }}
           resources:

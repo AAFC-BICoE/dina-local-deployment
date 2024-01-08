@@ -5,6 +5,7 @@ metadata:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-minio
 spec:
+  serviceName: {{ .Values.app.name }}-minio
   replicas: {{ if .Values.profiles.object_store_api.enabled }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
@@ -47,7 +48,7 @@ spec:
       name: minio-pv
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "standard"
+      storageClassName: {{ .Values.global.environment.storageClass }}
       resources:
         requests:
           storage: 2Gi
