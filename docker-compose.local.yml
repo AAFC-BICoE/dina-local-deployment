@@ -319,7 +319,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.27
+    image: aafcbicoe/dina-search-ws:0.28
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -331,7 +331,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.27
+    image: aafcbicoe/dina-search-cli:0.28
     profiles: ["search_api"]
     environment:
       keycloak.openid_auth_server: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/token
