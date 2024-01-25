@@ -3,21 +3,21 @@ version: "3.9"
 services:
   agent-api:
     environment:
-      messaging.isProducer: "true"
+      dina.messaging.isProducer: "true"
       rabbitmq.host: rabbitmq-dina
     networks:
       - dina_rabbitmq_net
 
   collection-api:
     environment:
-      messaging.isProducer: "true"
+      dina.messaging.isProducer: "true"
       rabbitmq.host: rabbitmq-dina
     networks:
       - dina_rabbitmq_net
 
   loan-transaction-api:
     environment:
-      messaging.isProducer: "true"
+      dina.messaging.isProducer: "true"
       rabbitmq.host: rabbitmq-dina
     networks:
       - dina_rabbitmq_net
