@@ -52,7 +52,7 @@ services:
         condition: service_completed_successfully 
 
   agent-api:
-    image: aafcbicoe/agent-api:0.25
+    image: aafcbicoe/agent-api:0.26
     profiles: ["agent_api"]
     mem_limit: 512m
     environment:
@@ -78,7 +78,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.82
+    image: aafcbicoe/natural-history-collection-api:0.83
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -104,7 +104,7 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.8
+    image: aafcbicoe/loan-transaction-api:0.9
     profiles: ["loan_transaction_api"]
     mem_limit: 512m
     environment:
