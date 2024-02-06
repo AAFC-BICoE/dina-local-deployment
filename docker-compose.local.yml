@@ -190,7 +190,7 @@ services:
         condition: service_completed_successfully 
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.5
+    image: aafcbicoe/dina-export-api:0.6
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
