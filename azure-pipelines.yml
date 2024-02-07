@@ -3,6 +3,12 @@
 trigger:
 - master
 
+parameters:
+- name: pushACR
+  displayName: Push to Azure Container Registry (ACR)
+  type: boolean
+  default: false
+
 name: dina-local-deployment pipeline
 
 pool:
@@ -15,6 +21,7 @@ variables:
 
 steps:
 - task: HelmDeploy@0
+  name: setupHelm
   inputs:
     command: 'package'
     chartPath: 'helm'
@@ -28,7 +35,12 @@ steps:
   displayName: 'Setting Helm information for Azure Container Registry'
     
 - task: AzureCLI@2
-  displayName: Login to Azure Container Registry
+  displayName: Login and push to Azure Container Registry
+  condition: |
+    and(
+      succeeded('setupHelm'), 
+      eq(${{ parameters.pushACR }}, true)
+    )
   inputs:
     connectedServiceNameARM: ${{ variables.AZ_SC }}
     scriptType: bash
