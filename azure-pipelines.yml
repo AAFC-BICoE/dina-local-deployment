@@ -38,8 +38,8 @@ steps:
   displayName: Login and push to Azure Container Registry
   condition: |
     and(
-      succeeded('setupHelm'), 
-      eq(${{ parameters.pushACR }}, true)
+      succeeded('setupHelm'),
+      ${{ eq(parameters.pushACR, true) }} 
     )
   inputs:
     connectedServiceNameARM: ${{ variables.AZ_SC }}
