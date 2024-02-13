@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: {{ .Values.app.name }}-dina-db
+  name: {{ .Values.app.name }}-dina-db
+spec:
+  serviceName: {{ .Values.app.name }}-dina-db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-dina-db
+  template:
+    metadata:
+      annotations: {}
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app.name }}-dina-db
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - env:
+          - name: POSTGRES_DB
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
+          - name: POSTGRES_PASSWORD
+            {{- if not .Values.global.environment.config.dina_db.db_password }}
+            valueFrom:
+              secretKeyRef:
+                name: dina-db-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
+            {{- end }}
+          - name: POSTGRES_USER
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
+          - name: PGDATA
+            value: /var/lib/postgresql/data
+          image: {{ .Values.services.dinadb.image }}
+          name: dina-db
+          resources:
+            requests:
+              memory: {{ .Values.resources.apis.requests.memory }}
+              cpu: {{ .Values.resources.apis.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.apis.limits.memory }} 
+              cpu: {{ .Values.resources.apis.limits.cpu }}
+  volumeClaimTemplates:
+  - metadata:
+      name: dina-db-claim
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ .Values.global.environment.storageClass }}
+      resources:
+        requests:
+          storage: 2Gi
+status: {}

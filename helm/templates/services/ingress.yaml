@@ -5,31 +5,126 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 2500m
     nginx.ingress.kubernetes.io/proxy-buffer-size: 12k
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - keycloak.dina.local
-    secretName: keycloak.dina.local-tls
+    - {{ .Values.global.endpoints.keycloak }}
+    secretName: {{ .Values.global.endpoints.keycloak }}-tls
   rules:
-    - host: {{ .Values.services.keycloak.environment.KC_HOSTNAME }}
+    - host: {{ .Values.global.endpoints.ui }}
       http:
         paths:
-        - path: "/"
+        - path: "/auth"
           pathType: Prefix
           backend:
             service:
-              name: keycloak-service
+              name: {{ .Values.global.environment.config.keycloak.service }}
               port:
                 number: 8080
-    - host: {{ .Values.services.keycloak.environment.KC_HOSTNAME_ADMIN }}
+    - host: {{ .Values.global.endpoints.keycloak }}
+      http:
+        paths:
+        - path: "/auth"
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.keycloak.service }}
+              port:
+                number: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.app.name }}-collection-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 2500m
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 12k
+    nginx.ingress.kubernetes.io/rewrite-target: /api/v1/$1
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.global.endpoints.api }}
+      http:
+        paths:
+        - path: "/agent/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.agent_api.service }}
+              port:
+                number: 8080
+        - path: "/collection/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.collection_api.service }}
+              port:
+                number: 8080
+        - path: "/dinauser/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.dina_user_api.service }}
+              port:
+                number: 8080
+        - path: "/export/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.dina_export_api.service }}
+              port:
+                number: 8080
+        - path: "/transaction/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.loan_transaction_api.service }}
+              port:
+                number: 8080
+        - path: "/search/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.search_ws.service }}
+              port:
+                number: 8085
+        - path: "/seqdb/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.seqdb_api.service }}
+              port:
+                number: 8085
+        - path: "/objectstore/(.*)"
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ .Values.global.environment.config.objectstore_api.service }}
+              port:
+                number: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.app.name }}-dina-ui-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 2500m
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 12k
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ .Values.global.endpoints.ui }}
+    secretName: {{ .Values.global.endpoints.keycloak }}-tls
+  rules:
+    - host: {{ .Values.global.endpoints.ui }}
       http:
         paths:
         - path: "/"
           pathType: Prefix
           backend:
             service:
-              name: keycloak-service
+              name: {{ .Values.global.environment.config.dina_ui.service }}
               port:
                 number: 8080

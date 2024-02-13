@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-search-cli
+spec:
+  replicas: {{ if .Values.profiles.search_api.enabled }}1{{ else }}0{{ end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-search-cli
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  
+  template:
+    metadata:
+      annotations: {}
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app.name }}-search-cli
+    spec:
+      initContainers:
+        - name: elastic-configurator
+          image: {{ .Values.services.elasticconfigurator.image }}
+          env:
+            - name: ELASTIC_SERVER_URL
+              value: {{ .Values.services.elasticconfigurator.environment.ELASTIC_SERVER_URL }}
+            - name: INDEX_CREATE_CMD
+              value: {{ .Values.services.elasticconfigurator.environment.INDEX_CREATE_CMD }}
+            - name: DINA_INDEX_DECLARATIONS
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_INDEX_DECLARATIONS }}
+            - name: DINA_AGENT_INDEX_NAME
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_AGENT_INDEX_NAME }}
+            - name: DINA_AGENT_INDEX_SETTINGS_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_AGENT_INDEX_SETTINGS_FILE }}
+            - name: DINA_MATERIAL_SAMPLE_INDEX_NAME
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_MATERIAL_SAMPLE_INDEX_NAME }}
+            - name: DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE }}
+            - name: DINA_STORAGE_INDEX_NAME
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_STORAGE_INDEX_NAME }}
+            - name: DINA_STORAGE_INDEX_SETTINGS_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_STORAGE_INDEX_SETTINGS_FILE }}
+            - name: DINA_OBJECT_STORE_INDEX_NAME
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_OBJECT_STORE_INDEX_NAME }}
+            - name: DINA_OBJECT_STORE_INDEX_SETTINGS_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_OBJECT_STORE_INDEX_SETTINGS_FILE }}
+            - name: DINA_TRANSACTION_INDEX_NAME
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_TRANSACTION_INDEX_NAME }}
+            - name: DINA_TRANSACTION_INDEX_SETTINGS_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_TRANSACTION_INDEX_SETTINGS_FILE }}
+          resources:
+            requests:
+              memory: {{ .Values.resources.apis.requests.memory }}
+              cpu: {{ .Values.resources.apis.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.apis.limits.memory }} 
+              cpu: {{ .Values.resources.apis.limits.cpu }}
+          volumeMounts:
+            - name: elastic-pv
+              mountPath: /usr/share/elastic-configurator/settings
+      containers:
+        - name: search-cli
+          image: {{ .Values.services.searchcli.image }}
+          env:
+            - name: KEYCLOAK_OPENID-AUTH-SERVER
+              value: {{ tpl .Values.services.searchcli.environment.keycloak.openid_auth_server . }}
+            - name: KEYCLOAK_CLIENT-ID
+              value: {{ tpl .Values.services.searchcli.environment.keycloak.client_id . }}
+            - name: KEYCLOAK_USERNAME
+              value: {{ tpl .Values.services.searchcli.environment.keycloak.username . }}
+            - name: KEYCLOAK_PASSWORD
+              value: {{ tpl .Values.services.searchcli.environment.keycloak.password . }}
+            - name: ELASTICSEARCH_URL
+              value: {{ tpl .Values.services.searchcli.environment.ELASTICSEARCH_URL . }}
+            - name: MATERIAL_SAMPLE_URL
+              value: {{ tpl .Values.services.searchcli.environment.MATERIAL_SAMPLE_URL . }}
+            - name: METADATA_URL
+              value: {{ tpl .Values.services.searchcli.environment.METADATA_URL . }}
+            - name: ORGANIZATION_URL
+              value: {{ tpl .Values.services.searchcli.environment.ORGANIZATION_URL . }}
+            - name: PERSON_URL
+              value: {{ tpl .Values.services.searchcli.environment.PERSON_URL . }}
+            - name: STORAGE_UNIT_URL
+              value: {{ tpl .Values.services.searchcli.environment.STORAGE_UNIT_URL . }}
+            - name: LOAN_TRANSACTION_URL
+              value: {{ tpl .Values.services.searchcli.environment.LOAN_TRANSACTION_URL . }}
+            - name: RABBITMQ_HOSTNAME
+              value: {{ tpl .Values.services.searchcli.environment.RABBITMQ_HOSTNAME . }}
+            - name: IS_MESSAGE_CONSUMER
+              value: {{ .Values.services.searchcli.environment.IS_MESSAGE_CONSUMER | quote }}
+            - name: IS_MESSAGE_PRODUCER
+              value: {{ .Values.services.searchcli.environment.IS_MESSAGE_PRODUCER | quote }}
+          stdin: true
+          tty: true
+          resources:
+            requests:
+              memory: {{ .Values.resources.apis.requests.memory }}
+              cpu: {{ .Values.resources.apis.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.apis.limits.memory }} 
+              cpu: {{ .Values.resources.apis.limits.cpu }}
+      volumes:
+        - name: elastic-pv
+          configMap:
+            name: elastic-settings
+            items:
+            - key: dina_loan_transaction_index_settings.json
+              path: dina_loan_transaction_index_settings.json
+            - key: dina_storage_index_settings.json
+              path: storage-index/dina_storage_index_settings.json
+            - key: object_store_index_settings.json
+              path: object-store-index/object_store_index_settings.json
+            - key: dina_material_sample_index_settings.json
+              path: collection-index/dina_material_sample_index_settings.json
+            - key: dina_agent_index_settings.json
+              path: agent-index/dina_agent_index_settings.json

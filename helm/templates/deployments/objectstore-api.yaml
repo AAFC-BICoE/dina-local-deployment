@@ -1,0 +1,148 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
+spec:
+  replicas: {{ if .Values.profiles.object_store_api.enabled }}1{{ else }}0{{ end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  
+  template:
+    metadata:
+      annotations: {}
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
+    spec:
+      initContainers:
+        - name: check-db
+          image: {{ .Values.services.initdb.image }}
+          command:
+            - sh
+            - -c
+            - until pg_isready -h {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}; do echo waiting for database; sleep 10; done;
+          resources:
+            requests:
+              memory: {{ .Values.resources.initcontainers.requests.memory }}
+              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.initcontainers.limits.memory }} 
+              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
+        - name: init-db
+          image: {{ .Values.services.initdb.image }}
+          env:
+          - name: POSTGRES_DB
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
+          - name: POSTGRES_PASSWORD
+            {{- if not .Values.global.environment.config.dina_db.db_password }}
+            valueFrom:
+              secretKeyRef:
+                name: dina-db-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
+            {{- end }}
+          - name: POSTGRES_HOST
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
+          - name: POSTGRES_USER
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
+          - name: DINA_DB
+            value: {{ .Values.services.initdb.config.objectstoreapi.DINA_DB }}
+          - name: MIGRATION_USER_object_store
+            value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.username . }}
+          - name: MIGRATION_USER_PW_object_store
+            {{- if not .Values.global.environment.config.objectstore_api.liquibase_password }}
+            valueFrom:
+              secretKeyRef:
+                name: objectstore-liquibase-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.password . }}
+            {{- end }}
+          - name: WEB_USER_object_store
+            value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.username . }}
+          - name: WEB_USER_PW_object_store
+            {{- if not .Values.global.environment.config.objectstore_api.datasource_password }}
+            valueFrom:
+              secretKeyRef:
+                name: objectstore-datasource-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.password . }}
+            {{- end }}
+          resources:
+            requests:
+              memory: {{ .Values.resources.initcontainers.requests.memory }}
+              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.initcontainers.limits.memory }} 
+              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
+      containers:
+        - name: object-store-api
+          image: {{ .Values.services.objectstoreapi.image }}
+          {{- if .Values.messageProducerOverride.enabled }}
+          envFrom:
+            - configMapRef:
+                name: message-producer-override-objectstore
+          {{- end }}
+          env:
+            - name: KEYCLOAK_ENABLED
+              value: {{ .Values.global.environment.keycloak.enabled | quote }}
+            - name: DEV-USER_ENABLED
+              value: "false"
+            - name: SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE
+              value: {{ .Values.services.objectstoreapi.environment.spring.servlet.multipart.max_file_size }}
+            - name: SPRING_SERVLET_MULTIPART_MAX-REQUEST-SIZE
+              value: {{ .Values.services.objectstoreapi.environment.spring.servlet.multipart.max_request_size }}
+            - name: MINIO_HOST
+              value: {{ tpl .Values.services.objectstoreapi.environment.minio.host . }}
+            - name: MINIO_ACCESSKEY
+              value: {{ tpl .Values.services.objectstoreapi.environment.minio.accessKey . }}
+            - name: MINIO_SECRETKEY
+              value: {{ tpl .Values.services.objectstoreapi.environment.minio.secretKey . }}
+            - name: KEYCLOAK_AUTH-SERVER-URL
+              value: {{ tpl .Values.global.environment.keycloak.auth_server_url . }}
+            - name: SPRING_DATASOURCE_URL
+              value: {{ tpl .Values.services.objectstoreapi.environment.spring.datasource.url . }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.username . }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              {{- if not .Values.global.environment.config.objectstore_api.datasource_password }}
+              valueFrom:
+                secretKeyRef:
+                  name: objectstore-datasource-secret
+                  key: password
+              {{- else }}
+              value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.password . }}
+              {{- end }}
+            - name: SPRING_LIQUIBASE_USER
+              value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.username . }}
+            - name: SPRING_LIQUIBASE_PASSWORD
+              {{- if not .Values.global.environment.config.objectstore_api.liquibase_password }}
+              valueFrom:
+                secretKeyRef:
+                  name: objectstore-liquibase-secret
+                  key: password
+              {{- else }}
+              value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.password . }}
+              {{- end }}
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 1
+          resources:
+            requests:
+              memory: {{ .Values.resources.apis.requests.memory }}
+              cpu: {{ .Values.resources.apis.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.apis.limits.memory }} 
+              cpu: {{ .Values.resources.apis.limits.cpu }}
+status: {}

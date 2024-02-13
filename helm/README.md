@@ -39,14 +39,16 @@ Useful alias for running kubectl commands: `alias k="minikube kubectl --"`
 
 ## Deploying application
 
-1. Local certificates
+### Local certificates
 
 Local certificates are required to run the application locally without having warnings from the browser.
 
 If you already have the certificates from the docker-compose based local deployment, you can copy them.
 Otherwise, see [instructions](https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates) and make sure to install them in `helm/config/certs`.
 
-2. Edit etc/hosts file map ingress ip to addresses used:
+### hosts file
+
+Edit etc/hosts file map ingress ip to addresses used:
 
 Get ingress ip:
 
@@ -68,10 +70,25 @@ In `/etc/hosts` file, add the following lines:
 <INGRESS IP> keycloak.dina.local
 ```
 
-3. Deploy chart (Once minikube is running):
+### Passwords
+
+Unless a password is explicitly provided in `values.yaml`, the chart will automaticly generate them and store them in a secret for future run. The default behavior is auto-generating the secrets and the passwords in global.environment.config block are left empty for that purpose. Should the user prefer to provide static passwords, that is where they should do it.  
+
+### Deploy chart
 
 From dina-local-deployment root:
 
 `helm install dina-helm ./helm -f helm/values.yaml`
 
 To remove the chart: `helm uninstall dina-helm`
+
+
+### Deploying chart in OKD environment or alternative environments.
+
+From dina-local-deployment root
+
+`helm install dina-helm ./helm -f helm/values.yaml -f helm/<additional_value_injection.yaml>`
+
+In this repo, as an example, the 'okd-values.yaml' overrides some values already provided by the general injection file ('values.yaml'). In Helm, when multiple injection values are passed as arguments, such as in this example, the rightmost file takes precedence in overriding previously injected values.
+
+In this example, aside from changing the storageClassName to match that used in GRDI OKD environment, a securityContext flag (securityContext.enabled=false) is set to false due to an environment constraint. Note that if you require additional alternative override values it is always preferrable to define it in a new injection file.

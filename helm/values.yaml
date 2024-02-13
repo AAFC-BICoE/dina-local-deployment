@@ -1,46 +1,399 @@
 # Default values for dina-helm-test.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
+profiles:
+  agent_api: #agent_api
+    enabled: true
+  export_api: #dina-export-api
+    enabled: true
+  loan_transaction_api: #loan
+    enabled: true
+  object_store_api:  #minio and objectstore
+    enabled: true
+  search_api:
+    enabled: true # ws, cli, rabbitmq, elastic
+  seqdb_api: #seqdb_api
+    enabled: true
+  user_api: #user_api
+    enabled: true
+messageProducerOverride:
+  enabled: true
 replicaCount: 1
 app:
   name: dina-helm
 global:
   environment:
+    config:
+      agent_api:
+        label: agent-api
+        service: agent-api-service
+        datasource_password: 
+        datasource_user: web_user_agent
+        liquibase_user: migration_user_agent
+        liquibase_password:
+      dina_db:
+        label: dina-db
+        service: dina-db-service
+        db_name: dina
+        db_password: 
+        db_user: pguser
+      dina_export_api:
+        label: dina-export-api
+        service: dina-export-api-service
+        datasource_password: 
+        datasource_user: web_user_ex
+        liquibase_user: migration_user_ex
+        liquibase_password:
+      minio:
+        service: minio-service
+        accessKey: minio
+        secretKey: minio123
+      keycloak: 
+        label: keycloak
+        service: keycloak-service
+        db_name: keycloak_db
+        db_password: 
+        db_user: keycloak_user
+        keycloak_admin: admin
+        keycloak_admin_password: admin
+      collection_api:
+        label: collection-api
+        service: collection-api-service
+        datasource_password: 
+        datasource_user: web_user_coll
+        liquibase_user: migration_user_coll
+        liquibase_password:
+      dina_user_api:
+        label: dina-user-api
+        service: dina-user-api-service
+        datasource_password:
+        datasource_user: web_user_dina_user
+        liquibase_user: migration_user_dina_user
+        liquibase_password:
+      loan_transaction_api:
+        label: loan-transaction-api
+        service: loan-transaction-api-service
+        datasource_password:
+        datasource_user: web_user_lt
+        liquibase_user: migration_user_lt
+        liquibase_password:
+        contexts: schema-change initial-data data-migration
+      objectstore_api:
+        DINA_DB: object_store
+        label: objectstore-api
+        service: objectstore-api-service
+        datasource_password: 
+        datasource_user: web_user_os
+        liquibase_user: migration_user_os
+        liquibase_password:
+      dina_ui: 
+        label: dina-ui
+        service: dina-ui-service
+        instance_mode: developer
+      search_cli:
+        label: search-cli
+        username: cnc-su
+        password: cnc-su
+      search_ws:
+        label: search-ws
+        service: searchws-service
+      seqdb_api:
+        label: seqdb-api
+        service: seqdb-api-service
+        datasource_password:
+        datasource_user: web_user_seqdb
+        liquibase_user: migration_user_seqdb
+        liquibase_password:
+      elasticsearch:
+        label: elasticsearch-dina
+        service: elasticsearch-service
+      rabbitmq:
+        label: rabbitmq-dina
+        service: rabbitmq-dina-service
     keycloak:
-      enabled: "true"
-      auth_server_url: http://keycloak-service:8080/auth
+      client_id: dina-public
+      realm: dina
+      enabled: true
+      auth_server_url: http://{{ .Values.global.environment.config.keycloak.service }}:8080/auth
+    storageClass: standard
+    securityContext:
+      enabled: true
+  endpoints:
+    api: api.dina.local
+    ui: dina.local
+    keycloak: keycloak.dina.local
+    elasticsearch: elasticsearch.dina.localhost
 services:
   initdb:
     image: aafcbicoe/dina-db-init-container:0.3
     pullPolicy: IfNotPresent
     environment:
-      POSTGRES_HOST: keycloak-db-service
-      POSTGRES_DB: dina
-      POSTGRES_PASSWORD: pg1234
-      POSTGRES_USER: pguser
+      POSTGRES_DB: "{{ .Values.global.environment.config.dina_db.db_name }}"
+      POSTGRES_PASSWORD: "{{ .Values.global.environment.config.dina_db.db_password }}"
+      POSTGRES_USER: "{{ .Values.global.environment.config.dina_db.db_user }}"
+      POSTGRES_HOST: "{{ .Values.global.environment.config.dina_db.service }}"
+    config:
+      agentapi:
+        DINA_DB: agent
+        spring:
+          datasource:
+            username: "{{ .Values.global.environment.config.agent_api.datasource_user }}"
+            password: "{{ .Values.global.environment.config.agent_api.datasource_password }}"
+          liquibase:
+            username: "{{ .Values.global.environment.config.agent_api.liquibase_user }}"
+            password: "{{ .Values.global.environment.config.agent_api.liquibase_password }}"
+      collectionapi:
+        DINA_DB: collection
+        spring:
+          datasource:
+            username: "{{ .Values.global.environment.config.collection_api.datasource_user }}"
+            password: "{{ .Values.global.environment.config.collection_api.datasource_password }}"
+          liquibase:
+            username: "{{ .Values.global.environment.config.collection_api.liquibase_user }}"
+            password: "{{ .Values.global.environment.config.collection_api.liquibase_password }}"
+        actuator:
+          allowedIP: prometheus
+        PG_EXTENSION_collection: postgis
+      dinaexportapi:
+        DINA_DB: export
+        spring:
+          datasource:
+            username: "{{ .Values.global.environment.config.dina_export_api.datasource_user }}"
+            password: "{{ .Values.global.environment.config.dina_export_api.datasource_password }}"
+          liquibase:
+            username: "{{ .Values.global.environment.config.dina_export_api.liquibase_user }}"
+            password: "{{ .Values.global.environment.config.dina_export_api.liquibase_password }}"
+      dinauserapi:
+        DINA_DB: dina_user
+        spring:
+          datasource:
+            username: "{{ .Values.global.environment.config.dina_user_api.datasource_user }}"
+            password: "{{ .Values.global.environment.config.dina_user_api.datasource_password }}"
+          liquibase:
+            username: "{{ .Values.global.environment.config.dina_user_api.liquibase_user }}"
+            password: "{{ .Values.global.environment.config.dina_user_api.liquibase_password }}"
+      loantransactionapi:
+        DINA_DB: loan_transaction
+        spring:
+          datasource:
+            username: "{{ .Values.global.environment.config.loan_transaction_api.datasource_user }}"
+            password: "{{ .Values.global.environment.config.loan_transaction_api.datasource_password }}"
+          liquibase:
+            username: "{{ .Values.global.environment.config.loan_transaction_api.liquibase_user }}"
+            password: "{{ .Values.global.environment.config.loan_transaction_api.liquibase_password }}"
+            contexts: "{{ .Values.global.environment.config.loan_transaction_api.contexts }}"
+      objectstoreapi:
+        DINA_DB: object_store
+        spring:
+          datasource:
+            username: "{{ .Values.global.environment.config.objectstore_api.datasource_user }}"
+            password: "{{ .Values.global.environment.config.objectstore_api.datasource_password }}"
+          liquibase:
+            username: "{{ .Values.global.environment.config.objectstore_api.liquibase_user }}"
+            password: "{{ .Values.global.environment.config.objectstore_api.liquibase_password }}"
+      seqdbapi:
+        DINA_DB: seqdb
+        spring:
+          datasource:
+            username: "{{ .Values.global.environment.config.seqdb_api.datasource_user }}"
+            password: "{{ .Values.global.environment.config.seqdb_api.datasource_password }}"
+          liquibase:
+            username: "{{ .Values.global.environment.config.seqdb_api.liquibase_user }}"
+            password: "{{ .Values.global.environment.config.seqdb_api.liquibase_password }}"
+        PG_EXTENSION_seqdb: pgcrypto
+  agentapi:
+    image: aafcbicoe/agent-api:0.25
+    pullPolicy: IfNotPresent
+    environment:
+      rabbitmq:
+        host: "{{ .Values.global.environment.config.rabbitmq.service }}"
+      messaging:
+        isProducer: true
+      spring:
+        datasource:
+          url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
+  collectionapi:
+    image: aafcbicoe/natural-history-collection-api:0.82
+    pullPolicy: IfNotPresent
+    environment:
+      rabbitmq:
+        host: "{{ .Values.global.environment.config.rabbitmq.service }}"
+      messaging:
+        isProducer: true
+      spring:
+        datasource:
+          url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/collection?currentSchema=collection
+      actuator:
+        allowedIP: prometheus
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 1
+      requests:
+        cpu: 80m
+        memory: 768Mi
+  dinaexportapi:
+    image: aafcbicoe/dina-export-api:0.5
+    pullPolicy: IfNotPresent
+    environment:
+      spring:
+        datasource:
+          url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/export?currentSchema=export
+        freemarker:
+          template_loader_path: classpath:/templates/,file:/tmp/dina-data-export/templates/
+      dina:
+        export:
+          workingFolder: /tmp/dina-data-export
+      elasticsearch:
+        host: "{{ .Values.global.environment.config.elasticsearch.service }}"
+        port: 9200
+  dinaui:
+    image: aafcbicoe/dina-ui:0.142.0
+    environment:
+      KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
+      KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
+      KEYCLOAK_PUBLIC_URL: https://{{ .Values.global.endpoints.ui }}/auth
+      OBJECTSTORE_API_ADDRESS: "{{ .Values.global.environment.config.objectstore_api.service }}:8080"
+      AGENT_API_ADDRESS: "{{ .Values.global.environment.config.agent_api.service }}:8080"
+      SEQDB_API_ADDRESS: "{{ .Values.global.environment.config.seqdb_api.service }}:8080"
+      COLLECTION_API_ADDRESS: "{{ .Values.global.environment.config.collection_api.service }}:8080"
+      USER_API_ADDRESS: "{{ .Values.global.environment.config.dina_user_api.service }}:8080"
+      SEARCH_API_ADDRESS: "{{ .Values.global.environment.config.search_ws.service }}:8085"
+      LOAN_TRANSACTION_API_ADDRESS: "{{ .Values.global.environment.config.loan_transaction_api.service }}:8080"
+      REPORT_LABEL_API_ADDRESS: "{{ .Values.global.environment.config.dina_export_api.service }}:8080"
+      INSTANCE_MODE: "{{ .Values.global.environment.config.dina_ui.instance_mode }}"
+  dinauserapi:
+    image: aafcbicoe/dina-user-api:0.16
+    environment:
+      spring:
+        datasource:
+          url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/dina_user?currentSchema=dina_user
+  loantransactionapi:
+    image: aafcbicoe/loan-transaction-api:0.8
+    environment:
+      rabbitmq:
+        host: "{{ .Values.global.environment.config.rabbitmq.service }}"
+      messaging:
+        isProducer: true
+      spring:
+        datasource:
+          url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
+  objectstoreapi:
+    image: aafcbicoe/object-store-api:1.10
+    environment:
+      rabbitmq:
+        host: "{{ .Values.global.environment.config.rabbitmq.service }}"
+        queue: dina.search.queue
+        exchange: dina.search.exchange
+        routingkey: dina.search.routingkey
+        username: guest
+        password: guest
+        port: 15672
+      messaging:
+        isProducer: true
+      spring:
+        datasource:
+          url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/object_store?currentSchema=object_store
+        servlet:
+          multipart:
+            max_file_size: 1GB
+            max_request_size: 1GB
+      minio: 
+        host: "{{ .Values.global.environment.config.minio.service }}"
+        accessKey: "{{ .Values.global.environment.config.minio.accessKey }}"
+        secretKey: "{{ .Values.global.environment.config.minio.secretKey }}"
+  minio:
+    image: minio/minio:RELEASE.2022-10-05T14-58-27Z
+    environment:
+      MINIO_ROOT_USER: "{{ .Values.global.environment.config.minio.accessKey }}"
+      MINIO_ROOT_PASSWORD: "{{ .Values.global.environment.config.minio.secretKey }}"
   keycloak:
     pullPolicy: IfNotPresent
     image: "quay.io/keycloak/keycloak:20.0.5"
     environment:
-      KC_DB_PASSWORD: keycloak_user
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB_URL_HOST: keycloak-db-service
-      KC_DB_URL_DATABASE: keycloak_db
-      KC_DB_USERNAME: keycloak_user
-      KC_HOSTNAME: dina.local
-      KC_HOSTNAME_ADMIN: keycloak.dina.local
+      KC_DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
+      KEYCLOAK_ADMIN: "{{ .Values.global.environment.config.keycloak.keycloak_admin }}"
+      KEYCLOAK_ADMIN_PASSWORD: "{{ .Values.global.environment.config.keycloak.keycloak_admin_password }}"
+      KC_DB_URL_HOST: "{{ .Values.global.environment.config.dina_db.service }}"
+      KC_DB_URL_DATABASE: "{{ .Values.global.environment.config.dina_db.db_name }}"
+      KC_DB_USERNAME: "{{ .Values.global.environment.config.keycloak.db_user }}"
+      KC_HOSTNAME: "{{ .Values.global.endpoints.ui }}"
+      KC_HOSTNAME_ADMIN: "{{ .Values.global.endpoints.keycloak }}"
       KC_PROXY: edge
-  keycloakdb:
-    image: "postgres:12"
+  elasticsearchdina:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.10
+    #image: elasticsearch_icu:7.17.10
     environment:
-      POSTGRES_DB: keycloak_db
-      POSTGRES_PASSWORD: keycloak_user
-      POSTGRES_USER: keycloak_user
-      DB_USER: kc_user
-      DB_PASSWORD: kc_user
+      xpack:
+        security:
+          enabled: false
+      discovery:
+        type: single-node
+      action:
+        auto_create_index: false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+  elasticconfigurator:
+    image: aafcbicoe/es-init-container:0.6
+    environment:
+      ELASTIC_SERVER_URL: http://elasticsearch-service:9200
+      INDEX_CREATE_CMD: ./create-index.sh
+      DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE TRANSACTION
+      DINA_AGENT_INDEX_NAME: dina_agent_index
+      DINA_AGENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/agent-index/dina_agent_index_settings.json
+      DINA_MATERIAL_SAMPLE_INDEX_NAME: dina_material_sample_index
+      DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/collection-index/dina_material_sample_index_settings.json
+      DINA_STORAGE_INDEX_NAME: dina_storage_index
+      DINA_STORAGE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/storage-index/dina_storage_index_settings.json
+      DINA_OBJECT_STORE_INDEX_NAME: dina_object_store_index
+      DINA_OBJECT_STORE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/object-store-index/object_store_index_settings.json
+      DINA_TRANSACTION_INDEX_NAME: dina_loan_transaction_index
+      DINA_TRANSACTION_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_loan_transaction_index_settings.json
+  dinadb:
+    image: "postgis/postgis:12-3.1-alpine"
+    environment:
+      POSTGRES_DB: "{{ .Values.global.environment.config.keycloak.db_name }}"
+      DB_USER: "{{ .Values.global.environment.config.keycloak.db_user }}"
+      DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
       USE_V2: "true"
+  searchcli:
+    image: aafcbicoe/dina-search-cli:0.27
+    environment:
+      keycloak:
+        openid_auth_server: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/token"
+        client_id: "{{ .Values.global.environment.keycloak.client_id }}"
+        username: "{{ .Values.global.environment.config.search_cli.username }}"
+        password: "{{ .Values.global.environment.config.search_cli.password }}"
+      ELASTICSEARCH_URL: "{{ .Values.global.environment.config.elasticsearch.service }}"
+      MATERIAL_SAMPLE_URL: http://{{ .Values.global.environment.config.collection_api.service }}:8080/api/v1/material-sample
+      METADATA_URL: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1/metadata
+      ORGANIZATION_URL: http://{{ .Values.global.environment.config.agent_api.service }}:8080/api/v1/organization
+      PERSON_URL: http://{{ .Values.global.environment.config.agent_api.service }}:8080/api/v1/person
+      STORAGE_UNIT_URL: http://{{ .Values.global.environment.config.collection_api.service }}:8080/api/v1/storage-unit
+      LOAN_TRANSACTION_URL: http://{{ .Values.global.environment.config.loan_transaction_api.service }}:8080/api/v1/transaction
+      RABBITMQ_HOSTNAME: "{{ .Values.global.environment.config.rabbitmq.service }}"
+      IS_MESSAGE_CONSUMER: true
+      IS_MESSAGE_PRODUCER: true
+  searchws:
+    image: aafcbicoe/dina-search-ws:0.27
+    environment:
+      elasticsearch:
+        host: "{{ .Values.global.environment.config.elasticsearch.service }}"
+  seqdbapi:
+    image: aafcbicoe/seqdb-api:2.10.0
+    environment:
+      spring:
+        datasource:
+          url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/seqdb?currentSchema=seqdb
+  rabbitmq:
+    image: rabbitmq:3.9.29-management-alpine
 
 imagePullSecrets: []
 nameOverride: ""
@@ -50,11 +403,9 @@ ingress:
   enabled: true
   tls: true
   className: ""
-  annotations:
-    #kubernetes.io/ingress.class: nginx
-    #kubernetes.io/tls-acme: "true"
+
   hosts:
-    - host: keycloak.dina.local/auth
+    - host: dina.local
       paths:
         - path: /
           pathType: Prefix
@@ -66,13 +417,27 @@ podSecurityContext: {}
 securityContext: {}
 
 resources:
-  limits:
-    memory: 48Mi
-    cpu: 20m
-  requests:
-    cpu: 10m
-    memory: 24Mi
-
+  general:
+    limits:
+      memory: 2Gi
+      cpu: 1
+    requests:
+      cpu: 400m
+      memory: 1Gi
+  apis:
+    limits:
+      memory: 768Mi
+      cpu: 400m
+    requests:
+      cpu: 80m
+      memory: 256Mi
+  initcontainers:
+    limits:
+      memory: 256Mi
+      cpu: 20m
+    requests:
+      cpu: 10m
+      memory: 128Mi
 autoscaling:
   enabled: false
   minReplicas: 1
@@ -80,12 +445,3 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-volumes: []
-
-volumeMounts: []
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
