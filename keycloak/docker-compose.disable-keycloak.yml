@@ -3,7 +3,7 @@ version: "3.9"
 services:
   dina-ui:
     environment:
-      KEYCLOAK_ENABLED: "false"
+      KEYCLOAK_ENABLED: false
       DEV_USER_ENABLED: true
       DEV_USER_GROUP_ROLE: /aafc/user, /bicoe/read-only
 
