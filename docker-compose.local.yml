@@ -4,6 +4,7 @@ services:
   dina-ui:
     image: aafcbicoe/dina-ui:0.142.0
     environment:
+      KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
       KEYCLOAK_PUBLIC_URL: ${KEYCLOAK_EXTERNAL_URL}
