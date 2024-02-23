@@ -87,6 +87,11 @@ spec:
       containers:
         - name: dina-export-api
           image: {{ .Values.services.dinaexportapi.image }}
+          {{- if .Values.messageProducerOverride.enabled }}
+          envFrom:
+            - configMapRef:
+                name: message-producer-override-exportapi
+          {{- end }}
           env:
             - name: KEYCLOAK_ENABLED
               value: {{ .Values.global.environment.keycloak.enabled | quote }}

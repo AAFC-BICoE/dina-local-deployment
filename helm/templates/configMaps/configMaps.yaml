@@ -47,13 +47,11 @@ kind: ConfigMap
 metadata:
   name: message-producer-override-objectstore
 data:
-  MESSAGING_ISPRODUCER: {{ .Values.services.objectstoreapi.environment.messaging.isProducer | quote }}
+  DINA_MESSAGING_ISPRODUCER: {{ .Values.services.objectstoreapi.environment.dina.messaging.isProducer | quote }}
   RABBITMQ_HOST: {{ tpl .Values.services.objectstoreapi.environment.rabbitmq.host . }}
-  RABBITMQ_QUEUE: {{ .Values.services.objectstoreapi.environment.rabbitmq.queue }}
-  RABBITMQ_EXCHANGE: {{ .Values.services.objectstoreapi.environment.rabbitmq.exchange }}
-  RABBITMQ_ROUTINGKEY: {{ .Values.services.objectstoreapi.environment.rabbitmq.routingkey }}
-  RABBITMQ_USERNAME: {{ .Values.services.objectstoreapi.environment.rabbitmq.username }}
-  RABBITMQ_PASSWORD: {{ .Values.services.objectstoreapi.environment.rabbitmq.password }}
+  RABBITMQ_QUEUE: {{ tpl .Values.services.objectstoreapi.environment.rabbitmq.queue . }}
+  RABBITMQ_USERNAME: {{ tpl .Values.services.objectstoreapi.environment.rabbitmq.username . }}
+  RABBITMQ_PASSWORD: {{ tpl .Values.services.objectstoreapi.environment.rabbitmq.password . }}
   RABBITMQ_PORT: {{ .Values.services.objectstoreapi.environment.rabbitmq.port | quote }}
 ---
 apiVersion: v1
@@ -61,7 +59,7 @@ kind: ConfigMap
 metadata:
   name: message-producer-override-collection
 data:
-  MESSAGING_ISPRODUCER: {{ .Values.services.collectionapi.environment.messaging.isProducer | quote }}
+  DINA_MESSAGING_ISPRODUCER: {{ .Values.services.collectionapi.environment.dina.messaging.isProducer | quote }}
   RABBITMQ_HOST: {{ tpl .Values.services.collectionapi.environment.rabbitmq.host . }}
 ---
 apiVersion: v1
@@ -69,7 +67,7 @@ kind: ConfigMap
 metadata:
   name: message-producer-override-loantransaction
 data:
-  MESSAGING_ISPRODUCER: {{ .Values.services.loantransactionapi.environment.messaging.isProducer | quote }}
+  DINA_MESSAGING_ISPRODUCER: {{ .Values.services.loantransactionapi.environment.dina.messaging.isProducer | quote }}
   RABBITMQ_HOST: {{ tpl .Values.services.loantransactionapi.environment.rabbitmq.host . }}
 ---
 apiVersion: v1
@@ -77,5 +75,23 @@ kind: ConfigMap
 metadata:
   name: message-producer-override-agentapi
 data:
-  MESSAGING_ISPRODUCER: {{ .Values.services.agentapi.environment.messaging.isProducer | quote }}
+  DINA_MESSAGING_ISPRODUCER: {{ .Values.services.agentapi.environment.dina.messaging.isProducer | quote }}
   RABBITMQ_HOST: {{ tpl .Values.services.agentapi.environment.rabbitmq.host . }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: message-producer-override-exportapi
+data:
+  DINA_MESSAGING_ISCONSUMER: {{ .Values.services.dinaexportapi.environment.dina.messaging.isProducer | quote }}
+  DINA_MESSAGING_EXPORT_QUEUE: {{ tpl .Values.services.dinaexportapi.environment.dina.messaging.export.queue . }}
+  DINA_EXPORT_OBJECT_STORE_DOWNLOAD_URL: {{ tpl .Values.services.dinaexportapi.environment.dina.export.objectStoreDownloadUrl . }}
+  RABBITMQ_HOST: {{ tpl .Values.services.dinaexportapi.environment.rabbitmq.host . }}
+  RABBITMQ_USERNAME: {{ tpl .Values.services.dinaexportapi.environment.rabbitmq.username . }}
+  RABBITMQ_PASSWORD: {{ tpl .Values.services.dinaexportapi.environment.rabbitmq.password . }}
+  HTTP-CLIENT_OPENID-CONNECT-BASE-URL: {{ tpl .Values.services.dinaexportapi.environment.http_client.openid_connect_base_url . }}
+  HTTP-CLIENT_CLIENT-ID: {{ tpl .Values.services.dinaexportapi.environment.http_client.client_id . }}
+  HTTP-CLIENT_USERNAME: {{ tpl .Values.services.dinaexportapi.environment.http_client.username . }}
+  HTTP-CLIENT_PASSWORD: {{ tpl .Values.services.dinaexportapi.environment.http_client.password . }}
+
+---
