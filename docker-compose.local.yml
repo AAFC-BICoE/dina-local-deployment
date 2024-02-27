@@ -240,6 +240,7 @@ services:
     build: elasticsearch/
     profiles: ["search_api"]
     environment:
+      - ingest.geoip.downloader.enabled=false
       - xpack.security.enabled=false
       - discovery.type=single-node
       - action.auto_create_index=false
