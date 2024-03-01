@@ -1,0 +1,35 @@
+{
+  "properties": {
+    "data.attributes.managedAttributes.experimental_replicate": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
+    "included.attributes.extensionValues.mixs_soil_v4": {
+      "properties": {
+        "annual_season_temp": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "samp_vol_we_dna_ext": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        }
+      }
+    }
+  }
+}
