@@ -9,23 +9,37 @@
         }
       }
     },
-    "included.attributes.extensionValues.mixs_soil_v4": {
+    "included": {
+      "type": "nested",
+      "include_in_parent": true,
       "properties": {
-        "annual_season_temp": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
-        "samp_vol_we_dna_ext": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
+        "attributes": {
+          "properties": {
+            "extensionValues": {
+              "properties": {
+                "mixs_soil_v4": {
+                  "properties": {
+                    "annual_season_temp": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword",
+                          "ignore_above": 256
+                        }
+                      }
+                    },
+                    "samp_vol_we_dna_ext": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword",
+                          "ignore_above": 256
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
