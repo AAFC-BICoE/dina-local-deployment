@@ -112,6 +112,12 @@
                   "keyword": {
                     "type": "keyword",
                     "ignore_above": 256
+                  },
+                  "keyword_numeric": {
+                    "type": "icu_collation_keyword",
+                    "index": true,
+                    "numeric": true,
+                    "language": "en"
                   }
                 }
               },
