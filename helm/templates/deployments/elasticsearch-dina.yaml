@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-elasticsearch-dina
+spec:
+  serviceName: {{ .Values.app.name }}-elasticsearch-dina
+  replicas: {{ if .Values.profiles.search_api.enabled }}1{{ else }}0{{ end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}-elasticsearch-dina
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}-elasticsearch-dina
+    spec:
+      containers:
+        - name: elasticsearch-dina
+          image: {{ .Values.services.elasticsearchdina.image }}
+          command:
+          - /bin/bash
+          - -ce
+          args:
+          - |
+            /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu &&
+            echo 'ElasticSearch is restarting' &&
+            ./bin/elasticsearch
+          env:
+            - name: xpack.security.enabled
+              value: {{ .Values.services.elasticsearchdina.environment.xpack.security.enabled | quote }}
+            - name: discovery.type
+              value: {{ .Values.services.elasticsearchdina.environment.discovery.type }}
+            - name: action.auto_create_index
+              value: {{ .Values.services.elasticsearchdina.environment.action.auto_create_index | quote }}
+          ports:
+            - name: http
+              containerPort: 9200
+            - name: internal
+              containerPort: 9300
+          {{- if .Values.global.environment.securityContext.enabled }}
+          securityContext:
+            capabilities:
+              add: ["IPC_LOCK"]
+            runAsUser: 1000
+          {{- end }}
+          readinessProbe:
+            tcpSocket:
+              port: 9200
+            initialDelaySeconds: 5
+            periodSeconds: 1
+          resources:
+            requests:
+              memory: {{ .Values.resources.general.requests.memory }}
+              cpu: {{ .Values.resources.general.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.general.limits.memory }} 
+              cpu: {{ .Values.resources.general.limits.cpu }}
+          volumeMounts:
+            - name: es-data
+              mountPath: /usr/share/elasticsearch/data
+  volumeClaimTemplates:
+  - metadata:
+      name: es-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ .Values.global.environment.storageClass }}
+      resources:
+        requests:
+          storage: 512Mi
+status: {}

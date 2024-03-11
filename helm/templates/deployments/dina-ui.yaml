@@ -26,37 +26,37 @@ spec:
           image: {{ .Values.services.dinaui.image }}
           env:
             - name: KEYCLOAK_CLIENTID
-              value: {{ .Values.services.dinaui.environment.KEYCLOAK_CLIENTID}}
+              value: {{ tpl .Values.services.dinaui.environment.KEYCLOAK_CLIENTID . }}
             - name: KEYCLOAK_REALM
-              value: {{ .Values.services.dinaui.environment.KEYCLOAK_REALM}}
+              value: {{ tpl .Values.services.dinaui.environment.KEYCLOAK_REALM . }}
             - name: KEYCLOAK_PUBLIC_URL
               value: {{ tpl .Values.services.dinaui.environment.KEYCLOAK_PUBLIC_URL . }}
             - name: OBJECTSTORE_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.OBJECTSTORE_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.OBJECTSTORE_API_ADDRESS . }}
             - name: AGENT_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.AGENT_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.AGENT_API_ADDRESS . }}
             - name: SEQDB_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.SEQDB_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.SEQDB_API_ADDRESS . }}
             - name: COLLECTION_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.COLLECTION_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.COLLECTION_API_ADDRESS . }}
             - name: USER_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.USER_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.USER_API_ADDRESS . }}
             - name: SEARCH_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.SEARCH_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.SEARCH_API_ADDRESS . }}
             - name: LOAN_TRANSACTION_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.LOAN_TRANSACTION_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.LOAN_TRANSACTION_API_ADDRESS . }}
             - name: REPORT_LABEL_API_ADDRESS
-              value: {{ .Values.services.dinaui.environment.REPORT_LABEL_API_ADDRESS }}
+              value: {{ tpl .Values.services.dinaui.environment.REPORT_LABEL_API_ADDRESS . }}
             - name: INSTANCE_MODE
-              value: {{ .Values.services.dinaui.environment.INSTANCE_MODE }}
+              value: {{ tpl .Values.services.dinaui.environment.INSTANCE_MODE . }}
           ports:
             - name: http
               containerPort: 80
           resources:
             requests:
-              memory: {{ .Values.resources.requests.memory }}
-              cpu: {{ .Values.resources.requests.cpu }}            
+              memory: {{ .Values.resources.apis.requests.memory }}
+              cpu: {{ .Values.resources.apis.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.limits.memory }} 
-              cpu: {{ .Values.resources.limits.cpu }} 
+              memory: {{ .Values.resources.apis.limits.memory }} 
+              cpu: {{ .Values.resources.apis.limits.cpu }} 
 status: {}

@@ -47,6 +47,90 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: {{ .Values.global.environment.config.objectstore_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.objectstore_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.agent_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.agent_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.agent_api.label }}   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.dina_export_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.dina_export_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_export_api.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.dina_user_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.dina_user_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_user_api.label }}   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.loan_transaction_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.loan_transaction_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.loan_transaction_api.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.seqdb_api.service }}
+  labels:
+    app: {{ .Values.global.environment.config.seqdb_api.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.seqdb_api.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: {{ .Values.global.environment.config.dina_ui.service }}
   labels:
     app: {{ .Values.global.environment.config.dina_ui.service }}
@@ -57,3 +141,63 @@ spec:
       targetPort: 8080
   selector:
     app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_ui.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.elasticsearch.service }}
+  labels:
+    app: {{ .Values.global.environment.config.elasticsearch.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9200
+      targetPort: 9200
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.elasticsearch.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.search_ws.service }}
+  labels:
+    app: {{ .Values.global.environment.config.search_ws.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8085
+      targetPort: 8085
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.search_ws.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.environment.config.rabbitmq.service }}
+  labels:
+    app: {{ .Values.global.environment.config.rabbitmq.service }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 5672
+      targetPort: 5672
+    - name: https
+      port: 15672
+      targetPort: 15672
+  selector:
+    app: {{ .Values.app.name }}-{{ .Values.global.environment.config.rabbitmq.label }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-service
+  labels:
+    app: minio-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9000
+      targetPort: 9000
+  selector:
+    app: {{ .Values.app.name }}-minio
