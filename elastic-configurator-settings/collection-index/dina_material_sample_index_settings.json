@@ -100,7 +100,7 @@
                     "type": "keyword",
                     "ignore_above": 256
                   },
-                  "sort": {
+                  "keyword_numeric": {
                     "type": "icu_collation_keyword",
                     "index": false,
                     "numeric": true,
