@@ -36,6 +36,15 @@
                           "ignore_above": 256
                         }
                       }
+                    },
+                    "crop_rotation": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword",
+                          "ignore_above": 256
+                        }
+                      }
                     }
                   }
                 }
