@@ -52,7 +52,7 @@ services:
         condition: service_completed_successfully 
 
   agent-api:
-    image: aafcbicoe/agent-api:0.25
+    image: aafcbicoe/agent-api:0.26
     profiles: ["agent_api"]
     mem_limit: 512m
     environment:
@@ -78,7 +78,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.82
+    image: aafcbicoe/natural-history-collection-api:0.83
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -104,7 +104,7 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.8
+    image: aafcbicoe/loan-transaction-api:0.9
     profiles: ["loan_transaction_api"]
     mem_limit: 512m
     environment:
@@ -158,7 +158,7 @@ services:
         condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.10
+    image: aafcbicoe/object-store-api:1.12
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
@@ -190,7 +190,7 @@ services:
         condition: service_completed_successfully 
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.5
+    image: aafcbicoe/dina-export-api:0.7
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
@@ -240,6 +240,7 @@ services:
     build: elasticsearch/
     profiles: ["search_api"]
     environment:
+      - ingest.geoip.downloader.enabled=false
       - xpack.security.enabled=false
       - discovery.type=single-node
       - action.auto_create_index=false
@@ -295,7 +296,7 @@ services:
 
   # Check the status of elasticsearch and configure indices if not already present.
   elastic-configurator:
-    image: aafcbicoe/es-init-container:0.6
+    image: aafcbicoe/es-init-container:0.8
     profiles: ["search_api"]
     environment:
       ELASTIC_SERVER_URL: $ELASTIC_SERVER_URL
@@ -304,6 +305,7 @@ services:
       DINA_AGENT_INDEX_NAME: $DINA_AGENT_INDEX_NAME
       DINA_AGENT_INDEX_SETTINGS_FILE: $DINA_AGENT_INDEX_SETTINGS_FILE
       DINA_MATERIAL_SAMPLE_INDEX_NAME: $DINA_MATERIAL_SAMPLE_INDEX_NAME
+      DINA_MATERIAL_SAMPLE_OPTIONAL_INDEX_SETTINGS_FILE: $DINA_MATERIAL_SAMPLE_OPTIONAL_INDEX_SETTINGS_FILE
       DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE: $DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE
       DINA_STORAGE_INDEX_NAME: $DINA_STORAGE_INDEX_NAME
       DINA_STORAGE_INDEX_SETTINGS_FILE: $DINA_STORAGE_INDEX_SETTINGS_FILE
@@ -319,7 +321,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.28
+    image: aafcbicoe/dina-search-ws:0.30
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -331,13 +333,13 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.28
+    image: aafcbicoe/dina-search-cli:0.30
     profiles: ["search_api"]
     environment:
-      keycloak.openid_auth_server: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/token
-      keycloak.client_id: dina-public
-      keycloak.username: cnc-su
-      keycloak.password: cnc-su
+      http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
+      http-client.clientId: dina-public
+      http-client.username: cnc-su
+      http-client.password: cnc-su
       ELASTICSEARCH_URL: elasticsearch-dina
       MATERIAL_SAMPLE_URL: http://collection-api:8080/api/v1/material-sample
       METADATA_URL: http://object-store-api:8080/api/v1/metadata
