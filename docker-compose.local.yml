@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.142.0
+    image: aafcbicoe/dina-ui:0.150.0
     environment:
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
@@ -78,7 +78,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.83
+    image: aafcbicoe/natural-history-collection-api:0.84
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -190,7 +190,7 @@ services:
         condition: service_completed_successfully 
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.7
+    image: aafcbicoe/dina-export-api:0.8
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
