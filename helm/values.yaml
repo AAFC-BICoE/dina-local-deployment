@@ -80,7 +80,7 @@ global:
         datasource_user: web_user_lt
         liquibase_user: migration_user_lt
         liquibase_password:
-        contexts: schema-change initial-data data-migration
+        contexts: schema-change, initial-data, data-migration
       objectstore_api:
         DINA_DB: object_store
         label: objectstore-api
