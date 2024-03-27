@@ -312,7 +312,6 @@ services:
         queue: "{{ .Values.global.environment.config.rabbitmq.search.queue }}"
         username: "{{ .Values.global.environment.config.rabbitmq.username }}"
         password: "{{ .Values.global.environment.config.rabbitmq.password }}"
-        port: 15672
       dina:
         messaging:
           isProducer: true

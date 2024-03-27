@@ -52,7 +52,6 @@ data:
   RABBITMQ_QUEUE: {{ tpl .Values.services.objectstoreapi.environment.rabbitmq.queue . }}
   RABBITMQ_USERNAME: {{ tpl .Values.services.objectstoreapi.environment.rabbitmq.username . }}
   RABBITMQ_PASSWORD: {{ tpl .Values.services.objectstoreapi.environment.rabbitmq.password . }}
-  RABBITMQ_PORT: {{ .Values.services.objectstoreapi.environment.rabbitmq.port | quote }}
 ---
 apiVersion: v1
 kind: ConfigMap
