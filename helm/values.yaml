@@ -95,8 +95,9 @@ global:
         instance_mode: developer
       search_cli:
         label: search-cli
-        username: cnc-su
-        password: cnc-su
+        http_client:
+          username: cnc-su
+          password: cnc-su
       search_ws:
         label: search-ws
         service: searchws-service
@@ -223,7 +224,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.83
+    image: aafcbicoe/natural-history-collection-api:0.84
     pullPolicy: IfNotPresent
     environment:
       rabbitmq:
@@ -244,7 +245,7 @@ services:
         cpu: 80m
         memory: 768Mi
   dinaexportapi:
-    image: aafcbicoe/dina-export-api:0.6.1
+    image: aafcbicoe/dina-export-api:0.7
     pullPolicy: IfNotPresent
     environment:
       spring:
@@ -273,7 +274,7 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.146.1
+    image: aafcbicoe/dina-ui:0.150.1
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
@@ -305,7 +306,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
   objectstoreapi:
-    image: aafcbicoe/object-store-api:1.12
+    image: aafcbicoe/object-store-api:1.13
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
@@ -364,7 +365,7 @@ services:
     cap_add:
       - IPC_LOCK
   elasticconfigurator:
-    image: aafcbicoe/es-init-container:0.6
+    image: aafcbicoe/es-init-container:0.8
     environment:
       ELASTIC_SERVER_URL: http://elasticsearch-service:9200
       INDEX_CREATE_CMD: ./create-index.sh
@@ -373,6 +374,7 @@ services:
       DINA_AGENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/agent-index/dina_agent_index_settings.json
       DINA_MATERIAL_SAMPLE_INDEX_NAME: dina_material_sample_index
       DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/collection-index/dina_material_sample_index_settings.json
+      DINA_MATERIAL_SAMPLE_OPTIONAL_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/collection-index/dina_material_sample_update_index.json
       DINA_STORAGE_INDEX_NAME: dina_storage_index
       DINA_STORAGE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/storage-index/dina_storage_index_settings.json
       DINA_OBJECT_STORE_INDEX_NAME: dina_object_store_index
@@ -387,13 +389,13 @@ services:
       DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
       USE_V2: "true"
   searchcli:
-    image: aafcbicoe/dina-search-cli:0.29
+    image: aafcbicoe/dina-search-cli:0.30
     environment:
-      keycloak:
-        openid_auth_server: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/token"
+      http_client:
+        openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/"
         client_id: "{{ .Values.global.environment.keycloak.client_id }}"
-        username: "{{ .Values.global.environment.config.search_cli.username }}"
-        password: "{{ .Values.global.environment.config.search_cli.password }}"
+        username: "{{ .Values.global.environment.config.search_cli.http_client.username }}"
+        password: "{{ .Values.global.environment.config.search_cli.http_client.password }}"
       ELASTICSEARCH_URL: "{{ .Values.global.environment.config.elasticsearch.service }}"
       MATERIAL_SAMPLE_URL: http://{{ .Values.global.environment.config.collection_api.service }}:8080/api/v1/material-sample
       METADATA_URL: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1/metadata
@@ -405,7 +407,7 @@ services:
       IS_MESSAGE_CONSUMER: true
       IS_MESSAGE_PRODUCER: true
   searchws:
-    image: aafcbicoe/dina-search-ws:0.29
+    image: aafcbicoe/dina-search-ws:0.30
     environment:
       elasticsearch:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"

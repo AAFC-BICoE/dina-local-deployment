@@ -6,6 +6,11 @@
     }
   },
   "mappings": {
+    "_meta" : {
+      "version" : {
+        "number" : "1.3"
+      }
+    },
     "date_detection": true,
     "numeric_detection": true,
     "dynamic_templates": [
@@ -39,6 +44,14 @@
       {
         "verbatim_as_text": {
           "match": "*verbatim*",
+          "mapping": {
+            "type": "text"
+          }
+        }
+      },
+      {
+        "dwc_verbatim_as_text": {
+          "match": "dwcVerbatim*",
           "mapping": {
             "type": "text"
           }
@@ -99,6 +112,12 @@
                   "keyword": {
                     "type": "keyword",
                     "ignore_above": 256
+                  },
+                  "keyword_numeric": {
+                    "type": "icu_collation_keyword",
+                    "index": true,
+                    "numeric": true,
+                    "language": "en"
                   }
                 }
               },
