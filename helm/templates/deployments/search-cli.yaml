@@ -39,6 +39,8 @@ spec:
               value: {{ .Values.services.elasticconfigurator.environment.DINA_MATERIAL_SAMPLE_INDEX_NAME }}
             - name: DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE
               value: {{ .Values.services.elasticconfigurator.environment.DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE }}
+            - name: DINA_MATERIAL_SAMPLE_OPTIONAL_INDEX_SETTINGS_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_MATERIAL_SAMPLE_OPTIONAL_INDEX_SETTINGS_FILE }}
             - name: DINA_STORAGE_INDEX_NAME
               value: {{ .Values.services.elasticconfigurator.environment.DINA_STORAGE_INDEX_NAME }}
             - name: DINA_STORAGE_INDEX_SETTINGS_FILE
@@ -47,6 +49,8 @@ spec:
               value: {{ .Values.services.elasticconfigurator.environment.DINA_OBJECT_STORE_INDEX_NAME }}
             - name: DINA_OBJECT_STORE_INDEX_SETTINGS_FILE
               value: {{ .Values.services.elasticconfigurator.environment.DINA_OBJECT_STORE_INDEX_SETTINGS_FILE }}
+            - name: DINA_OBJECT_STORE_OPTIONAL_INDEX_SETTINGS_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_OBJECT_STORE_OPTIONAL_INDEX_SETTINGS_FILE }}
             - name: DINA_TRANSACTION_INDEX_NAME
               value: {{ .Values.services.elasticconfigurator.environment.DINA_TRANSACTION_INDEX_NAME }}
             - name: DINA_TRANSACTION_INDEX_SETTINGS_FILE

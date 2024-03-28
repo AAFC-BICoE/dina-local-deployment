@@ -379,6 +379,7 @@ services:
       DINA_STORAGE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/storage-index/dina_storage_index_settings.json
       DINA_OBJECT_STORE_INDEX_NAME: dina_object_store_index
       DINA_OBJECT_STORE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/object-store-index/object_store_index_settings.json
+      DINA_OBJECT_STORE_OPTIONAL_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/object-store-index/object_store_update_index.json
       DINA_TRANSACTION_INDEX_NAME: dina_loan_transaction_index
       DINA_TRANSACTION_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_loan_transaction_index_settings.json
   dinadb:
