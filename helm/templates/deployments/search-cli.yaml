@@ -69,9 +69,9 @@ spec:
         - name: search-cli
           image: {{ .Values.services.searchcli.image }}
           env:
-            - name: HTTP-CLIENT_OPEN_ID_CONNECT_BASE_URL
+            - name: HTTP-CLIENT_OPENIDCONNECTBASEURL
               value: {{ tpl .Values.services.searchcli.environment.http_client.openid_connect_base_url . }}
-            - name: HTTP-CLIENT_CLIENT_ID
+            - name: HTTP-CLIENT_CLIENTID
               value: {{ tpl .Values.services.searchcli.environment.http_client.client_id . }}
             - name: HTTP-CLIENT_USERNAME
               value: {{ tpl .Values.services.searchcli.environment.http_client.username . }}
