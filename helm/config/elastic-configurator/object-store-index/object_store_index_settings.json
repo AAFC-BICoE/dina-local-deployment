@@ -29,6 +29,11 @@
     }
   },
   "mappings": {
+    "_meta" : {
+      "version" : {
+        "number" : "1.1"
+      }
+    },
     "date_detection": true,
     "numeric_detection": true,
     "dynamic_templates": [
@@ -214,4 +219,3 @@
     }
   }
 }
-
