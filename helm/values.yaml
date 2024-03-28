@@ -93,7 +93,7 @@ global:
         label: dina-ui
         service: dina-ui-service
         instance_mode: developer
-        supported_languages_iso: en, fr
+        supported_languages_iso: en,fr
       search_cli:
         label: search-cli
         http_client:
