@@ -296,7 +296,7 @@ services:
 
   # Check the status of elasticsearch and configure indices if not already present.
   elastic-configurator:
-    image: aafcbicoe/es-init-container:0.8
+    image: aafcbicoe/es-init-container:0.9
     profiles: ["search_api"]
     environment:
       ELASTIC_SERVER_URL: $ELASTIC_SERVER_URL
@@ -322,7 +322,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.30
+    image: aafcbicoe/dina-search-ws:0.31
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -334,7 +334,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.30
+    image: aafcbicoe/dina-search-cli:0.31
     profiles: ["search_api"]
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
