@@ -907,23 +907,34 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 <div class="sect2">
 <h3 id="_applications">4.1. Applications</h3>
 <div class="paragraph">
-<p>Any REST API client with OAuth2 support can be used. Below are some examples of software you can use:</p>
+<p>While any API client can be used, Bruno is our recommended API client and requires no 3rd party accounts.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Insomnia</strong> - <a href="https://insomnia.rest/download">Download</a> (No Login Required)</p>
-</li>
-<li>
-<p><strong>Postman</strong> - <a href="https://www.postman.com/downloads/">Download</a> (Login Required)</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Bruno can be downloaded from: <a href="https://www.usebruno.com/downloads" class="bare">https://www.usebruno.com/downloads</a></p>
+</div>
+<div class="paragraph">
+<p>Once downloaded, you can open the DINA collection of API endpoints by going to <code>File</code> &gt; <code>Open collection</code> &gt; Navigate to dina-local-deployment/api-client/DINA-API and open that folder.</p>
+</div>
+<div class="paragraph">
+<p>You will also need to select the environment variables for the instance you want to connect to, for local dina development you would select <code>DINA Local</code>. The dropdown at the top right of the screen lets you change the environment variables.</p>
+</div>
+<div class="paragraph">
+<p>For local development, you will need to open the Bruno preferences (<code>CTRL</code> + <code>,</code>), Under the General tab, you will see an option for "Use custom CA certificate", make sure this is checked on. Click the "Select file" option and navigate to <code>/etc/ssl/certs/ca-certificates.crt</code>. (Be sure that you have ran the Local Certificate steps in order for the dina local certificates to be inside of the <code>ca-certificates.crt</code> file)</p>
+</div>
+<div class="paragraph">
+<p>Please note that bruno is still under active development.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_authentication">4.2. Authentication</h3>
 <div class="paragraph">
-<p>On each request, you will need to set up the following Authentication settings:</p>
+<p>If using the Bruno API client with our collection loaded, the Authentication settings will be automatically loaded in.</p>
+</div>
+<div class="paragraph">
+<p>Click the gear icon located at the top right of the screen. Then go to the <code>Auth</code> where you can click the "Get Access Token". Currently you need to do this each time to generate the token but probably in the future this will happen automatically when the token has expired. Each request will need to use the inherit authentication option.</p>
+</div>
+<div class="paragraph">
+<p>In other API clients, you can setup the authentication using these settings:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 2. Authentication Settings</caption>
@@ -969,10 +980,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </tbody>
 </table>
 <div class="paragraph">
-<p>Then when sending the request, you should see a popup which will let you login to the DINA application. Once you do this, your login will be remembered for the session and tokens will be automatically generated.</p>
-</div>
-<div class="paragraph">
-<p>In Postman you will have to click the "Get New Access Token" button to see this popup.</p>
+<p>Then when sending the request, you should see a popup which will let you login to the DINA application.</p>
 </div>
 </div>
 <div class="sect2">
@@ -981,16 +989,13 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 <p>Sometimes you might need to login as a different user for testing, the instructions for clearing your sessions are below:</p>
 </div>
 <div class="paragraph">
-<p>To logout of your session on the Insomnia application, simply go to the authentication tab and at the bottom of the panel there is a "Clear" button. Next time you send an API request you will be prompted again to login.</p>
-</div>
-<div class="paragraph">
-<p>For Postman, in the Authorization section there is a text field with your current access token. Selecting and removing the access token will remove your session. To re-login, scroll to the bottom for the "Get New Access Token" button.</p>
+<p>To logout of your session on the Bruno application, go to the collection settings by using the gear icon at the top right of the screen, then click <code>Auth</code> to access the authentication settings. At the bottom of the page there is a button to clear the session.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_headers">4.4. Headers</h3>
 <div class="paragraph">
-<p>Most of the API POST requests require a specific "Content-Type" header.</p>
+<p>Most of the API POST requests require a specific "Content-Type" header. The following headers are setup to be inherited to each request inside of the DINA so they do not need to be setup for each request.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 3. Common Headers</caption>
@@ -1569,7 +1574,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-15 18:52:58 UTC
+Last updated 2024-05-03 19:45:25 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
