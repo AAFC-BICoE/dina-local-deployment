@@ -10,7 +10,7 @@ Once downloaded, you can open the DINA collection of API endpoints by going to `
 
 You will also need to select the environment variables for the instance you want to connect to, for local dina development you would select `DINA Local`. The dropdown at the top right of the screen lets you change the environment variables.
 
-For local development, you will need to open the Bruno preferences (`CTRL` + `,`), Under the General tab, you will see an option for "SSL/TLS Certificate Verification", uncheck this for now. You can also play around with using Client Certificates, I haven't been able to get that to work yet.
+For local development, you will need to open the Bruno preferences (`CTRL` + `,`), Under the General tab, you will see an option for "Use custom CA certificate", make sure this is checked on. Click the "Select file" option and navigate to `/etc/ssl/certs/ca-certificates.crt`. (Be sure that you have ran the Local Certificate steps in order for the dina local certificates to be inside of the `ca-certificates.crt` file)
 
 Please note that bruno is still under active development.
 
@@ -18,7 +18,7 @@ Please note that bruno is still under active development.
 
 If using the Bruno API client with our collection loaded, the Authentication settings will be automatically loaded in.
 
-Click the gear icon located at the top right of the screen. Then go to the `Auth` where you can click the "Get Access Token". Currently you need to do this each time to generate the token but probably in the future this will happen automatically when the token has expired.
+Click the gear icon located at the top right of the screen. Then go to the `Auth` where you can click the "Get Access Token". Currently you need to do this each time to generate the token but probably in the future this will happen automatically when the token has expired. Each request will need to use the inherit authentication option.
 
 In other API clients, you can setup the authentication using these settings:
 
