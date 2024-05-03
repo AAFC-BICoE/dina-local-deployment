@@ -1,0 +1,24 @@
+meta {
+  name: Create collection
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/collection-api/collection
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "collection",
+      "attributes": {
+        "group": "cnc",
+        "name": "CHEM - Overy Lab",
+        "code": "CHEM2"
+      }
+    }
+  }
+}
