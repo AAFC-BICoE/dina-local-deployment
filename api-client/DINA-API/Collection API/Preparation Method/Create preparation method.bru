@@ -1,0 +1,23 @@
+meta {
+  name: Create preparation method
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/collection-api/preparation-method
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "preparation-method",
+        "attributes": {
+          "group": "aafc",
+          "name": "Liquid Culture"
+        }
+      }
+    }
+}

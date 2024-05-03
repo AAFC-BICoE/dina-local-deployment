@@ -1,0 +1,23 @@
+meta {
+  name: Create assemblage
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/collection-api/assemblage
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "assemblage",
+      "attributes": {
+        "group": "aafc",
+        "name": "Test123"
+      }
+    }
+  }
+}

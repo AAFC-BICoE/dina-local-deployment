@@ -1,0 +1,23 @@
+meta {
+  name: Create preparation type
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/collection-api/preparation-type
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "preparation-type",
+        "attributes": {
+          "group": "aafc",
+          "name": "Chemical Extraction"
+        }
+      }
+    }
+}
