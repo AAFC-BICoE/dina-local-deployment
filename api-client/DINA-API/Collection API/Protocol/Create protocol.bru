@@ -1,11 +1,11 @@
 meta {
-  name: Create preparation method
+  name: Create protocol
   type: http
   seq: 1
 }
 
 post {
-  url: {{base_url}}/collection-api/preparation-method
+  url: {{base_url}}/collection-api/protocol
   body: json
   auth: inherit
 }
@@ -13,10 +13,10 @@ post {
 body:json {
     {
       "data": {
-        "type": "preparation-method",
+        "type": "protocol",
         "attributes": {
           "group": "aafc",
-          "name": "Liquid Culture"
+          "name": "Liquid Culture Fermentation"
         }
       }
     }
