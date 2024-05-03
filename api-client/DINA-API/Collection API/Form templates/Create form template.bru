@@ -1,0 +1,77 @@
+meta {
+  name: Create form template
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/collection-api/form-template
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "data": {
+        "type": "form-template",
+        "attributes": {
+          "group": "aafc",
+          "name": "test",
+          "viewConfiguration": {},
+          "restrictToCreatedBy": true,
+          "components": [
+            {
+              "name": "components",
+              "order": 1,
+              "visible": true,
+              "gridSizeX": 2,
+              "sections": [
+                {
+                  "items": [
+                    {
+                      "name": "item_1",
+                      "visible": true,
+                      "gridPositionX": 0,
+                      "gridPositionY": 0,
+                      "defaultValue": 2
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }{
+      "data": {
+        "type": "form-template",
+        "attributes": {
+          "group": "aafc",
+          "name": "test",
+          "viewConfiguration": {},
+          "restrictToCreatedBy": true,
+          "components": [
+            {
+              "name": "components",
+              "order": 1,
+              "visible": true,
+              "gridSizeX": 2,
+              "sections": [
+                {
+                  "items": [
+                    {
+                      "name": "item_1",
+                      "visible": true,
+                      "gridPositionX": 0,
+                      "gridPositionY": 0,
+                      "defaultValue": 2
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+}

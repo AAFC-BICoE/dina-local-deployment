@@ -1,0 +1,16 @@
+meta {
+  name: Assemblage Resource Identifier
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/collection-api/resource-name-identifier?filter[group][EQ]=aafc&filter[type][EQ]=assemblage
+  body: none
+  auth: inherit
+}
+
+query {
+  filter[group][EQ]: aafc
+  filter[type][EQ]: assemblage
+}

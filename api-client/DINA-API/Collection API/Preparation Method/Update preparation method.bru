@@ -1,0 +1,24 @@
+meta {
+  name: Update preparation method
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{base_url}}/collection-api/preparation-method/885b2716-5b94-4f44-8f26-6ef22c76b84b
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "preparation-method",
+        "id": "885b2716-5b94-4f44-8f26-6ef22c76b84b",
+        "attributes": {
+          "group": "aafc",
+          "name": "new test"
+        }
+      }
+    }
+}

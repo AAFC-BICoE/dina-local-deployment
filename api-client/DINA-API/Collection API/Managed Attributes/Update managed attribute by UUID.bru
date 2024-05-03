@@ -1,0 +1,30 @@
+meta {
+  name: Update managed attribute by UUID
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{base_url}}/collection-api/managed-attribute/018f3565-08c4-7dee-8fea-c67dfcf16ff9
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "managed-attribute",
+      "attributes": {
+        "group": "aafc",
+        "name": "Organism Pick List Delete",
+        "managedAttributeComponent": "ORGANISM",
+        "vocabularyElementType": "STRING",
+        "acceptedValues": ["option1", "option2", "option3", "option4"],
+        "multilingualDescription": {
+          "descriptions": [
+          ]
+        }
+      }
+    }
+  }
+}

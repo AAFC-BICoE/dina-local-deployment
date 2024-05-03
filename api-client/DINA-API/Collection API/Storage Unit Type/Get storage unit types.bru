@@ -1,0 +1,28 @@
+meta {
+  name: Get storage unit types
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/collection-api/storage-unit-type
+  body: none
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "storage-unit-type",
+        "attributes": {
+          "group": "aafc",
+          "name": "test",
+          "gridLayoutDefinition": {
+            "fillDirection": "BY_ROW",
+            "numberOfRows": 100,
+            "numberOfColumns": 100
+          }
+        }
+      }
+    }
+}
