@@ -1,0 +1,26 @@
+meta {
+  name: Create group
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/user-api/group
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "group",
+      "attributes": {
+        "name": "groupname",
+        "labels": {
+          "en": "English Label",
+          "fr": "French Label"
+        }
+      }
+    }
+  }
+}
