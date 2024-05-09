@@ -1,0 +1,11 @@
+meta {
+  name: Get groups
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/user-api/group
+  body: none
+  auth: inherit
+}
