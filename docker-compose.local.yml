@@ -202,8 +202,9 @@ services:
       spring.liquibase.liquibase-schema: export
       spring.datasource.username: ${EXPORT_WEB_USER}
       spring.datasource.password: ${EXPORT_WEB_USER_PW}
-      spring.freemarker.template-loader-path: classpath:/templates/,file:/tmp/dina-data-export/templates/
-      dina.export.workingFolder: /tmp/dina-data-export
+      spring.freemarker.template-loader-path: classpath:/templates/,file:/data/templates/
+      dina.export.workingFolder: /data/exports
+      dina.report.templateFolder: /data/templates
       elasticsearch.host: elasticsearch-dina
       elasticsearch.port: 9200
     labels:
@@ -216,7 +217,8 @@ services:
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     volumes:
-      - ./report-label/templates:/tmp/templates
+      - ./export-data/templates:/data/templates
+      - ./export-data/exports:/data/exports
     depends_on:
       init-db:
         condition: service_completed_successfully 
