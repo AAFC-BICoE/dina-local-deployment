@@ -217,8 +217,7 @@ services:
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     volumes:
-      - ./export-data/templates:/data/templates
-      - ./export-data/exports:/data/exports
+      - export-data:/data
     depends_on:
       init-db:
         condition: service_completed_successfully 
@@ -393,7 +392,9 @@ volumes:
   elasticsearch-data:
     driver: local
   elastic-configurator-settings:
-    driver: local      
+    driver: local
+  export-data:
+    driver: local
 
 networks:
   dina_rabbitmq_net:
