@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.150.0
+    image: aafcbicoe/dina-ui:0.157.0
     environment:
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
@@ -52,7 +52,7 @@ services:
         condition: service_completed_successfully 
 
   agent-api:
-    image: aafcbicoe/agent-api:0.26
+    image: aafcbicoe/agent-api:0.27
     profiles: ["agent_api"]
     mem_limit: 512m
     environment:
@@ -78,7 +78,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.85
+    image: aafcbicoe/natural-history-collection-api:0.88
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -104,7 +104,7 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.9
+    image: aafcbicoe/loan-transaction-api:0.10
     profiles: ["loan_transaction_api"]
     mem_limit: 512m
     environment:
@@ -158,7 +158,7 @@ services:
         condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.12
+    image: aafcbicoe/object-store-api:1.15
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
@@ -190,7 +190,7 @@ services:
         condition: service_completed_successfully 
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.8
+    image: aafcbicoe/dina-export-api:0.9
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
@@ -323,7 +323,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.31
+    image: aafcbicoe/dina-search-ws:0.32
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -335,7 +335,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.31
+    image: aafcbicoe/dina-search-cli:0.32
     profiles: ["search_api"]
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
