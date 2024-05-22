@@ -1,0 +1,43 @@
+meta {
+  name: Create metadata
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/objectstore-api/metadata/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "metadata",
+      "attributes": {
+        "createdBy": "dina-admin",
+        "createdOn": "2024-05-06T20:06:37.890877Z",
+        "bucket": "aafc",
+        "fileIdentifier": "018f4f83-bef1-7ee8-a17b-2a2509da853e",
+        "fileExtension": ".jpg",
+        "resourceExternalURL": null,
+        "dcFormat": "application/octet-stream",
+        "dcType": "IMAGE",
+        "acCaption": "",
+        "acDigitizationDate": null,
+        "xmpMetadataDate": "2024-05-06T20:12:45.52005787Z",
+        "xmpRightsWebStatement": "https://open.canada.ca/en/open-government-licence-canada",
+        "dcRights": "© His Majesty The King in Right of Canada, as represented by the Minister of Agriculture and Agri-Food | © Sa Majesté le Roi du chef du Canada, représentée par le ministre de l’Agriculture et de l’Agroalimentaire",
+        "xmpRightsOwner": "Government of Canada",
+        "xmpRightsUsageTerms": "Government of Canada Usage Term",
+        "orientation": null,
+        "originalFilename": null,
+        "acHashFunction": "SHA-1",
+        "acHashValue": "b3379849f6224175181901ddbaae0361fdc95c01",
+        "publiclyReleasable": true,
+        "group": "aafc",
+        "managedAttributes": {}
+      }
+    }
+  }
+}

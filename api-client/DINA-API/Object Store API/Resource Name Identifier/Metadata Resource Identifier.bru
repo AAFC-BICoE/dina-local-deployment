@@ -1,0 +1,17 @@
+meta {
+  name: Metadata Resource Identifier
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/objectstore-api/resource-name-identifier?filter[group][EQ]=aafc&filter[type][EQ]=metadata&filter[name][EQ]=image.jpg
+  body: none
+  auth: inherit
+}
+
+query {
+  filter[group][EQ]: aafc
+  filter[type][EQ]: metadata
+  filter[name][EQ]: image.jpg
+}
