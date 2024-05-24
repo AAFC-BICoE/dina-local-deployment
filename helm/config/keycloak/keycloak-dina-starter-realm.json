@@ -114,6 +114,7 @@
       "defaultClientScopes": [
         "web-origins",
         "dina-agent",
+        "is-service-account",
         "role_list",
         "profile",
         "roles",
@@ -1279,6 +1280,33 @@
             "access.token.claim": "true",
             "claim.name": "agent-identifier",
             "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "id": "f71b0a19-191b-4087-b77f-fb1780ac677f",
+      "name": "service-account",
+      "description": "Is the user currently a service account",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true"
+      },
+      "protocolMappers": [
+        {
+          "id": "a5ba23c6-285f-4b85-9575-2386d84a38f8",
+          "name": "is-service-account",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "isServiceAccount",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "is-service-account",
+            "jsonType.label": "boolean"
           }
         }
       ]
