@@ -113,7 +113,7 @@
       "redirectUris": ["*"],
       "defaultClientScopes": [
         "web-origins",
-        "dina-agent",
+        "dina-attributes",
         "role_list",
         "profile",
         "roles",
@@ -1258,7 +1258,7 @@
     },
     {
       "id": "5b3d37dd-6615-44ea-851e-0f52111a50da",
-      "name": "dina-agent",
+      "name": "dina-attributes",
       "description": "",
       "protocol": "openid-connect",
       "attributes": {
@@ -1266,6 +1266,23 @@
         "display.on.consent.screen": "true"
       },
       "protocolMappers": [
+        {
+          "id": "8bece971-1da5-4228-a6a5-3251b5d06f05",
+          "name": "is-service-account",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "aggregate.attrs": "false",
+            "userinfo.token.claim": "true",
+            "multivalued": "false",
+            "user.attribute": "isServiceAccount",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "is-service-account",
+            "jsonType.label": "boolean"
+          }
+        },
         {
           "id": "cd43bfa6-215f-4e3f-b0b9-60e6078eb174",
           "name": "agent-identifier",
@@ -1286,7 +1303,7 @@
   ],
   "scopeMappings": [
     {
-      "clientScope": "dina-agent",
+      "clientScope": "dina-attributes",
       "roles": [
         "dina-realm-user"
       ]
