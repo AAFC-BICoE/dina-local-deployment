@@ -1,0 +1,9 @@
+FROM rabbitmq:3.9.29-management-alpine
+# Switch to root user to change permissions
+USER root
+# Change the owner of the directory to 1000730000
+
+RUN chown -R 1001180000:1001180000 /var/lib/rabbitmq
+RUN chmod -R 777 /var/lib/rabbitmq
+
+USER 1001180000
