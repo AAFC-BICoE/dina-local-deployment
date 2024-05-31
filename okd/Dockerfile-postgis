@@ -1,0 +1,10 @@
+# Use the postgis image as the base
+FROM postgis/postgis:12-3.1-alpine
+# Switch to root user to change permissions
+USER root
+
+RUN chown -R 1001180000:1001180000 /var/lib/postgresql
+RUN chmod -R 777 /var/lib/postgresql/data
+
+# Switch back to the postgres user
+USER 1001180000
