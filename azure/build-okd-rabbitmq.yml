@@ -24,7 +24,7 @@ steps:
  - task: Docker@2
    displayName: Build an image
    inputs:
-     tags: $(imageTag)
+     tags: ${{ variables.AZ_ACR }}.azurecr.io/okd/$(imageTag)
      command: build
      Dockerfile: okd/Dockerfile-rabbitmq
 
