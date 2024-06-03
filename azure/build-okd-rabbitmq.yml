@@ -17,7 +17,7 @@ pool:
 
 variables:
   # imageName: ${{ variables.AZ_ACR }}.azurecr.io/okd/rabbitmq-okd
-  imageTagFQP: ${{ variables.AZ_ACR }}.azurecr.io/okd/rabbitmq-okd:${{ parameters.versionTag }}
+  imageTagFQP: $(ContainerRegistry).azurecr.io/okd/rabbitmq-okd:${{ parameters.versionTag }}
   AZ_SC: $(ServiceConnection)
   AZ_ACR: $(ContainerRegistry)
   
