@@ -27,7 +27,7 @@ steps:
    displayName: Build an image
    inputs:
      repository: $(ContainerRegistry).azurecr.io/okd/rabbitmq-okd
-     tags: imageTag
+     tags: $(imageTag)
      command: build
      Dockerfile: okd/Dockerfile-rabbitmq
 
