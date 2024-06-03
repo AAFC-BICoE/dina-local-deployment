@@ -1,7 +1,7 @@
 trigger: none
 
 parameters:
-- name: tag
+- name: versionTag
   displayName: tag to use in Azure Container Registry (ACR)
   type: string
   default: dev
@@ -16,8 +16,8 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  imageName: ${{ variables.AZ_ACR }}.azurecr.io/okd/rabbitmq-okd
-  imageTagFQP: ${{ variables.AZ_ACR }}.azurecr.io/okd/rabbitmq-okd:${{ parameters.tag }}
+  # imageName: ${{ variables.AZ_ACR }}.azurecr.io/okd/rabbitmq-okd
+  imageTagFQP: ${{ variables.AZ_ACR }}.azurecr.io/okd/rabbitmq-okd:${{ parameters.versionTag }}
   AZ_SC: $(ServiceConnection)
   AZ_ACR: $(ContainerRegistry)
   
@@ -37,5 +37,6 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
+      echo "$(imageTagFQP)"
       az acr login --name ${{ variables.AZ_ACR }}.azurecr.io
-      docker push $(imageName)
+      docker push $(imageTagFQP)
