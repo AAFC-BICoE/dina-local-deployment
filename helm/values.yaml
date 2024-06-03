@@ -58,7 +58,7 @@ global:
         db_password: 
         db_user: keycloak_user
         keycloak_admin: admin
-        keycloak_admin_password: admin
+        keycloak_admin_password:
       collection_api:
         label: collection-api
         service: collection-api-service
