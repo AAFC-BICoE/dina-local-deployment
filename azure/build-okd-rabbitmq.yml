@@ -18,6 +18,7 @@ pool:
 variables:
   # imageName: ${{ variables.AZ_ACR }}.azurecr.io/okd/rabbitmq-okd
   imageTagFQP: $(ContainerRegistry).azurecr.io/okd/rabbitmq-okd:${{ parameters.versionTag }}
+  imageTag: ${{ parameters.versionTag }}
   AZ_SC: $(ServiceConnection)
   AZ_ACR: $(ContainerRegistry)
   
@@ -25,7 +26,7 @@ steps:
  - task: Docker@2
    displayName: Build an image
    inputs:
-     tags: $(imageTagFQP)
+     tags: imageTag
      command: build
      Dockerfile: okd/Dockerfile-rabbitmq
 
