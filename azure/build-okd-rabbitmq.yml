@@ -12,7 +12,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  imageName: 'rabbitmq-okd:'${{ parameters.tag }}
+  imageName: 'rabbitmq-okd:${{ parameters.tag }}'
   
 steps:
  - task: Docker@2
