@@ -12,8 +12,6 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-#  AZ_SC: $(ServiceConnection)
-#  AZ_ACR: $(ContainerRegistry)
   imageName: 'rabbitmq-okd:'${{ parameters.tag }}
   
 steps:
