@@ -40,4 +40,5 @@ steps:
     inlineScript: |
       echo "$(imageTagFQP)"
       az acr login --name ${{ variables.AZ_ACR }}.azurecr.io
+      docker image ls
       docker push $(imageTagFQP)
