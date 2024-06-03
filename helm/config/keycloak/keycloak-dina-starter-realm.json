@@ -1311,16 +1311,6 @@
   ],
   "users": [
     {
-      "username": "dina-admin",
-      "enabled": true,
-      "realmRoles": ["dina-realm-user", "dina-admin"],
-      "groups": ["aafc/dina-admin"],
-      "credentials": [{ "type": "password", "value": "dina-admin" }],
-      "attributes": {
-        "agentId": "3c47203f-9833-4945-b673-ece4e3bd4f9a"
-      }
-    },
-    {
       "username": "cnc-su",
       "enabled": true,
       "realmRoles": ["dina-realm-user"],
