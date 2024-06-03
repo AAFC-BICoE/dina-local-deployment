@@ -16,6 +16,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
+  imageName: ${{ variables.AZ_ACR }}.azurecr.io/okd/rabbitmq-okd
   imageTagFQP: ${{ variables.AZ_ACR }}.azurecr.io/okd/rabbitmq-okd:${{ parameters.tag }}
   AZ_SC: $(ServiceConnection)
   AZ_ACR: $(ContainerRegistry)
@@ -37,4 +38,4 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az acr login --name ${{ variables.AZ_ACR }}.azurecr.io
-      docker push $(imageTagFQP)
+      docker push $(imageName)
