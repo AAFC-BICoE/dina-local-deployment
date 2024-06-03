@@ -1,1 +1,26 @@
+trigger: none
+
+parameters:
+- name: tag
+  displayName: tag to use in Azure Container Registry (ACR)
+  type: string
+  default: dev
+
+name: Build OKD RabbitMQ image
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+#  AZ_SC: $(ServiceConnection)
+#  AZ_ACR: $(ContainerRegistry)
+  imageName: 'rabbitmq-okd:'${{ parameters.tag }}
+  
+steps:
+ - task: Docker@2
+   displayName: Build an image
+   inputs:
+     repository: $(imageName)
+     command: build
+     Dockerfile: okd/Dockerfile-rabbitmq
 
