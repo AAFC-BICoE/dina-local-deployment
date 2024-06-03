@@ -12,13 +12,13 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  imageName: 'rabbitmq-okd:${{ parameters.tag }}'
+  imageTag: 'rabbitmq-okd:${{ parameters.tag }}'
   
 steps:
  - task: Docker@2
    displayName: Build an image
    inputs:
-     repository: $(imageName)
+     tags: $(imageTag)
      command: build
      Dockerfile: okd/Dockerfile-rabbitmq
 
