@@ -82,7 +82,7 @@ kind: ConfigMap
 metadata:
   name: message-producer-override-exportapi
 data:
-  DINA_MESSAGING_ISCONSUMER: {{ .Values.services.dinaexportapi.environment.dina.messaging.isProducer | quote }}
+  DINA_MESSAGING_ISCONSUMER: {{ .Values.services.dinaexportapi.environment.dina.messaging.isConsumer | quote }}
   DINA_MESSAGING_EXPORT_QUEUE: {{ tpl .Values.services.dinaexportapi.environment.dina.messaging.export.queue . }}
   DINA_EXPORT_OBJECT_STORE_DOWNLOAD_URL: {{ tpl .Values.services.dinaexportapi.environment.dina.export.objectStoreDownloadUrl . }}
   RABBITMQ_HOST: {{ tpl .Values.services.dinaexportapi.environment.rabbitmq.host . }}
