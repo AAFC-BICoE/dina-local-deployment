@@ -94,7 +94,16 @@ spec:
                   key: password
               {{- else }}
               value: {{ tpl .Values.services.keycloak.environment.KC_DB_PASSWORD . }}
-            {{- end }}
+              {{- end }}
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              {{- if not .Values.global.environment.config.keycloak.keycloak_admin_password }}
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-admin-secret
+                  key: password
+              {{- else }}
+              value: {{ tpl .Values.services.keycloak.environment.KEYCLOAK_ADMIN_PASSWORD . }}
+              {{- end }}
             - name: KC_DB_URL_DATABASE
               value: {{ tpl .Values.services.keycloak.environment.KC_DB_URL_DATABASE . }}
             - name: KC_DB_URL_HOST
@@ -109,8 +118,6 @@ spec:
               value: {{ .Values.services.keycloak.environment.KC_PROXY }}
             - name: KEYCLOAK_ADMIN
               value: {{ tpl .Values.services.keycloak.environment.KEYCLOAK_ADMIN . }}
-            - name: KEYCLOAK_ADMIN_PASSWORD
-              value: {{ tpl .Values.services.keycloak.environment.KEYCLOAK_ADMIN_PASSWORD . }}
             - name: KEYCLOAK_IMPORT
               value: data/import/keycloak-dina-starter-realm.json
           ports:
