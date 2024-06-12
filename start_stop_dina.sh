@@ -19,6 +19,7 @@ DINA_CONFIGS+=('docker-compose.local.yml')
 #DINA_CONFIGS+=('docker-compose.debug.yml')
 #DINA_CONFIGS+=('message-producing-override/docker-compose.override.messageProducer.yml')
 #DINA_CONFIGS+=('persistence-override/docker-compose.override.persistence.yml')
+#DINA_CONFIGS+=('keycloak/docker-compose.disable-keycloak.yml')
 
 # Convert arrays to comma-separated strings
 printf -v module_arr '%s,' "${DINA_MODULES[@]}"
