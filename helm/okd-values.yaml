@@ -3,7 +3,8 @@
 # Declare variables to be passed into your templates.
 global:
   environment:
-    storageClass: gpfs-fileset-0
+    isOpenShift: true
+    storageClass: ocs-external-storagecluster-ceph-rbd
     securityContext:
       enabled: false
 resources:
@@ -28,3 +29,4 @@ resources:
     requests:
       cpu: 10m
       memory: 64Mi
+      
