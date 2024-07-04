@@ -227,7 +227,16 @@
           "relationships": {
             "properties": {
               "attachment": {
-                "type": "object"
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "metadata"
+                      }
+                    }
+                  }
+                }
               },
               "collectingEvent": {
                 "properties": {
