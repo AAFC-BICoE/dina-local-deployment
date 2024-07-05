@@ -1,0 +1,57 @@
+{{- if .Values.global.environment.isOpenShift }}
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: {{ .Values.app.name }}-dina-ui
+spec:
+  host: {{ .Values.global.endpoints.ui }}
+  to:
+    kind: Service
+    name: dina-ui-service
+    weight: 100
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+---
+
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: {{ .Values.app.name }}-kc
+spec:
+  host: {{ .Values.global.endpoints.keycloak }}
+  path: /auth
+  to:
+    kind: Service
+    name: keycloak-service
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: None
+  wildcardPolicy: None
+---
+
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: {{ .Values.app.name }}-auth
+spec:
+  host: {{ .Values.global.endpoints.ui }}
+  path: /auth
+  to:
+    kind: Service
+    name: keycloak-service
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+{{- end }}
+
