@@ -6,13 +6,13 @@
     }
   },
   "mappings": {
-    "_meta" : {
-      "version" : {
-        "number" : "1.0"
+    "_meta": {
+      "version": {
+        "number": "1.1"
       }
     },
-    "date_detection": false,
-    "numeric_detection": false,
+    "date_detection": true,
+    "numeric_detection": true,
     "dynamic_templates": [
       {
         "includes_as_nested": {
@@ -148,6 +148,18 @@
                     }
                   }
                 }
+              }
+            }
+          }
+        }
+      },
+      "included": {
+        "type": "nested",
+        "properties": {
+          "attributes": {
+            "properties": {
+              "createdOn": {
+                "type": "date"
               }
             }
           }
