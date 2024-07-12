@@ -8,7 +8,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "1.6"
+        "number" : "1.7"
       }
     },
     "date_detection": true,
@@ -269,6 +269,18 @@
                       "type": {
                         "type": "constant_keyword",
                         "value": "storage-unit"
+                      }
+                    }
+                  }
+                }
+              },
+              "storageUnitCoordinates": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "storage-unit-coordinates"
                       }
                     }
                   }
