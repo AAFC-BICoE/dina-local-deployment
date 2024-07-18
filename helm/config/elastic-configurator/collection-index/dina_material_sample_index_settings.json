@@ -262,25 +262,13 @@
                   }
                 }
               },
-              "storageUnit": {
+              "storageUnitUsage": {
                 "properties": {
                   "data": {
                     "properties": {
                       "type": {
                         "type": "constant_keyword",
-                        "value": "storage-unit"
-                      }
-                    }
-                  }
-                }
-              },
-              "storageUnitCoordinates": {
-                "properties": {
-                  "data": {
-                    "properties": {
-                      "type": {
-                        "type": "constant_keyword",
-                        "value": "storage-unit-coordinates"
+                        "value": "storage-unit-usage"
                       }
                     }
                   }
