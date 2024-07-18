@@ -5,6 +5,9 @@ metadata:
     app: {{ .Values.app.name }}-dina-db
   name: {{ .Values.app.name }}-dina-db
 spec:
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
   serviceName: {{ .Values.app.name }}-dina-db
   replicas: 1
   selector:
@@ -33,9 +36,10 @@ spec:
             {{- end }}
           - name: POSTGRES_USER
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
-          - name: PGDATA
-            value: /var/lib/postgresql/data
           image: {{ .Values.services.dinadb.image }}
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/
           name: dina-db
           resources:
             requests:
@@ -46,7 +50,7 @@ spec:
               cpu: {{ .Values.resources.apis.limits.cpu }}
   volumeClaimTemplates:
   - metadata:
-      name: dina-db-claim
+      name: postgres-data
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: {{ .Values.global.environment.storageClass }}
