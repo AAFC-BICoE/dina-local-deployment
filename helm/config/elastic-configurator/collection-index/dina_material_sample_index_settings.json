@@ -262,13 +262,13 @@
                   }
                 }
               },
-              "storageUnit": {
+              "storageUnitUsage": {
                 "properties": {
                   "data": {
                     "properties": {
                       "type": {
                         "type": "constant_keyword",
-                        "value": "storage-unit"
+                        "value": "storage-unit-usage"
                       }
                     }
                   }
