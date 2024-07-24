@@ -53,7 +53,7 @@ global:
         secretKey: minio123
       keycloak: 
         realm_file_prefix: config/keycloak/
-        realm_file_name: keycloak-dina-starter-realm-openshift.json
+        realm_file_name: keycloak-dina-starter-realm.json
         label: keycloak
         service: keycloak-service
         db_name: keycloak_db
