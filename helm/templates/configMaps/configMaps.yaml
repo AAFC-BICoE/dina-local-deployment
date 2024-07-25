@@ -8,9 +8,10 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: keycloak
+  name: keycloak-realm
 data:
-{{ (.Files.Glob "config/keycloak/*").AsConfig | indent 2 }}
+{{ $filePath := printf "%s%s" .Values.global.environment.config.keycloak.realm_file_prefix .Values.global.environment.config.keycloak.realm_file_name }}
+{{ (.Files.Glob $filePath).AsConfig | indent 2 }}
 ---
 apiVersion: v1
 kind: ConfigMap
