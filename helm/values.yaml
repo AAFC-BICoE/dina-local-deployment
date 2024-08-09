@@ -52,6 +52,8 @@ global:
         accessKey: minio
         secretKey: minio123
       keycloak: 
+        realm_file_prefix: config/keycloak/
+        realm_file_name: keycloak-dina-starter-realm.json
         label: keycloak
         service: keycloak-service
         db_name: keycloak_db
@@ -432,11 +434,6 @@ ingress:
   tls: true
   className: ""
 
-  hosts:
-    - host: dina.local
-      paths:
-        - path: /
-          pathType: Prefix
 podAnnotations: {}
 podLabels: {}
 
