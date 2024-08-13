@@ -118,8 +118,6 @@ spec:
               value: {{ .Values.services.keycloak.environment.KC_PROXY }}
             - name: KEYCLOAK_ADMIN
               value: {{ tpl .Values.services.keycloak.environment.KEYCLOAK_ADMIN . }}
-            - name: KEYCLOAK_IMPORT
-              value: data/import/{{ .Values.global.environment.config.keycloak.realm_file_name }}
           ports:
             - name: http
               containerPort: 8080
