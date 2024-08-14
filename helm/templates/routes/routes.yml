@@ -3,7 +3,6 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: {{ .Values.app.name }}-dina-ui
-  namespace: {{ .Values.global.namespace }}
 spec:
   host: {{ .Values.global.endpoints.ui }}
   to:
@@ -22,7 +21,6 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: {{ .Values.app.name }}-kc
-  namespace: {{ .Values.global.namespace }}
 spec:
   host: {{ .Values.global.endpoints.keycloak }}
   path: /auth
@@ -42,7 +40,6 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: {{ .Values.app.name }}-auth
-  namespace: {{ .Values.global.namespace }}
 spec:
   host: {{ .Values.global.endpoints.ui }}
   path: /auth

@@ -4,7 +4,6 @@ metadata:
   labels:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-keycloak
-  namespace: {{ .Values.global.namespace }}
 spec:
   replicas: 1
   selector:

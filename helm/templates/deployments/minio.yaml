@@ -4,7 +4,6 @@ metadata:
   labels:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-minio
-  namespace: {{ .Values.global.namespace }}
 spec:
   serviceName: {{ .Values.app.name }}-minio
   replicas: {{ if .Values.profiles.object_store_api.enabled }}1{{ else }}0{{ end }}

@@ -2,7 +2,6 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  namespace: {{ .Values.global.namespace }}
   name: exec-role
 rules:
 - apiGroups: [""]
@@ -16,7 +15,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: secret-reader
-  namespace: {{ .Values.global.namespace }}
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
@@ -26,7 +24,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: exec-role-binding
-  namespace: {{ .Values.global.namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -34,17 +31,14 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: job-sa
-  namespace: {{ .Values.global.namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: read-secrets
-  namespace: {{ .Values.global.namespace }}
 subjects:
 - kind: ServiceAccount
   name: job-sa
-  namespace: {{ .Values.global.namespace }}
 roleRef:
   kind: Role
   name: secret-reader

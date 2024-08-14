@@ -3,7 +3,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: exec-script-job
-  namespace: {{ .Values.global.namespace }}
 spec:
   template:
     spec:
