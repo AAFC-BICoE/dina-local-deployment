@@ -1,4 +1,4 @@
-{{- if .Values.isOpenShift }}
+{{- if .Values.global.environment.isOpenShift }}
 apiVersion: batch/v1
 kind: Job
 metadata:
