@@ -4,6 +4,7 @@ metadata:
   labels:
     app: {{ .Values.app.name }}-dina-db
   name: {{ .Values.app.name }}-dina-db
+  namespace: {{ .Values.global.namespace }}
 spec:
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Retain

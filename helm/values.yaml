@@ -134,6 +134,7 @@ global:
     ui: dina.local
     keycloak: keycloak.dina.local
     elasticsearch: elasticsearch.dina.localhost
+  namespace: default
 services:
   initdb:
     image: aafcbicoe/dina-db-init-container:0.3

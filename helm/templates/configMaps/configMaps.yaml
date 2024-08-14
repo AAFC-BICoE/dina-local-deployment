@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: scripts-configmap
+  namespace: {{ .Values.global.namespace }}
 data:
 {{ (.Files.Glob "config/scripts/skipPostGisExtensions.sh").AsConfig | indent 2 }}
 ---
@@ -9,6 +10,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: keycloak-realm
+  namespace: {{ .Values.global.namespace }}
 data:
 {{- if .Values.global.environment.isOpenShift }}
   keycloak-realm.json: |-
@@ -21,6 +23,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: keycloak-theme
+  namespace: {{ .Values.global.namespace }}
 data:
 {{ (.Files.Glob "config/theme/*.ftl").AsConfig | indent 2 }}
 {{ (.Files.Glob "config/theme/*.properties").AsConfig | indent 2 }}
@@ -33,6 +36,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: certs
+  namespace: {{ .Values.global.namespace }}
 data:
 {{ (.Files.Glob "config/certs/*").AsConfig | indent 2 }}
 ---
@@ -40,6 +44,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: elastic-settings
+  namespace: {{ .Values.global.namespace }}
 data:
 {{ (.Files.Glob "config/elastic-configurator/*").AsConfig | indent 2 }}
 {{ (.Files.Glob "config/elastic-configurator/agent-index/*").AsConfig | indent 2 }}
@@ -51,6 +56,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: message-producer-override-objectstore
+  namespace: {{ .Values.global.namespace }}
 data:
   DINA_MESSAGING_ISPRODUCER: {{ .Values.services.objectstoreapi.environment.dina.messaging.isProducer | quote }}
   RABBITMQ_HOST: {{ tpl .Values.services.objectstoreapi.environment.rabbitmq.host . }}
@@ -62,6 +68,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: message-producer-override-collection
+  namespace: {{ .Values.global.namespace }}
 data:
   DINA_MESSAGING_ISPRODUCER: {{ .Values.services.collectionapi.environment.dina.messaging.isProducer | quote }}
   RABBITMQ_HOST: {{ tpl .Values.services.collectionapi.environment.rabbitmq.host . }}
@@ -70,6 +77,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: message-producer-override-loantransaction
+  namespace: {{ .Values.global.namespace }}
 data:
   DINA_MESSAGING_ISPRODUCER: {{ .Values.services.loantransactionapi.environment.dina.messaging.isProducer | quote }}
   RABBITMQ_HOST: {{ tpl .Values.services.loantransactionapi.environment.rabbitmq.host . }}
@@ -78,6 +86,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: message-producer-override-agentapi
+  namespace: {{ .Values.global.namespace }}
 data:
   DINA_MESSAGING_ISPRODUCER: {{ .Values.services.agentapi.environment.dina.messaging.isProducer | quote }}
   RABBITMQ_HOST: {{ tpl .Values.services.agentapi.environment.rabbitmq.host . }}
@@ -86,6 +95,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: message-producer-override-exportapi
+  namespace: {{ .Values.global.namespace }}
 data:
   DINA_MESSAGING_ISCONSUMER: {{ .Values.services.dinaexportapi.environment.dina.messaging.isConsumer | quote }}
   DINA_MESSAGING_EXPORT_QUEUE: {{ tpl .Values.services.dinaexportapi.environment.dina.messaging.export.queue . }}

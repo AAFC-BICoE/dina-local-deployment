@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.keycloak.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.keycloak.service }}
 spec:
@@ -20,6 +21,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.dina_db.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.dina_db.service }}
 spec:
@@ -34,6 +36,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.collection_api.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.collection_api.service }}
 spec:
@@ -48,6 +51,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.objectstore_api.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.objectstore_api.service }}
 spec:
@@ -62,6 +66,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.agent_api.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.agent_api.service }}
 spec:
@@ -76,6 +81,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.dina_export_api.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.dina_export_api.service }}
 spec:
@@ -90,6 +96,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.dina_user_api.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.dina_user_api.service }}
 spec:
@@ -104,6 +111,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.loan_transaction_api.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.loan_transaction_api.service }}
 spec:
@@ -118,6 +126,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.seqdb_api.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.seqdb_api.service }}
 spec:
@@ -132,6 +141,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.dina_ui.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.dina_ui.service }}
 spec:
@@ -146,6 +156,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.elasticsearch.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.elasticsearch.service }}
 spec:
@@ -160,6 +171,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.search_ws.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.search_ws.service }}
 spec:
@@ -174,6 +186,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.global.environment.config.rabbitmq.service }}
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ .Values.global.environment.config.rabbitmq.service }}
 spec:
@@ -192,6 +205,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: minio-service
+  namespace: {{ .Values.global.namespace }}
   labels:
     app: minio-service
 spec:

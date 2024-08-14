@@ -4,6 +4,7 @@ metadata:
   labels:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-search-ws
+  namespace: {{ .Values.global.namespace }}
 spec:
   replicas: {{ if .Values.profiles.search_api.enabled }}1{{ else }}0{{ end }}
   selector:
