@@ -4,7 +4,7 @@ metadata:
   labels:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-elasticsearch-dina
-dspec:
+spec:
   serviceName: {{ .Values.app.name }}-elasticsearch-dina
   replicas: {{ if .Values.profiles.search_api.enabled }}1{{ else }}0{{ end }}
   selector:

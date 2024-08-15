@@ -196,7 +196,7 @@ metadata:
     app: minio-service
 spec:
   type: ClusterIP
-  ports:d
+  ports:
     - port: 9000
       targetPort: 9000
   selector:
