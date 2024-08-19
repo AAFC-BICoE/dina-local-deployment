@@ -28,7 +28,7 @@ services:
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.11.0
+    image: aafcbicoe/seqdb-api:2.12.0
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
@@ -78,7 +78,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.90
+    image: aafcbicoe/natural-history-collection-api:0.93
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
