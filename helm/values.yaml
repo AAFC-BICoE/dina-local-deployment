@@ -225,7 +225,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.88
+    image: aafcbicoe/natural-history-collection-api:0.89
     pullPolicy: IfNotPresent
     environment:
       rabbitmq:
@@ -246,7 +246,7 @@ services:
         cpu: 80m
         memory: 768Mi
   dinaexportapi:
-    image: aafcbicoe/dina-export-api:0.9
+    image: aafcbicoe/dina-export-api:0.10
     pullPolicy: IfNotPresent
     environment:
       spring:
@@ -275,7 +275,7 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.158.0
+    image: aafcbicoe/dina-ui:0.161.1
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
@@ -308,7 +308,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
   objectstoreapi:
-    image: aafcbicoe/object-store-api:1.16
+    image: aafcbicoe/object-store-api:1.17
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
