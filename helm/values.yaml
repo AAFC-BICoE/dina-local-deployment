@@ -213,7 +213,7 @@ services:
             password: "{{ .Values.global.environment.config.seqdb_api.liquibase_password }}"
         PG_EXTENSION_seqdb: pgcrypto
   agentapi:
-    image: aafcbicoe/agent-api:0.27
+    image: aafcbicoe/agent-api:0.28
     pullPolicy: IfNotPresent
     environment:
       rabbitmq:
@@ -225,7 +225,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.89
+    image: aafcbicoe/natural-history-collection-api:0.90
     pullPolicy: IfNotPresent
     environment:
       rabbitmq:
@@ -275,7 +275,7 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.161.1
+    image: aafcbicoe/dina-ui:0.164.0
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
@@ -392,7 +392,7 @@ services:
       DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
       USE_V2: "true"
   searchcli:
-    image: aafcbicoe/dina-search-cli:0.32
+    image: aafcbicoe/dina-search-cli:0.34
     environment:
       http_client:
         openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/"
@@ -410,12 +410,12 @@ services:
       IS_MESSAGE_CONSUMER: true
       IS_MESSAGE_PRODUCER: true
   searchws:
-    image: aafcbicoe/dina-search-ws:0.32
+    image: aafcbicoe/dina-search-ws:0.34
     environment:
       elasticsearch:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
   seqdbapi:
-    image: aafcbicoe/seqdb-api:2.10.0
+    image: aafcbicoe/seqdb-api:2.11.0
     environment:
       spring:
         datasource:
