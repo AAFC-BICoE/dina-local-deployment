@@ -1,0 +1,22 @@
+meta {
+  name: Update split configuration
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{base_url}}/collection-api/split-configuration/01919948-2387-78ae-b9ed-451e07e8172e
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "split-configuration",
+        "attributes": {
+          "separator": "DASH"
+        }
+      }
+    }
+}

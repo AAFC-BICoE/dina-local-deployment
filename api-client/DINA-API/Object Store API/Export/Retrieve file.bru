@@ -1,0 +1,15 @@
+meta {
+  name: Retrieve file
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/dina-export-api/file/2f122a23-95f3-4725-bf3e-d10a8638edf8?type=DATA_EXPORT
+  body: json
+  auth: inherit
+}
+
+query {
+  type: DATA_EXPORT
+}
