@@ -1,0 +1,22 @@
+meta {
+  name: Create person
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/agent-api/person
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "person",
+      "attributes": {
+        "displayName": "John Doe"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+meta {
+  name: Query agent index
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/search-api/search-ws/search?indexName=dina_agent_index
+  body: json
+  auth: inherit
+}
+
+query {
+  indexName: dina_agent_index
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "query": {
+      "match_all": {}
+    }
+  }
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Object Store Mapping
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/search-api/search-ws/mapping?indexName=dina_object_store_index
+  body: none
+  auth: inherit
+}
+
+query {
+  indexName: dina_object_store_index
+}
+
+headers {
+  Content-Type: application/json
+}
