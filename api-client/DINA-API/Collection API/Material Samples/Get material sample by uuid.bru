@@ -1,0 +1,15 @@
+meta {
+  name: Get material sample by uuid
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/collection-api/material-sample/018f63a4-7212-7bbe-9c09-e898b0b03de6?include=organism
+  body: none
+  auth: inherit
+}
+
+query {
+  include: organism
+}

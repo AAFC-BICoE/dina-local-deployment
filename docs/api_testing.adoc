@@ -72,3 +72,7 @@ Most of the API POST requests require a specific "Content-Type" header. The foll
 |true
 |Optional. Self and related links can make up to 60% of the response payload size and not always are those links of use. In this case the computation of those links is omitted. Further relationships without data are completely omitted.
 |===
+
+== Additional Environments
+
+Only included in the /api-client repo is the local development environment file. Other environment files can be downloaded from the DINA Wiki under the "Bruno Environments" section.

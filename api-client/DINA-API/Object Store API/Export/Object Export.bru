@@ -1,0 +1,28 @@
+meta {
+  name: Object Export
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/objectstore-api/object-export
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "object-export",
+      "id": "b1572bd3-2fb2-475c-9c46-82cef31f9c47",
+      "attributes": {
+        "fileIdentifiers": [
+          "570d419e-ef5a-48f6-8240-58dde02ebcbb",
+          "e2d38287-04b6-4239-b78f-aa09eb574619",
+          "fe33e239-42f3-46a6-a5ee-7bbb1b4dc507"
+        ],
+        "name": "test"
+      }
+    }
+  }
+}

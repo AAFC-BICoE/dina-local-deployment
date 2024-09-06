@@ -1,0 +1,31 @@
+meta {
+  name: Create storage unit
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/collection-api/storage-unit
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "storage-unit",
+        "attributes": {
+          "group": "aafc",
+          "name": "test"
+        },
+        "relationships": {
+          "storageUnitType": {
+            "data": {
+              "type": "storage-unit-type",
+              "id": "01903b2c-84bd-7999-b91a-3c520919871f"
+            }
+          }
+        }
+      }
+    }
+}

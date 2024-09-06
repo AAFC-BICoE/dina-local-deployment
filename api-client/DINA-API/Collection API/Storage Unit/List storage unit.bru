@@ -1,0 +1,15 @@
+meta {
+  name: List storage unit
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/collection-api/storage-unit?include=storageUnitType
+  body: none
+  auth: inherit
+}
+
+query {
+  include: storageUnitType
+}

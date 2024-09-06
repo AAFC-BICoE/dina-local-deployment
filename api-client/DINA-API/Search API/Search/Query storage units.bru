@@ -1,0 +1,27 @@
+meta {
+  name: Query storage units
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{base_url}}/search-api/search-ws/search?indexName=dina_storage_index
+  body: json
+  auth: inherit
+}
+
+query {
+  indexName: dina_storage_index
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "query": {
+      "match_all": {}
+    }
+  }
+}

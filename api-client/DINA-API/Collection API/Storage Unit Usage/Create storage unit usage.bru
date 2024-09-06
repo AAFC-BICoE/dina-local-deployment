@@ -1,0 +1,38 @@
+meta {
+  name: Create storage unit usage
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/collection-api/storage-unit-usage
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "storage-unit-usage",
+      "attributes": {
+        "usageType": "material-sample",
+        "wellColumn": "1",
+        "wellRow": "A"
+      },
+      "relationships": {
+        "storageUnit": {
+          "data": {
+            "id": "f2407e6d-479d-40bc-8240-f8b6b7706610",
+            "type": "storage-unit"
+          }
+        },
+        "storageUnitType": {
+          "data": {
+            "id": "f89d5901-5930-4da1-b7c5-7433634e0a04",
+            "type": "storage-unit-type"
+          }
+        }
+      }
+    }
+  }
+}
