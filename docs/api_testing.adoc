@@ -50,6 +50,20 @@ In other API clients, you can setup the authentication using these settings:
 
 Then when sending the request, you should see a popup which will let you login to the DINA application.
 
+== Script - Post Response
+
+[source,shell]
+----
+// Used to pass the oauth2 token generated to the headers.
+var token = res.body.access_token;
+if (token) {
+  bru.setVar('oauth2_token', token);
+}
+ 
+// Can be used for generate a unique name when you need to generate a bunch of entities.
+bru.setVar('currentMillis', Date.now());
+----
+
 == Logout of Session
 
 Sometimes you might need to login as a different user for testing, the instructions for clearing your sessions are below:
