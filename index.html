@@ -468,10 +468,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_applications">4.1. Applications</a></li>
 <li><a href="#_authentication">4.2. Authentication</a></li>
-<li><a href="#_script_post_response">4.3. Script - Post Response</a></li>
-<li><a href="#_logout_of_session">4.4. Logout of Session</a></li>
-<li><a href="#_headers">4.5. Headers</a></li>
-<li><a href="#_additional_environments">4.6. Additional Environments</a></li>
+<li><a href="#_logout_of_session">4.3. Logout of Session</a></li>
+<li><a href="#_headers">4.4. Headers</a></li>
+<li><a href="#_additional_environments">4.5. Additional Environments</a></li>
 </ul>
 </li>
 <li><a href="#_postgresql">5. PostgreSQL</a></li>
@@ -986,22 +985,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect2">
-<h3 id="_script_post_response">4.3. Script - Post Response</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">// Used to pass the oauth2 token generated to the headers.
-var token = res.body.access_token;
-if (token) {
-  bru.setVar('oauth2_token', token);
-}
-
-// Can be used for generate a unique name when you need to generate a bunch of entities.
-bru.setVar('currentMillis', Date.now());</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_logout_of_session">4.4. Logout of Session</h3>
+<h3 id="_logout_of_session">4.3. Logout of Session</h3>
 <div class="paragraph">
 <p>Sometimes you might need to login as a different user for testing, the instructions for clearing your sessions are below:</p>
 </div>
@@ -1010,7 +994,7 @@ bru.setVar('currentMillis', Date.now());</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_headers">4.5. Headers</h3>
+<h3 id="_headers">4.4. Headers</h3>
 <div class="paragraph">
 <p>Most of the API POST requests require a specific "Content-Type" header. The following headers are setup to be inherited to each request inside of the DINA so they do not need to be setup for each request.</p>
 </div>
@@ -1043,7 +1027,7 @@ bru.setVar('currentMillis', Date.now());</code></pre>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_additional_environments">4.6. Additional Environments</h3>
+<h3 id="_additional_environments">4.5. Additional Environments</h3>
 <div class="paragraph">
 <p>Only included in the /api-client repo is the local development environment file. Other environment files can be downloaded from the DINA Wiki under the "Bruno Environments" section.</p>
 </div>
@@ -1597,7 +1581,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-06 18:33:54 UTC
+Last updated 2024-09-06 19:13:39 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
