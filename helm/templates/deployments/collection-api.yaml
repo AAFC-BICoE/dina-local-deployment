@@ -38,6 +38,10 @@ spec:
         - name: init-db
           image: {{ .Values.services.initdb.image }}
           env:
+          - name: PG_RESTORE
+            value: "True"
+          - name: PG_DUMP_PATH
+            value: "/opt/pgrestore/data/dump.tar"
           - name: POSTGRES_DB
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
           - name: POSTGRES_PASSWORD
@@ -79,6 +83,9 @@ spec:
             {{- end }}
           - name: PG_EXTENSION_collection
             value: {{ .Values.services.initdb.config.collectionapi.PG_EXTENSION_collection }}
+          volumeMounts:
+            - name: pg-restore
+              mountPath: /opt/pgrestore/data/
           resources:
             requests:
               memory: {{ .Values.resources.initcontainers.requests.memory }}
@@ -86,6 +93,10 @@ spec:
             limits:
               memory: {{ .Values.resources.initcontainers.limits.memory }} 
               cpu: {{ .Values.resources.initcontainers.limits.cpu }}
+      volumes:
+        - name: pg-restore
+          configMap:
+            name: pg-restore-cm
       containers:
         - name: collection-api
           image: {{ .Values.services.collectionapi.image }}
