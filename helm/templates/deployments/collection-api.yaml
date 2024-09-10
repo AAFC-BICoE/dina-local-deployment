@@ -39,9 +39,9 @@ spec:
           image: {{ .Values.services.initdb.image }}
           env:
           - name: PG_RESTORE
-            value: "True"
+            value: {{ .Values.services.initdb.environment.PG_RESTORE | quote }}
           - name: PG_DUMP_PATH
-            value: "/opt/pgrestore/data/dump.tar"
+            value: "/opt/pgrestore/data/sql_dump.sql"
           - name: POSTGRES_DB
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
           - name: POSTGRES_PASSWORD

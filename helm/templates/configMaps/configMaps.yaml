@@ -103,5 +103,5 @@ kind: ConfigMap
 metadata:
   name: pg-restore-cm
 data:
-  dump.tar: |
-    {{ (.Files.Get "config/db-restore/dump.tar") | b64enc | indent 2 }}
+  sql_dump.sql: |
+    {{ (.Files.Get (printf "config/db-restore/%s" .Values.global.environment.config.dina_db.pg_dump_path)) | b64enc | indent 2 }}

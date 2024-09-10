@@ -32,6 +32,8 @@ global:
         liquibase_user: migration_user_agent
         liquibase_password:
       dina_db:
+        pg_restore: "False"
+        pg_dump_path: dumpall.sql
         label: dina-db
         service: dina-db-service
         db_name: dina
@@ -139,6 +141,7 @@ services:
     image: aafcbicoe/dina-db-init-container:0.3
     pullPolicy: IfNotPresent
     environment:
+      PG_RESTORE: "{{ .Values.global.environment.config.dina_db.pg_restore }}"
       POSTGRES_DB: "{{ .Values.global.environment.config.dina_db.db_name }}"
       POSTGRES_PASSWORD: "{{ .Values.global.environment.config.dina_db.db_password }}"
       POSTGRES_USER: "{{ .Values.global.environment.config.dina_db.db_user }}"
