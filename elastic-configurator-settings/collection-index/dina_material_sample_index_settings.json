@@ -8,7 +8,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "1.7"
+        "number" : "1.8"
       }
     },
     "date_detection": true,

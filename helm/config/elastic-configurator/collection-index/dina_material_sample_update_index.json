@@ -26,6 +26,19 @@
           "properties": {
             "extensionValues": {
               "properties": {
+                "mixs_water_v4": {
+                  "properties": {
+                    "nitrate": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword",
+                          "ignore_above": 256
+                        }
+                      }
+                    }
+                  }
+                },
                 "mixs_soil_v4": {
                   "properties": {
                     "annual_season_temp": {
