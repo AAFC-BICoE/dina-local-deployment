@@ -138,7 +138,7 @@ global:
     elasticsearch: elasticsearch.dina.localhost
 services:
   initdb:
-    image: aafcbicoe/dina-db-init-container:0.3
+    image: aafcbicoe/dina-db-init-container:0.4
     pullPolicy: IfNotPresent
     environment:
       RESTORE_DB: "{{ .Values.global.environment.config.dina_db.restore_db }}"
