@@ -97,5 +97,11 @@ data:
   HTTP-CLIENT_CLIENT-ID: {{ tpl .Values.services.dinaexportapi.environment.http_client.client_id . }}
   HTTP-CLIENT_USERNAME: {{ tpl .Values.services.dinaexportapi.environment.http_client.username . }}
   HTTP-CLIENT_PASSWORD: {{ tpl .Values.services.dinaexportapi.environment.http_client.password . }}
-
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pg-restore-cm
+data:
+  sql_dump.sql: |
+    {{ (.Files.Get (printf "config/db-restore/%s" .Values.global.environment.config.dina_db.db_dump_file_name)) | b64enc | indent 2 }}
