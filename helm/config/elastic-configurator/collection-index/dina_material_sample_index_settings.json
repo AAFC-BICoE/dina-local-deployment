@@ -8,7 +8,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "1.7"
+        "number" : "1.8"
       }
     },
     "date_detection": true,
@@ -329,6 +329,30 @@
                       "type": {
                         "type": "constant_keyword",
                         "value": "project"
+                      }
+                    }
+                  }
+                }
+              },
+              "preparedBy": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "person"
+                      }
+                    }
+                  }
+                }
+              },
+              "parentMaterialSample": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "material-sample"
                       }
                     }
                   }
