@@ -105,8 +105,8 @@ metadata:
 data:
 {{- if .Values.global.environment.isOpenShift }}
   sql_dump.sql: |-
-    {{ .Values.global.environment.config.dina_db.db_dump_file_name | b64enc | nindent 2 }}
+    {{ .Values.global.environment.config.dina_db.db_dump_file_path | b64enc | nindent 4 }}
 {{- else }}
   sql_dump.sql: |
-    {{ (.Files.Get (printf "config/db-restore/%s" .Values.global.environment.config.dina_db.db_dump_file_name)) | b64enc | indent 2 }}
+    {{ (.Files.Get (printf "%s" .Values.global.environment.config.dina_db.db_dump_file_path)) | b64enc | indent 2 }}
 {{- end }}

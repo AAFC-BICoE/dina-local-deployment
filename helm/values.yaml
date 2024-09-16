@@ -33,7 +33,7 @@ global:
         liquibase_password:
       dina_db:
         restore_db: "False"
-        db_dump_file_name: dumpall.sql
+        db_dump_file_path: 
         label: dina-db
         service: dina-db-service
         db_name: dina
