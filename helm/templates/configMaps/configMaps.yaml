@@ -104,4 +104,4 @@ metadata:
   name: pg-restore-cm
 data:
   sql_dump.sql: |
-    {{ (.Files.Get (printf "config/db-restore/%s" .Values.global.environment.config.dina_db.db_dump_file_name)) | b64enc | indent 2 }}
+    {{ (.Files.Get (printf "%s" .Values.global.environment.config.dina_db.db_dump_file_name)) | b64enc | indent 2 }}
