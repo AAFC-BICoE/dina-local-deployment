@@ -90,7 +90,7 @@ services:
       - ./skipPostGisExtensions.sh:/docker-entrypoint-initdb.d/10_postgis.sh
 
   init-db:
-    image: "aafcbicoe/dina-db-init-container:0.2"
+    image: "aafcbicoe/dina-db-init-container:0.4"
     environment:
       POSTGRES_HOST: dina-db
       POSTGRES_DB: ${POSTGRES_DB}

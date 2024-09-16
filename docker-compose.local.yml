@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.163.0
+    image: aafcbicoe/dina-ui:0.171.0
     environment:
       KEYCLOAK_CLIENTID: dina-public
       KEYCLOAK_REALM: dina
@@ -28,7 +28,7 @@ services:
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.12.0
+    image: aafcbicoe/seqdb-api:2.14.0
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
@@ -78,7 +78,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.93
+    image: aafcbicoe/natural-history-collection-api:0.95
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -104,7 +104,7 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.10
+    image: aafcbicoe/loan-transaction-api:0.11
     profiles: ["loan_transaction_api"]
     mem_limit: 512m
     environment:
@@ -131,7 +131,7 @@ services:
         condition: service_completed_successfully 
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.16
+    image: aafcbicoe/dina-user-api:0.18
     profiles: ["user_api"]
     mem_limit: 512m
     environment:
