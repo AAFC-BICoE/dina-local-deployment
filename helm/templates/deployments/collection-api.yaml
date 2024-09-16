@@ -39,7 +39,7 @@ spec:
           image: {{ .Values.services.initdb.image }}
           env:
           - name: RESTORE_DB
-            value: {{ tpl .Values.services.initdb.environment.RESTORE_DB . }}
+            value: {{ .Values.global.environment.config.dina_db.restore_db }}
           - name: DB_DUMP_FILE_PATH
             value: "/opt/pgrestore/data/sql_dump.sql"
           - name: POSTGRES_DB
