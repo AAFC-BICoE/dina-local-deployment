@@ -98,15 +98,15 @@ data:
   HTTP-CLIENT_USERNAME: {{ tpl .Values.services.dinaexportapi.environment.http_client.username . }}
   HTTP-CLIENT_PASSWORD: {{ tpl .Values.services.dinaexportapi.environment.http_client.password . }}
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: pg-restore-cm
-data:
-{{- if .Values.global.environment.isOpenShift }}
-  sql_dump.sql: |-
-    {{ .Values.global.environment.config.dina_db.db_dump_file_path | b64enc | nindent 4 }}
-{{- else }}
-  sql_dump.sql: |
-    {{ (.Files.Get (printf "%s" .Values.global.environment.config.dina_db.db_dump_file_path)) | b64enc | indent 2 }}
-{{- end }}
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: pg-restore-cm
+# data:
+# {{- if .Values.global.environment.isOpenShift }}
+#   sql_dump.sql: |-
+#     {{ .Values.global.environment.config.dina_db.db_dump_file_path | b64enc | nindent 4 }}
+# {{- else }}
+#   sql_dump.sql: |
+#     {{ (.Files.Get (printf "%s" .Values.global.environment.config.dina_db.db_dump_file_path)) | b64enc | indent 2 }}
+# {{- end }}

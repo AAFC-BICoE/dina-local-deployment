@@ -35,11 +35,19 @@ spec:
             limits:
               memory: {{ .Values.resources.initcontainers.limits.memory }} 
               cpu: {{ .Values.resources.initcontainers.limits.cpu }}
+        - name: mount-db-restore
+          image: busybox
+          command: ['sh', '-c', 'ls /mnt/db-restore && cat /mnt/db-restore/{{ .Values.global.environment.config.dina_db.db_dump_file_name }} | base64 > /opt/pgrestore/data/sql_dump.sql && ls /opt/pgrestore/data && sleep 3600']
+          volumeMounts:
+            - name: local-volume
+              mountPath: /mnt/db-restore
+            - name: emptydir-volume
+              mountPath: /opt/pgrestore/data
         - name: init-db
           image: {{ .Values.services.initdb.image }}
           env:
           - name: RESTORE_DB
-            value: {{ .Values.global.environment.config.dina_db.restore_db }}
+            value: {{ .Values.global.environment.config.dina_db.restore_db | quote }}
           - name: DB_DUMP_FILE_PATH
             value: "/opt/pgrestore/data/sql_dump.sql"
           - name: POSTGRES_DB
@@ -84,7 +92,7 @@ spec:
           - name: PG_EXTENSION_collection
             value: {{ .Values.services.initdb.config.collectionapi.PG_EXTENSION_collection }}
           volumeMounts:
-            - name: pg-restore
+            - name: emptydir-volume
               mountPath: /opt/pgrestore/data/
           resources:
             requests:
@@ -94,9 +102,12 @@ spec:
               memory: {{ .Values.resources.initcontainers.limits.memory }} 
               cpu: {{ .Values.resources.initcontainers.limits.cpu }}
       volumes:
-        - name: pg-restore
-          configMap:
-            name: pg-restore-cm
+        - name: local-volume
+          hostPath:
+            path: {{ .Values.global.environment.config.dina_db.db_dump_file_path }}
+            type: DirectoryOrCreate
+        - name: emptydir-volume
+          emptyDir: {}
       containers:
         - name: collection-api
           image: {{ .Values.services.collectionapi.image }}
