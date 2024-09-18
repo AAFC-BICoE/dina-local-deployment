@@ -23,6 +23,12 @@ app:
   name: dina-helm
 global:
   environment:
+    git:
+      host: 
+      repo: 
+      project: 
+      user:
+      password: 
     config:
       agent_api:
         label: agent-api
@@ -32,9 +38,7 @@ global:
         liquibase_user: migration_user_agent
         liquibase_password:
       dina_db:
-        restore_db: true
-        db_dump_file_path: /home/hdosprazeres/repos/dina-local-deployment/helm/config/db-restore
-        db_dump_file_name: dumpall.sql
+        restore_db: false
         label: dina-db
         service: dina-db-service
         db_name: dina

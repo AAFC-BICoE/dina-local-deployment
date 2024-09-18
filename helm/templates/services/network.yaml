@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-git-and-cluster-access
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.app.name }}-{{ .Values.global.environment.config.collection_api.label }}
+      role: backend
+  policyTypes:
+  - Egress
+  - Ingress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - protocol: TCP
+      port: 443
+  ingress:
+  - from:
+    - podSelector: {}
