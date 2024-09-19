@@ -2,7 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 profiles:
-  agent_api: #agent_api
+  agent_api: #agent-api
+    enabled: true
+  collection_api: #collection-api
     enabled: true
   export_api: #dina-export-api
     enabled: true
@@ -12,9 +14,9 @@ profiles:
     enabled: true
   search_api:
     enabled: true # ws, cli, rabbitmq, elastic
-  seqdb_api: #seqdb_api
+  seqdb_api: #seqdb-api
     enabled: true
-  user_api: #user_api
+  user_api: #user-api
     enabled: true
 messageProducerOverride:
   enabled: true
