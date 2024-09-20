@@ -79,9 +79,6 @@ spec:
             {{- end }}
           - name: PG_EXTENSION_collection
             value: {{ .Values.services.initdb.config.collectionapi.PG_EXTENSION_collection }}
-          volumeMounts:
-            - name: emptydir-volume
-              mountPath: /mnt/data/
           resources:
             requests:
               memory: {{ .Values.resources.initcontainers.requests.memory }}
@@ -89,12 +86,6 @@ spec:
             limits:
               memory: {{ .Values.resources.initcontainers.limits.memory }} 
               cpu: {{ .Values.resources.initcontainers.limits.cpu }}
-      volumes:
-        - name: emptydir-volume
-          emptyDir: {}
-        - name: git-secret-volume
-          secret:
-            secretName: git-secret
       containers:
         - name: collection-api
           image: {{ .Values.services.collectionapi.image }}
