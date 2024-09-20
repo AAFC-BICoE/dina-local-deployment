@@ -5,7 +5,7 @@ metadata:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-{{ .Values.global.environment.config.collection_api.label }}
 spec:
-  replicas: 1
+  replicas: {{ if .Values.profiles.collection_api.enabled }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-{{ .Values.global.environment.config.collection_api.label }}
@@ -38,10 +38,6 @@ spec:
         - name: init-db
           image: {{ .Values.services.initdb.image }}
           env:
-          - name: RESTORE_DB
-            value: {{ .Values.services.initdb.environment.RESTORE_DB | quote }}
-          - name: DB_DUMP_FILE_PATH
-            value: "/opt/pgrestore/data/sql_dump.sql"
           - name: POSTGRES_DB
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
           - name: POSTGRES_PASSWORD
@@ -83,9 +79,6 @@ spec:
             {{- end }}
           - name: PG_EXTENSION_collection
             value: {{ .Values.services.initdb.config.collectionapi.PG_EXTENSION_collection }}
-          volumeMounts:
-            - name: pg-restore
-              mountPath: /opt/pgrestore/data/
           resources:
             requests:
               memory: {{ .Values.resources.initcontainers.requests.memory }}
@@ -93,10 +86,6 @@ spec:
             limits:
               memory: {{ .Values.resources.initcontainers.limits.memory }} 
               cpu: {{ .Values.resources.initcontainers.limits.cpu }}
-      volumes:
-        - name: pg-restore
-          configMap:
-            name: pg-restore-cm
       containers:
         - name: collection-api
           image: {{ .Values.services.collectionapi.image }}

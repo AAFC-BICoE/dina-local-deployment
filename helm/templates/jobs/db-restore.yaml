@@ -1,0 +1,87 @@
+{{- if and .Values.global.environment.isOpenShift .Values.global.environment.config.dina_db.restore_db }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-restore-job
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: check-db
+          image: {{ .Values.services.initdb.image }}
+          command:
+            - sh
+            - -c
+            - until pg_isready -h {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}; do echo waiting for database; sleep 10; done;
+          resources:
+            requests:
+              memory: {{ .Values.resources.initcontainers.requests.memory }}
+              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.initcontainers.limits.memory }} 
+              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
+        - name: mount-db-restore
+          image: alpine/git
+          command:
+            - sh
+            - -c
+            - |
+              cd /mnt/data
+              git clone https://$(cat /mnt/secrets/git-host)/$(cat /mnt/secrets/git-repo)/$(cat /mnt/secrets/git-project).git
+              cd $(cat /mnt/secrets/git-project)
+              git lfs pull
+              sql_file=$(find . -name "*.sql" -print -quit)
+              if [ -n "$sql_file" ]; then
+                cat "$sql_file" | base64 > /mnt/data/sql_dump.sql.b64
+              else
+                echo "No .sql file found."
+              fi
+          volumeMounts:
+            - name: emptydir-volume
+              mountPath: /mnt/data
+            - name: git-secret-volume
+              mountPath: /mnt/secrets
+              readOnly: true
+      containers:
+        - name: restore-db
+          image: {{ .Values.services.initdb.image }}
+          env:
+          - name: RESTORE_DB
+            value: {{ .Values.global.environment.config.dina_db.restore_db | quote }}
+          - name: DB_DUMP_FILE_PATH
+            value: "/mnt/data/sql_dump.sql.b64"
+          - name: POSTGRES_DB
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
+          - name: POSTGRES_PASSWORD
+            {{- if not .Values.global.environment.config.dina_db.db_password }}
+            valueFrom:
+              secretKeyRef:
+                name: dina-db-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
+            {{- end }}
+          - name: POSTGRES_HOST
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
+          - name: POSTGRES_USER
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
+          - name: DINA_DB
+            value: {{ .Values.services.initdb.config.collectionapi.DINA_DB }}
+          volumeMounts:
+            - name: emptydir-volume
+              mountPath: /mnt/data/
+          resources:
+            requests:
+              memory: {{ .Values.resources.initcontainers.requests.memory }}
+              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
+            limits:
+              memory: {{ .Values.resources.initcontainers.limits.memory }} 
+              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
+      volumes:
+        - name: emptydir-volume
+          emptyDir: {}
+        - name: git-secret-volume
+          secret:
+            secretName: git-secret
+      restartPolicy: Never
+{{- end }}

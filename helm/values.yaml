@@ -2,19 +2,21 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 profiles:
-  agent_api: #agent_api
+  agent_api:
     enabled: true
-  export_api: #dina-export-api
+  collection_api:
     enabled: true
-  loan_transaction_api: #loan
+  export_api:
     enabled: true
-  object_store_api:  #minio and objectstore
+  loan_transaction_api:
+    enabled: true
+  object_store_api:
     enabled: true
   search_api:
-    enabled: true # ws, cli, rabbitmq, elastic
-  seqdb_api: #seqdb_api
     enabled: true
-  user_api: #user_api
+  seqdb_api:
+    enabled: true
+  user_api:
     enabled: true
 messageProducerOverride:
   enabled: true
@@ -23,6 +25,10 @@ app:
   name: dina-helm
 global:
   environment:
+    git:
+      host: 
+      repo: 
+      project: 
     config:
       agent_api:
         label: agent-api
@@ -32,8 +38,7 @@ global:
         liquibase_user: migration_user_agent
         liquibase_password:
       dina_db:
-        restore_db: "False"
-        db_dump_file_name: dumpall.sql
+        restore_db: false
         label: dina-db
         service: dina-db-service
         db_name: dina
@@ -138,10 +143,9 @@ global:
     elasticsearch: elasticsearch.dina.localhost
 services:
   initdb:
-    image: aafcbicoe/dina-db-init-container:0.4
+    image: aafcbicoe/dina-db-init-container:0.5
     pullPolicy: IfNotPresent
     environment:
-      RESTORE_DB: "{{ .Values.global.environment.config.dina_db.restore_db }}"
       POSTGRES_DB: "{{ .Values.global.environment.config.dina_db.db_name }}"
       POSTGRES_PASSWORD: "{{ .Values.global.environment.config.dina_db.db_password }}"
       POSTGRES_USER: "{{ .Values.global.environment.config.dina_db.db_user }}"
