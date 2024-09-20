@@ -27,13 +27,6 @@ spec:
             - -c
             - |
               cd /mnt/data
-              echo '#!/bin/sh' > git-askpass.sh
-              echo 'case "$1" in' >> git-askpass.sh
-              echo 'Username*) echo $(cat /mnt/secrets/git-username) ;;' >> git-askpass.sh
-              echo 'Password*) echo $(cat /mnt/secrets/git-token) ;;' >> git-askpass.sh
-              echo 'esac' >> git-askpass.sh
-              chmod +x git-askpass.sh
-              export GIT_ASKPASS=/mnt/data/git-askpass.sh 
               git clone https://$(cat /mnt/secrets/git-host)/$(cat /mnt/secrets/git-repo)/$(cat /mnt/secrets/git-project).git
               cd $(cat /mnt/secrets/git-project)
               git lfs pull
