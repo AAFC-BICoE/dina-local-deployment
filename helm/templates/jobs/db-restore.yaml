@@ -74,30 +74,6 @@ spec:
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
           - name: DINA_DB
             value: {{ .Values.services.initdb.config.collectionapi.DINA_DB }}
-          - name: MIGRATION_USER_collection
-            value: {{ tpl .Values.services.initdb.config.collectionapi.spring.liquibase.username . }}
-          - name: MIGRATION_USER_PW_collection
-            {{- if not .Values.global.environment.config.collection_api.liquibase_password }}
-            valueFrom:
-              secretKeyRef:
-                name: collection-liquibase-secret
-                key: password
-            {{- else }}
-            value: {{ tpl .Values.services.initdb.config.collectionapi.spring.liquibase.password . }}
-            {{- end }}
-          - name: WEB_USER_collection
-            value: {{ tpl .Values.services.initdb.config.collectionapi.spring.datasource.username . }}
-          - name: WEB_USER_PW_collection
-            {{- if not .Values.global.environment.config.collection_api.datasource_password }}
-            valueFrom:
-              secretKeyRef:
-                name: collection-datasource-secret
-                key: password
-            {{- else }}
-            value: {{ tpl .Values.services.initdb.config.collectionapi.spring.datasource.password . }}
-            {{- end }}
-          - name: PG_EXTENSION_collection
-            value: {{ .Values.services.initdb.config.collectionapi.PG_EXTENSION_collection }}
           volumeMounts:
             - name: emptydir-volume
               mountPath: /mnt/data/
