@@ -29,8 +29,6 @@ global:
       host: 
       repo: 
       project: 
-      user:
-      password: 
     config:
       agent_api:
         label: agent-api
