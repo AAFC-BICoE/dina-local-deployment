@@ -143,7 +143,7 @@ global:
     elasticsearch: elasticsearch.dina.localhost
 services:
   initdb:
-    image: aafcbicoe/dina-db-init-container:0.4
+    image: aafcbicoe/dina-db-init-container:0.5
     pullPolicy: IfNotPresent
     environment:
       POSTGRES_DB: "{{ .Values.global.environment.config.dina_db.db_name }}"
