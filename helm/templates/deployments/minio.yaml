@@ -6,7 +6,7 @@ metadata:
   name: {{ .Values.app.name }}-minio
 spec:
   serviceName: {{ .Values.app.name }}-minio
-  replicas: {{ if .Values.profiles.object_store_api.enabled }}1{{ else }}0{{ end }}
+  replicas: {{ if and .Values.profiles.object_store_api.enabled (not .Values.global.environment.config.dina_db.restore_db) }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-minio 
