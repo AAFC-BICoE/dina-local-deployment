@@ -12,7 +12,7 @@ metadata:
 data:
 {{- if .Values.global.environment.isOpenShift }}
   keycloak-realm.json: |-
-    {{ .Values.global.environment.config.keycloak.realm_file_content | nindent 4 }}
+    {{ .Values.global.environment.config.keycloak.realm_file_content | default "" | nindent 4 }}
 {{- else }}
 {{ (.Files.Glob "config/keycloak/*").AsConfig | indent 2 }}
 {{- end }}

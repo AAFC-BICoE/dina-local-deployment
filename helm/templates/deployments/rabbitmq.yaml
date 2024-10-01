@@ -45,6 +45,10 @@ spec:
           volumeMounts:
             - name: rabbit-data-pv
               mountPath: /var/lib/rabbitmq
+            - name: rabbit-logs-pv
+              mountPath: /var/log/rabbitmq
       volumes:
         - name: rabbit-data-pv
+          emptyDir: {}
+        - name: rabbit-logs-pv
           emptyDir: {}
