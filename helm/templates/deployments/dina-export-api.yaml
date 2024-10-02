@@ -5,7 +5,7 @@ metadata:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_export_api.label }}
 spec:
-  replicas: {{ if .Values.profiles.export_api.enabled }}1{{ else }}0{{ end }}
+  replicas: {{ if and .Values.profiles.export_api.enabled (not .Values.global.environment.config.dina_db.restore_db) }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_export_api.label }}

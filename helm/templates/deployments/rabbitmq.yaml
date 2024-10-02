@@ -5,7 +5,7 @@ metadata:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-rabbitmq-dina
 spec:
-  replicas: {{ if .Values.profiles.search_api.enabled }}1{{ else }}0{{ end }}
+  replicas: {{ if and .Values.profiles.search_api.enabled (not .Values.global.environment.config.dina_db.restore_db) }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-rabbitmq-dina
@@ -45,6 +45,10 @@ spec:
           volumeMounts:
             - name: rabbit-data-pv
               mountPath: /var/lib/rabbitmq
+            - name: rabbit-logs-pv
+              mountPath: /var/log/rabbitmq
       volumes:
         - name: rabbit-data-pv
+          emptyDir: {}
+        - name: rabbit-logs-pv
           emptyDir: {}
