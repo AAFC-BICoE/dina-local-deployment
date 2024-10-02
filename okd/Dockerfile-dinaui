@@ -1,7 +1,7 @@
 FROM aafcbicoe/dina-ui:0.171.0
 
 # Set the correct permissions
-RUN chmod 777 /usr/bin/caddy
+RUN /bin/sh -c chown 1001:1001 /usr/bin/caddy && chmod 777 /usr/bin/caddy
 
-# Set the user to 1001
+# Set the user to 1001d
 USER 1001
