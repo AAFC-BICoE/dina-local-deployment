@@ -10,6 +10,13 @@ This option can be enabled by uncommenting the following line inside `start_stop
 DINA_CONFIGS+=('keycloak/docker-compose.disable-keycloak.yml')
 ```
 
+For the UI to work without keycloak, you need to be using UI dev mode, which can be enabled by
+uncommenting the following line inside `start_stop_dina.sh`:
+
+```sh
+DINA_CONFIGS+=('docker-compose.dev.yml')
+```
+
 Inside of the `docker-compose.disable-keycloak.yml` file it can be configured which containers
 the settings are applied, by default it is applied to all.
 
