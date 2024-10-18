@@ -1,0 +1,28 @@
+{{- if .Values.global.environment.isOpenShift }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: keycloak-component-job
+spec:
+  template:
+    spec:
+      serviceAccountName: job-sa
+      containers:
+      - name: exec-container
+        image: bitnami/kubectl:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          until kubectl get pod -l app={{ .Values.app.name }}-keycloak -o jsonpath='{.items[0].status.containerStatuses[0].ready}' | grep true; do
+            echo "Waiting for main container to be ready...";
+            sleep 2;
+          done;
+
+          POD_NAME=$(kubectl get pod -l app={{ .Values.app.name }}-keycloak -o jsonpath='{.items[0].metadata.name}')
+          PASSWORD=$(kubectl get secret keycloak-admin-secret -o jsonpath='{.data.password}' | base64 --decode)
+
+          kubectl exec $POD_NAME -- bash -c "cd /opt/keycloak/bin && ./kcadm.sh create components --no-config --server http://{{ .Values.global.environment.config.keycloak.service }}:8080/auth --realm master --user admin --password $PASSWORD -r dina -s name=grdi-group-mapper -s providerId=hardcoded-ldap-group-mapper -s providerType=org.keycloak.storage.ldap.mappers.LDAPStorageMapper -s parentId=5ce572ec-9fe9-4ec5-965a-ea649ab3c907 -s 'config.group=[\"grdi/read-only\"]'"
+
+      restartPolicy: Never
+{{- end }}

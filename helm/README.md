@@ -72,7 +72,9 @@ In `/etc/hosts` file, add the following lines:
 
 ### Passwords
 
-Unless a password is explicitly provided in `values.yaml`, the chart will automaticly generate them and store them in a secret for future run. The default behavior is auto-generating the secrets and the passwords in global.environment.config block are left empty for that purpose. Should the user prefer to provide static passwords, that is where they should do it.  
+Unless a password is explicitly provided in `values.yaml`, the chart will automaticly generate them and store them in a secret for future run. The default behavior is auto-generating the secrets and the passwords in global.environment.config block are left empty for that purpose. Should the user prefer to provide static passwords, that is where they should do it.
+
+To get an auto-generated password (e.g. login in Keycloak admin console) : `kubectl get secrets keycloak-admin-secret -o json | jq .data.password | tr -d '"' | base64 -d` or `kubectl get secret keycloak-admin-secret -o jsonpath="{.data.password}" | base64 --decode`
 
 ### Deploy chart
 
@@ -89,6 +91,6 @@ From dina-local-deployment root
 
 `helm install dina-helm ./helm -f helm/values.yaml -f helm/<additional_value_injection.yaml>`
 
-In this repo, as an example, the 'okd-values.yaml' overrides some values already provided by the general injection file ('values.yaml'). In Helm, when multiple injection values are passed as arguments, such as in this example, the rightmost file takes precedence in overriding previously injected values.
+In Helm, when multiple injection values are passed as arguments, such as in this example, the rightmost file takes precedence in overriding previously injected values.
 
-In this example, aside from changing the storageClassName to match that used in GRDI OKD environment, a securityContext flag (securityContext.enabled=false) is set to false due to an environment constraint. Note that if you require additional alternative override values it is always preferrable to define it in a new injection file.
+Note that if you require additional alternative override values it is always preferrable to define it in a new injection file.

@@ -29,7 +29,7 @@ services:
 
   keycloak:
     # we need a custom image optimized for Postgres. We are using the image tag to force a rebuild when there is a new Keycloak base container.
-    image: keycloak_pg:20.0.5
+    image: keycloak_pg:21.1.0
     build:
       context: keycloak/.
     environment:
@@ -90,7 +90,7 @@ services:
       - ./skipPostGisExtensions.sh:/docker-entrypoint-initdb.d/10_postgis.sh
 
   init-db:
-    image: "aafcbicoe/dina-db-init-container:0.2"
+    image: "aafcbicoe/dina-db-init-container:0.4"
     environment:
       POSTGRES_HOST: dina-db
       POSTGRES_DB: ${POSTGRES_DB}

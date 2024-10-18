@@ -2,19 +2,21 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 profiles:
-  agent_api: #agent_api
+  agent_api:
     enabled: true
-  export_api: #dina-export-api
+  collection_api:
     enabled: true
-  loan_transaction_api: #loan
+  export_api:
     enabled: true
-  object_store_api:  #minio and objectstore
+  loan_transaction_api:
+    enabled: true
+  object_store_api:
     enabled: true
   search_api:
-    enabled: true # ws, cli, rabbitmq, elastic
-  seqdb_api: #seqdb_api
     enabled: true
-  user_api: #user_api
+  seqdb_api:
+    enabled: true
+  user_api:
     enabled: true
 messageProducerOverride:
   enabled: true
@@ -23,6 +25,10 @@ app:
   name: dina-helm
 global:
   environment:
+    git:
+      host: 
+      repo: 
+      project: 
     config:
       agent_api:
         label: agent-api
@@ -32,6 +38,7 @@ global:
         liquibase_user: migration_user_agent
         liquibase_password:
       dina_db:
+        restore_db: false
         label: dina-db
         service: dina-db-service
         db_name: dina
@@ -44,6 +51,9 @@ global:
         datasource_user: web_user_ex
         liquibase_user: migration_user_ex
         liquibase_password:
+        http_client:
+          username: cnc-su
+          password: cnc-su
       minio:
         service: minio-service
         accessKey: minio
@@ -55,7 +65,7 @@ global:
         db_password: 
         db_user: keycloak_user
         keycloak_admin: admin
-        keycloak_admin_password: admin
+        keycloak_admin_password:
       collection_api:
         label: collection-api
         service: collection-api-service
@@ -77,7 +87,7 @@ global:
         datasource_user: web_user_lt
         liquibase_user: migration_user_lt
         liquibase_password:
-        contexts: schema-change initial-data data-migration
+        contexts: schema-change, initial-data, data-migration
       objectstore_api:
         DINA_DB: object_store
         label: objectstore-api
@@ -90,10 +100,12 @@ global:
         label: dina-ui
         service: dina-ui-service
         instance_mode: developer
+        supported_languages_iso: en,fr
       search_cli:
         label: search-cli
-        username: cnc-su
-        password: cnc-su
+        http_client:
+          username: cnc-su
+          password: cnc-su
       search_ws:
         label: search-ws
         service: searchws-service
@@ -110,6 +122,12 @@ global:
       rabbitmq:
         label: rabbitmq-dina
         service: rabbitmq-dina-service
+        username: guest
+        password: guest
+        search:
+          queue: dina.search.queue
+        export:
+          queue: dina.export.queue
     keycloak:
       client_id: dina-public
       realm: dina
@@ -125,7 +143,7 @@ global:
     elasticsearch: elasticsearch.dina.localhost
 services:
   initdb:
-    image: aafcbicoe/dina-db-init-container:0.3
+    image: aafcbicoe/dina-db-init-container:0.5
     pullPolicy: IfNotPresent
     environment:
       POSTGRES_DB: "{{ .Values.global.environment.config.dina_db.db_name }}"
@@ -202,24 +220,26 @@ services:
             password: "{{ .Values.global.environment.config.seqdb_api.liquibase_password }}"
         PG_EXTENSION_seqdb: pgcrypto
   agentapi:
-    image: aafcbicoe/agent-api:0.25
+    image: aafcbicoe/agent-api:0.28
     pullPolicy: IfNotPresent
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
-      messaging:
-        isProducer: true
+      dina:
+        messaging:
+          isProducer: true
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.82
+    image: aafcbicoe/natural-history-collection-api:0.95
     pullPolicy: IfNotPresent
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
-      messaging:
-        isProducer: true
+      dina:
+        messaging:
+          isProducer: true
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/collection?currentSchema=collection
@@ -233,7 +253,7 @@ services:
         cpu: 80m
         memory: 768Mi
   dinaexportapi:
-    image: aafcbicoe/dina-export-api:0.5
+    image: aafcbicoe/dina-export-api:0.11
     pullPolicy: IfNotPresent
     environment:
       spring:
@@ -242,13 +262,27 @@ services:
         freemarker:
           template_loader_path: classpath:/templates/,file:/tmp/dina-data-export/templates/
       dina:
+        messaging:
+          isConsumer: true
+          export:
+            queue: "{{ .Values.global.environment.config.rabbitmq.export.queue }}"
         export:
+          objectStoreDownloadUrl: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1/toa
           workingFolder: /tmp/dina-data-export
+      http_client:
+        openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/"
+        client_id: "{{ .Values.global.environment.keycloak.client_id }}"
+        username: "{{ .Values.global.environment.config.dina_export_api.http_client.username }}"
+        password: "{{ .Values.global.environment.config.dina_export_api.http_client.password }}"
+      rabbitmq:
+        host: "{{ .Values.global.environment.config.rabbitmq.service }}"
+        username: "{{ .Values.global.environment.config.rabbitmq.username }}"
+        password: "{{ .Values.global.environment.config.rabbitmq.password }}"
       elasticsearch:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.142.0
+    image: aafcbicoe/dina-ui:0.171.0
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
@@ -262,35 +296,35 @@ services:
       LOAN_TRANSACTION_API_ADDRESS: "{{ .Values.global.environment.config.loan_transaction_api.service }}:8080"
       REPORT_LABEL_API_ADDRESS: "{{ .Values.global.environment.config.dina_export_api.service }}:8080"
       INSTANCE_MODE: "{{ .Values.global.environment.config.dina_ui.instance_mode }}"
+      SUPPORTED_LANGUAGES_ISO: "{{ .Values.global.environment.config.dina_ui.supported_languages_iso }}"
   dinauserapi:
-    image: aafcbicoe/dina-user-api:0.16
+    image: aafcbicoe/dina-user-api:0.18
     environment:
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/dina_user?currentSchema=dina_user
   loantransactionapi:
-    image: aafcbicoe/loan-transaction-api:0.8
+    image: aafcbicoe/loan-transaction-api:0.11
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
-      messaging:
-        isProducer: true
+      dina:
+        messaging:
+          isProducer: true
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
   objectstoreapi:
-    image: aafcbicoe/object-store-api:1.10
+    image: aafcbicoe/object-store-api:1.19
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
-        queue: dina.search.queue
-        exchange: dina.search.exchange
-        routingkey: dina.search.routingkey
-        username: guest
-        password: guest
-        port: 15672
-      messaging:
-        isProducer: true
+        queue: "{{ .Values.global.environment.config.rabbitmq.search.queue }}"
+        username: "{{ .Values.global.environment.config.rabbitmq.username }}"
+        password: "{{ .Values.global.environment.config.rabbitmq.password }}"
+      dina:
+        messaging:
+          isProducer: true
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/object_store?currentSchema=object_store
@@ -322,7 +356,6 @@ services:
       KC_PROXY: edge
   elasticsearchdina:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.10
-    #image: elasticsearch_icu:7.17.10
     environment:
       xpack:
         security:
@@ -341,7 +374,7 @@ services:
     cap_add:
       - IPC_LOCK
   elasticconfigurator:
-    image: aafcbicoe/es-init-container:0.6
+    image: aafcbicoe/es-init-container:0.9
     environment:
       ELASTIC_SERVER_URL: http://elasticsearch-service:9200
       INDEX_CREATE_CMD: ./create-index.sh
@@ -350,10 +383,12 @@ services:
       DINA_AGENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/agent-index/dina_agent_index_settings.json
       DINA_MATERIAL_SAMPLE_INDEX_NAME: dina_material_sample_index
       DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/collection-index/dina_material_sample_index_settings.json
+      DINA_MATERIAL_SAMPLE_OPTIONAL_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/collection-index/dina_material_sample_update_index.json
       DINA_STORAGE_INDEX_NAME: dina_storage_index
       DINA_STORAGE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/storage-index/dina_storage_index_settings.json
       DINA_OBJECT_STORE_INDEX_NAME: dina_object_store_index
       DINA_OBJECT_STORE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/object-store-index/object_store_index_settings.json
+      DINA_OBJECT_STORE_OPTIONAL_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/object-store-index/object_store_update_index.json
       DINA_TRANSACTION_INDEX_NAME: dina_loan_transaction_index
       DINA_TRANSACTION_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_loan_transaction_index_settings.json
   dinadb:
@@ -364,13 +399,13 @@ services:
       DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
       USE_V2: "true"
   searchcli:
-    image: aafcbicoe/dina-search-cli:0.27
+    image: aafcbicoe/dina-search-cli:0.35
     environment:
-      keycloak:
-        openid_auth_server: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/token"
+      http_client:
+        openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/"
         client_id: "{{ .Values.global.environment.keycloak.client_id }}"
-        username: "{{ .Values.global.environment.config.search_cli.username }}"
-        password: "{{ .Values.global.environment.config.search_cli.password }}"
+        username: "{{ .Values.global.environment.config.search_cli.http_client.username }}"
+        password: "{{ .Values.global.environment.config.search_cli.http_client.password }}"
       ELASTICSEARCH_URL: "{{ .Values.global.environment.config.elasticsearch.service }}"
       MATERIAL_SAMPLE_URL: http://{{ .Values.global.environment.config.collection_api.service }}:8080/api/v1/material-sample
       METADATA_URL: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1/metadata
@@ -382,12 +417,12 @@ services:
       IS_MESSAGE_CONSUMER: true
       IS_MESSAGE_PRODUCER: true
   searchws:
-    image: aafcbicoe/dina-search-ws:0.27
+    image: aafcbicoe/dina-search-ws:0.35
     environment:
       elasticsearch:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
   seqdbapi:
-    image: aafcbicoe/seqdb-api:2.10.0
+    image: aafcbicoe/seqdb-api:2.14.0
     environment:
       spring:
         datasource:
@@ -404,11 +439,6 @@ ingress:
   tls: true
   className: ""
 
-  hosts:
-    - host: dina.local
-      paths:
-        - path: /
-          pathType: Prefix
 podAnnotations: {}
 podLabels: {}
 

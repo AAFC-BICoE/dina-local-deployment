@@ -1,0 +1,30 @@
+meta {
+  name: Create managed attribute
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/collection-api/managed-attribute
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "managed-attribute",
+      "attributes": {
+        "group": "aafc",
+        "name": "Test{{currentMillis}}",
+        "managedAttributeComponent": "ORGANISM",
+        "vocabularyElementType": "STRING",
+        "acceptedValues": null,
+        "multilingualDescription": {
+          "descriptions": [
+          ]
+        }
+      }
+    }
+  }
+}

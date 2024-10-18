@@ -1,0 +1,29 @@
+meta {
+  name: Update storage unit type
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{base_url}}/collection-api/storage-unit-type/448a662b-9303-4007-9a00-1f5fbae184d5
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "storage-unit-type",
+        "id": "448a662b-9303-4007-9a00-1f5fbae184d5",
+        "attributes": {
+          "group": "aafc",
+          "name": "test",
+          "gridLayoutDefinition": {
+            "fillDirection": "BY_ROW",
+            "numberOfRows": 100,
+            "numberOfColumns": 100
+          }
+        }
+      }
+    }
+}

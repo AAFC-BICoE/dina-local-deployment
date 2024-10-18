@@ -1,0 +1,31 @@
+headers {
+  Content-Type: application/vnd.api+json
+  Crnk-Compact: true
+  Authorization: Bearer {{oauth2_token}}
+}
+
+auth {
+  mode: oauth2
+}
+
+auth:oauth2 {
+  grant_type: authorization_code
+  callback_url: {{callback_url}}
+  authorization_url: {{auth_url}}
+  access_token_url: {{token_url}}
+  client_id: {{client_id}}
+  client_secret: 
+  scope: {{scope}}
+  pkce: false
+}
+
+script:post-response {
+  // Used to pass the oauth2 token generated to the headers.
+  var token = res.body.access_token;
+  if (token) {
+    bru.setVar('oauth2_token', token);
+  }
+  
+  // Can be used for generate a unique name when you need to generate a bunch of entities.
+  bru.setVar('currentMillis', Date.now());
+}

@@ -1,0 +1,45 @@
+trigger: none
+
+parameters:
+- name: versionTag
+  displayName: tag to use in Azure Container Registry (ACR)
+  type: string
+  default: dev
+- name: pushACR
+  displayName: Push to Azure Container Registry (ACR)
+  type: boolean
+  default: false
+  
+name: Build OKD RabbitMQ image
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  # imageName: ${{ variables.AZ_ACR }}.azurecr.io/okd/rabbitmq-okd
+  imageTagFQP: $(ContainerRegistry).azurecr.io/okd/rabbitmq-okd:${{ parameters.versionTag }}
+  imageTag: ${{ parameters.versionTag }}
+  AZ_SC: $(ServiceConnection)
+  AZ_ACR: $(ContainerRegistry)
+  
+steps:
+ - task: Docker@2
+   displayName: Build an image
+   inputs:
+     repository: $(ContainerRegistry).azurecr.io/okd/rabbitmq-okd
+     tags: $(imageTag)
+     command: build
+     Dockerfile: okd/Dockerfile-rabbitmq
+
+ - task: AzureCLI@2
+   displayName: Login and push to Azure Container Registry
+   condition: ${{ eq(parameters.pushACR, true) }}
+   inputs:
+    connectedServiceNameARM: ${{ variables.AZ_SC }}
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      echo "$(imageTagFQP)"
+      az acr login --name ${{ variables.AZ_ACR }}.azurecr.io
+      docker image ls
+      docker push $(imageTagFQP)

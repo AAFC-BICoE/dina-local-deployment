@@ -1,0 +1,23 @@
+meta {
+  name: Create material sample
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/collection-api/material-sample
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "material-sample",
+        "attributes": {
+          "group": "AAFC",
+          "materialSampleName": "ABC_{{uuid}}"
+        }
+      }
+    }
+}

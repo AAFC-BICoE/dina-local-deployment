@@ -5,7 +5,7 @@ metadata:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-search-cli
 spec:
-  replicas: {{ if .Values.profiles.search_api.enabled }}1{{ else }}0{{ end }}
+  replicas: {{ if and .Values.profiles.search_api.enabled (not .Values.global.environment.config.dina_db.restore_db) }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-search-cli
@@ -39,6 +39,8 @@ spec:
               value: {{ .Values.services.elasticconfigurator.environment.DINA_MATERIAL_SAMPLE_INDEX_NAME }}
             - name: DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE
               value: {{ .Values.services.elasticconfigurator.environment.DINA_MATERIAL_SAMPLE_INDEX_SETTINGS_FILE }}
+            - name: DINA_MATERIAL_SAMPLE_OPTIONAL_INDEX_SETTINGS_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_MATERIAL_SAMPLE_OPTIONAL_INDEX_SETTINGS_FILE }}
             - name: DINA_STORAGE_INDEX_NAME
               value: {{ .Values.services.elasticconfigurator.environment.DINA_STORAGE_INDEX_NAME }}
             - name: DINA_STORAGE_INDEX_SETTINGS_FILE
@@ -47,6 +49,8 @@ spec:
               value: {{ .Values.services.elasticconfigurator.environment.DINA_OBJECT_STORE_INDEX_NAME }}
             - name: DINA_OBJECT_STORE_INDEX_SETTINGS_FILE
               value: {{ .Values.services.elasticconfigurator.environment.DINA_OBJECT_STORE_INDEX_SETTINGS_FILE }}
+            - name: DINA_OBJECT_STORE_OPTIONAL_INDEX_SETTINGS_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_OBJECT_STORE_OPTIONAL_INDEX_SETTINGS_FILE }}
             - name: DINA_TRANSACTION_INDEX_NAME
               value: {{ .Values.services.elasticconfigurator.environment.DINA_TRANSACTION_INDEX_NAME }}
             - name: DINA_TRANSACTION_INDEX_SETTINGS_FILE
@@ -65,14 +69,14 @@ spec:
         - name: search-cli
           image: {{ .Values.services.searchcli.image }}
           env:
-            - name: KEYCLOAK_OPENID-AUTH-SERVER
-              value: {{ tpl .Values.services.searchcli.environment.keycloak.openid_auth_server . }}
-            - name: KEYCLOAK_CLIENT-ID
-              value: {{ tpl .Values.services.searchcli.environment.keycloak.client_id . }}
-            - name: KEYCLOAK_USERNAME
-              value: {{ tpl .Values.services.searchcli.environment.keycloak.username . }}
-            - name: KEYCLOAK_PASSWORD
-              value: {{ tpl .Values.services.searchcli.environment.keycloak.password . }}
+            - name: HTTP-CLIENT_OPENIDCONNECTBASEURL
+              value: {{ tpl .Values.services.searchcli.environment.http_client.openid_connect_base_url . }}
+            - name: HTTP-CLIENT_CLIENTID
+              value: {{ tpl .Values.services.searchcli.environment.http_client.client_id . }}
+            - name: HTTP-CLIENT_USERNAME
+              value: {{ tpl .Values.services.searchcli.environment.http_client.username . }}
+            - name: HTTP-CLIENT_PASSWORD
+              value: {{ tpl .Values.services.searchcli.environment.http_client.password . }}
             - name: ELASTICSEARCH_URL
               value: {{ tpl .Values.services.searchcli.environment.ELASTICSEARCH_URL . }}
             - name: MATERIAL_SAMPLE_URL

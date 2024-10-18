@@ -1,0 +1,23 @@
+meta {
+  name: Create project
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/collection-api/project
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "project",
+        "attributes": {
+          "group": "aafc",
+          "name": "Extract Library"
+        }
+      }
+    }
+}

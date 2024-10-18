@@ -1,0 +1,28 @@
+meta {
+  name: Query material sample index
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/search-api/search-ws/search?indexName=dina_material_sample_index
+  body: json
+  auth: inherit
+}
+
+query {
+  indexName: dina_material_sample_index
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "query": {
+      "match_all": {}
+    }
+  }
+}
+

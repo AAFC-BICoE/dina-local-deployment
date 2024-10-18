@@ -1,0 +1,11 @@
+meta {
+  name: Get metadatas
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/objectstore-api/metadata/
+  body: none
+  auth: inherit
+}

@@ -5,3 +5,7 @@ keycloak-data
 rabbitmq-data
 logs/*
 *.pem
+
+# Bruno Environment files
+DINA Dev2.bru
+DINA PROD.bru

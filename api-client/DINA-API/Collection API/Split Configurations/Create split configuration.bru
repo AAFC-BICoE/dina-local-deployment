@@ -1,0 +1,30 @@
+meta {
+  name: Create split configuration
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/collection-api/split-configuration
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "split-configuration",
+      "attributes": {
+        "createdBy": "dina-admin",
+        "group": "aafc",
+        "name": "Split Configuration Name",
+        "strategy": "DIRECT_PARENT",
+        "conditionalOnMaterialSampleTypes": [
+          "WHOLE_ORGANISM"
+        ],
+        "characterType": "UPPER_LETTER",
+        "materialSampleTypeCreatedBySplit": "CULTURE_STRAIN"
+      }
+    }
+  }
+}

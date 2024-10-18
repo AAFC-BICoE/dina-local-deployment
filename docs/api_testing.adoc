@@ -2,14 +2,25 @@
 
 == Applications
 
-Any REST API client with OAuth2 support can be used. Below are some examples of software you can use:
+While any API client can be used, Bruno is our recommended API client and requires no 3rd party accounts.
 
-* *Insomnia* - https://insomnia.rest/download[Download] (No Login Required)
-* *Postman* - https://www.postman.com/downloads/[Download] (Login Required)
+Bruno can be downloaded from: https://www.usebruno.com/downloads
+
+Once downloaded, you can open the DINA collection of API endpoints by going to `File` > `Open collection` > Navigate to dina-local-deployment/api-client/DINA-API and open that folder.
+
+You will also need to select the environment variables for the instance you want to connect to, for local dina development you would select `DINA Local`. The dropdown at the top right of the screen lets you change the environment variables.
+
+For local development, you will need to open the Bruno preferences (`CTRL` + `,`), Under the General tab, you will see an option for "Use custom CA certificate", make sure this is checked on. Click the "Select file" option and navigate to `/etc/ssl/certs/ca-certificates.crt`. (Be sure that you have ran the Local Certificate steps in order for the dina local certificates to be inside of the `ca-certificates.crt` file)
+
+Please note that bruno is still under active development.
 
 == Authentication
 
-On each request, you will need to set up the following Authentication settings:
+If using the Bruno API client with our collection loaded, the Authentication settings will be automatically loaded in.
+
+Click the gear icon located at the top right of the screen. Then go to the `Auth` where you can click the "Get Access Token". Currently you need to do this each time to generate the token but probably in the future this will happen automatically when the token has expired. Each request will need to use the inherit authentication option.
+
+In other API clients, you can setup the authentication using these settings:
 
 .Authentication Settings
 |===
@@ -37,21 +48,17 @@ On each request, you will need to set up the following Authentication settings:
 |openid
 |===
 
-Then when sending the request, you should see a popup which will let you login to the DINA application. Once you do this, your login will be remembered for the session and tokens will be automatically generated.
-
-In Postman you will have to click the "Get New Access Token" button to see this popup.
+Then when sending the request, you should see a popup which will let you login to the DINA application.
 
 == Logout of Session
 
 Sometimes you might need to login as a different user for testing, the instructions for clearing your sessions are below:
 
-To logout of your session on the Insomnia application, simply go to the authentication tab and at the bottom of the panel there is a "Clear" button. Next time you send an API request you will be prompted again to login.
-
-For Postman, in the Authorization section there is a text field with your current access token. Selecting and removing the access token will remove your session. To re-login, scroll to the bottom for the "Get New Access Token" button.
+To logout of your session on the Bruno application, go to the collection settings by using the gear icon at the top right of the screen, then click `Auth` to access the authentication settings. At the bottom of the page there is a button to clear the session.
 
 == Headers
 
-Most of the API POST requests require a specific "Content-Type" header. 
+Most of the API POST requests require a specific "Content-Type" header. The following headers are setup to be inherited to each request inside of the DINA so they do not need to be setup for each request.
 
 .Common Headers
 |===
@@ -65,3 +72,7 @@ Most of the API POST requests require a specific "Content-Type" header.
 |true
 |Optional. Self and related links can make up to 60% of the response payload size and not always are those links of use. In this case the computation of those links is omitted. Further relationships without data are completely omitted.
 |===
+
+== Additional Environments
+
+Only included in the /api-client repo is the local development environment file. Other environment files can be downloaded from the DINA Wiki under the "Bruno Environments" section.

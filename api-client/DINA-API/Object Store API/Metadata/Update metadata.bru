@@ -1,0 +1,22 @@
+meta {
+  name: Update metadata
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{base_url}}/objectstore-api/metadata/018f4f8b-2955-7eed-a4d0-f14f72ae198a
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "metadata",
+        "attributes": {
+          "originalFilename": "newFileName"
+        }
+      }
+    }
+}

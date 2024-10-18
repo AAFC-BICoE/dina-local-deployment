@@ -1,0 +1,32 @@
+meta {
+  name: Update Organism
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{base_url}}/collection-api/organism/e614553c-ee2e-47af-88d5-734815578886
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "organism",
+      "attributes": {
+        "determination": [
+          {
+            "verbatimScientificName": "Poa3",
+            "scientificNameSource": "CUSTOM",
+            "scientificNameDetails": {
+              "classificationPath": "test|Poaceae|Poa",
+              "classificationRanks": "order|family|genus"
+            },
+            "isPrimary": true
+          }
+        ]
+      }
+    }
+  }
+}
