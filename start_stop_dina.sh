@@ -10,6 +10,7 @@ DINA_MODULES+=('user_api')
 
 #DINA_MODULES+=('kibana')
 #DINA_MODULES+=('prometheus')
+DINA_MODULES+=('keycloak')
 
 # DINA Configurations
 DINA_CONFIGS=()
@@ -19,7 +20,7 @@ DINA_CONFIGS+=('docker-compose.local.yml')
 #DINA_CONFIGS+=('docker-compose.debug.yml')
 #DINA_CONFIGS+=('message-producing-override/docker-compose.override.messageProducer.yml')
 #DINA_CONFIGS+=('persistence-override/docker-compose.override.persistence.yml')
-#DINA_CONFIGS+=('keycloak/docker-compose.disable-keycloak.yml')
+#DINA_CONFIGS+=('keycloak/docker-compose.enable-dev-user.yml')
 
 # Convert arrays to comma-separated strings
 printf -v module_arr '%s,' "${DINA_MODULES[@]}"

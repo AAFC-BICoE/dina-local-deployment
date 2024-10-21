@@ -4,10 +4,18 @@
 
 This option will allow the APIs to start without Keycloak but still function with a dev user.
 
+Comment out of the `keycloak` profile inside `start_stop_dina.sh`, this will prevent the keycloak
+and keycloak-db containers from starting up:
+
+```sh
+#DINA_MODULES+=('keycloak')
+```
+
+Next, Enable the `keycloak/docker-compose.enable-dev-user.yml` config.
 This option can be enabled by uncommenting the following line inside `start_stop_dina.sh`:
 
 ```sh
-DINA_CONFIGS+=('keycloak/docker-compose.disable-keycloak.yml')
+DINA_CONFIGS+=('keycloak/docker-compose.enable-dev-user.yml')
 ```
 
 For the UI to work without keycloak, you need to be using UI dev mode, which can be enabled by
@@ -17,7 +25,7 @@ uncommenting the following line inside `start_stop_dina.sh`:
 DINA_CONFIGS+=('docker-compose.dev.yml')
 ```
 
-Inside of the `docker-compose.disable-keycloak.yml` file it can be configured which containers
+Inside of the `docker-compose.enable-dev-user.yml` file it can be configured which containers
 the settings are applied, by default it is applied to all.
 
 The dina-ui container expects a comma-separated list of the group and roles.

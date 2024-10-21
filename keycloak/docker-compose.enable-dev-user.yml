@@ -1,12 +1,6 @@
 version: "3.9"
 
 services:
-  # Disable keycloak and keycloak-db services.
-  keycloak:
-    entrypoint: ["echo", "keycloak disabled"]
-  keycloak-db:
-    entrypoint: ["echo", "keycloak-db disabled"]
-
   dina-ui:
     environment:
       KEYCLOAK_ENABLED: false
