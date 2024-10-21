@@ -30,7 +30,6 @@ services:
   keycloak:
     # we need a custom image optimized for Postgres. We are using the image tag to force a rebuild when there is a new Keycloak base container.
     image: keycloak_pg:21.1.0
-    profiles: ["keycloak"]
     build:
       context: keycloak/.
     environment:
@@ -64,7 +63,6 @@ services:
 
   keycloak-db:
     image: "postgres:12"
-    profiles: ["keycloak"]
     environment:
       POSTGRES_DB: keycloak_db
       POSTGRES_PASSWORD: keycloak_user
