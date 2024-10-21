@@ -10,7 +10,6 @@ DINA_MODULES+=('user_api')
 
 #DINA_MODULES+=('kibana')
 #DINA_MODULES+=('prometheus')
-DINA_MODULES+=('keycloak')
 
 # DINA Configurations
 DINA_CONFIGS=()
