@@ -8,7 +8,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "1.8"
+        "number" : "1.9"
       }
     },
     "date_detection": true,
@@ -404,6 +404,33 @@
                         "ignore_above": 256
                       }
                     }
+                  }
+                }
+              },
+              "dwcCountryCode": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcCountry": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcStateProvince": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
                   }
                 }
               }
