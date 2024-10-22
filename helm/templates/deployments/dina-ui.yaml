@@ -49,6 +49,8 @@ spec:
               value: {{ tpl .Values.services.dinaui.environment.REPORT_LABEL_API_ADDRESS . }}
             - name: INSTANCE_MODE
               value: {{ tpl .Values.services.dinaui.environment.INSTANCE_MODE . }}
+            - name: INSTANCE_NAME
+              value: {{ tpl .Values.services.dinaui.environment.INSTANCE_NAME . }}
             - name: SUPPORTED_LANGUAGES_ISO
               value: {{ tpl .Values.services.dinaui.environment.SUPPORTED_LANGUAGES_ISO . }}
           ports:

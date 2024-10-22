@@ -100,6 +100,7 @@ global:
         label: dina-ui
         service: dina-ui-service
         instance_mode: developer
+        instance_name: AAFC
         supported_languages_iso: en,fr
       search_cli:
         label: search-cli
@@ -296,6 +297,7 @@ services:
       LOAN_TRANSACTION_API_ADDRESS: "{{ .Values.global.environment.config.loan_transaction_api.service }}:8080"
       REPORT_LABEL_API_ADDRESS: "{{ .Values.global.environment.config.dina_export_api.service }}:8080"
       INSTANCE_MODE: "{{ .Values.global.environment.config.dina_ui.instance_mode }}"
+      INSTANCE_NAME: "{{ .Values.global.environment.config.dina_ui.instance_name }}"
       SUPPORTED_LANGUAGES_ISO: "{{ .Values.global.environment.config.dina_ui.supported_languages_iso }}"
   dinauserapi:
     image: aafcbicoe/dina-user-api:0.18
