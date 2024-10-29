@@ -477,7 +477,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_messaging">6. Messaging</a></li>
 <li><a href="#_keycloak">7. Keycloak</a>
 <ul class="sectlevel2">
-<li><a href="#_settings">7.1. Settings</a></li>
+<li><a href="#_dev_user">7.1. Dev User</a></li>
+<li><a href="#_settings">7.2. Settings</a></li>
 </ul>
 </li>
 <li><a href="#_local_certificates">8. Local certificates</a>
@@ -1072,7 +1073,57 @@ up -d</code></pre>
 <h2 id="_keycloak">7. Keycloak</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_settings">7.1. Settings</h3>
+<h3 id="_dev_user">7.1. Dev User</h3>
+<div class="paragraph">
+<p>This option will allow the APIs to start without Keycloak but still function with a dev user.</p>
+</div>
+<div class="paragraph">
+<p>The <code>keycloak/docker-compose.enable-dev-user.yml</code> config needs to be enabled inside of the
+<code>start_stop_dina.sh</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">DINA_CONFIGS+=('keycloak/docker-compose.enable-dev-user.yml')</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the UI to work without keycloak, you need to be using UI dev mode, which can be enabled by
+uncommenting the following line inside <code>start_stop_dina.sh</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">DINA_CONFIGS+=('docker-compose.dev.yml')</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Inside of the <code>docker-compose.enable-dev-user.yml</code> file it can be configured which containers
+the settings are applied, by default it is applied to all.</p>
+</div>
+<div class="paragraph">
+<p>The dina-ui container expects a comma-separated list of the group and roles.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">/aafc/user, /bicoe/read-only</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then each of the API&#8217;s that you wish to use also need to be configured with the same group roles:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"groupRole": {
+  "aafc": ["user"],
+  "bicoe": ["read-only"]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_settings">7.2. Settings</h3>
 <div class="paragraph">
 <p>Traefik is responsible for TLS termination so Keycloak is configured with <code>KC_PROXY: edge</code>.</p>
 </div>
@@ -1581,7 +1632,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-29 12:44:24 UTC
+Last updated 2024-10-29 19:47:51 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
