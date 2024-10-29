@@ -1,10 +1,46 @@
 = Keycloak
 
+== Dev User
+
+This option will allow the APIs to start without Keycloak but still function with a dev user.
+
+The `keycloak/docker-compose.enable-dev-user.yml` config needs to be enabled inside of the
+`start_stop_dina.sh`:
+
+```sh
+DINA_CONFIGS+=('keycloak/docker-compose.enable-dev-user.yml')
+```
+
+For the UI to work without keycloak, you need to be using UI dev mode, which can be enabled by
+uncommenting the following line inside `start_stop_dina.sh`:
+
+```sh
+DINA_CONFIGS+=('docker-compose.dev.yml')
+```
+
+Inside of the `docker-compose.enable-dev-user.yml` file it can be configured which containers
+the settings are applied, by default it is applied to all.
+
+The dina-ui container expects a comma-separated list of the group and roles.
+
+For example:
+
+```
+/aafc/user, /bicoe/read-only
+```
+
+Then each of the API's that you wish to use also need to be configured with the same group roles:
+
+```json
+"groupRole": {
+  "aafc": ["user"],
+  "bicoe": ["read-only"]
+}
+```
 
 == Settings
 
 Traefik is responsible for TLS termination so Keycloak is configured with `KC_PROXY: edge`.
-
 
 Keycloak Admin console is available at `https://keycloak.dina.local/auth`.
 
