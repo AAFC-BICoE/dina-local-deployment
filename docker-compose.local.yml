@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.171.0
+    image: aafcbicoe/dina-ui:0.178.0
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
@@ -30,7 +30,7 @@ services:
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.15.0
+    image: aafcbicoe/seqdb-api:2.17.0
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
