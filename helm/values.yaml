@@ -394,7 +394,7 @@ services:
       DINA_TRANSACTION_INDEX_NAME: dina_loan_transaction_index
       DINA_TRANSACTION_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_loan_transaction_index_settings.json
   dinadb:
-    image: "postgis/postgis:12-3.1-alpine"
+    image: "postgis/postgis:13-3.2"
     environment:
       POSTGRES_DB: "{{ .Values.global.environment.config.keycloak.db_name }}"
       DB_USER: "{{ .Values.global.environment.config.keycloak.db_user }}"
