@@ -1,0 +1,86 @@
+= Instance Configuration
+
+By setting environment variables for the DINA UI container, you can configure certain features and options for the runtime instance.
+
+These settings can be configured in the `.env` file.
+
+== Instance Mode
+
+The `INSTANCE_MODE` environment variable specifies the operational mode of the runtime instance. 
+
+For example, setting `PROD` configures the instance for production environments. If it's set to a instance mode other than `PROD`, it will be displayed in the application's header to inform users which mode they are currently using.
+
+If using the Dev User mode (without Keycloak), this will need to be set to `developer`.
+
+By default, `developer` is used, which is used to indicate the server is running in a local development environment.
+
+== Instance Name
+
+The `INSTANCE_NAME` environment variable is currently used to generate the feedback URL within the UI.
+
+For instance, setting `GRDI` indicates that this is the GRDI instance of DINA. The feedback link will display a badge on new issues to identify the instance (GRDI) from which the user is reporting the issue.
+
+By default, the instance name is set to `AAFC`.
+
+== Supported Languages
+
+The `SUPPORTED_LANGUAGES` environment variable is a comma-separated list of the ISO language codes that the application will support. 
+
+For example:
+
+```env
+SUPPORTED_LANGUAGES_ISO=en,fr
+```
+
+Will allow the application to switch between English and French languages.
+
+Supported languages:
+
+[cols="2*", options="header"]
+|====================
+| ISO Code | Language
+| en       | English 
+| fr       | French  
+| de       | German  
+|====================
+
+== Supported Geoinformational Systems
+
+Comma-separated list of the geoinformational systems supported by the UI.
+
+By default, `OSM` for OpenStreetMap is used.
+
+Supported systems:
+
+[cols="2*", options="header"]
+|===============================================
+| Code | Name                                   
+| OSM  | OpenStreetMap                       
+| TGN  | The Getty Thesaurus of Geographic Names
+|===============================================
+
+When using `TGN`, a reverse proxy will need to be setup since it's using `HTTP` protocol. The following can be added to the `traefik-dynamic.yml` file to configure this reverse proxy: 
+
+```yml
+http:
+  routers:
+    tgn:
+      tls: true
+      rule: "Host(`localhost`, `dina.local`) && PathPrefix(`/TGNService.asmx`)"
+      middlewares:
+        - addHost
+      service: tgnLb
+      priority: 10000
+  middlewares:
+    addHost:
+        headers:
+          customRequestHeaders:
+            Host: vocabsservices.getty.edu
+  services:
+    tgnLb:
+      loadBalancer:
+        servers:
+          - url: "http://vocabsservices.getty.edu"
+```
+
+The `TGN_SEARCH_BASE_URL` environment variable is used to configure the base URL for the reverse proxy. If this is not provided, it will just use the localhost (dina.local).
