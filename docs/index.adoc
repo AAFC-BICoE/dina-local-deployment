@@ -8,6 +8,8 @@
 
 include::developer_environment.adoc[]
 
+include::instance_configuration.adoc[]
+
 include::local_images.adoc[]
 
 include::ui_development.adoc[]
