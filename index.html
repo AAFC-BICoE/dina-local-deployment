@@ -494,28 +494,34 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_installation_ubuntu_20">9.1. Installation (Ubuntu 20)</a></li>
 </ul>
 </li>
-<li><a href="#_jmeter">10. JMeter</a>
+<li><a href="#_minikube">10. Minikube</a>
 <ul class="sectlevel2">
-<li><a href="#_installation">10.1. Installation</a></li>
-<li><a href="#_how_to_run">10.2. How to run</a></li>
-<li><a href="#_module_structure">10.3. Module Structure</a>
+<li><a href="#_installing_minikube">10.1. Installing minikube</a></li>
+<li><a href="#_starting_minikube">10.2. Starting minikube</a></li>
+</ul>
+</li>
+<li><a href="#_jmeter">11. JMeter</a>
+<ul class="sectlevel2">
+<li><a href="#_installation">11.1. Installation</a></li>
+<li><a href="#_how_to_run">11.2. How to run</a></li>
+<li><a href="#_module_structure">11.3. Module Structure</a>
 <ul class="sectlevel3">
-<li><a href="#_setup_thread_group">10.3.1. setUp Thread Group</a></li>
-<li><a href="#_endpoint_thread_groups">10.3.2. Endpoint Thread Group(s)</a></li>
-<li><a href="#_teardown_thread_group">10.3.3. tearDown Thread Group</a></li>
+<li><a href="#_setup_thread_group">11.3.1. setUp Thread Group</a></li>
+<li><a href="#_endpoint_thread_groups">11.3.2. Endpoint Thread Group(s)</a></li>
+<li><a href="#_teardown_thread_group">11.3.3. tearDown Thread Group</a></li>
 </ul>
 </li>
-<li><a href="#_crud_controllers">10.4. CRUD Controllers</a>
+<li><a href="#_crud_controllers">11.4. CRUD Controllers</a>
 <ul class="sectlevel3">
-<li><a href="#_create">10.4.1. Create</a></li>
-<li><a href="#_update">10.4.2. Update</a></li>
-<li><a href="#_delete">10.4.3. Delete</a></li>
-<li><a href="#_assertions">10.4.4. Assertions</a></li>
+<li><a href="#_create">11.4.1. Create</a></li>
+<li><a href="#_update">11.4.2. Update</a></li>
+<li><a href="#_delete">11.4.3. Delete</a></li>
+<li><a href="#_assertions">11.4.4. Assertions</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#_change_default_docker_address_pool">11. Change default Docker address pool</a></li>
+<li><a href="#_change_default_docker_address_pool">12. Change default Docker address pool</a></li>
 </ul>
 </div>
 </div>
@@ -1329,13 +1335,52 @@ sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_jmeter">10. JMeter</h2>
+<h2 id="_minikube">10. Minikube</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_installing_minikube">10.1. Installing minikube</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_starting_minikube">10.2. Starting minikube</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true --kubernetes-version=stable --memory=6g</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Change the cpus and memory according to your local resources.</p>
+</div>
+<div class="paragraph">
+<p>Note: This is a sample command. The important flags here are:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs"> --addons=ingress
+ --cni=flannel
+ --install-addons=true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note:
+Useful alias for running kubectl commands: <code>alias k="minikube kubectl --"</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jmeter">11. JMeter</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://jmeter.apache.org/index.html">Apache JMeter</a> is used to execute performance/stress test plan.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation">10.1. Installation</h3>
+<h3 id="_installation">11.1. Installation</h3>
 <div class="paragraph">
 <p>You will need to have java installed on your system. Insure it&#8217;s installed using:</p>
 </div>
@@ -1366,7 +1411,7 @@ $ ./jmeter</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_how_to_run">10.2. How to run</h3>
+<h3 id="_how_to_run">11.2. How to run</h3>
 <div class="paragraph">
 <p>You can start JMeter in GUI mode (default) and open the test plan to visualize it.</p>
 </div>
@@ -1380,7 +1425,7 @@ $ ./jmeter</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_module_structure">10.3. Module Structure</h3>
+<h3 id="_module_structure">11.3. Module Structure</h3>
 <div class="paragraph">
 <p>The JMeter test plan is constructed as follows</p>
 </div>
@@ -1405,7 +1450,7 @@ $ ./jmeter</code></pre>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_setup_thread_group">10.3.1. setUp Thread Group</h4>
+<h4 id="_setup_thread_group">11.3.1. setUp Thread Group</h4>
 <div class="paragraph">
 <p>The setUp Thread Group will be executed prior to any regular thread groups, allowing us to setup
 access privileges as well as create any records that may be required by regular thread groups.</p>
@@ -1415,7 +1460,7 @@ access privileges as well as create any records that may be required by regular 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_endpoint_thread_groups">10.3.2. Endpoint Thread Group(s)</h4>
+<h4 id="_endpoint_thread_groups">11.3.2. Endpoint Thread Group(s)</h4>
 <div class="paragraph">
 <p>Each endpoint within the corresponding module will contain a corresponding endpoint thread group.
 A thread group will be responsible for setting up and testing the respective endpoint&#8217;s CRUD operations.</p>
@@ -1488,7 +1533,7 @@ that offer no unique functionality, being used primarily for organizational purp
 </div>
 </div>
 <div class="sect3">
-<h4 id="_teardown_thread_group">10.3.3. tearDown Thread Group</h4>
+<h4 id="_teardown_thread_group">11.3.3. tearDown Thread Group</h4>
 <div class="paragraph">
 <p>The tearDown Thread Group is executed after all of the other thread groups have terminated. This allows
 us to remove the records created within the setUp Thread Group without causing any conflicts with the
@@ -1500,12 +1545,12 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_crud_controllers">10.4. CRUD Controllers</h3>
+<h3 id="_crud_controllers">11.4. CRUD Controllers</h3>
 <div class="paragraph">
 <p>The CRUD Controllers are the thread group Create, Update, and Delete Controllers.</p>
 </div>
 <div class="sect3">
-<h4 id="_create">10.4.1. Create</h4>
+<h4 id="_create">11.4.1. Create</h4>
 <div class="paragraph">
 <p>This controller contains all JMeter elements required for testing record creation for the respective endpoint.</p>
 </div>
@@ -1600,7 +1645,7 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_update">10.4.2. Update</h4>
+<h4 id="_update">11.4.2. Update</h4>
 <div class="paragraph">
 <p>This controller contains all JMeter elements required for testing updating of records for the respective endpoint.</p>
 </div>
@@ -1661,7 +1706,7 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_delete">10.4.3. Delete</h4>
+<h4 id="_delete">11.4.3. Delete</h4>
 <div class="paragraph">
 <p>This controller contains all JMeter elements required for testing removal of records for the respective endpoint.</p>
 </div>
@@ -1715,7 +1760,7 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_assertions">10.4.4. Assertions</h4>
+<h4 id="_assertions">11.4.4. Assertions</h4>
 <div class="paragraph">
 <p>In all of the CRUD controllers, assertions are being made to ensure that the correct results are produced
 by each operation.</p>
@@ -1758,7 +1803,7 @@ to be true.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_change_default_docker_address_pool">11. Change default Docker address pool</h2>
+<h2 id="_change_default_docker_address_pool">12. Change default Docker address pool</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The default Docker network addess pool may overlap with other networks (e.g. VPN).</p>
@@ -1787,7 +1832,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-12-09 19:59:00 UTC
+Last updated 2024-12-09 20:11:00 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
