@@ -1,7 +1,7 @@
 :sectnums:
 :source-highlighter: highlight.js
 
-= DINA local-deployment
+= DINA deployment
 :toclevels: 3
 :leveloffset: 1
 :icons: font
