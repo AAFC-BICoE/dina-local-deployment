@@ -458,56 +458,64 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_using_local_images">2. Using Local Images</a>
+<li><a href="#_instance_configuration">2. Instance Configuration</a>
 <ul class="sectlevel2">
-<li><a href="#_export_docker_image_to_file">2.1. Export Docker image to file</a></li>
+<li><a href="#_instance_mode">2.1. Instance Mode</a></li>
+<li><a href="#_instance_name">2.2. Instance Name</a></li>
+<li><a href="#_supported_languages">2.3. Supported Languages</a></li>
+<li><a href="#_supported_geoinformational_systems">2.4. Supported Geoinformational Systems</a></li>
 </ul>
 </li>
-<li><a href="#_dina_ui_development">3. DINA-UI Development</a></li>
-<li><a href="#_api_endpoint_testing">4. API Endpoint Testing</a>
+<li><a href="#_using_local_images">3. Using Local Images</a>
 <ul class="sectlevel2">
-<li><a href="#_applications">4.1. Applications</a></li>
-<li><a href="#_authentication">4.2. Authentication</a></li>
-<li><a href="#_logout_of_session">4.3. Logout of Session</a></li>
-<li><a href="#_headers">4.4. Headers</a></li>
-<li><a href="#_additional_environments">4.5. Additional Environments</a></li>
+<li><a href="#_export_docker_image_to_file">3.1. Export Docker image to file</a></li>
 </ul>
 </li>
-<li><a href="#_postgresql">5. PostgreSQL</a></li>
-<li><a href="#_messaging">6. Messaging</a></li>
-<li><a href="#_keycloak">7. Keycloak</a>
+<li><a href="#_dina_ui_development">4. DINA-UI Development</a></li>
+<li><a href="#_api_endpoint_testing">5. API Endpoint Testing</a>
 <ul class="sectlevel2">
-<li><a href="#_dev_user">7.1. Dev User</a></li>
-<li><a href="#_settings">7.2. Settings</a></li>
+<li><a href="#_applications">5.1. Applications</a></li>
+<li><a href="#_authentication">5.2. Authentication</a></li>
+<li><a href="#_logout_of_session">5.3. Logout of Session</a></li>
+<li><a href="#_headers">5.4. Headers</a></li>
+<li><a href="#_additional_environments">5.5. Additional Environments</a></li>
 </ul>
 </li>
-<li><a href="#_local_certificates">8. Local certificates</a>
+<li><a href="#_postgresql">6. PostgreSQL</a></li>
+<li><a href="#_messaging">7. Messaging</a></li>
+<li><a href="#_keycloak">8. Keycloak</a>
 <ul class="sectlevel2">
-<li><a href="#_installation_ubuntu_20">8.1. Installation (Ubuntu 20)</a></li>
+<li><a href="#_dev_user">8.1. Dev User</a></li>
+<li><a href="#_settings">8.2. Settings</a></li>
 </ul>
 </li>
-<li><a href="#_jmeter">9. JMeter</a>
+<li><a href="#_local_certificates">9. Local certificates</a>
 <ul class="sectlevel2">
-<li><a href="#_installation">9.1. Installation</a></li>
-<li><a href="#_how_to_run">9.2. How to run</a></li>
-<li><a href="#_module_structure">9.3. Module Structure</a>
+<li><a href="#_installation_ubuntu_20">9.1. Installation (Ubuntu 20)</a></li>
+</ul>
+</li>
+<li><a href="#_jmeter">10. JMeter</a>
+<ul class="sectlevel2">
+<li><a href="#_installation">10.1. Installation</a></li>
+<li><a href="#_how_to_run">10.2. How to run</a></li>
+<li><a href="#_module_structure">10.3. Module Structure</a>
 <ul class="sectlevel3">
-<li><a href="#_setup_thread_group">9.3.1. setUp Thread Group</a></li>
-<li><a href="#_endpoint_thread_groups">9.3.2. Endpoint Thread Group(s)</a></li>
-<li><a href="#_teardown_thread_group">9.3.3. tearDown Thread Group</a></li>
+<li><a href="#_setup_thread_group">10.3.1. setUp Thread Group</a></li>
+<li><a href="#_endpoint_thread_groups">10.3.2. Endpoint Thread Group(s)</a></li>
+<li><a href="#_teardown_thread_group">10.3.3. tearDown Thread Group</a></li>
 </ul>
 </li>
-<li><a href="#_crud_controllers">9.4. CRUD Controllers</a>
+<li><a href="#_crud_controllers">10.4. CRUD Controllers</a>
 <ul class="sectlevel3">
-<li><a href="#_create">9.4.1. Create</a></li>
-<li><a href="#_update">9.4.2. Update</a></li>
-<li><a href="#_delete">9.4.3. Delete</a></li>
-<li><a href="#_assertions">9.4.4. Assertions</a></li>
+<li><a href="#_create">10.4.1. Create</a></li>
+<li><a href="#_update">10.4.2. Update</a></li>
+<li><a href="#_delete">10.4.3. Delete</a></li>
+<li><a href="#_assertions">10.4.4. Assertions</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#_change_default_docker_address_pool">10. Change default Docker address pool</a></li>
+<li><a href="#_change_default_docker_address_pool">11. Change default Docker address pool</a></li>
 </ul>
 </div>
 </div>
@@ -793,7 +801,154 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_using_local_images">2. Using Local Images</h2>
+<h2 id="_instance_configuration">2. Instance Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By setting environment variables for the DINA UI container, you can configure certain features and options for the runtime instance.</p>
+</div>
+<div class="paragraph">
+<p>These settings can be configured in the <code>.env</code> file.</p>
+</div>
+<div class="sect2">
+<h3 id="_instance_mode">2.1. Instance Mode</h3>
+<div class="paragraph">
+<p>The <code>INSTANCE_MODE</code> environment variable specifies the operational mode of the runtime instance.</p>
+</div>
+<div class="paragraph">
+<p>For example, setting <code>PROD</code> configures the instance for production environments. If it&#8217;s set to a instance mode other than <code>PROD</code>, it will be displayed in the application&#8217;s header to inform users which mode they are currently using.</p>
+</div>
+<div class="paragraph">
+<p>If using the Dev User mode (without Keycloak), this will need to be set to <code>developer</code>.</p>
+</div>
+<div class="paragraph">
+<p>By default, <code>developer</code> is used, which is used to indicate the server is running in a local development environment.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instance_name">2.2. Instance Name</h3>
+<div class="paragraph">
+<p>The <code>INSTANCE_NAME</code> environment variable is currently used to generate the feedback URL within the UI.</p>
+</div>
+<div class="paragraph">
+<p>For instance, setting <code>GRDI</code> indicates that this is the GRDI instance of DINA. The feedback link will display a badge on new issues to identify the instance (GRDI) from which the user is reporting the issue.</p>
+</div>
+<div class="paragraph">
+<p>By default, the instance name is set to <code>AAFC</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_supported_languages">2.3. Supported Languages</h3>
+<div class="paragraph">
+<p>The <code>SUPPORTED_LANGUAGES</code> environment variable is a comma-separated list of the ISO language codes that the application will support.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-env hljs" data-lang="env">SUPPORTED_LANGUAGES_ISO=en,fr</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Will allow the application to switch between English and French languages.</p>
+</div>
+<div class="paragraph">
+<p>Supported languages:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">ISO Code</th>
+<th class="tableblock halign-left valign-top">Language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">en</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">French</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">de</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">German</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_supported_geoinformational_systems">2.4. Supported Geoinformational Systems</h3>
+<div class="paragraph">
+<p>Comma-separated list of the geoinformational systems supported by the UI.</p>
+</div>
+<div class="paragraph">
+<p>By default, <code>OSM</code> for OpenStreetMap is used.</p>
+</div>
+<div class="paragraph">
+<p>Supported systems:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OSM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenStreetMap</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TGN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Getty Thesaurus of Geographic Names</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>When using <code>TGN</code>, a reverse proxy will need to be setup since it&#8217;s using <code>HTTP</code> protocol. The following can be added to the <code>traefik-dynamic.yml</code> file to configure this reverse proxy:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yml hljs" data-lang="yml">http:
+  routers:
+    tgn:
+      tls: true
+      rule: "Host(`localhost`, `dina.local`) &amp;&amp; PathPrefix(`/TGNService.asmx`)"
+      middlewares:
+        - addHost
+      service: tgnLb
+      priority: 10000
+  middlewares:
+    addHost:
+        headers:
+          customRequestHeaders:
+            Host: vocabsservices.getty.edu
+  services:
+    tgnLb:
+      loadBalancer:
+        servers:
+          - url: "http://vocabsservices.getty.edu"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>TGN_SEARCH_BASE_URL</code> environment variable is used to configure the base URL for the reverse proxy. If this is not provided, it will just use the localhost (dina.local).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_local_images">3. Using Local Images</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Running local deployment without making any changes will run the docker-hub deployed API modules. For development purposes, you can follow these steps to test your API changes.</p>
@@ -857,7 +1012,7 @@ mvn clean install -DskipTests</code></pre>
 <p>You are now running your local changes. It&#8217;s important to understand that you are running the jar generated from step 1, so if you make more changes on the API, you will need to repeat the steps to test your latest changes.</p>
 </div>
 <div class="sect2">
-<h3 id="_export_docker_image_to_file">2.1. Export Docker image to file</h3>
+<h3 id="_export_docker_image_to_file">3.1. Export Docker image to file</h3>
 <div class="paragraph">
 <p>Exporting an image from the local registry:</p>
 </div>
@@ -878,7 +1033,7 @@ mvn clean install -DskipTests</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_dina_ui_development">3. DINA-UI Development</h2>
+<h2 id="_dina_ui_development">4. DINA-UI Development</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To enable dina-ui hot-reloading in dina-local-deployment, you need to configure the dina-ui repo location.
@@ -904,10 +1059,10 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect1">
-<h2 id="_api_endpoint_testing">4. API Endpoint Testing</h2>
+<h2 id="_api_endpoint_testing">5. API Endpoint Testing</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_applications">4.1. Applications</h3>
+<h3 id="_applications">5.1. Applications</h3>
 <div class="paragraph">
 <p>While any API client can be used, Bruno is our recommended API client and requires no 3rd party accounts.</p>
 </div>
@@ -928,7 +1083,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect2">
-<h3 id="_authentication">4.2. Authentication</h3>
+<h3 id="_authentication">5.2. Authentication</h3>
 <div class="paragraph">
 <p>If using the Bruno API client with our collection loaded, the Authentication settings will be automatically loaded in.</p>
 </div>
@@ -986,7 +1141,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect2">
-<h3 id="_logout_of_session">4.3. Logout of Session</h3>
+<h3 id="_logout_of_session">5.3. Logout of Session</h3>
 <div class="paragraph">
 <p>Sometimes you might need to login as a different user for testing, the instructions for clearing your sessions are below:</p>
 </div>
@@ -995,7 +1150,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect2">
-<h3 id="_headers">4.4. Headers</h3>
+<h3 id="_headers">5.4. Headers</h3>
 <div class="paragraph">
 <p>Most of the API POST requests require a specific "Content-Type" header. The following headers are setup to be inherited to each request inside of the DINA so they do not need to be setup for each request.</p>
 </div>
@@ -1028,7 +1183,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </table>
 </div>
 <div class="sect2">
-<h3 id="_additional_environments">4.5. Additional Environments</h3>
+<h3 id="_additional_environments">5.5. Additional Environments</h3>
 <div class="paragraph">
 <p>Only included in the /api-client repo is the local development environment file. Other environment files can be downloaded from the DINA Wiki under the "Bruno Environments" section.</p>
 </div>
@@ -1036,7 +1191,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect1">
-<h2 id="_postgresql">5. PostgreSQL</h2>
+<h2 id="_postgresql">6. PostgreSQL</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>It is possible to query PostgreSQL when the container is running.</p>
@@ -1052,7 +1207,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect1">
-<h2 id="_messaging">6. Messaging</h2>
+<h2 id="_messaging">7. Messaging</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To enable Messaging based on RabbitMQ, combine the <code>--profile search_api</code> with the override file <code>message-producing-override/docker-compose.override.messageProducer.yml</code>.</p>
@@ -1070,10 +1225,10 @@ up -d</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_keycloak">7. Keycloak</h2>
+<h2 id="_keycloak">8. Keycloak</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_dev_user">7.1. Dev User</h3>
+<h3 id="_dev_user">8.1. Dev User</h3>
 <div class="paragraph">
 <p>This option will allow the APIs to start without Keycloak but still function with a dev user.</p>
 </div>
@@ -1123,7 +1278,7 @@ the settings are applied, by default it is applied to all.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_settings">7.2. Settings</h3>
+<h3 id="_settings">8.2. Settings</h3>
 <div class="paragraph">
 <p>Traefik is responsible for TLS termination so Keycloak is configured with <code>KC_PROXY: edge</code>.</p>
 </div>
@@ -1137,13 +1292,13 @@ the settings are applied, by default it is applied to all.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_local_certificates">8. Local certificates</h2>
+<h2 id="_local_certificates">9. Local certificates</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In order to generate development certificates <a href="https://github.com/FiloSottile/mkcert">mkcert</a> will be used.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation_ubuntu_20">8.1. Installation (Ubuntu 20)</h3>
+<h3 id="_installation_ubuntu_20">9.1. Installation (Ubuntu 20)</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">sudo apt-get install wget libnss3-tools -y
@@ -1174,13 +1329,13 @@ sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_jmeter">9. JMeter</h2>
+<h2 id="_jmeter">10. JMeter</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://jmeter.apache.org/index.html">Apache JMeter</a> is used to execute performance/stress test plan.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation">9.1. Installation</h3>
+<h3 id="_installation">10.1. Installation</h3>
 <div class="paragraph">
 <p>You will need to have java installed on your system. Insure it&#8217;s installed using:</p>
 </div>
@@ -1211,7 +1366,7 @@ $ ./jmeter</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_how_to_run">9.2. How to run</h3>
+<h3 id="_how_to_run">10.2. How to run</h3>
 <div class="paragraph">
 <p>You can start JMeter in GUI mode (default) and open the test plan to visualize it.</p>
 </div>
@@ -1225,7 +1380,7 @@ $ ./jmeter</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_module_structure">9.3. Module Structure</h3>
+<h3 id="_module_structure">10.3. Module Structure</h3>
 <div class="paragraph">
 <p>The JMeter test plan is constructed as follows</p>
 </div>
@@ -1250,7 +1405,7 @@ $ ./jmeter</code></pre>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_setup_thread_group">9.3.1. setUp Thread Group</h4>
+<h4 id="_setup_thread_group">10.3.1. setUp Thread Group</h4>
 <div class="paragraph">
 <p>The setUp Thread Group will be executed prior to any regular thread groups, allowing us to setup
 access privileges as well as create any records that may be required by regular thread groups.</p>
@@ -1260,7 +1415,7 @@ access privileges as well as create any records that may be required by regular 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_endpoint_thread_groups">9.3.2. Endpoint Thread Group(s)</h4>
+<h4 id="_endpoint_thread_groups">10.3.2. Endpoint Thread Group(s)</h4>
 <div class="paragraph">
 <p>Each endpoint within the corresponding module will contain a corresponding endpoint thread group.
 A thread group will be responsible for setting up and testing the respective endpoint&#8217;s CRUD operations.</p>
@@ -1333,7 +1488,7 @@ that offer no unique functionality, being used primarily for organizational purp
 </div>
 </div>
 <div class="sect3">
-<h4 id="_teardown_thread_group">9.3.3. tearDown Thread Group</h4>
+<h4 id="_teardown_thread_group">10.3.3. tearDown Thread Group</h4>
 <div class="paragraph">
 <p>The tearDown Thread Group is executed after all of the other thread groups have terminated. This allows
 us to remove the records created within the setUp Thread Group without causing any conflicts with the
@@ -1345,12 +1500,12 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_crud_controllers">9.4. CRUD Controllers</h3>
+<h3 id="_crud_controllers">10.4. CRUD Controllers</h3>
 <div class="paragraph">
 <p>The CRUD Controllers are the thread group Create, Update, and Delete Controllers.</p>
 </div>
 <div class="sect3">
-<h4 id="_create">9.4.1. Create</h4>
+<h4 id="_create">10.4.1. Create</h4>
 <div class="paragraph">
 <p>This controller contains all JMeter elements required for testing record creation for the respective endpoint.</p>
 </div>
@@ -1445,7 +1600,7 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_update">9.4.2. Update</h4>
+<h4 id="_update">10.4.2. Update</h4>
 <div class="paragraph">
 <p>This controller contains all JMeter elements required for testing updating of records for the respective endpoint.</p>
 </div>
@@ -1506,7 +1661,7 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_delete">9.4.3. Delete</h4>
+<h4 id="_delete">10.4.3. Delete</h4>
 <div class="paragraph">
 <p>This controller contains all JMeter elements required for testing removal of records for the respective endpoint.</p>
 </div>
@@ -1560,7 +1715,7 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_assertions">9.4.4. Assertions</h4>
+<h4 id="_assertions">10.4.4. Assertions</h4>
 <div class="paragraph">
 <p>In all of the CRUD controllers, assertions are being made to ensure that the correct results are produced
 by each operation.</p>
@@ -1603,7 +1758,7 @@ to be true.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_change_default_docker_address_pool">10. Change default Docker address pool</h2>
+<h2 id="_change_default_docker_address_pool">11. Change default Docker address pool</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The default Docker network addess pool may overlap with other networks (e.g. VPN).</p>
@@ -1632,7 +1787,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-12-03 16:34:51 UTC
+Last updated 2024-12-09 15:57:57 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
