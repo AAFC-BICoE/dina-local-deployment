@@ -46,7 +46,7 @@ Supported languages:
 
 == Supported Geoinformational Systems
 
-Comma-separated list of the geoinformational systems supported by the UI.
+The `SUPPORTED_GEOINFORMATION_SYSTEMS` environment variable is a comma-separated list of the geoinformational systems supported by the UI.
 
 By default, `OSM` for OpenStreetMap is used.
 
