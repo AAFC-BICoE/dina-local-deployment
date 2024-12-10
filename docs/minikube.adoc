@@ -9,7 +9,7 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
  
 ==  Starting minikube
 
-```
+```bash
 minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true --kubernetes-version=stable --memory=6g
 ```
 
@@ -25,4 +25,11 @@ Note: This is a sample command. The important flags here are:
 Note:
 Useful alias for running kubectl commands: `alias k="minikube kubectl --"`
 
+== Push local image
+
+To push local (images that are built locally) to minikube :
+
+From the host: `minikube cache add myimage:mytag`
+
+See minikube [Pushing images](https://minikube.sigs.k8s.io/docs/handbook/pushing/#2-push-images-using-cache-command) documentation for more information.
 

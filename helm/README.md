@@ -14,28 +14,7 @@ chmod 700 get_helm.sh
 
 ## Installing minikube
 
-```
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-```
- 
-# Starting minikube
-
-```
-minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true --kubernetes-version=stable --memory=6g
-```
-
-Change the cpus and memory according to your local resources.
-
-Note: This is a sample command. The important flags here are:
-```
- --addons=ingress 
- --cni=flannel 
- --install-addons=true
-```
-
-Note:
-Useful alias for running kubectl commands: `alias k="minikube kubectl --"`
+See [instructions](https://aafc-bicoe.github.io/dina-local-deployment/#_minikube).
 
 ## Deploying application
 
