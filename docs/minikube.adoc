@@ -1,5 +1,7 @@
 = Minikube
 
+It is possible to use minikube to deploy DINA locally using the helm chart.
+
 == Installing minikube
 
 ```
@@ -31,5 +33,5 @@ To push local (images that are built locally) to minikube :
 
 From the host: `minikube cache add myimage:mytag`
 
-See minikube [Pushing images](https://minikube.sigs.k8s.io/docs/handbook/pushing/#2-push-images-using-cache-command) documentation for more information.
+See minikube https://minikube.sigs.k8s.io/docs/handbook/pushing/#2-push-images-using-cache-command[Pushing images] documentation for more information.
 

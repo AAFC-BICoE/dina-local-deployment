@@ -26,6 +26,8 @@ include::local_certificates.adoc[]
 
 include::minikube.adoc[]
 
+include::helm.adoc[]
+
 include::jmeter.adoc[]
 
 include::docker_network.adoc[]
