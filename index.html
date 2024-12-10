@@ -498,6 +498,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_installing_minikube">10.1. Installing minikube</a></li>
 <li><a href="#_starting_minikube">10.2. Starting minikube</a></li>
+<li><a href="#_push_local_image">10.3. Push local image</a></li>
 </ul>
 </li>
 <li><a href="#_jmeter">11. JMeter</a>
@@ -1350,7 +1351,7 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube</code></pre>
 <h3 id="_starting_minikube">10.2. Starting minikube</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true --kubernetes-version=stable --memory=6g</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true --kubernetes-version=stable --memory=6g</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1369,6 +1370,18 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube</code></pre>
 <div class="paragraph">
 <p>Note:
 Useful alias for running kubectl commands: <code>alias k="minikube kubectl --"</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_push_local_image">10.3. Push local image</h3>
+<div class="paragraph">
+<p>To push local (images that are built locally) to minikube :</p>
+</div>
+<div class="paragraph">
+<p>From the host: <code>minikube cache add myimage:mytag</code></p>
+</div>
+<div class="paragraph">
+<p>See minikube [Pushing images](<a href="https://minikube.sigs.k8s.io/docs/handbook/pushing/#2-push-images-using-cache-command" class="bare">https://minikube.sigs.k8s.io/docs/handbook/pushing/#2-push-images-using-cache-command</a>) documentation for more information.</p>
 </div>
 </div>
 </div>
@@ -1832,7 +1845,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-12-09 20:11:00 UTC
+Last updated 2024-12-10 14:12:55 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
