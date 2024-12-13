@@ -50,14 +50,7 @@ global:
         datasource_user: web_user_agent
         liquibase_user: migration_user_agent
         liquibase_password:
-      dina_db:
-        restore_db: false
-        label: dina-db
-        service: dina-db-service
-        db_name: dina
-        db_password: 
-        db_user: pguser
-      dina_export_api:
+            dina_export_api:
         label: dina-export-api
         service: dina-export-api-service
         datasource_password: 
