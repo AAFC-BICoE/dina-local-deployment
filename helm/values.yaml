@@ -160,10 +160,21 @@ services:
     image: aafcbicoe/dina-db-init-container:0.5
     pullPolicy: IfNotPresent
     environment:
+# Database Connection Environment Variables:
       POSTGRES_DB: "{{ .Values.global.environment.config.dina_db.db_name }}"
       POSTGRES_PASSWORD: "{{ .Values.global.environment.config.dina_db.db_password }}"
       POSTGRES_USER: "{{ .Values.global.environment.config.dina_db.db_user }}"
       POSTGRES_HOST: "{{ .Values.global.environment.config.dina_db.service }}"
+
+      # Database Restore Environment Variables:
+      RESTORE_DB: "{{ .Values.global.environment.config.db_init.restore_db }}"
+      DB_DUMP_FILE_PATH: "{{ .Values.global.environment.config.db_init.db_dump_file_path }}"
+
+      # Reset Users / Generate Database Environment Variables:
+      RESET_USERS: "{{ .Values.global.environment.config.db_init.reset_users }}"
+      DB_USER: "{{ .Values.global.environment.config.db_init.db_user }}"
+      DB_PASSWORD: "{{ .Values.global.environment.config.db_init.db_password }}"
+      DINA_DB: "{{ .Values.global.environment.config.db_init.dina_db }}"
     config:
       agentapi:
         DINA_DB: agent
