@@ -1,12 +1,14 @@
 :sectnums:
 :source-highlighter: highlight.js
 
-= DINA local-deployment
+= DINA deployment
 :toclevels: 3
 :leveloffset: 1
 :icons: font
 
 include::developer_environment.adoc[]
+
+include::instance_configuration.adoc[]
 
 include::local_images.adoc[]
 
@@ -21,6 +23,10 @@ include::messaging.adoc[]
 include::keycloak.adoc[]
 
 include::local_certificates.adoc[]
+
+include::minikube.adoc[]
+
+include::helm.adoc[]
 
 include::jmeter.adoc[]
 
