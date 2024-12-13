@@ -30,6 +30,19 @@ global:
       repo: 
       project: 
     config:
+      dina_db:
+        label: dina-db
+        service: dina-db-service
+        db_name: dina
+        db_password: 
+        db_user: pguser
+      db_init:
+        restore_db: false
+        db_dump_file_path: /mnt/data/sql_dump.sql.b64
+        reset_users: false
+        # db_user: 
+        # db_password: 
+        # dina_db: agent collection dina_user object_store seqdb loan_transaction export
       agent_api:
         label: agent-api
         service: agent-api-service

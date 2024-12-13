@@ -82,7 +82,13 @@ From dina-local-deployment root:
 
 `helm install dina-helm ./helm -f helm/values.yaml`
 
-To remove the chart: `helm uninstall dina-helm`
+To redeploy the chart:
+
+`helm upgrade dina-helm ./helm -f helm/values.yaml`
+
+To remove the chart: 
+
+`helm uninstall dina-helm`
 
 
 ### Deploying chart in OKD environment or alternative environments.
@@ -94,3 +100,46 @@ From dina-local-deployment root
 In Helm, when multiple injection values are passed as arguments, such as in this example, the rightmost file takes precedence in overriding previously injected values.
 
 Note that if you require additional alternative override values it is always preferrable to define it in a new injection file.
+
+### Building Local Images
+
+In order to use local images with MiniKube you will need to run the following command:
+
+`minikube image load object-store-api:dev`
+
+Then it can be changed in the values.yaml file:
+
+```
+services:
+  objectstoreapi:
+    image: dina-db-init-container:dev
+```
+
+### Mounting Directories
+
+The following minikube command will allow you to mount a directory to a container inside of your local cluster:
+
+`minikube mount <source directory>:<target directory>`
+
+This command will need to stay running in it's own terminal.
+
+Then the volume will need to be defined in the `helm/templates/deployments` or `helm/templates/jobs` yaml file for the specific container. 
+
+The example below is for the `helm/templates/jobs/db-restore.yaml` to mount a SQL dump for restoring the database. You will first need to add it to the `volumeMounts:` and `volumes:` sections:
+
+```
+minikube mount ./sql-dump:/opt/pgrestore/data/
+```
+
+```
+          volumeMounts:
+            - name: sql-dump-volume
+              mountPath: /opt/pgrestore/data/
+```
+
+```
+      volumes:
+        - name: sql-dump-volume
+          hostPath:
+            path: "/opt/pgrestore/data/"
+```
