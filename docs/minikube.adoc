@@ -1,0 +1,37 @@
+= Minikube
+
+It is possible to use minikube to deploy DINA locally using the helm chart.
+
+== Installing minikube
+
+```
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+```
+ 
+==  Starting minikube
+
+```bash
+minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true --kubernetes-version=stable --memory=6g
+```
+
+Change the cpus and memory according to your local resources.
+
+Note: This is a sample command. The important flags here are:
+```
+ --addons=ingress 
+ --cni=flannel 
+ --install-addons=true
+```
+
+Note:
+Useful alias for running kubectl commands: `alias k="minikube kubectl --"`
+
+== Push local image
+
+To push local (images that are built locally) to minikube :
+
+From the host: `minikube cache add myimage:mytag`
+
+See minikube https://minikube.sigs.k8s.io/docs/handbook/pushing/#2-push-images-using-cache-command[Pushing images] documentation for more information.
+
