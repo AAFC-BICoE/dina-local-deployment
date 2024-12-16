@@ -1,4 +1,4 @@
-{{- if or .Values.services.initdb.environment.RESTORE_DB .Values.services.initdb.environment.RESET_USERS }}
+{{- if or .Values.global.environment.config.db_init.RESTORE_DB .Values.global.environment.config.db_init.RESET_USERS }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -20,6 +20,7 @@ spec:
             limits:
               memory: {{ .Values.resources.initcontainers.limits.memory }} 
               cpu: {{ .Values.resources.initcontainers.limits.cpu }}
+        {{- if .Values.global.environment.git.host }}
         - name: mount-db-restore
           image: alpine/git
           command:
@@ -42,6 +43,7 @@ spec:
             - name: git-secret-volume
               mountPath: /mnt/secrets
               readOnly: true
+        {{- end}}
       containers:
         - name: restore-db
           image: {{ .Values.services.initdb.image }}

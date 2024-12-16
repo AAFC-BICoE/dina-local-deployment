@@ -50,7 +50,7 @@ global:
         datasource_user: web_user_agent
         liquibase_user: migration_user_agent
         liquibase_password:
-            dina_export_api:
+      dina_export_api:
         label: dina-export-api
         service: dina-export-api-service
         datasource_password: 
@@ -150,10 +150,10 @@ global:
     elasticsearch: elasticsearch.dina.localhost
 services:
   initdb:
-    image: aafcbicoe/dina-db-init-container:0.5
+    image: aafcbicoe/dina-db-init-container:0.6
     pullPolicy: IfNotPresent
     environment:
-# Database Connection Environment Variables:
+      # Database Connection Environment Variables:
       POSTGRES_DB: "{{ .Values.global.environment.config.dina_db.db_name }}"
       POSTGRES_PASSWORD: "{{ .Values.global.environment.config.dina_db.db_password }}"
       POSTGRES_USER: "{{ .Values.global.environment.config.dina_db.db_user }}"
@@ -416,7 +416,6 @@ services:
       POSTGRES_DB: "{{ .Values.global.environment.config.keycloak.db_name }}"
       DB_USER: "{{ .Values.global.environment.config.keycloak.db_user }}"
       DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
-      USE_V2: "true"
   searchcli:
     image: aafcbicoe/dina-search-cli:0.36
     environment:

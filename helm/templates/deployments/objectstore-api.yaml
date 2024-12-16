@@ -5,7 +5,7 @@ metadata:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
 spec:
-  replicas: {{ if and .Values.profiles.object_store_api.enabled (not (or .Values.services.initdb.environment.RESTORE_DB .Values.services.initdb.environment.RESET_USERS)) }}1{{ else }}0{{ end }}
+  replicas: {{ if and .Values.profiles.object_store_api.enabled (not (or .Values.global.environment.config.db_init.RESTORE_DB .Values.global.environment.config.db_init.RESET_USERS)) }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
