@@ -54,7 +54,7 @@ spec:
           - name: POSTGRES_USER
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
           - name: POSTGRES_PASSWORD
-            {{- if not .Values.services.initdb.environment.POSTGRES_PASSWORD }}
+            {{- if not .Values.global.environment.config.dina_db.db_password }}
             valueFrom:
               secretKeyRef:
                 name: dina-db-secret
@@ -65,25 +65,25 @@ spec:
 
           # Database Restore
           - name: RESTORE_DB
-            value: {{ .Values.services.initdb.environment.RESTORE_DB }}
+            value: "{{ if .Values.services.initdb.environment.RESTORE_DB }}true{{ else }}false{{ end }}"
           - name: DB_DUMP_FILE_PATH
-            value: {{ .Values.services.initdb.environment.DB_DUMP_FILE_PATH }}
+            value: {{ tpl .Values.services.initdb.environment.DB_DUMP_FILE_PATH . }}
 
           # Reset users / Generate Databases
           - name: RESET_USERS
-            value: {{ .Values.services.initdb.environment.RESET_USERS }}
+            value: "{{ if .Values.services.initdb.environment.RESET_USERS }}true{{ else }}false{{ end }}"
           - name: DINA_DB
-            value: {{ .Values.services.initdb.environment.DINA_DB }}
+            value: {{ tpl .Values.services.initdb.environment.DINA_DB . }}
           - name: DB_USER
-            value: {{ .Values.services.initdb.environment.DB_USER }}
+            value: {{ tpl .Values.services.initdb.environment.DB_USER . }}
           - name: DB_PASSWORD
-            value: {{ .Values.services.initdb.environment.DB_PASSWORD }}
+            value: {{ tpl .Values.services.initdb.environment.DB_PASSWORD . }}
 
           # Agent API (Defined in Values.services.initdb.config.agentapi)
           - name: MIGRATION_USER_agent
             value: {{ tpl .Values.services.initdb.config.agentapi.spring.liquibase.username . }}
           - name: MIGRATION_USER_PW_agent
-            {{- if not .Values.services.initdb.config.agentapi.spring.liquibase.password }}
+            {{- if not .Values.global.environment.config.agent_api.liquibase_password }}
             valueFrom:
               secretKeyRef:
                 name: agentapi-liquibase-secret
@@ -94,7 +94,7 @@ spec:
           - name: WEB_USER_agent
             value: {{ tpl .Values.services.initdb.config.agentapi.spring.datasource.username . }}
           - name: WEB_USER_PW_agent
-            {{- if not .Values.services.initdb.config.agentapi.spring.datasource.password }}
+            {{- if not .Values.global.environment.config.agent_api.datasource_password }}
             valueFrom:
               secretKeyRef:
                 name: agentapi-datasource-secret
@@ -107,7 +107,7 @@ spec:
           - name: MIGRATION_USER_collection
             value: {{ tpl .Values.services.initdb.config.collectionapi.spring.liquibase.username . }}
           - name: MIGRATION_USER_PW_collection
-            {{- if not .Values.services.initdb.config.collectionapi.spring.liquibase.password }}
+            {{- if not .Values.global.environment.config.collection_api.liquibase_password }}
             valueFrom:
               secretKeyRef:
                 name: collection-liquibase-secret
@@ -118,7 +118,7 @@ spec:
           - name: WEB_USER_collection
             value: {{ tpl .Values.services.initdb.config.collectionapi.spring.datasource.username . }}
           - name: WEB_USER_PW_collection
-            {{- if not .Values.services.initdb.config.collectionapi.spring.datasource.password }}
+            {{- if not .Values.global.environment.config.collection_api.datasource_password }}
             valueFrom:
               secretKeyRef:
                 name: collection-datasource-secret
@@ -133,7 +133,7 @@ spec:
           - name: MIGRATION_USER_dina_user
             value: {{ tpl .Values.services.initdb.config.dinauserapi.spring.liquibase.username . }}
           - name: MIGRATION_USER_PW_dina_user
-            {{- if not .Values.services.initdb.config.dinauserapi.spring.liquibase.password }}
+            {{- if not .Values.global.environment.config.dina_user_api.liquibase_password }}
             valueFrom:
               secretKeyRef:
                 name: dinauserapi-liquibase-secret
@@ -144,7 +144,7 @@ spec:
           - name: WEB_USER_dina_user
             value: {{ tpl .Values.services.initdb.config.dinauserapi.spring.datasource.username . }}
           - name: WEB_USER_PW_dina_user
-            {{- if not .Values.services.initdb.config.dinauserapi.spring.datasource.password }}
+            {{- if not .Values.global.environment.config.dina_user_api.datasource_password }}
             valueFrom:
               secretKeyRef:
                 name: dinauserapi-datasource-secret
@@ -157,7 +157,7 @@ spec:
           - name: MIGRATION_USER_export
             value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.liquibase.username . }}
           - name: MIGRATION_USER_PW_export
-            {{- if not .Values.services.initdb.config.dinaexportapi.spring.liquibase.password }}
+            {{- if not .Values.global.environment.config.dina_export_api.liquibase_password }}
             valueFrom:
               secretKeyRef:
                 name: dinaexportapi-liquibase-secret
@@ -168,7 +168,7 @@ spec:
           - name: WEB_USER_export
             value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.datasource.username . }}
           - name: WEB_USER_PW_export
-            {{- if not .Values.services.initdb.config.dinaexportapi.spring.datasource.password }}
+            {{- if not .Values.global.environment.config.dina_export_api.datasource_password }}
             valueFrom:
               secretKeyRef:
                 name: dinaexportapi-datasource-secret
@@ -181,7 +181,7 @@ spec:
           - name: MIGRATION_USER_loan_transaction
             value: {{ tpl .Values.services.initdb.config.loantransactionapi.spring.liquibase.username . }}
           - name: MIGRATION_USER_PW_loan_transaction
-            {{- if not .Values.services.initdb.config.loantransactionapi.spring.liquibase.password }}
+            {{- if not .Values.global.environment.config.loan_transaction_api.liquibase_password }}
             valueFrom:
               secretKeyRef:
                 name: loantransactionapi-liquibase-secret
@@ -192,7 +192,7 @@ spec:
           - name: WEB_USER_loan_transaction
             value: {{ tpl .Values.services.initdb.config.loantransactionapi.spring.datasource.username . }}
           - name: WEB_USER_PW_loan_transaction
-            {{- if not .Values.services.initdb.config.loantransactionapi.spring.datasource.password }}
+            {{- if not .Values.global.environment.config.loan_transaction_api.datasource_password }}
             valueFrom:
               secretKeyRef:
                 name: loantransactionapi-datasource-secret
@@ -205,7 +205,7 @@ spec:
           - name: MIGRATION_USER_object_store
             value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.username . }}
           - name: MIGRATION_USER_PW_object_store
-            {{- if not .Values.services.initdb.config.objectstoreapi.spring.liquibase.password }}
+            {{- if not .Values.global.environment.config.objectstore_api.liquibase_password }}
             valueFrom:
               secretKeyRef:
                 name: objectstore-liquibase-secret
@@ -216,7 +216,7 @@ spec:
           - name: WEB_USER_object_store
             value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.username . }}
           - name: WEB_USER_PW_object_store
-            {{- if not .Values.services.initdb.config.objectstoreapi.spring.datasource.password }}
+            {{- if not .Values.global.environment.config.objectstore_api.datasource_password }}
             valueFrom:
               secretKeyRef:
                 name: objectstore-datasource-secret
@@ -229,7 +229,7 @@ spec:
           - name: MIGRATION_USER_seqdb
             value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.liquibase.username . }}
           - name: MIGRATION_USER_PW_seqdb
-            {{- if not .Values.services.initdb.config.seqdbapi.spring.liquibase.password }}
+            {{- if not .Values.global.environment.config.seqdb_api.liquibase_password }}
             valueFrom:
               secretKeyRef:
                 name: seqdbapi-liquibase-secret
@@ -240,7 +240,7 @@ spec:
           - name: WEB_USER_seqdb
             value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.datasource.username . }}
           - name: WEB_USER_PW_seqdb
-            {{- if not .Values.services.initdb.config.seqdbapi.spring.datasource.password }}
+            {{- if not .Values.global.environment.config.seqdb_api.datasource_password }}
             valueFrom:
               secretKeyRef:
                 name: seqdbapi-datasource-secret
