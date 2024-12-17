@@ -1,0 +1,22 @@
+meta {
+  name: Generate Template
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/objectstore-api/workbook/generation
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "workbook-generation",
+      "attributes": {
+        "columns": ["barcode", "materialSampleName"]
+      }
+    }
+  }
+}

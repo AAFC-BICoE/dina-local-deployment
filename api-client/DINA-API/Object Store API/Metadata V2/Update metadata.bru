@@ -1,0 +1,22 @@
+meta {
+  name: Update metadata
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{base_url}}/objectstore-api/metadata2/01925793-2ace-7f29-829f-5e2d8251870d
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "metadata2",
+        "attributes": {
+          "acCaption": "Test"
+        }
+      }
+    }
+}

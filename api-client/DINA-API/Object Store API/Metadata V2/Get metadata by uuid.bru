@@ -1,0 +1,15 @@
+meta {
+  name: Get metadata by uuid
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{base_url}}/objectstore-api/metadata2/0192e2a9-64e9-734d-842d-b30bc40ef15f?include=derivatives
+  body: none
+  auth: inherit
+}
+
+query {
+  include: derivatives
+}

@@ -1,0 +1,31 @@
+meta {
+  name: Create collecting event
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/collection-api/collecting-event
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "collecting-event",
+        "attributes": {
+          "geographicThesaurus": {
+            "source": "TGN",
+            "subjectId": "123",
+            "preferredTerm": "Ottawa",
+            "preferredParent": "Ontario",
+            "additionalParents": [
+              "Canada",
+              "North America"
+            ]
+          }
+        }
+      }
+    }
+}

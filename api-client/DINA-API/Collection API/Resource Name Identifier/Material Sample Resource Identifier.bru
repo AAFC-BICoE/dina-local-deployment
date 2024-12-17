@@ -1,0 +1,16 @@
+meta {
+  name: Material Sample Resource Identifier
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/collection-api/resource-name-identifier?filter[id][EQ]=aafc&filter[type][EQ]=material-sample
+  body: none
+  auth: inherit
+}
+
+query {
+  filter[id][EQ]: aafc
+  filter[type][EQ]: material-sample
+}
