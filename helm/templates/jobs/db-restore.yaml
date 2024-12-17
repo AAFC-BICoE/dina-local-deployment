@@ -1,4 +1,4 @@
-{{- if or .Values.global.environment.config.db_init.RESTORE_DB .Values.global.environment.config.db_init.RESET_USERS }}
+{{- if or .Values.global.environment.config.db_init.restore_db .Values.global.environment.config.db_init.reset_users }}
 apiVersion: batch/v1
 kind: Job
 metadata:

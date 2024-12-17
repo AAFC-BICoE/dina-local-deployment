@@ -5,7 +5,7 @@ metadata:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-{{ .Values.global.environment.config.seqdb_api.label }}
 spec:
-  replicas: {{ if and .Values.profiles.seqdb_api.enabled (not (or .Values.global.environment.config.db_init.RESTORE_DB .Values.global.environment.config.db_init.RESET_USERS)) }}1{{ else }}0{{ end }}
+  replicas: {{ if and .Values.profiles.seqdb_api.enabled (not (or .Values.global.environment.config.db_init.restore_db .Values.global.environment.config.db_init.reset_users)) }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-{{ .Values.global.environment.config.seqdb_api.label }}
