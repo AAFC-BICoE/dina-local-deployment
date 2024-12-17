@@ -1,0 +1,32 @@
+meta {
+  name: Create Molecular Analysis Result
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/seqdb-api/molecular-analysis-result/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "molecular-analysis-result",
+      "attributes": {
+        "group": "aafc"
+      },
+      "relationships": {
+        "attachments": {
+          "data": [
+            {
+              "id": "99133c40-ddc1-4c05-a515-65c32c915761",
+              "type": "metadata"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+meta {
+  name: Create Molecular Analysis Run Item
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/seqdb-api/molecular-analysis-run-item
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "molecular-analysis-run-item",
+      "attributes": {
+        "usageType": "quality-control"
+      },
+      "relationships": {
+        "run": {
+          "data": {
+            "id": "f5831b6b-70d5-4ce8-9f83-06847f6e0b67",
+            "type": "molecular-analysis-run"
+          }
+        }
+      }
+    }
+  }
+}

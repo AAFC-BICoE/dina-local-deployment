@@ -1,0 +1,32 @@
+meta {
+  name: Create Quality Control
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/seqdb-api/quality-control
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "quality-control",
+      "attributes": {
+        "name": "test-quality-control",
+        "group": "aafc",
+        "qcType": "reserpine_standard"
+      },
+      "relationships": {
+        "molecularAnalysisRunItem": {
+          "data": {
+            "id": "6474b6a6-5f1c-4c8d-81ae-a1b8c9cddee1",
+            "type": "molecular-analysis-run-item"
+          }
+        }
+      }
+    }
+  }
+}
