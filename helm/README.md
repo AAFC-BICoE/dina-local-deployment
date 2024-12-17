@@ -73,6 +73,114 @@ In Helm, when multiple injection values are passed as arguments, such as in this
 
 Note that if you require additional alternative override values it is always preferrable to define it in a new injection file.
 
+### Restore Database Dump and Reset User Credentials 
+
+1. You will need a pgdump .sql file to restore from. This can be generated using the following command:
+
+```bash
+pg_dumpall -U <username> -h <hostname> -f dina_backup.sql
+```
+
+2. The restore must be encrypted in base64:
+
+```bash
+base64 dina_backup.sql > dina_backup.sql.b64 
+```
+
+3. Mount the file into the init-db container
+
+See the Mounting Directories section below for instructions on mounting a folder. The examples in that section are specific to mounting a backup SQL file.
+
+4. Create an override file in `/helm` to restore the database.
+
+This file can be named `restore-db.yaml` for example:
+
+```yaml
+global:
+  environment:
+    config:
+      db_init:
+        restore_db: true
+        db_dump_file_path: /opt/pgrestore/data/dina_backup.sql.b64
+```
+
+If the db-restore-job already exists, it will need to be deleted first:
+
+```bash
+kubectl delete job db-restore-job -n <your-namespace>
+```
+
+Install/Upgrade the new changes:
+
+```bash
+helm install dina-helm ./helm -f helm/values.yaml -f helm/restore-db.yaml
+```
+
+5. Optional - Reset the dina module user credentials
+
+This file can be named `reset-dina-modules.yaml` for example.
+
+```yaml
+global:
+  environment:
+    config:
+      db_init:
+        reset_users: true
+        dina_db: agent collection dina_user object_store seqdb loan_transaction export
+```
+
+The `dina_db` environment variable contains all of the modules that will be reset.
+
+If the db-restore-job already exists, it will need to be deleted first:
+
+```bash
+kubectl delete job db-restore-job -n <your-namespace>
+```
+
+Install/Upgrade the new changes:
+
+```bash
+helm upgrade dina-helm ./helm -f helm/values.yaml -f helm/reset-dina-modules.yaml
+```
+
+6. Optional - Reset a generic user credentials (keycloak for example)
+
+This file can be named `reset-keycloak.yaml` for example.
+
+```yaml
+global:
+  environment:
+    config:
+      db_init:
+        reset_users: true
+        db_user: keycloak_user
+        db_password: 
+          valueFrom:
+            secretKeyRef:
+              name: dina-db-secret
+              key: password
+```
+
+In the example above, this will use the `dina-db-secret` that was automatically generated.
+
+If the db-restore-job already exists, it will need to be deleted first:
+
+```bash
+kubectl delete job db-restore-job -n <your-namespace>
+```
+
+Install/Upgrade the new changes:
+
+```bash
+helm upgrade dina-helm ./helm -f helm/values.yaml -f helm/reset-keycloak.yaml
+```
+
+7. Deploy as normal which will re-enable all the containers:
+
+```bash
+helm upgrade dina-helm ./helm -f helm/values.yaml
+```
+
 ### Building Local Images
 
 In order to use local images with MiniKube you will need to run the following command:
@@ -81,7 +189,7 @@ In order to use local images with MiniKube you will need to run the following co
 
 Then it can be changed in the values.yaml file:
 
-```
+```yaml
 services:
   objectstoreapi:
     image: dina-db-init-container:dev
@@ -99,17 +207,17 @@ Then the volume will need to be defined in the `helm/templates/deployments` or `
 
 The example below is for the `helm/templates/jobs/db-restore.yaml` to mount a SQL dump for restoring the database. You will first need to add it to the `volumeMounts:` and `volumes:` sections:
 
-```
+```bash
 minikube mount ./sql-dump:/opt/pgrestore/data/
 ```
 
-```
+```yaml
           volumeMounts:
             - name: sql-dump-volume
               mountPath: /opt/pgrestore/data/
 ```
 
-```
+```yaml
       volumes:
         - name: sql-dump-volume
           hostPath:
