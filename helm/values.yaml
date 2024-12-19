@@ -30,6 +30,15 @@ global:
       repo: 
       project: 
     config:
+      dina_db:
+        label: dina-db
+        service: dina-db-service
+        db_name: dina
+        db_password: 
+        db_user: pguser
+      db_init:
+        restore_db: false
+        reset_users: false
       agent_api:
         label: agent-api
         service: agent-api-service
@@ -37,13 +46,6 @@ global:
         datasource_user: web_user_agent
         liquibase_user: migration_user_agent
         liquibase_password:
-      dina_db:
-        restore_db: false
-        label: dina-db
-        service: dina-db-service
-        db_name: dina
-        db_password: 
-        db_user: pguser
       dina_export_api:
         label: dina-export-api
         service: dina-export-api-service
@@ -144,13 +146,24 @@ global:
     elasticsearch: elasticsearch.dina.localhost
 services:
   initdb:
-    image: aafcbicoe/dina-db-init-container:0.5
+    image: aafcbicoe/dina-db-init-container:0.6
     pullPolicy: IfNotPresent
     environment:
+      # Database Connection Environment Variables:
       POSTGRES_DB: "{{ .Values.global.environment.config.dina_db.db_name }}"
       POSTGRES_PASSWORD: "{{ .Values.global.environment.config.dina_db.db_password }}"
       POSTGRES_USER: "{{ .Values.global.environment.config.dina_db.db_user }}"
       POSTGRES_HOST: "{{ .Values.global.environment.config.dina_db.service }}"
+
+      # Database Restore Environment Variables:
+      RESTORE_DB: "{{ .Values.global.environment.config.db_init.restore_db }}"
+      DB_DUMP_FILE_PATH: "{{ .Values.global.environment.config.db_init.db_dump_file_path }}"
+
+      # Reset Users / Generate Database Environment Variables:
+      RESET_USERS: "{{ .Values.global.environment.config.db_init.reset_users }}"
+      DB_USER: "{{ .Values.global.environment.config.db_init.db_user }}"
+      DB_PASSWORD: "{{ .Values.global.environment.config.db_init.db_password }}"
+      DINA_DB: "{{ .Values.global.environment.config.db_init.dina_db }}"
     config:
       agentapi:
         DINA_DB: agent
@@ -399,7 +412,6 @@ services:
       POSTGRES_DB: "{{ .Values.global.environment.config.keycloak.db_name }}"
       DB_USER: "{{ .Values.global.environment.config.keycloak.db_user }}"
       DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
-      USE_V2: "true"
   searchcli:
     image: aafcbicoe/dina-search-cli:0.36
     environment:

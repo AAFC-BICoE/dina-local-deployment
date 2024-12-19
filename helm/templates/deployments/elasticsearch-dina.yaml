@@ -6,7 +6,7 @@ metadata:
   name: {{ .Values.app.name }}-elasticsearch-dina
 spec:
   serviceName: {{ .Values.app.name }}-elasticsearch-dina
-  replicas: {{ if and .Values.profiles.search_api.enabled (not .Values.global.environment.config.dina_db.restore_db) }}1{{ else }}0{{ end }}
+  replicas: {{ if and .Values.profiles.search_api.enabled (not (or .Values.global.environment.config.db_init.restore_db .Values.global.environment.config.db_init.reset_users)) }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-elasticsearch-dina

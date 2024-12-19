@@ -1,4 +1,4 @@
-{{- if and .Values.global.environment.isOpenShift .Values.global.environment.config.dina_db.restore_db }}
+{{- if or .Values.global.environment.config.db_init.restore_db .Values.global.environment.config.db_init.reset_users }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -20,6 +20,7 @@ spec:
             limits:
               memory: {{ .Values.resources.initcontainers.limits.memory }} 
               cpu: {{ .Values.resources.initcontainers.limits.cpu }}
+        {{- if .Values.global.environment.git.host }}
         - name: mount-db-restore
           image: alpine/git
           command:
@@ -42,16 +43,18 @@ spec:
             - name: git-secret-volume
               mountPath: /mnt/secrets
               readOnly: true
+        {{- end}}
       containers:
         - name: restore-db
           image: {{ .Values.services.initdb.image }}
           env:
-          - name: RESTORE_DB
-            value: {{ .Values.global.environment.config.dina_db.restore_db | quote }}
-          - name: DB_DUMP_FILE_PATH
-            value: "/mnt/data/sql_dump.sql.b64"
+          # Database Connection:
+          - name: POSTGRES_HOST
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
           - name: POSTGRES_DB
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
+          - name: POSTGRES_USER
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
           - name: POSTGRES_PASSWORD
             {{- if not .Values.global.environment.config.dina_db.db_password }}
             valueFrom:
@@ -61,12 +64,194 @@ spec:
             {{- else }}
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
             {{- end }}
-          - name: POSTGRES_HOST
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
-          - name: POSTGRES_USER
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
+
+          # Database Restore
+          - name: RESTORE_DB
+            value: "{{ if .Values.services.initdb.environment.RESTORE_DB }}true{{ else }}false{{ end }}"
+          - name: DB_DUMP_FILE_PATH
+            value: {{ tpl .Values.services.initdb.environment.DB_DUMP_FILE_PATH . }}
+
+          # Reset users / Generate Databases
+          - name: RESET_USERS
+            value: "{{ if .Values.services.initdb.environment.RESET_USERS }}true{{ else }}false{{ end }}"
           - name: DINA_DB
-            value: {{ .Values.services.initdb.config.collectionapi.DINA_DB }}
+            value: {{ tpl .Values.services.initdb.environment.DINA_DB . }}
+          - name: DB_USER
+            value: {{ tpl .Values.services.initdb.environment.DB_USER . }}
+          - name: DB_PASSWORD
+            value: {{ tpl .Values.services.initdb.environment.DB_PASSWORD . }}
+
+          # Agent API (Defined in Values.services.initdb.config.agentapi)
+          - name: MIGRATION_USER_agent
+            value: {{ tpl .Values.services.initdb.config.agentapi.spring.liquibase.username . }}
+          - name: MIGRATION_USER_PW_agent
+            {{- if not .Values.global.environment.config.agent_api.liquibase_password }}
+            valueFrom:
+              secretKeyRef:
+                name: agentapi-liquibase-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.agentapi.spring.liquibase.password . }}
+            {{- end }}
+          - name: WEB_USER_agent
+            value: {{ tpl .Values.services.initdb.config.agentapi.spring.datasource.username . }}
+          - name: WEB_USER_PW_agent
+            {{- if not .Values.global.environment.config.agent_api.datasource_password }}
+            valueFrom:
+              secretKeyRef:
+                name: agentapi-datasource-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.agentapi.spring.datasource.password . }}
+            {{- end }}
+
+          # Collection API (Defined in Values.services.initdb.config.collectionapi)
+          - name: MIGRATION_USER_collection
+            value: {{ tpl .Values.services.initdb.config.collectionapi.spring.liquibase.username . }}
+          - name: MIGRATION_USER_PW_collection
+            {{- if not .Values.global.environment.config.collection_api.liquibase_password }}
+            valueFrom:
+              secretKeyRef:
+                name: collection-liquibase-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.collectionapi.spring.liquibase.password . }}
+            {{- end }}
+          - name: WEB_USER_collection
+            value: {{ tpl .Values.services.initdb.config.collectionapi.spring.datasource.username . }}
+          - name: WEB_USER_PW_collection
+            {{- if not .Values.global.environment.config.collection_api.datasource_password }}
+            valueFrom:
+              secretKeyRef:
+                name: collection-datasource-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.collectionapi.spring.datasource.password . }}
+            {{- end }}
+          - name: PG_EXTENSION_collection
+            value: {{ .Values.services.initdb.config.collectionapi.PG_EXTENSION_collection }}
+
+          # Dina User API (Defined in Values.services.initdb.config.dinauserapi)
+          - name: MIGRATION_USER_dina_user
+            value: {{ tpl .Values.services.initdb.config.dinauserapi.spring.liquibase.username . }}
+          - name: MIGRATION_USER_PW_dina_user
+            {{- if not .Values.global.environment.config.dina_user_api.liquibase_password }}
+            valueFrom:
+              secretKeyRef:
+                name: dinauserapi-liquibase-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.dinauserapi.spring.liquibase.password . }}
+            {{- end }}
+          - name: WEB_USER_dina_user
+            value: {{ tpl .Values.services.initdb.config.dinauserapi.spring.datasource.username . }}
+          - name: WEB_USER_PW_dina_user
+            {{- if not .Values.global.environment.config.dina_user_api.datasource_password }}
+            valueFrom:
+              secretKeyRef:
+                name: dinauserapi-datasource-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.dinauserapi.spring.datasource.password . }}
+            {{- end }}
+          
+          # DINA Export API (Defined in Values.services.initdb.config.dinaexportapi)
+          - name: MIGRATION_USER_export
+            value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.liquibase.username . }}
+          - name: MIGRATION_USER_PW_export
+            {{- if not .Values.global.environment.config.dina_export_api.liquibase_password }}
+            valueFrom:
+              secretKeyRef:
+                name: dinaexportapi-liquibase-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.liquibase.password . }}
+            {{- end }}
+          - name: WEB_USER_export
+            value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.datasource.username . }}
+          - name: WEB_USER_PW_export
+            {{- if not .Values.global.environment.config.dina_export_api.datasource_password }}
+            valueFrom:
+              secretKeyRef:
+                name: dinaexportapi-datasource-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.datasource.password . }}
+            {{- end }}
+
+          # Loan and Transaction API (Defined in Values.services.initdb.config.loantransactionapi)
+          - name: MIGRATION_USER_loan_transaction
+            value: {{ tpl .Values.services.initdb.config.loantransactionapi.spring.liquibase.username . }}
+          - name: MIGRATION_USER_PW_loan_transaction
+            {{- if not .Values.global.environment.config.loan_transaction_api.liquibase_password }}
+            valueFrom:
+              secretKeyRef:
+                name: loantransactionapi-liquibase-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.loantransactionapi.spring.liquibase.password . }}
+            {{- end }}
+          - name: WEB_USER_loan_transaction
+            value: {{ tpl .Values.services.initdb.config.loantransactionapi.spring.datasource.username . }}
+          - name: WEB_USER_PW_loan_transaction
+            {{- if not .Values.global.environment.config.loan_transaction_api.datasource_password }}
+            valueFrom:
+              secretKeyRef:
+                name: loantransactionapi-datasource-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.loantransactionapi.spring.datasource.password . }}
+            {{- end }}
+
+          # Object Store API (Defined in Values.services.initdb.config.objectstoreapi)
+          - name: MIGRATION_USER_object_store
+            value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.username . }}
+          - name: MIGRATION_USER_PW_object_store
+            {{- if not .Values.global.environment.config.objectstore_api.liquibase_password }}
+            valueFrom:
+              secretKeyRef:
+                name: objectstore-liquibase-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.password . }}
+            {{- end }}
+          - name: WEB_USER_object_store
+            value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.username . }}
+          - name: WEB_USER_PW_object_store
+            {{- if not .Values.global.environment.config.objectstore_api.datasource_password }}
+            valueFrom:
+              secretKeyRef:
+                name: objectstore-datasource-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.password . }}
+            {{- end }}
+
+          # SeqDB API (Defined in Values.services.initdb.config.seqdbapi)
+          - name: MIGRATION_USER_seqdb
+            value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.liquibase.username . }}
+          - name: MIGRATION_USER_PW_seqdb
+            {{- if not .Values.global.environment.config.seqdb_api.liquibase_password }}
+            valueFrom:
+              secretKeyRef:
+                name: seqdbapi-liquibase-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.liquibase.password . }}
+            {{- end }}
+          - name: WEB_USER_seqdb
+            value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.datasource.username . }}
+          - name: WEB_USER_PW_seqdb
+            {{- if not .Values.global.environment.config.seqdb_api.datasource_password }}
+            valueFrom:
+              secretKeyRef:
+                name: seqdbapi-datasource-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.datasource.password . }}
+            {{- end }}
+          - name: PG_EXTENSION_seqdb
+            value: {{ .Values.services.initdb.config.seqdbapi.PG_EXTENSION_collection }}
           volumeMounts:
             - name: emptydir-volume
               mountPath: /mnt/data/

@@ -5,7 +5,7 @@ metadata:
     app: {{ .Values.app.name }}
   name: {{ .Values.app.name }}-keycloak
 spec:
-  replicas: 1
+  replicas: {{ if (not (or .Values.global.environment.config.db_init.restore_db .Values.global.environment.config.db_init.reset_users)) }}1{{ else }}0{{ end }}
   selector:
     matchLabels:
       app: {{ .Values.app.name }}-keycloak
@@ -61,8 +61,6 @@ spec:
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
           - name: DB_NAME
             value: {{ tpl .Values.services.dinadb.environment.POSTGRES_DB . }}
-          - name: USE_V2
-            value: {{ .Values.services.dinadb.environment.USE_V2 | quote }}
           - name : DB_USER
             value: {{ tpl .Values.services.dinadb.environment.DB_USER . }}
           - name: DB_PASSWORD
