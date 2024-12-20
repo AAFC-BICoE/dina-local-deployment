@@ -1,0 +1,23 @@
+meta {
+  name: Index Refresh
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/objectstore-api/index-refresh/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "index-refresh",
+      "id": "0193985f-f8ac-743d-a42d-44859d93ec51",
+      "attributes": {
+        "docType": "metadata"
+      }
+    }
+  }
+}

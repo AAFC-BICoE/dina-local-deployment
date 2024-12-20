@@ -1,0 +1,23 @@
+meta {
+  name: Patch Quality Control
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{base_url}}/seqdb-api/quality-control/01939273-1644-76d4-9151-52f44f07e224
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "id": "01939273-1644-76d4-9151-52f44f07e224",
+      "type": "quality-control",
+      "attributes": {
+        "name": "test-quality-control-1"
+      }
+    }
+  }
+}

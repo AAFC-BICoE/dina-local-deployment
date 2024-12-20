@@ -1,0 +1,23 @@
+meta {
+  name: Update material sample
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/collection-api/material-sample
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "id": "01924920-6a57-7236-8a6c-278adb55246d",
+        "type": "material-sample",
+        "attributes": {
+          "materialSampleName": "test1"
+        }
+      }
+    }
+}

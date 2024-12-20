@@ -1,0 +1,27 @@
+meta {
+  name: Update Molecular Analysis Run Item
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{base_url}}/seqdb-api/molecular-analysis-run-item/c293640b-11fa-48de-bc1d-cf17fd988ec1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "molecular-analysis-run-item",
+      "relationships": {
+        "result": {
+          "data": {
+            "id": "72173510-5bb8-4b69-9a0e-30bc4a240089",
+            "type": "molecular-analysis-result"
+          }
+        }
+      }
+    }
+  }
+}

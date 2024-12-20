@@ -1,0 +1,23 @@
+meta {
+  name: Reindex Request
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/collection-api/index-refresh
+  body: json
+  auth: none
+}
+
+body:json {
+    {
+      "data": {
+        "id": "019276b8-793e-7be7-aa2f-3a8d508c98e8",
+        "type": "index-refresh",
+        "attributes": {
+          "docType": "material-sample"
+        }
+      }
+    }
+}
