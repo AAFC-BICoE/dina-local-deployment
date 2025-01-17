@@ -102,7 +102,7 @@ code --install-extension msjsdiag.debugger-for-chrome
 code --install-extension ms-azuretools.vscode-docker
 code --install-extension gabrielbb.vscode-lombok
 code --install-extension esbenp.prettier-vscode
-code --install-extension ms-vscode.vscode-typescript-tslint-plugin
+code --install-extension dbaeumer.vscode-eslint
 code --install-extension firsttris.vscode-jest-runner
 code --install-extension alefragnani.project-manager
 ----
@@ -190,3 +190,79 @@ Here is an example of a `launch.json` that can be added to an API for VSCode to 
 ----
 
 Just ensure that port lines up with the correct API and the port is exposed for VSCode to attach itself.
+
+=== VSCode Launch Configurations
+
+Here is the complete launch configuration for the DINA API projects using the default ports. This can be edited by going to the "Run and debug" tab in VSCode and clicking the gear icon to edit the `launch.json` file.
+
+[source, json]
+----
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Attach to Agent API Container",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": "5001"
+    },
+    {
+      "type": "java",
+      "name": "Attach to Collection API Container",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": "5002"
+    },
+    {
+      "type": "java",
+      "name": "Attach to Loan Transaction API Container",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": "5003"
+    },
+    {
+      "type": "java",
+      "name": "Attach to User API Container",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": "5004"
+    },
+    {
+      "type": "java",
+      "name": "Attach to Object Store API Container",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": "5005"
+    },
+    {
+      "type": "java",
+      "name": "Attach to SeqDB API Container",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": "5006"
+    },
+    {
+      "type": "java",
+      "name": "Attach to Export API Container",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": "5007"
+    },
+    {
+      "type": "java",
+      "name": "Attach to Search CLI API Container",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": "5008"
+    },
+    {
+      "type": "java",
+      "name": "Attach to Search WS API Container",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": "5009"
+    }
+  ]
+}
+----
