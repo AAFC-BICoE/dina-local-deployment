@@ -350,7 +350,7 @@ services:
       OBJECT_STORE_API_URL: http://object-store-api:8080/api/v1
       AGENT_API_URL: http://agent-api:8080/api/v1
       LOAN_TRANSACTION_API_URL: http://loan-transaction-api:8080/api/v1
-      SEQDB_API_URL: http://seqdb-api:8080/api/v1
+      SEQDB_API_URL: http://seqdb-api:8080/api
       RABBITMQ_HOSTNAME: rabbitmq-dina
       IS_MESSAGE_CONSUMER: "true"
       IS_MESSAGE_PRODUCER: "true"
