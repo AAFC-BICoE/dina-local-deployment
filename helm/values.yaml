@@ -234,7 +234,7 @@ services:
             password: "{{ .Values.global.environment.config.seqdb_api.liquibase_password }}"
         PG_EXTENSION_seqdb: pgcrypto
   agentapi:
-    image: aafcbicoe/agent-api:0.29
+    image: aafcbicoe/agent-api:0.30
     pullPolicy: IfNotPresent
     environment:
       rabbitmq:
@@ -246,7 +246,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.99
+    image: aafcbicoe/natural-history-collection-api:0.100
     pullPolicy: IfNotPresent
     environment:
       rabbitmq:
@@ -296,7 +296,7 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.181.0
+    image: aafcbicoe/dina-ui:0.183.0
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
