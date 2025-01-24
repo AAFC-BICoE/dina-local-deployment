@@ -413,7 +413,7 @@ services:
       DB_USER: "{{ .Values.global.environment.config.keycloak.db_user }}"
       DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
   searchcli:
-    image: aafcbicoe/dina-search-cli:0.37
+    image: aafcbicoe/dina-search-cli:0.38
     environment:
       http_client:
         openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/"
@@ -430,7 +430,7 @@ services:
       IS_MESSAGE_CONSUMER: true
       IS_MESSAGE_PRODUCER: true
   searchws:
-    image: aafcbicoe/dina-search-ws:0.37
+    image: aafcbicoe/dina-search-ws:0.38
     environment:
       elasticsearch:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
