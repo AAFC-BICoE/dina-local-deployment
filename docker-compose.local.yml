@@ -31,7 +31,7 @@ services:
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.17.0
+    image: aafcbicoe/seqdb-api:2.20
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
