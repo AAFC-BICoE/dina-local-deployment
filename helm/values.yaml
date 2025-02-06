@@ -413,7 +413,7 @@ services:
       DB_USER: "{{ .Values.global.environment.config.keycloak.db_user }}"
       DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
   searchcli:
-    image: aafcbicoe/dina-search-cli:0.37
+    image: aafcbicoe/dina-search-cli:0.38
     environment:
       http_client:
         openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/"
@@ -421,22 +421,21 @@ services:
         username: "{{ .Values.global.environment.config.search_cli.http_client.username }}"
         password: "{{ .Values.global.environment.config.search_cli.http_client.password }}"
       ELASTICSEARCH_URL: "{{ .Values.global.environment.config.elasticsearch.service }}"
-      MATERIAL_SAMPLE_URL: http://{{ .Values.global.environment.config.collection_api.service }}:8080/api/v1/material-sample
-      METADATA_URL: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1/metadata
-      ORGANIZATION_URL: http://{{ .Values.global.environment.config.agent_api.service }}:8080/api/v1/organization
-      PERSON_URL: http://{{ .Values.global.environment.config.agent_api.service }}:8080/api/v1/person
-      STORAGE_UNIT_URL: http://{{ .Values.global.environment.config.collection_api.service }}:8080/api/v1/storage-unit
-      LOAN_TRANSACTION_URL: http://{{ .Values.global.environment.config.loan_transaction_api.service }}:8080/api/v1/transaction
+      COLLECTION_API_URL: http://{{ .Values.global.environment.config.collection_api.service }}:8080/api/v1
+      AGENT_API_URL: http://{{ .Values.global.environment.config.agent_api.service }}:8080/api/v1
+      OBJECT_STORE_API_URL: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1
+      LOAN_TRANSACTION_API_URL: http://{{ .Values.global.environment.config.loan_transaction_api.service }}:8080/api/v1
+      SEQDB_API_URL: http://{{ .Values.global.environment.config.seqdb_api.service }}:8080/api
       RABBITMQ_HOSTNAME: "{{ .Values.global.environment.config.rabbitmq.service }}"
       IS_MESSAGE_CONSUMER: true
       IS_MESSAGE_PRODUCER: true
   searchws:
-    image: aafcbicoe/dina-search-ws:0.37
+    image: aafcbicoe/dina-search-ws:0.38
     environment:
       elasticsearch:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
   seqdbapi:
-    image: aafcbicoe/seqdb-api:2.19.0
+    image: aafcbicoe/seqdb-api:2.20.0
     environment:
       spring:
         datasource:

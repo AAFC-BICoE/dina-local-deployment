@@ -1,0 +1,15 @@
+meta {
+  name: Get Run Summary
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/seqdb-api/run-summary?filter[materialSample]=0194a971-8f95-74d4-a924-cb3a83504066
+  body: json
+  auth: inherit
+}
+
+query {
+  filter[materialSample]: 0194a971-8f95-74d4-a924-cb3a83504066
+}
