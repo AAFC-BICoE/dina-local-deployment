@@ -435,7 +435,7 @@ services:
       elasticsearch:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
   seqdbapi:
-    image: aafcbicoe/seqdb-api:2.20
+    image: aafcbicoe/seqdb-api:2.20.0
     environment:
       spring:
         datasource:
