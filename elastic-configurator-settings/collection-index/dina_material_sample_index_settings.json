@@ -8,7 +8,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "2.0"
+        "number" : "2.1"
       }
     },
     "date_detection": true,
@@ -357,6 +357,18 @@
                     }
                   }
                 }
+              },
+              "run-summary": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "run-summary"
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -434,6 +446,54 @@
                   "keyword": {
                     "type": "keyword",
                     "ignore_above": 256
+                  }
+                }
+              },
+              "items": {
+                "properties": {
+                  "name": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  },
+                  "genericMolecularAnalysisItemSummary": {
+                    "properties": {
+                      "name": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
+                      },
+                      "genericMolecularAnalysisSummary": {
+                        "properties": {
+                          "name": {
+                            "type": "text",
+                            "fields": {
+                              "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                              }
+                            }
+                          },
+                          "analysisType": {
+                            "type": "text",
+                            "fields": {
+                              "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
