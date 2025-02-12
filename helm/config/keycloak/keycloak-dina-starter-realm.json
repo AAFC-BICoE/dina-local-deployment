@@ -428,17 +428,6 @@
           "subGroups": []
         },
         {
-          "id": "4ad80118-6317-4a3d-af07-a83a3edef5b3",
-          "name": "dina-admin",
-          "path": "/aafc/dina-admin",
-          "attributes": {},
-          "realmRoles": [
-            "dina-admin"
-          ],
-          "clientRoles": {},
-          "subGroups": []
-        },
-        {
           "id": "a2597c35-e44d-44a5-82ca-07146675d7cf",
           "name": "user",
           "path": "/aafc/user",
