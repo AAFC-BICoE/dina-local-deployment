@@ -18,6 +18,10 @@
         }
       }
     },
+    "data.attributes.managedAttributes.seq_db_legacy": {
+      "type": "text",
+      "enabled": false
+    },
     "included": {
       "type": "nested",
       "include_in_parent": true,
