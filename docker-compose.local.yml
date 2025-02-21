@@ -81,7 +81,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.100
+    image: aafcbicoe/natural-history-collection-api:0.101
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
