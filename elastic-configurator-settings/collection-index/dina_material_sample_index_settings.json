@@ -9,7 +9,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "2.2"
+        "number" : "2.3"
       }
     },
     "date_detection": true,
