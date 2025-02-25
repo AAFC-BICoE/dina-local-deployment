@@ -81,7 +81,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.100
+    image: aafcbicoe/natural-history-collection-api:0.101
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -134,7 +134,7 @@ services:
         condition: service_completed_successfully 
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.19
+    image: aafcbicoe/dina-user-api:0.20
     profiles: ["user_api"]
     mem_limit: 512m
     environment:
@@ -193,7 +193,7 @@ services:
         condition: service_completed_successfully 
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.14
+    image: aafcbicoe/dina-export-api:0.15
     profiles: ["export_api"]
     mem_limit: 512m
     environment:

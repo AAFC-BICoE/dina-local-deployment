@@ -21,6 +21,14 @@
     "data.attributes.managedAttributes.seq_db_legacy": {
       "type": "text",
       "enabled": false
+    "data.attributes.managedAttributes.sample_version": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
     },
     "included": {
       "type": "nested",
