@@ -193,7 +193,7 @@ services:
         condition: service_completed_successfully 
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.14
+    image: aafcbicoe/dina-export-api:0.15
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
