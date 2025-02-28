@@ -389,7 +389,7 @@ services:
     cap_add:
       - IPC_LOCK
   elasticconfigurator:
-    image: aafcbicoe/es-init-container:0.9
+    image: aafcbicoe/es-init-container:0.10
     environment:
       ELASTIC_SERVER_URL: http://elasticsearch-service:9200
       INDEX_CREATE_CMD: ./create-index.sh
