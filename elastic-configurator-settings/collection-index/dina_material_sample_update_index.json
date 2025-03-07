@@ -31,15 +31,6 @@
         }
       }
     },
-    "data.attributes.managedAttributes.tot_phosp_string": {
-      "type": "text",
-      "fields": {
-        "keyword": {
-          "type": "keyword",
-          "ignore_above": 256
-        }
-      }
-    },
     "included": {
       "type": "nested",
       "include_in_parent": true,
