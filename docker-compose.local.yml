@@ -81,7 +81,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.101
+    image: aafcbicoe/natural-history-collection-api:0.102
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -161,7 +161,7 @@ services:
         condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.23
+    image: aafcbicoe/object-store-api:1.24
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
