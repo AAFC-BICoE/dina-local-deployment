@@ -440,6 +440,11 @@ services:
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/seqdb?currentSchema=seqdb
+      rabbitmq:
+        host: "{{ .Values.global.environment.config.rabbitmq.service }}"
+      dina:
+        messaging:
+          isProducer: true
   rabbitmq:
     image: rabbitmq:3.9.29-management-alpine
 
