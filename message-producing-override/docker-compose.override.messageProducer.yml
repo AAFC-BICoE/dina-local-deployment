@@ -15,6 +15,13 @@ services:
     networks:
       - dina_rabbitmq_net
 
+  seqdb-api:
+    environment:
+      dina.messaging.isProducer: "true"
+      rabbitmq.host: rabbitmq-dina
+    networks:
+      - dina_rabbitmq_net
+
   loan-transaction-api:
     environment:
       dina.messaging.isProducer: "true"
