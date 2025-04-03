@@ -4,12 +4,10 @@
 
 The following is required for DINA development:
 
-* Linux operating system
-** On Windows using Virtual Machine
-** On Windows using WSL2 (Not Recommended - Experimental)
+* Linux operating system (Virtual Machine)
 * Visual Studio Code (Install on Linux or see Remote setup below)
 * Docker (Install on Linux)
-+
+
 [source, bash]
 ----
 sudo apt install curl 
@@ -17,8 +15,9 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
 sudo usermod -aG docker ${USER}
 ----
+
 * Docker Compose (Install on Linux)
-+
+
 [source, bash]
 ----
 DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
@@ -26,9 +25,17 @@ mkdir -p $DOCKER_CONFIG/cli-plugins
 curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
 chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
 ----
+
 * Node.js
 
-Install Node Version Manager (NVM): https://github.com/nvm-sh/nvm#installing-and-updating
+Install Node Version Manager (NVM): 
+
+[source, bash]
+----
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
+----
+
+More info: https://github.com/nvm-sh/nvm#installing-and-updating
 
 Install node 18 (codename hydrogen)
 
@@ -38,22 +45,23 @@ nvm install Hydrogen
 ----
 
 * Yarn
-+
+
 [source, bash]
 ----
 corepack enable
-yarn set version stable
+yarn set version 1.22.22
 yarn install
 ----
 
 * Maven
-+
+
 [source, bash]
 ----
 sudo apt install maven
 ----
+
 * Git
-+
+
 [source, bash]
 ----
 sudo apt install git
