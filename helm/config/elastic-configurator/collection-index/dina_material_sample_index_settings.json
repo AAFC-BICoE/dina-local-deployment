@@ -57,6 +57,20 @@
             "type": "text"
           }
         }
+      },
+      {
+        "extension_values_as_text": {
+          "match": "*extensionValues*",
+          "mapping": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
       }
     ],
     "properties": {
