@@ -540,23 +540,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Linux operating system</p>
-<div class="ulist">
-<ul>
-<li>
-<p>On Windows using Virtual Machine</p>
-</li>
-<li>
-<p>On Windows using WSL2 (Not Recommended - Experimental)</p>
-</li>
-</ul>
-</div>
+<p>Linux operating system (Virtual Machine)</p>
 </li>
 <li>
 <p>Visual Studio Code (Install on Linux or see Remote setup below)</p>
 </li>
 <li>
 <p>Docker (Install on Linux)</p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo apt install curl
@@ -565,9 +558,13 @@ sh get-docker.sh
 sudo usermod -aG docker ${USER}</code></pre>
 </div>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Docker Compose (Install on Linux)</p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
@@ -576,14 +573,23 @@ curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compo
 chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose</code></pre>
 </div>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Node.js</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Install Node Version Manager (NVM): <a href="https://github.com/nvm-sh/nvm#installing-and-updating" class="bare">https://github.com/nvm-sh/nvm#installing-and-updating</a></p>
+<p>Install Node Version Manager (NVM):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>More info: <a href="https://github.com/nvm-sh/nvm#installing-and-updating" class="bare">https://github.com/nvm-sh/nvm#installing-and-updating</a></p>
 </div>
 <div class="paragraph">
 <p>Install node 18 (codename hydrogen)</p>
@@ -597,31 +603,39 @@ chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose</code></pre>
 <ul>
 <li>
 <p>Yarn</p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">corepack enable
-yarn set version stable
+yarn set version 1.22.22
 yarn install</code></pre>
 </div>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Maven</p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo apt install maven</code></pre>
 </div>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Git</p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo apt install git</code></pre>
 </div>
-</div>
-</li>
-</ul>
 </div>
 </div>
 <div class="sect2">
@@ -1943,7 +1957,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-01 13:20:02 UTC
+Last updated 2025-04-03 17:14:48 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
