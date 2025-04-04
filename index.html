@@ -609,8 +609,28 @@ chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">corepack enable
-yarn set version 1.22.22
-yarn install</code></pre>
+yarn set version 1.22.21
+yarn install --frozen-lockfile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you see the following error:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">➤ YN0028: │ The lockfile would have been modified by this install, which is explicitly forbidden.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ensure you are using yarn 1.22.21 and node 18:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yarn -v
+1.22.21
+
+node -v
+v18.20.8</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1957,7 +1977,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-03 17:22:57 UTC
+Last updated 2025-04-04 13:55:33 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
