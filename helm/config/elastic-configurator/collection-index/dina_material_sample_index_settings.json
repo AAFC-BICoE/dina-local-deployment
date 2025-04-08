@@ -9,7 +9,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "2.5"
+        "number" : "2.6"
       }
     },
     "date_detection": true,
@@ -55,6 +55,20 @@
           "match": "dwcVerbatim*",
           "mapping": {
             "type": "text"
+          }
+        }
+      },
+      {
+        "extension_values_as_text": {
+          "path_match": "*.extensionValues.*",
+          "mapping": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
           }
         }
       }

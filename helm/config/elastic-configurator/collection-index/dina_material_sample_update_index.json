@@ -1,33 +1,63 @@
 {
   "properties": {
-    "data.attributes.managedAttributes.experimental_replicate": {
-      "type": "text",
-      "fields": {
-        "keyword": {
-          "type": "keyword",
-          "ignore_above": 256
-        }
-      }
-    },
-    "data.attributes.managedAttributes.fermentation_time": {
-      "type": "text",
-      "fields": {
-        "keyword": {
-          "type": "keyword",
-          "ignore_above": 256
-        }
-      }
-    },
-    "data.attributes.managedAttributes.seq_db_legacy": {
-      "type": "text",
-      "index": false
-    },
-    "data.attributes.managedAttributes.sample_version": {
-      "type": "text",
-      "fields": {
-        "keyword": {
-          "type": "keyword",
-          "ignore_above": 256
+    "data": {
+      "properties": {
+        "attributes": {
+          "properties": {
+            "managedAttributes": {
+              "properties": {
+                "sample_version": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }                  
+                },
+                "seq_db_legacy": {
+                  "type": "text",
+                  "index": false
+                },
+                "fermentation_time": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "experimental_replicate": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                }
+              }
+            },
+            "extensionValues": {
+              "type": "object",
+              "properties": {
+                "agronomy_ontology_v1": {
+                  "properties": {
+                    "1000_grain_weight": {
+                      "type": "float"
+                    },
+                    "grain_nitrogen_content": {
+                      "type": "float"
+                    },
+                    "grain_phosphorus_content": {
+                      "type": "float"
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -35,17 +65,21 @@
       "type": "nested",
       "include_in_parent": true,
       "properties": {
-        "attributes.managedAttributes.tot_phosp_string": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
         "attributes": {
           "properties": {
+            "managedAttributes": {
+              "properties": {
+                "tot_phosp_string": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                }
+              }
+            },
             "extensionValues": {
               "properties": {
                 "mixs_water_v4": {
@@ -89,6 +123,49 @@
                           "ignore_above": 256
                         }
                       }
+                    },
+                    "water_content": {
+                      "type": "float"
+                    },
+                    "slope_gradient": {
+                      "type": "long"
+                    },
+                    "ph": {
+                      "type": "float"
+                    },
+                    "tot_nitro": {
+                      "type": "float"
+                    },
+                    "tot_org_carb": {
+                      "type": "float"
+                    }
+                  }
+                },
+                "mixs_sediment_v4": {
+                  "properties": {
+                    "ammonium": {
+                      "type": "float"
+                    },
+                    "calcium": {
+                      "type": "float"
+                    },
+                    "magnesium": {
+                      "type": "float"
+                    },
+                    "nitrate": {
+                      "type": "float"
+                    },
+                    "org_matter": {
+                      "type": "float"
+                    },
+                    "potassium": {
+                      "type": "float"
+                    },
+                    "sodium": {
+                      "type": "float"
+                    },
+                    "tot_carb": {
+                      "type": "float"
                     }
                   }
                 }
