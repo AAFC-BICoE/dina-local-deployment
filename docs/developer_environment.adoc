@@ -49,8 +49,26 @@ nvm install Hydrogen
 [source, bash]
 ----
 corepack enable
-yarn set version 1.22.22
-yarn install
+yarn set version 1.22.21
+yarn install --frozen-lockfile
+----
+
+If you see the following error:
+
+[source, bash]
+----
+➤ YN0028: │ The lockfile would have been modified by this install, which is explicitly forbidden.
+----
+
+Ensure you are using yarn 1.22.21 and node 18:
+
+[source, bash]
+----
+yarn -v
+1.22.21
+
+node -v
+v18.20.8
 ----
 
 * Maven
