@@ -236,24 +236,6 @@
                     "type": "integer"
                   }
                 }
-              },
-              "extensionValues": {
-                "type": "object",
-                "properties": {
-                  "agronomy_ontology_v1": {
-                    "properties": {
-                      "1000_grain_weight": {
-                        "type": "float"
-                      },
-                      "grain_nitrogen_content": {
-                        "type": "float"
-                      },
-                      "grain_phosphorus_content": {
-                        "type": "float"
-                      }
-                    }
-                  }
-                }
               }
             }
           },
@@ -413,58 +395,6 @@
         "properties" : {
           "attributes" : {
             "properties" : {
-              "extensionValues": {
-                "type": "object",
-                "properties": {
-                  "mixs_sediment_v4": {
-                    "properties": {
-                      "ammonium": {
-                        "type": "float"
-                      },
-                      "calcium": {
-                        "type": "float"
-                      },
-                      "magnesium": {
-                        "type": "float"
-                      },
-                      "nitrate": {
-                        "type": "float"
-                      },
-                      "org_matter": {
-                        "type": "float"
-                      },
-                      "potassium": {
-                        "type": "float"
-                      },
-                      "sodium": {
-                        "type": "float"
-                      },
-                      "tot_carb": {
-                        "type": "float"
-                      }
-                    }
-                  },
-                  "mixs_soil_v4": {
-                    "properties": {
-                      "water_content": {
-                        "type": "float"
-                      },
-                      "slope_gradient": {
-                        "type": "long"
-                      },
-                      "ph": {
-                        "type": "float"
-                      },
-                      "tot_nitro": {
-                        "type": "float"
-                      },
-                      "tot_org_carb": {
-                        "type": "float"
-                      }
-                    }
-                  }
-                }
-              },
               "dwcRecordNumber": {
                 "type": "text",
                 "fields": {
