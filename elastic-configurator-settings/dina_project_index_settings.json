@@ -1,0 +1,93 @@
+{
+  "settings": {
+    "index": {
+      "number_of_shards": "1",
+      "number_of_replicas": "1"
+    }
+  },
+  "mappings": {
+    "_meta": {
+      "version": {
+        "number": "1.0"
+      }
+    },
+    "date_detection": true,
+    "numeric_detection": true,
+    "dynamic_templates": [
+      {
+        "includes_as_nested": {
+          "match_mapping_type": "object",
+          "match": "included",
+          "mapping": {
+            "type": "nested"
+          }
+        }
+      },
+      {
+        "id_as_keywords": {
+          "match_mapping_type": "string",
+          "match": "id",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      },
+      {
+        "type_as_keywords": {
+          "match_mapping_type": "string",
+          "match": "type",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      }
+    ],
+    "properties": {
+      "data": {
+        "properties": {
+          "type": {
+            "type": "constant_keyword",
+            "value": "project"
+          },
+          "attributes": {
+            "properties": {
+              "createdBy": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "createdOn": {
+                "type": "date"
+              },
+              "group": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "included": {
+        "type": "nested",
+        "properties": {
+          "attributes": {
+            "properties": {
+              "materialSamples": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
