@@ -392,8 +392,7 @@ services:
     image: aafcbicoe/es-init-container:0.12
     environment:
       ELASTIC_SERVER_URL: http://elasticsearch-service:9200
-      INDEX_CREATE_CMD: ./create-index.sh
-      DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE TRANSACTION
+      DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE TRANSACTION PROJECT
       DINA_AGENT_INDEX_NAME: dina_agent_index
       DINA_AGENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/agent-index/dina_agent_index_settings.json
       DINA_MATERIAL_SAMPLE_INDEX_NAME: dina_material_sample_index
@@ -406,6 +405,8 @@ services:
       DINA_OBJECT_STORE_OPTIONAL_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/object-store-index/object_store_update_index.json
       DINA_TRANSACTION_INDEX_NAME: dina_loan_transaction_index
       DINA_TRANSACTION_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_loan_transaction_index_settings.json
+      DINA_PROJECT_INDEX_NAME: dina_project_index
+      DINA_PROJECT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_project_index_settings.json
   dinadb:
     image: "postgis/postgis:13-3.2"
     environment:
