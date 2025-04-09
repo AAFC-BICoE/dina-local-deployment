@@ -92,6 +92,39 @@
                           "ignore_above": 256
                         }
                       }
+                    },
+                    "conduc": {
+                      "type": "float"
+                    },
+                    "temp": {
+                      "type": "float"
+                    },
+                    "diss_oxygen": {
+                      "type": "float"
+                    },
+                    "diss_hydrogen": {
+                      "type": "float"
+                    },
+                    "diss_inorg_carb": {
+                      "type": "float"
+                    },
+                    "diss_org_carb": {
+                      "type": "float"
+                    },
+                    "diss_org_nitro": {
+                      "type": "float"
+                    },
+                    "part_org_carb": {
+                      "type": "float"
+                    },
+                    "part_org_nitro": {
+                      "type": "float"
+                    },
+                    "tot_diss_nitro": {
+                      "type": "float"
+                    },
+                    "suspend_part_matter": {
+                      "type": "float"
                     }
                   }
                 },
@@ -129,6 +162,9 @@
                     },
                     "slope_gradient": {
                       "type": "long"
+                    },
+                    "slope_aspect": {
+                      "type": "float"
                     },
                     "ph": {
                       "type": "float"
