@@ -326,7 +326,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.39
+    image: aafcbicoe/dina-search-ws:0.40.1
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -338,7 +338,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.39
+    image: aafcbicoe/dina-search-cli:0.40.1
     profiles: ["search_api"]
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
