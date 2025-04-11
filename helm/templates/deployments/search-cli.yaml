@@ -117,5 +117,7 @@ spec:
               path: object-store-index/object_store_index_settings.json
             - key: dina_material_sample_index_settings.json
               path: collection-index/dina_material_sample_index_settings.json
+            - key: dina_material_sample_update_index.json
+              path: collection-index/dina_material_sample_update_index.json
             - key: dina_agent_index_settings.json
               path: agent-index/dina_agent_index_settings.json
