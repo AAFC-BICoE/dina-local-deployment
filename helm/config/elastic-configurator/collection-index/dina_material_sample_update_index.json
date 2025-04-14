@@ -164,7 +164,7 @@
                       "type": "long"
                     },
                     "slope_aspect": {
-                      "type": "float"
+                      "type": "text"
                     },
                     "ph": {
                       "type": "float"
