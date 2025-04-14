@@ -9,7 +9,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "2.6"
+        "number" : "2.6.2"
       }
     },
     "date_detection": true,
@@ -60,7 +60,7 @@
       },
       {
         "extension_values_as_text": {
-          "path_match": "*.extensionValues.*",
+          "path_match": "*.extensionValues.*.*",
           "mapping": {
             "type": "text",
             "fields": {
