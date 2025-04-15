@@ -27,8 +27,6 @@ spec:
           env:
             - name: ELASTIC_SERVER_URL
               value: {{ .Values.services.elasticconfigurator.environment.ELASTIC_SERVER_URL }}
-            - name: INDEX_CREATE_CMD
-              value: {{ .Values.services.elasticconfigurator.environment.INDEX_CREATE_CMD }}
             - name: DINA_INDEX_DECLARATIONS
               value: {{ .Values.services.elasticconfigurator.environment.DINA_INDEX_DECLARATIONS }}
             - name: DINA_AGENT_INDEX_NAME
@@ -55,6 +53,10 @@ spec:
               value: {{ .Values.services.elasticconfigurator.environment.DINA_TRANSACTION_INDEX_NAME }}
             - name: DINA_TRANSACTION_INDEX_SETTINGS_FILE
               value: {{ .Values.services.elasticconfigurator.environment.DINA_TRANSACTION_INDEX_SETTINGS_FILE }}
+            - name: DINA_PROJECT_INDEX_NAME
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_PROJECT_INDEX_NAME }}
+            - name: DINA_PROJECT_INDEX_SETTINGS_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_PROJECT_INDEX_SETTINGS_FILE }}
           resources:
             requests:
               memory: {{ .Values.resources.apis.requests.memory }}
@@ -109,6 +111,8 @@ spec:
           configMap:
             name: elastic-settings
             items:
+            - key: dina_project_index_settings.json
+              path: dina_project_index_settings.json
             - key: dina_loan_transaction_index_settings.json
               path: dina_loan_transaction_index_settings.json
             - key: dina_storage_index_settings.json
