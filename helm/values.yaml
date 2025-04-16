@@ -248,6 +248,12 @@ services:
   collectionapi:
     image: aafcbicoe/natural-history-collection-api:0.102
     pullPolicy: IfNotPresent
+    config:
+      memory_limit_mb: 1024
+      java_opts: |-
+        {{- $memoryLimitMB := .Values.services.collectionapi.config.memory_limit_mb }}
+        {{- $xmxValueMB := mulf $memoryLimitMB 0.8 }}
+        -Xmx{{ printf "%.0f" $xmxValueMB }}m
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
@@ -261,7 +267,7 @@ services:
         allowedIP: prometheus
     resources:
       limits:
-        memory: 1Gi
+        memory: 1024Mi
         cpu: 1
       requests:
         cpu: 80m
