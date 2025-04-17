@@ -248,6 +248,11 @@ services:
   collectionapi:
     image: aafcbicoe/natural-history-collection-api:0.102
     pullPolicy: IfNotPresent
+    config:
+      java_opts: |-
+        {{- $memoryLimitMB := .Values.resources.collectionapi.memory_limit_mb }}
+        {{- $xmxValueMB := mulf $memoryLimitMB 0.8 }}
+        -Xmx{{ printf "%.0f" $xmxValueMB }}m
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
@@ -259,13 +264,6 @@ services:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/collection?currentSchema=collection
       actuator:
         allowedIP: prometheus
-    resources:
-      limits:
-        memory: 1Gi
-        cpu: 1
-      requests:
-        cpu: 80m
-        memory: 768Mi
   dinaexportapi:
     image: aafcbicoe/dina-export-api:0.15
     pullPolicy: IfNotPresent
@@ -480,6 +478,9 @@ resources:
     requests:
       cpu: 80m
       memory: 256Mi
+  collectionapi:
+    memory_limit_mb: 1024
+    cpu_limit_m: 500
   initcontainers:
     limits:
       memory: 256Mi
