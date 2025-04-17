@@ -264,10 +264,6 @@ services:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/collection?currentSchema=collection
       actuator:
         allowedIP: prometheus
-    resources:
-      requests:
-        cpu: 80m
-        memory: 768Mi
   dinaexportapi:
     image: aafcbicoe/dina-export-api:0.15
     pullPolicy: IfNotPresent
