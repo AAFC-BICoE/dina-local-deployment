@@ -140,6 +140,6 @@ spec:
               memory: {{ .Values.resources.apis.requests.memory }}
               cpu: {{ .Values.resources.apis.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.apis.limits.memory }} 
-              cpu: {{ .Values.resources.apis.limits.cpu }}
+              memory: {{ .Values.resources.collectionapi.memory_limit_mb }}Mi
+              cpu: {{ .Values.resources.collectionapi.cpu_limit_m }}m
 status: {}
