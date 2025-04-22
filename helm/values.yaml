@@ -246,7 +246,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.102
+    image: aafcbicoe/natural-history-collection-api:0.103
     pullPolicy: IfNotPresent
     config:
       java_opts: |-
@@ -294,7 +294,7 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.187.0
+    image: aafcbicoe/dina-ui:0.188.1
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
