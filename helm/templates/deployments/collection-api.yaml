@@ -126,6 +126,8 @@ spec:
               {{- end }}
             - name: ACTUATOR_ALLOWEDIP
               value: {{ .Values.services.collectionapi.environment.actuator.allowedIP }}
+            - name: JAVA_OPTS
+              value: "{{ tpl .Values.services.collectionapi.config.java_opts . | trim}}"
           readinessProbe:
             tcpSocket:
               port: 8080
@@ -138,6 +140,6 @@ spec:
               memory: {{ .Values.resources.apis.requests.memory }}
               cpu: {{ .Values.resources.apis.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.apis.limits.memory }} 
-              cpu: {{ .Values.resources.apis.limits.cpu }}
+              memory: {{ .Values.resources.collectionapi.memory_limit_mb }}M
+              cpu: {{ .Values.resources.collectionapi.cpu_limit_m }}m
 status: {}
