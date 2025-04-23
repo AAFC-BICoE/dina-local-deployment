@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.188.0
+    image: aafcbicoe/dina-ui:0.188.1
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
@@ -81,7 +81,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.102
+    image: aafcbicoe/natural-history-collection-api:0.103
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
