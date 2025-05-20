@@ -131,6 +131,7 @@ code --install-extension esbenp.prettier-vscode
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension firsttris.vscode-jest-runner
 code --install-extension alefragnani.project-manager
+code --install-extension firefox-devtools.vscode-firefox-debug
 ----
 
 === VSCode Remote (Optional)
@@ -217,6 +218,68 @@ Here is an example of a `launch.json` that can be added to an API for VSCode to 
 
 Just ensure that port lines up with the correct API and the port is exposed for VSCode to attach itself.
 
+=== UI Debugging
+
+You will need the `firefox-devtools.vscode-firefox-debug` extension installed in order to debug the UI. This extension allows you to debug the UI using the Firefox browser.
+
+For UI debugging, you will need to use firefox and the `Remote Debugging` feature. The following flags will need to be changed on firefox to enable remote debugging:
+
+1. Open Firefox and type `about:config` in the address bar. Click on "Accept the Risk and Continue".
+
+2. Search and change the following settings:
+
+  `devtools.debugger.remote-enabled` to `true`
+  `devtools.chrome.enabled` to `true`
+  `devtools.debugger.prompt-connection` to `false`
+  `devtools.debugger.remote-port` to `6000`
+  `devtools.debugger.force-local` to `false`
+
+3. Close firefox.
+
+4. Open a terminal and run the following command to start firefox with remote debugging enabled:
++
+[source, bash]
+----
+firefox -start-debugger-server
+----
+
+5. You will need to add the following to your `launch.json` file in order to attach the debugger to the firefox instance, it can also be found below in the `VSCode Launch Configurations` section:
++
+[source, json]
+----
+{
+  "name": "Attach to Firefox",
+  "type": "firefox",
+  "request": "attach",
+  "host": "localhost",
+  "port": 6000,
+  "webRoot": "${workspaceFolder}/dina-ui",
+  "url": "https://dina.local/",
+  "pathMappings": [
+    {
+      "url": "webpack://_n_e/common-ui",
+      "path": "${workspaceFolder}/dina-ui/packages/common-ui"
+    }
+  ]
+},
+----
+
+6. Optional if using remote debugging, you will need to port forward the remote debugging port from your VM to your host machine. This can be done by adding a new port forwarding rule in VirtualBox.
++
+.SSH Port Forwarding Rule
+|===
+|Name |Protocol |Host IP |Host Port |Guest IP |Guest Port
+|Firefox Remote Debugging
+|TCP
+|Leave Blank
+|6000
+|Leave Blank
+|6000
+|===
++
+
+Now breakpoints should be able to set in for the DINA UI code and should automatically be hit when the code is executed from the browser.
+
 === VSCode Launch Configurations
 
 Here is the complete launch configuration for the DINA API projects using the default ports. This can be edited by going to the "Run and debug" tab in VSCode and clicking the gear icon to edit the `launch.json` file.
@@ -226,6 +289,21 @@ Here is the complete launch configuration for the DINA API projects using the de
 {
   "version": "0.2.0",
   "configurations": [
+    {
+      "name": "Attach to Firefox",
+      "type": "firefox",
+      "request": "attach",
+      "host": "localhost",
+      "port": 6000,
+      "webRoot": "${workspaceFolder}/dina-ui",
+      "url": "https://dina.local/",
+      "pathMappings": [
+        {
+          "url": "webpack://_n_e/common-ui",
+          "path": "${workspaceFolder}/dina-ui/packages/common-ui"
+        }
+      ]
+    },
     {
       "type": "java",
       "name": "Attach to Agent API Container",
