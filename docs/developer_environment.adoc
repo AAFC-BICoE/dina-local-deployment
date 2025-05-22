@@ -257,6 +257,10 @@ firefox -start-debugger-server
   "url": "https://dina.local/",
   "pathMappings": [
     {
+      "url": "webpack://_n_e/components",
+      "path": "${workspaceFolder}/dina-ui/packages/dina-ui/components"
+    },
+    {
       "url": "webpack://_n_e/common-ui",
       "path": "${workspaceFolder}/dina-ui/packages/common-ui"
     }
@@ -298,6 +302,10 @@ Here is the complete launch configuration for the DINA API projects using the de
       "webRoot": "${workspaceFolder}/dina-ui",
       "url": "https://dina.local/",
       "pathMappings": [
+        {
+          "url": "webpack://_n_e/components",
+          "path": "${workspaceFolder}/dina-ui/packages/dina-ui/components"
+        },
         {
           "url": "webpack://_n_e/common-ui",
           "path": "${workspaceFolder}/dina-ui/packages/common-ui"
