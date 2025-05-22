@@ -1,4 +1,4 @@
-FROM aafcbicoe/dina-ui:0.188.1
+FROM aafcbicoe/dina-ui:0.191.0
 
 # Set the correct permissions
 RUN /bin/sh -c "chown 1001:1001 /usr/bin/caddy && chmod 777 /usr/bin/caddy"
