@@ -450,7 +450,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_recommended_extensions">1.3.1. Recommended Extensions</a></li>
 <li><a href="#_vscode_remote_optional">1.3.2. VSCode Remote (Optional)</a></li>
 <li><a href="#_api_debugging">1.3.3. API Debugging</a></li>
-<li><a href="#_vscode_launch_configurations">1.3.4. VSCode Launch Configurations</a></li>
+<li><a href="#_ui_debugging">1.3.4. UI Debugging</a></li>
+<li><a href="#_vscode_launch_configurations">1.3.5. VSCode Launch Configurations</a></li>
 </ul>
 </li>
 </ul>
@@ -708,7 +709,8 @@ code --install-extension gabrielbb.vscode-lombok
 code --install-extension esbenp.prettier-vscode
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension firsttris.vscode-jest-runner
-code --install-extension alefragnani.project-manager</code></pre>
+code --install-extension alefragnani.project-manager
+code --install-extension firefox-devtools.vscode-firefox-debug</code></pre>
 </div>
 </div>
 </div>
@@ -841,7 +843,107 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_vscode_launch_configurations">1.3.4. VSCode Launch Configurations</h4>
+<h4 id="_ui_debugging">1.3.4. UI Debugging</h4>
+<div class="paragraph">
+<p>You will need the <code>firefox-devtools.vscode-firefox-debug</code> extension installed in order to debug the UI. This extension allows you to debug the UI using the Firefox browser.</p>
+</div>
+<div class="paragraph">
+<p>For UI debugging, you will need to use firefox and the <code>Remote Debugging</code> feature. The following flags will need to be changed on firefox to enable remote debugging:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open Firefox and type <code>about:config</code> in the address bar. Click on "Accept the Risk and Continue".</p>
+</li>
+<li>
+<p>Search and change the following settings:</p>
+<div class="literalblock">
+<div class="content">
+<pre>`devtools.debugger.remote-enabled` to `true`
+`devtools.chrome.enabled` to `true`
+`devtools.debugger.prompt-connection` to `false`
+`devtools.debugger.remote-port` to `6000`
+`devtools.debugger.force-local` to `false`</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Close firefox.</p>
+</li>
+<li>
+<p>Open a terminal and run the following command to start firefox with remote debugging enabled:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">firefox -start-debugger-server</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>You will need to add the following to your <code>launch.json</code> file in order to attach the debugger to the firefox instance, it can also be found below in the <code>VSCode Launch Configurations</code> section:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "Attach to Firefox",
+  "type": "firefox",
+  "request": "attach",
+  "host": "localhost",
+  "port": 6000,
+  "webRoot": "${workspaceFolder}/dina-ui",
+  "url": "https://dina.local/",
+  "pathMappings": [
+    {
+      "url": "webpack://_n_e/components",
+      "path": "${workspaceFolder}/dina-ui/packages/dina-ui/components"
+    },
+    {
+      "url": "webpack://_n_e/common-ui",
+      "path": "${workspaceFolder}/dina-ui/packages/common-ui"
+    }
+  ]
+},</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Optional if using remote debugging, you will need to port forward the remote debugging port from your VM to your host machine. This can be done by adding a new port forwarding rule in VirtualBox.</p>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. SSH Port Forwarding Rule</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Protocol</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host IP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guest IP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guest Port</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Firefox Remote Debugging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Leave Blank</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Leave Blank</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6000</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Now breakpoints should be able to set in for the DINA UI code and should automatically be hit when the code is executed from the browser.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_vscode_launch_configurations">1.3.5. VSCode Launch Configurations</h4>
 <div class="paragraph">
 <p>Here is the complete launch configuration for the DINA API projects using the default ports. This can be edited by going to the "Run and debug" tab in VSCode and clicking the gear icon to edit the <code>launch.json</code> file.</p>
 </div>
@@ -850,6 +952,25 @@ sudo systemctl start ssh</code></pre>
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
   "version": "0.2.0",
   "configurations": [
+    {
+      "name": "Attach to Firefox",
+      "type": "firefox",
+      "request": "attach",
+      "host": "localhost",
+      "port": 6000,
+      "webRoot": "${workspaceFolder}/dina-ui",
+      "url": "https://dina.local/",
+      "pathMappings": [
+        {
+          "url": "webpack://_n_e/components",
+          "path": "${workspaceFolder}/dina-ui/packages/dina-ui/components"
+        },
+        {
+          "url": "webpack://_n_e/common-ui",
+          "path": "${workspaceFolder}/dina-ui/packages/common-ui"
+        }
+      ]
+    },
     {
       "type": "java",
       "name": "Attach to Agent API Container",
@@ -1215,7 +1336,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 <p>In other API clients, you can setup the authentication using these settings:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Authentication Settings</caption>
+<caption class="title">Table 3. Authentication Settings</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1276,7 +1397,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 <p>Most of the API POST requests require a specific "Content-Type" header. The following headers are setup to be inherited to each request inside of the DINA so they do not need to be setup for each request.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Common Headers</caption>
+<caption class="title">Table 4. Common Headers</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1977,7 +2098,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-16 12:10:03 UTC
+Last updated 2025-05-22 12:48:04 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
