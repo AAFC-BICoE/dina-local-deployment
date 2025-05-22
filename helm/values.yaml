@@ -246,7 +246,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.103
+    image: aafcbicoe/natural-history-collection-api:0.104
     pullPolicy: IfNotPresent
     config:
       java_opts: |-
@@ -263,7 +263,7 @@ services:
       actuator:
         allowedIP: prometheus
   dinaexportapi:
-    image: aafcbicoe/dina-export-api:0.15
+    image: aafcbicoe/dina-export-api:0.16
     pullPolicy: IfNotPresent
     environment:
       spring:
@@ -292,7 +292,7 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.188.1
+    image: aafcbicoe/dina-ui:0.191.0
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
@@ -326,7 +326,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
   objectstoreapi:
-    image: aafcbicoe/object-store-api:1.24
+    image: aafcbicoe/object-store-api:1.26
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
@@ -385,7 +385,7 @@ services:
     cap_add:
       - IPC_LOCK
   elasticconfigurator:
-    image: aafcbicoe/es-init-container:0.12
+    image: aafcbicoe/es-init-container:0.13
     environment:
       ELASTIC_SERVER_URL: http://elasticsearch-service:9200
       DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE TRANSACTION PROJECT
@@ -410,7 +410,7 @@ services:
       DB_USER: "{{ .Values.global.environment.config.keycloak.db_user }}"
       DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
   searchcli:
-    image: aafcbicoe/dina-search-cli:0.40
+    image: aafcbicoe/dina-search-cli:0.41
     environment:
       http_client:
         openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/"
@@ -427,7 +427,7 @@ services:
       IS_MESSAGE_CONSUMER: true
       IS_MESSAGE_PRODUCER: true
   searchws:
-    image: aafcbicoe/dina-search-ws:0.40
+    image: aafcbicoe/dina-search-ws:0.41
     environment:
       elasticsearch:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
