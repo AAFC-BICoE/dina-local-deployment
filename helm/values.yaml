@@ -248,9 +248,6 @@ services:
   collectionapi:
     image: aafcbicoe/natural-history-collection-api:0.104
     pullPolicy: IfNotPresent
-    config:
-      java_opts: |-
-        -Xmx{{ include "javaOpsMemory" (dict "memoryLimitMB" .Values.resources.collectionapi.memory_limit_mb ) }}m
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
@@ -433,9 +430,6 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
   seqdbapi:
     image: aafcbicoe/seqdb-api:2.20.0
-    config:
-      java_opts: |-
-        -Xmx{{ include "javaOpsMemory" (dict "memoryLimitMB" .Values.resources.seqdbapi.memory_limit_mb ) }}m
     environment:
       spring:
         datasource:
