@@ -126,8 +126,8 @@ spec:
               {{- end }}
             - name: ACTUATOR_ALLOWEDIP
               value: {{ .Values.services.collectionapi.environment.actuator.allowedIP }}
-            - name: JAVA_OPTS
-              value: "{{ tpl .Values.services.collectionapi.config.java_opts . | trim}}"
+            - name: JDK_JAVA_OPTIONS
+              value: "{{ .Values.services.collectionapi.config.java_opts }}"
           readinessProbe:
             tcpSocket:
               port: 8080
