@@ -119,7 +119,7 @@ spec:
               value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.liquibase.password . }}
               {{- end }}
             - name: JDK_JAVA_OPTIONS
-              value: "{{ .Values.services.collectionapi.config.java_opts }}"
+              value: "{{ .Values.services.seqdbapi.config.java_opts }}"
           readinessProbe:
             tcpSocket:
               port: 8080
