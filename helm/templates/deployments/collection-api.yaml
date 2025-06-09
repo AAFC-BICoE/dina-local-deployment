@@ -127,7 +127,7 @@ spec:
             - name: ACTUATOR_ALLOWEDIP
               value: {{ .Values.services.collectionapi.environment.actuator.allowedIP }}
             - name: JDK_JAVA_OPTIONS
-              value: "-XX:MaxRAMPercentage=80.0 -XX:+UseZGC -XX:+ExitOnOutOfMemoryError"
+              value: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
           readinessProbe:
             tcpSocket:
               port: 8080
