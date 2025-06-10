@@ -3,7 +3,7 @@ version: "3.9"
 services:
   # Nextjs's dev-mode server that hot-reloads the UI source code.
   dina-ui-dev-server:
-    image: node:18.17.1
+    image: node:20
     volumes:
       - "${DINA_UI_REPO_DIRECTORY}:/dina-ui"
     stop_signal: SIGKILL
