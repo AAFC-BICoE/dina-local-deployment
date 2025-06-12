@@ -37,11 +37,12 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
 
 More info: https://github.com/nvm-sh/nvm#installing-and-updating
 
-Install node 18 (codename hydrogen)
+Install node 20
 
 [source, bash]
 ----
-nvm install Hydrogen
+nvm install 20
+nvm use 20
 ----
 
 * Yarn
