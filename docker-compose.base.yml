@@ -33,12 +33,12 @@ services:
     build:
       context: keycloak/.
     environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN_USER}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PW}
       KC_DB_URL_HOST: keycloak-db
       KC_DB_URL_DATABASE: keycloak_db
       KC_DB_USERNAME: keycloak_user
-      KC_DB_PASSWORD: keycloak_user
+      KC_DB_PASSWORD: ${KEYCLOAK_DATABASE_PW}
       KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
       KC_HOSTNAME_ADMIN: ${KEYCLOAK_ADMIN_HOSTNAME}
       KC_PROXY: edge
@@ -65,7 +65,7 @@ services:
     image: "postgres:12"
     environment:
       POSTGRES_DB: keycloak_db
-      POSTGRES_PASSWORD: keycloak_user
+      POSTGRES_PASSWORD: ${KEYCLOAK_DATABASE_PW}
       POSTGRES_USER: keycloak_user
     networks:
       - dina
