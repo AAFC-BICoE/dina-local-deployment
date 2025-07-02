@@ -353,7 +353,7 @@ services:
       MINIO_ROOT_PASSWORD: "{{ .Values.global.environment.config.minio.secretKey }}"
   keycloak:
     pullPolicy: IfNotPresent
-    image: "quay.io/keycloak/keycloak:21.1.0"
+    image: "quay.io/keycloak/keycloak:22.0.5"
     environment:
       KC_DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
       KEYCLOAK_ADMIN: "{{ .Values.global.environment.config.keycloak.keycloak_admin }}"
