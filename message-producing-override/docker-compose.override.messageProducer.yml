@@ -49,8 +49,8 @@ services:
       rabbitmq.password: ${RABBITMQ_DEFAULT_PASS}
       http-client.openid-connect-base-url: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
       http-client.client-id: dina-public
-      http-client.username: ${DINA_SEARCH_CLI_HTTP_USERNAME}
-      http-client.password: ${DINA_SEARCH_CLI_HTTP_PASSWORD}
+      http-client.username: ${DINA_HTTP_DEFAULT_SU_USERNAME}
+      http-client.password: ${DINA_HTTP_DEFAULT_SU_PASSWORD}
 
     networks:
       - dina_rabbitmq_net

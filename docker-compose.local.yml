@@ -346,8 +346,8 @@ services:
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
       http-client.clientId: dina-public
-      http-client.username: $DINA_SEARCH_CLI_HTTP_USERNAME
-      http-client.password: $DINA_SEARCH_CLI_HTTP_PASSWORD
+      http-client.username: ${DINA_HTTP_DEFAULT_SU_USERNAME}
+      http-client.password: ${DINA_HTTP_DEFAULT_SU_PASSWORD}
       ELASTICSEARCH_URL: elasticsearch-dina
       COLLECTION_API_URL: http://collection-api:8080/api/v1
       OBJECT_STORE_API_URL: http://object-store-api:8080/api/v1
