@@ -1,10 +1,10 @@
-FROM quay.io/keycloak/keycloak:21.1.0 as builder
+FROM quay.io/keycloak/keycloak:22.0.5 as builder
 
 ENV KC_DB=postgres
 ENV KC_HTTP_RELATIVE_PATH=/auth
 RUN /opt/keycloak/bin/kc.sh build
 
-FROM quay.io/keycloak/keycloak:21.1.0
+FROM quay.io/keycloak/keycloak:22.0.5
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
 WORKDIR /opt/keycloak
