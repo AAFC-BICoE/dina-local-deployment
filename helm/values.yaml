@@ -326,6 +326,8 @@ services:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
   objectstoreapi:
     image: aafcbicoe/object-store-api:1.26
+    config:
+      java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
@@ -478,6 +480,9 @@ resources:
       cpu: 80m
       memory: 256Mi
   collectionapi:
+    memory_limit_mb: 1024
+    cpu_limit_m: 500
+  objectstoreapi:
     memory_limit_mb: 1024
     cpu_limit_m: 500
   seqdbapi:
