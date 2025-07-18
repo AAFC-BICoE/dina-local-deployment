@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.193.0
+    image: aafcbicoe/dina-ui:0.196.0
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
@@ -31,7 +31,7 @@ services:
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.21.0
+    image: aafcbicoe/seqdb-api:2.22.0
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
@@ -55,7 +55,7 @@ services:
         condition: service_completed_successfully 
 
   agent-api:
-    image: aafcbicoe/agent-api:0.30
+    image: aafcbicoe/agent-api:0.31
     profiles: ["agent_api"]
     mem_limit: 512m
     environment:
@@ -81,7 +81,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.105
+    image: aafcbicoe/natural-history-collection-api:0.106
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -161,7 +161,7 @@ services:
         condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.26
+    image: aafcbicoe/object-store-api:1.27
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
@@ -193,7 +193,7 @@ services:
         condition: service_completed_successfully 
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.16
+    image: aafcbicoe/dina-export-api:0.17
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
