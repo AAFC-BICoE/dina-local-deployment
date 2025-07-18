@@ -234,7 +234,7 @@ services:
             password: "{{ .Values.global.environment.config.seqdb_api.liquibase_password }}"
         PG_EXTENSION_seqdb: pgcrypto
   agentapi:
-    image: aafcbicoe/agent-api:0.30
+    image: aafcbicoe/agent-api:0.31
     pullPolicy: IfNotPresent
     environment:
       rabbitmq:
@@ -246,7 +246,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.105
+    image: aafcbicoe/natural-history-collection-api:0.106
     pullPolicy: IfNotPresent
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
@@ -262,7 +262,7 @@ services:
       actuator:
         allowedIP: prometheus
   dinaexportapi:
-    image: aafcbicoe/dina-export-api:0.16
+    image: aafcbicoe/dina-export-api:0.17
     pullPolicy: IfNotPresent
     environment:
       spring:
@@ -291,7 +291,7 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.193.0
+    image: aafcbicoe/dina-ui:0.196.0
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
@@ -308,7 +308,7 @@ services:
       INSTANCE_NAME: "{{ .Values.global.environment.config.dina_ui.instance_name }}"
       SUPPORTED_LANGUAGES_ISO: "{{ .Values.global.environment.config.dina_ui.supported_languages_iso }}"
   dinauserapi:
-    image: aafcbicoe/dina-user-api:0.21
+    image: aafcbicoe/dina-user-api:0.22
     environment:
       spring:
         datasource:
@@ -325,7 +325,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
   objectstoreapi:
-    image: aafcbicoe/object-store-api:1.26
+    image: aafcbicoe/object-store-api:1.27
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
     environment:
@@ -433,7 +433,7 @@ services:
       elasticsearch:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
   seqdbapi:
-    image: aafcbicoe/seqdb-api:2.20.0
+    image: aafcbicoe/seqdb-api:2.22.0
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
     environment:
