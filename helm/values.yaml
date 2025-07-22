@@ -291,7 +291,7 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.196.0
+    image: aafcbicoe/dina-ui:0.196.1
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
