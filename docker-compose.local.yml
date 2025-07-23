@@ -20,6 +20,8 @@ services:
       INSTANCE_NAME: ${INSTANCE_NAME}
       SUPPORTED_LANGUAGES_ISO: ${SUPPORTED_LANGUAGES_ISO}
       SUPPORTED_GEOINFORMATION_SYSTEMS: ${SUPPORTED_GEOINFORMATION_SYSTEMS}
+      SCIENTIFIC_NAMES_SEARCH_ENDPOINT: ${SCIENTIFIC_NAMES_SEARCH_ENDPOINT}
+      SCIENTIFIC_NAMES_DATASETS_ENDPOINT: ${SCIENTIFIC_NAMES_DATASETS_ENDPOINT}
     networks:
       - dina
     ports:
@@ -344,8 +346,8 @@ services:
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
       http-client.clientId: dina-public
-      http-client.username: cnc-su
-      http-client.password: cnc-su
+      http-client.username: ${DINA_HTTP_DEFAULT_SU_USERNAME}
+      http-client.password: ${DINA_HTTP_DEFAULT_SU_PASSWORD}
       ELASTICSEARCH_URL: elasticsearch-dina
       COLLECTION_API_URL: http://collection-api:8080/api/v1
       OBJECT_STORE_API_URL: http://object-store-api:8080/api/v1
@@ -369,6 +371,9 @@ services:
     profiles: ["search_api"]
     container_name: 'rabbitmq-dina'
     hostname: rabbit_dina_node_1
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     ports:
         - 5672:5672
         - 15672:15672
