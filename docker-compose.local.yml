@@ -20,8 +20,7 @@ services:
       INSTANCE_NAME: ${INSTANCE_NAME}
       SUPPORTED_LANGUAGES_ISO: ${SUPPORTED_LANGUAGES_ISO}
       SUPPORTED_GEOINFORMATION_SYSTEMS: ${SUPPORTED_GEOINFORMATION_SYSTEMS}
-      SCIENTIFIC_NAMES_SEARCH_ENDPOINT: ${SCIENTIFIC_NAMES_SEARCH_ENDPOINT}
-      SCIENTIFIC_NAMES_DATASETS_ENDPOINT: ${SCIENTIFIC_NAMES_DATASETS_ENDPOINT}
+      ENABLE_STATIC_FILES: ${ENABLE_STATIC_FILES}
     networks:
       - dina
     ports:
@@ -31,9 +30,11 @@ services:
       - "traefik.http.routers.ui.tls=true"
       - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
+    volumes:
+      - "${STATIC_FILES_PATH}:/srv/static-ui"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.22.0
+    image: seqdb-api:dev
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
@@ -57,7 +58,7 @@ services:
         condition: service_completed_successfully 
 
   agent-api:
-    image: aafcbicoe/agent-api:0.31
+    image: agent-api:dev 
     profiles: ["agent_api"]
     mem_limit: 512m
     environment:
@@ -83,7 +84,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.106
+    image: collection-api:dev
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -136,7 +137,7 @@ services:
         condition: service_completed_successfully 
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.22
+    image: dina-user-api:dev
     profiles: ["user_api"]
     mem_limit: 512m
     environment:
@@ -163,7 +164,7 @@ services:
         condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.27
+    image: object-store-api:dev
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
@@ -195,7 +196,7 @@ services:
         condition: service_completed_successfully 
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.17
+    image: dina-export-api:dev
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
