@@ -32,7 +32,7 @@ services:
       - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
     volumes:
-      - "${UI_CUSTOMIZATION_FOLDER_PATH}:/srv/static-ui"
+      - "${UI_CUSTOMIZATION_FOLDER_PATH}:/srv/public"
 
   seqdb-api:
     image: aafcbicoe/seqdb-api:2.22.0
