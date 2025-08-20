@@ -22,7 +22,6 @@ services:
       SUPPORTED_GEOINFORMATION_SYSTEMS: ${SUPPORTED_GEOINFORMATION_SYSTEMS}
       SCIENTIFIC_NAMES_SEARCH_ENDPOINT: ${SCIENTIFIC_NAMES_SEARCH_ENDPOINT}
       SCIENTIFIC_NAMES_DATASETS_ENDPOINT: ${SCIENTIFIC_NAMES_DATASETS_ENDPOINT}
-      ENABLE_STATIC_FILES: ${ENABLE_STATIC_FILES}
     networks:
       - dina
     ports:
@@ -33,7 +32,7 @@ services:
       - "traefik.http.routers.ui.rule=Host(`${DINA_UI_HOSTNAME}`)"
       - "traefik.http.services.ui.loadbalancer.server.port=8080"
     volumes:
-      - "${STATIC_FILES_PATH}:/srv/static-ui"
+      - "${UI_CUSTOMIZATION_FOLDER_PATH}:/srv/static-ui"
 
   seqdb-api:
     image: aafcbicoe/seqdb-api:2.22.0
