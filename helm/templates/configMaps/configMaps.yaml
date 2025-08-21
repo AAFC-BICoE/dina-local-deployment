@@ -97,3 +97,10 @@ data:
   HTTP-CLIENT_CLIENT-ID: {{ tpl .Values.services.dinaexportapi.environment.http_client.client_id . }}
   HTTP-CLIENT_USERNAME: {{ tpl .Values.services.dinaexportapi.environment.http_client.username . }}
   HTTP-CLIENT_PASSWORD: {{ tpl .Values.services.dinaexportapi.environment.http_client.password . }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ui-welcome
+data:
+{{ (.Files.Glob "config/ui/welcome-bienvenue.html").AsConfig | indent 2 }}

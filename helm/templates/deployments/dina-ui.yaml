@@ -63,4 +63,11 @@ spec:
             limits:
               memory: {{ .Values.resources.apis.limits.memory }} 
               cpu: {{ .Values.resources.apis.limits.cpu }} 
+          volumeMounts:
+            - name: ui-welcome-volume
+              mountPath: /srv/public
+      volumes:
+        - name: ui-welcome-volume
+          configMap:
+            name: ui-welcome
 status: {}
