@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.199.2
+    image: aafcbicoe/dina-ui:0.201.0
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
@@ -165,7 +165,7 @@ services:
         condition: service_completed_successfully 
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.28
+    image: aafcbicoe/object-store-api:1.29
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:

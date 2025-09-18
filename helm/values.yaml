@@ -291,7 +291,7 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.199.2
+    image: aafcbicoe/dina-ui:0.201.0
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
@@ -325,7 +325,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
   objectstoreapi:
-    image: aafcbicoe/object-store-api:1.28
+    image: aafcbicoe/object-store-api:1.29
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
     environment:
