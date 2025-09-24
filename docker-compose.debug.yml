@@ -7,6 +7,7 @@ services:
       spring.jpa.properties.hibernate.format_sql: true
       logging.level.org.hibernate.SQL: DEBUG
       logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      logging.level.ca.gc.aafc.dina: DEBUG
       JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${AGENT_DEBUG_PORT}
     ports:
       - ${AGENT_DEBUG_PORT}:${AGENT_DEBUG_PORT}
@@ -17,6 +18,7 @@ services:
       spring.jpa.properties.hibernate.format_sql: true
       logging.level.org.hibernate.SQL: DEBUG
       logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      logging.level.ca.gc.aafc.dina: DEBUG
       JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${COLLECTION_DEBUG_PORT}
     ports:
       - ${COLLECTION_DEBUG_PORT}:${COLLECTION_DEBUG_PORT}
@@ -27,6 +29,7 @@ services:
       spring.jpa.properties.hibernate.format_sql: true
       logging.level.org.hibernate.SQL: DEBUG
       logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      logging.level.ca.gc.aafc.dina: DEBUG
       JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${LOAN_TRANSACTION_DEBUG_PORT}
     ports:
       - ${LOAN_TRANSACTION_DEBUG_PORT}:${LOAN_TRANSACTION_DEBUG_PORT}
@@ -37,6 +40,7 @@ services:
       spring.jpa.properties.hibernate.format_sql: true
       logging.level.org.hibernate.SQL: DEBUG
       logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      logging.level.ca.gc.aafc.dina: DEBUG
       JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${USER_DEBUG_PORT}
     ports:
       - ${USER_DEBUG_PORT}:${USER_DEBUG_PORT}
@@ -47,6 +51,7 @@ services:
       spring.jpa.properties.hibernate.format_sql: true
       logging.level.org.hibernate.SQL: DEBUG
       logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      logging.level.ca.gc.aafc.dina: DEBUG
       JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${OBJECT_STORE_DEBUG_PORT}
     ports:
       - ${OBJECT_STORE_DEBUG_PORT}:${OBJECT_STORE_DEBUG_PORT}
@@ -57,6 +62,7 @@ services:
       spring.jpa.properties.hibernate.format_sql: true
       logging.level.org.hibernate.SQL: DEBUG
       logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      logging.level.ca.gc.aafc.dina: DEBUG
       JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${SEQDB_DEBUG_PORT}
     ports:
       - ${SEQDB_DEBUG_PORT}:${SEQDB_DEBUG_PORT}
@@ -67,6 +73,7 @@ services:
       spring.jpa.properties.hibernate.format_sql: true
       logging.level.org.hibernate.SQL: DEBUG
       logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      logging.level.ca.gc.aafc.dina: DEBUG
       JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${EXPORT_API_DEBUG_PORT}
     ports:
       - ${EXPORT_API_DEBUG_PORT}:${EXPORT_API_DEBUG_PORT}
@@ -77,6 +84,7 @@ services:
       spring.jpa.properties.hibernate.format_sql: true
       logging.level.org.hibernate.SQL: DEBUG
       logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      logging.level.ca.gc.aafc.dina: DEBUG
       JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${SEARCH_CLI_DEBUG_PORT}
     ports:
       - ${SEARCH_CLI_DEBUG_PORT}:${SEARCH_CLI_DEBUG_PORT}
@@ -87,6 +95,7 @@ services:
       spring.jpa.properties.hibernate.format_sql: true
       logging.level.org.hibernate.SQL: DEBUG
       logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      logging.level.ca.gc.aafc.dina: DEBUG
       JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${SEARCH_WS_DEBUG_PORT}
     ports:
       - ${SEARCH_WS_DEBUG_PORT}:${SEARCH_WS_DEBUG_PORT}
