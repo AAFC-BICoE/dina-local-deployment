@@ -31,7 +31,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "2.0"
+        "number" : "2.1"
       }
     },
     "date_detection": true,
@@ -101,6 +101,37 @@
                 "type": "date"
               },
               "originalFilename": {
+                "type": "text",
+                "fields": {
+                  "prefix": {
+                    "type": "text",
+                    "analyzer": "keyword_lowercase_analyzer",
+                    "index_prefixes": {
+                      "min_chars" : 1,
+                      "max_chars" : 10
+                    }
+                  },
+                  "prefix_reverse": {
+                    "type": "text",
+                    "analyzer": "keyword_lowercase_reverse_analyzer",
+                    "index_prefixes": {
+                      "min_chars" : 1,
+                      "max_chars" : 10
+                    }
+                  },
+                  "keyword_numeric": {
+                    "type": "icu_collation_keyword",
+                    "index": true,
+                    "numeric": true,
+                    "language": "en"
+                  },
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "filename": {
                 "type": "text",
                 "fields": {
                   "prefix": {
