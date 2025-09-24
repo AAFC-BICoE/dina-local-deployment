@@ -1,5 +1,20 @@
 version: "3.9"
 
+# Configuration for the DINA services
+x-dev-user-config: &dev-user-config
+  SPRING_APPLICATION_JSON: |-
+    {
+      "keycloak.enabled": false,
+      "dev-user": {
+        "enabled": true,
+        "adminRole": ["dina-admin"],
+        "groupRole": {
+          "aafc": ["user"],
+          "bicoe": ["read-only"]
+        }
+      }
+    }
+
 services:
   # Disable keycloak containers
   keycloak:
@@ -11,102 +26,32 @@ services:
     environment:
       KEYCLOAK_ENABLED: false
       DEV_USER_ENABLED: true
-      DEV_USER_GROUP_ROLE: /aafc/user, /bicoe/read-only
+      DEV_USER_GROUP_ROLE: /aafc/user, /bicoe/read-only, dina-admin
 
   agent-api:
     environment:
-      SPRING_APPLICATION_JSON: |-
-        {
-          "keycloak.enabled": false,
-          "dev-user": {
-            "enabled": true,
-            "groupRole": {
-              "aafc": ["user"],
-              "bicoe": ["read-only"]
-            }
-          }
-        }
+      <<: *dev-user-config
 
   collection-api:
     environment:
-      SPRING_APPLICATION_JSON: |-
-        {
-          "keycloak.enabled": false,
-          "dev-user": {
-            "enabled": true,
-            "groupRole": {
-              "aafc": ["user"],
-              "bicoe": ["read-only"]
-            }
-          }
-        }
+      <<: *dev-user-config
 
   loan-transaction-api:
     environment:
-      SPRING_APPLICATION_JSON: |-
-        {
-          "keycloak.enabled": false,
-          "dev-user": {
-            "enabled": true,
-            "groupRole": {
-              "aafc": ["user"],
-              "bicoe": ["read-only"]
-            }
-          }
-        }
+      <<: *dev-user-config
 
   dina-user-api:
     environment:
-      SPRING_APPLICATION_JSON: |-
-        {
-          "keycloak.enabled": false,
-          "dev-user": {
-            "enabled": true,
-            "groupRole": {
-              "aafc": ["user"],
-              "bicoe": ["read-only"]
-            }
-          }
-        }
+      <<: *dev-user-config
 
   object-store-api:
     environment:
-      SPRING_APPLICATION_JSON: |-
-        {
-          "keycloak.enabled": false,
-          "dev-user": {
-            "enabled": true,
-            "groupRole": {
-              "aafc": ["user"],
-              "bicoe": ["read-only"]
-            }
-          }
-        }
+      <<: *dev-user-config
 
   seqdb-api:
     environment:
-      SPRING_APPLICATION_JSON: |-
-        {
-          "keycloak.enabled": false,
-          "dev-user": {
-            "enabled": true,
-            "groupRole": {
-              "aafc": ["user"],
-              "bicoe": ["read-only"]
-            }
-          }
-        }
+      <<: *dev-user-config
 
   dina-export-api:
     environment:
-      SPRING_APPLICATION_JSON: |-
-        {
-          "keycloak.enabled": false,
-          "dev-user": {
-            "enabled": true,
-            "groupRole": {
-              "aafc": ["user"],
-              "bicoe": ["read-only"]
-            }
-          }
-        }
+      <<: *dev-user-config
