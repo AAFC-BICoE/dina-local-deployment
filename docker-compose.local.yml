@@ -111,7 +111,7 @@ services:
         condition: service_completed_successfully 
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.12
+    image: aafcbicoe/loan-transaction-api:0.13
     profiles: ["loan_transaction_api"]
     mem_limit: 512m
     environment:
@@ -331,7 +331,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.42
+    image: aafcbicoe/dina-search-ws:0.44
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -343,7 +343,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.42
+    image: aafcbicoe/dina-search-cli:0.44
     profiles: ["search_api"]
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
