@@ -6,9 +6,9 @@
     }
   },
   "mappings": {
-    "_meta" : {
-      "version" : {
-        "number" : "1.0"
+    "_meta": {
+      "version": {
+        "number": 1.1
       }
     },
     "date_detection": true,
@@ -103,6 +103,19 @@
             "properties": {
               "materialSamples": {
                 "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "meta": {
+        "properties": {
+          "moduleVersion": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
               }
             }
           }
