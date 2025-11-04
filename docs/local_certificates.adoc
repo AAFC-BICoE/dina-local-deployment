@@ -2,14 +2,14 @@
 
 In order to generate development certificates https://github.com/FiloSottile/mkcert[mkcert] will be used.
 
-== Installation (Ubuntu 20)
+== Installation (Ubuntu 22-24)
 
 [source,shell]
 ----
 sudo apt-get install wget libnss3-tools -y
-wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
-sudo chmod +x mkcert-v1.4.3-linux-amd64
-sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert
+wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.4/mkcert-v1.4.4-linux-amd64
+sudo chmod +x mkcert-v1.4.4-linux-amd64
+sudo mv mkcert-v1.4.4-linux-amd64 /usr/bin/mkcert
 ----
 
 Test mkcert is installed correctly:
