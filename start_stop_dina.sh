@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # DINA Modules to activate
 DINA_MODULES=()
 DINA_MODULES+=('user_api')
