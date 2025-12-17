@@ -244,7 +244,7 @@ services:
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch-dina:
     # we need a plugin so a custom image is built (to ensure an immutable Docker image)
-    image: elasticsearch_icu:8.11.10
+    image: elasticsearch_icu:8.11.1
     build: elasticsearch/
     profiles: ["search_api"]
     environment:
