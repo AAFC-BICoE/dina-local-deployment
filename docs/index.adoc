@@ -30,5 +30,7 @@ include::helm.adoc[]
 
 include::jmeter.adoc[]
 
+include::es_mapping.adoc[]
+
 include::docker_network.adoc[]
 
