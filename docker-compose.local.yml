@@ -437,6 +437,8 @@ services:
 volumes:
   elasticsearch-data:
     driver: local
+  elasticsearch8-data:
+    driver: local
   elastic-configurator-settings:
     driver: local
   export-data:
