@@ -1,5 +1,5 @@
 
-== How to Update ElasticSearch Mapping
+= How to Update ElasticSearch Mapping
 
 Mapping settings are stored under `elastic-configurator-settings` folder.
 
