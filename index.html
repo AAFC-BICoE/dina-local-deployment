@@ -2081,6 +2081,19 @@ to be true.</p>
 <code>mappings → properties → data → properties → attributes → properties</code> and nested documents (representing the relationship) would go under <code>mappings → properties → included → properties → attributes → properties</code>.
 Insert your new field definition with its type (ElasticSearch type).</p>
 </div>
+<div class="paragraph">
+<p>Always increment the version number to allow the automatic schema migration.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">  "mappings": {
+    "_meta" : {
+      "version" : {
+        "number" : "2.7"
+      }
+    }</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2113,7 +2126,7 @@ Insert your new field definition with its type (ElasticSearch type).</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-16 20:36:02 UTC
+Last updated 2026-01-16 20:40:21 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
