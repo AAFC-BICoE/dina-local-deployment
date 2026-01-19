@@ -1,133 +1,17 @@
 {
   "properties": {
-    "data": {
-      "properties": {
-        "attributes": {
-          "properties": {
-            "managedAttributes": {
-              "properties": {
-                "seq_db_legacy": {
-                  "type": "text",
-                  "index": false
-                }
-              }
-            },
-            "extensionValues": {
-              "type": "object",
-              "properties": {
-                "agronomy_ontology_v1": {
-                  "properties": {
-                    "1000_grain_weight": {
-                      "type": "float"
-                    },
-                    "grain_nitrogen_content": {
-                      "type": "float"
-                    },
-                    "grain_phosphorus_content": {
-                      "type": "float"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "included": {
       "type": "nested",
       "include_in_parent": true,
       "properties": {
         "attributes": {
           "properties": {
-            "extensionValues": {
-              "properties": {
-                "mixs_water_v4": {
-                  "properties": {
-                    "conduc": {
-                      "type": "float"
-                    },
-                    "temp": {
-                      "type": "float"
-                    },
-                    "diss_oxygen": {
-                      "type": "float"
-                    },
-                    "diss_hydrogen": {
-                      "type": "float"
-                    },
-                    "diss_inorg_carb": {
-                      "type": "float"
-                    },
-                    "diss_org_carb": {
-                      "type": "float"
-                    },
-                    "diss_org_nitro": {
-                      "type": "float"
-                    },
-                    "part_org_carb": {
-                      "type": "float"
-                    },
-                    "part_org_nitro": {
-                      "type": "float"
-                    },
-                    "tot_diss_nitro": {
-                      "type": "float"
-                    },
-                    "suspend_part_matter": {
-                      "type": "float"
-                    }
-                  }
-                },
-                "mixs_soil_v4": {
-                  "properties": {
-                    "water_content": {
-                      "type": "float"
-                    },
-                    "slope_gradient": {
-                      "type": "long"
-                    },
-                    "slope_aspect": {
-                      "type": "float"
-                    },
-                    "ph": {
-                      "type": "float"
-                    },
-                    "tot_nitro": {
-                      "type": "float"
-                    },
-                    "tot_org_carb": {
-                      "type": "float"
-                    }
-                  }
-                },
-                "mixs_sediment_v4": {
-                  "properties": {
-                    "ammonium": {
-                      "type": "float"
-                    },
-                    "calcium": {
-                      "type": "float"
-                    },
-                    "magnesium": {
-                      "type": "float"
-                    },
-                    "nitrate": {
-                      "type": "float"
-                    },
-                    "org_matter": {
-                      "type": "float"
-                    },
-                    "potassium": {
-                      "type": "float"
-                    },
-                    "sodium": {
-                      "type": "float"
-                    },
-                    "tot_carb": {
-                      "type": "float"
-                    }
-                  }
+            "dwcFieldNumber": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
                 }
               }
             }
