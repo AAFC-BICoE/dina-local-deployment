@@ -279,13 +279,18 @@ services:
 
   elasticsearch8-dina:
     # we need a plugin so a custom image is built (to ensure an immutable Docker image)
-    image: elasticsearch_icu:8.11.10
+    image: elasticsearch_icu:8.11.1
     build: elasticsearch8/
     profiles: [ "es8" ]
     environment:
       - "ELASTIC_PASSWORD=DINAIndexPassword3!" # Sets the password on first boot
       - ingest.geoip.downloader.enabled=false
       - xpack.security.enabled=true
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate
+      - xpack.security.transport.ssl.client_authentication=required
+      - xpack.security.transport.ssl.keystore.path=certs/elastic-certificates.p12
+      - xpack.security.transport.ssl.truststore.path=certs/elastic-certificates.p12
       - discovery.type=single-node
       - action.auto_create_index=false
     ulimits:
@@ -299,6 +304,7 @@ services:
       - IPC_LOCK
     volumes:
       - elasticsearch8-data:/usr/share/elasticsearch/data
+      - elasticsearch-certs:/usr/share/elasticsearch/config/certs
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     networks:
@@ -438,6 +444,8 @@ volumes:
   elasticsearch-data:
     driver: local
   elasticsearch8-data:
+    driver: local
+  elasticsearch-certs:
     driver: local
   elastic-configurator-settings:
     driver: local
