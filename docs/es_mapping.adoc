@@ -18,3 +18,5 @@ Always increment the version number to allow the automatic schema migration.
       }
     }
 ----
+
+ElasticSearch schema migration is applied by https://github.com/AAFC-BICoE/dina-search-api/tree/main/es-init-container[es-init-container].
