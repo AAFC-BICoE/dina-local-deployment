@@ -455,6 +455,15 @@
                   }
                 }
               },
+              "dwcFieldNumber": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
               "dwcRecordedBy": {
                 "type": "text",
                 "fields": {
