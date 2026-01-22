@@ -67,10 +67,6 @@ Most of the API POST requests require a specific "Content-Type" header. The foll
 |Content-Type
 |application/vnd.api+json
 |This is only required for POST requests, by default Postman and Insomnia might put `application/json` which will cause an error.
-
-|Crnk-Compact
-|true
-|Optional. Self and related links can make up to 60% of the response payload size and not always are those links of use. In this case the computation of those links is omitted. Further relationships without data are completely omitted.
 |===
 
 == Additional Environments

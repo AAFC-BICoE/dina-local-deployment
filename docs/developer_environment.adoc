@@ -61,16 +61,7 @@ If you see the following error:
 ➤ YN0028: │ The lockfile would have been modified by this install, which is explicitly forbidden.
 ----
 
-Ensure you are using yarn 1.22.21 and node 18:
-
-[source, bash]
-----
-yarn -v
-1.22.21
-
-node -v
-v18.20.8
-----
+Ensure you are using yarn 1.22.21 and node 20:
 
 * Maven
 
@@ -88,7 +79,7 @@ sudo apt install git
 
 == Clone Repositories
 
-To get started, you can git clone all of the projects to your home directory:
+To get started, you can clone the projects where you are planning to update the code to your home directory:
 
 [source, bash]
 ----
@@ -100,18 +91,6 @@ git clone --branch dev https://github.com/AAFC-BICoE/dina-user-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/natural-history-collection-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/loan-transaction-api.git 
 git clone --branch dev https://github.com/AAFC-BICoE/dina-search-api.git 
-----
-
-You can also clone the OpenAPI specification projects:
-
-[source, bash]
-----
-git clone https://github.com/DINA-Web/loan-transaction-specs.git
-git clone https://github.com/DINA-Web/object-store-specs.git
-git clone https://github.com/DINA-Web/collection-specs.git
-git clone https://github.com/DINA-Web/user-specs.git
-git clone https://github.com/DINA-Web/agent-specs.git
-git clone https://github.com/DINA-Web/sequence-specs.git
 ----
 
 == Visual Studio Code
