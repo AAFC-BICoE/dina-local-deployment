@@ -1,0 +1,23 @@
+meta {
+  name: Update person
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{base_url}}/agent-api/person
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "person",
+      "id": "749ff700-c8d0-4343-a42a-10b24cc6cac0",
+      "attributes": {
+        "displayName": "John Doe"
+      }
+    }
+  }
+}

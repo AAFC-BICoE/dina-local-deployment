@@ -86,12 +86,26 @@ sudo apt install maven
 sudo apt install git
 ----
 
+== Setup Hosts file
+
+To access the DINA services locally, you will need to add entries to your `/etc/hosts` file.
+
+In Linux and Mac OSX, this is located at /etc/hosts. You should have the following entries, all pointing to the fixed IP of the Traefik container:
+
+[source, text]
+----
+192.19.33.9 dina.local
+192.19.33.9 api.dina.local
+192.19.33.9 keycloak.dina.local
+----
+
 == Clone Repositories
 
 To get started, you can git clone all of the projects to your home directory:
 
 [source, bash]
 ----
+git clone --branch dev https://github.com/AAFC-BICoE/dina-local-deployment.git
 git clone --branch dev https://github.com/AAFC-BICoE/dina-ui.git
 git clone --branch dev https://github.com/AAFC-BICoE/object-store-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/seqdb-api.git
@@ -133,6 +147,7 @@ code --install-extension dbaeumer.vscode-eslint
 code --install-extension firsttris.vscode-jest-runner
 code --install-extension alefragnani.project-manager
 code --install-extension firefox-devtools.vscode-firefox-debug
+code --install-extension bruno-api-client.bruno
 ----
 
 === VSCode Remote (Optional)

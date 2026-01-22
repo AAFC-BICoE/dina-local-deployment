@@ -1,0 +1,38 @@
+meta {
+  name: Create identifier type
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/agent-api/identifier-type
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "identifier-type",
+      "attributes": {
+        "name": "Test Identifier Type 1",
+        "dinaComponents": [
+          "component1",
+          "component2"
+        ],
+        "multilingualTitle": {
+          "titles": [
+            {
+              "lang": "en",
+              "title": "Test 1"
+            },
+            {
+              "lang": "fr",
+              "title": "Essai 1"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

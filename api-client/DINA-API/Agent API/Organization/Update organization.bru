@@ -1,0 +1,35 @@
+meta {
+  name: Update organization
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{base_url}}/agent-api/organization/b7d52820-945d-4015-96d8-98cc5fa4ce8b
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "organization",
+      "attributes": {
+        "aliases": [
+          "AAFC",
+          "AAF"
+        ],
+        "names": [
+          {
+            "languageCode": "EN",
+            "name": "Agriculture and Agri-food Canada"
+          },
+          {
+            "languageCode": "FR",
+            "name": "Agriculture et Agroalimentaire Canada"
+          }
+        ]
+      }
+    }
+  }
+}
