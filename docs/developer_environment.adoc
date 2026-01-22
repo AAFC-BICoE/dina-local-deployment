@@ -99,6 +99,11 @@ In Linux and Mac OSX, this is located at /etc/hosts. You should have the followi
 192.19.33.9 keycloak.dina.local
 ----
 
+## Local certificates
+
+By default, everything will be accessible on https. In order to allow the local browser to work without issues and warnings
+[local development certificates](https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates) can be installed.
+
 == Clone Repositories
 
 To get started, you can git clone all of the projects to your home directory:

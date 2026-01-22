@@ -14,3 +14,5 @@
 DINA_CONFIGS+=('docker-compose.dev.yml')
 ...
 ----
+
+Next, follow the instructions below on how to start the application:
