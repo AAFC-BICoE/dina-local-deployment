@@ -1,0 +1,35 @@
+meta {
+  name: Create organization
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/agent-api/organization
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "organization",
+      "attributes": {
+        "aliases": [
+          "AAFC",
+          "AAF"
+        ],
+        "names": [
+          {
+            "languageCode": "EN",
+            "name": "Agriculture and Agri-food Canada"
+          },
+          {
+            "languageCode": "FR",
+            "name": "Agriculture et Agroalimentaire Canada"
+          }
+        ]
+      }
+    }
+  }
+}

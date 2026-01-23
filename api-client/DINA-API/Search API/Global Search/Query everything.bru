@@ -1,0 +1,71 @@
+meta {
+  name: Query everything
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/search-api/search-ws/search?indexName=dina_object_store_index,dina_material_sample_index,dina_agent_index
+  body: json
+  auth: inherit
+}
+
+query {
+  indexName: dina_object_store_index,dina_material_sample_index,dina_agent_index
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "size": 0,
+    "query": {
+      "multi_match": {
+        "query": "Test",
+        "fields": [
+          "data.attributes.*"
+        ],
+        "lenient": true
+      }
+    },
+    "aggs": {
+      "index_counts": {
+        "terms": {
+          "field": "_index",
+          "size": 100
+        },
+        "aggs": {
+          "top_results": {
+            "top_hits": {
+              "size": 10,
+              "_source": {
+                "includes": [
+                  "data.id",
+                  "data.type",
+                  "data.attributes.name",
+                  "data.attributes.displayName",
+                  "data.attributes.materialSampleName"
+                ]
+              },
+              "highlight": {
+                "order": "score",
+                "pre_tags": [
+                  "<em>"
+                ],
+                "post_tags": [
+                  "</em>"
+                ],
+                "fields": {
+                  "data.attributes.*": {}
+                },
+                "require_field_match": false
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

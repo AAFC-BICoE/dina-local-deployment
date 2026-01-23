@@ -1,0 +1,22 @@
+meta {
+  name: Reindex One
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/agent-api/index-refresh/
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "index-refresh",
+        "attributes": {
+          "docType": "person"
+        }
+      }
+    }
+}

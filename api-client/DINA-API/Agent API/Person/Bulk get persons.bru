@@ -1,0 +1,35 @@
+meta {
+  name: Bulk get persons
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/agent-api/person/bulk-load
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/vnd.api+json; ext=bulk
+  Accept: application/vnd.api+json
+}
+
+body:json {
+  {
+    "data": [
+      {
+        "type": "person",
+        "id": "fd9e3638-c017-4643-8769-6ef6d0f9234f"
+      },
+      {
+        "type": "person",
+        "id": "64827579-6063-4204-9fdf-ce1edbc8c627"
+      },
+      {
+        "type": "person",
+        "id": "2f58e58f-8425-4b50-a977-29e857f37738"
+      }
+    ]
+  }
+}
