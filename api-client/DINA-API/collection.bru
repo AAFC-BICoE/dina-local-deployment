@@ -1,31 +1,40 @@
-headers {
-  Content-Type: application/vnd.api+json
-  Crnk-Compact: true
-  Authorization: Bearer {{oauth2_token}}
-}
-
 auth {
   mode: oauth2
 }
 
 auth:oauth2 {
   grant_type: authorization_code
-  callback_url: {{callback_url}}
+  callback_url: 
   authorization_url: {{auth_url}}
   access_token_url: {{token_url}}
+  refresh_token_url: {{token_url}}
   client_id: {{client_id}}
   client_secret: 
   scope: {{scope}}
+  state: 
   pkce: false
+  credentials_placement: basic_auth_header
+  credentials_id: credentials
+  token_placement: header
+  token_header_prefix: Bearer
+  auto_fetch_token: true
+  auto_refresh_token: true
 }
 
-script:post-response {
-  // Used to pass the oauth2 token generated to the headers.
-  var token = res.body.access_token;
-  if (token) {
-    bru.setVar('oauth2_token', token);
-  }
+docs {
+  # DINA UI Bruno Collection
   
-  // Can be used for generate a unique name when you need to generate a bunch of entities.
-  bru.setVar('currentMillis', Date.now());
+  > **🚧 UNDER CONSTRUCTION 🚧**
+  > 
+  > This documentation is currently being worked on is not complete.
+  
+  
+  This Bruno API collection is organized around the multiple DINA APIs.
+  
+  ## 🚀 Getting Started
+  
+  At this point, you should have the DINA-API collection imported into the Bruno project. Which is located in the `dina-local-deployment` repo under `/api-client/DINA-API`.
+  
+  1. Select your environment using the Environment Dropdown menu at the top.
+  
 }
