@@ -444,89 +444,104 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_developer_environment_setup">1. Developer Environment Setup</a>
 <ul class="sectlevel2">
 <li><a href="#_prerequisites">1.1. Prerequisites</a></li>
-<li><a href="#_clone_repositories">1.2. Clone Repositories</a></li>
-<li><a href="#_visual_studio_code">1.3. Visual Studio Code</a>
+<li><a href="#_setup_hosts_file">1.2. Setup Hosts file</a></li>
+<li><a href="#_local_certificates">1.3. Local certificates</a></li>
+<li><a href="#_clone_repositories">1.4. Clone Repositories</a></li>
+<li><a href="#_visual_studio_code">1.5. Visual Studio Code</a>
 <ul class="sectlevel3">
-<li><a href="#_recommended_extensions">1.3.1. Recommended Extensions</a></li>
-<li><a href="#_vscode_remote_optional">1.3.2. VSCode Remote (Optional)</a></li>
-<li><a href="#_api_debugging">1.3.3. API Debugging</a></li>
-<li><a href="#_ui_debugging">1.3.4. UI Debugging</a></li>
-<li><a href="#_vscode_launch_configurations">1.3.5. VSCode Launch Configurations</a></li>
+<li><a href="#_recommended_extensions">1.5.1. Recommended Extensions</a></li>
+<li><a href="#_vscode_remote_optional">1.5.2. VSCode Remote (Optional)</a></li>
+<li><a href="#_api_debugging">1.5.3. API Debugging</a></li>
+<li><a href="#_ui_debugging">1.5.4. UI Debugging</a></li>
+<li><a href="#_vscode_launch_configurations">1.5.5. VSCode Launch Configurations</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#_instance_configuration">2. Instance Configuration</a>
+<li><a href="#_dina_ui_development_hot_reloading">2. DINA-UI Development (Hot Reloading)</a></li>
+<li><a href="#_get_everything_running_locally">3. Get Everything Running Locally</a>
 <ul class="sectlevel2">
-<li><a href="#_instance_mode">2.1. Instance Mode</a></li>
-<li><a href="#_instance_name">2.2. Instance Name</a></li>
-<li><a href="#_supported_languages">2.3. Supported Languages</a></li>
-<li><a href="#_supported_geoinformational_systems">2.4. Supported Geoinformational Systems</a></li>
-</ul>
-</li>
-<li><a href="#_using_local_images">3. Using Local Images</a>
-<ul class="sectlevel2">
-<li><a href="#_export_docker_image_to_file">3.1. Export Docker image to file</a></li>
-</ul>
-</li>
-<li><a href="#_dina_ui_development">4. DINA-UI Development</a></li>
-<li><a href="#_api_endpoint_testing">5. API Endpoint Testing</a>
-<ul class="sectlevel2">
-<li><a href="#_applications">5.1. Applications</a></li>
-<li><a href="#_authentication">5.2. Authentication</a></li>
-<li><a href="#_logout_of_session">5.3. Logout of Session</a></li>
-<li><a href="#_headers">5.4. Headers</a></li>
-<li><a href="#_additional_environments">5.5. Additional Environments</a></li>
-</ul>
-</li>
-<li><a href="#_postgresql">6. PostgreSQL</a></li>
-<li><a href="#_messaging">7. Messaging</a></li>
-<li><a href="#_keycloak">8. Keycloak</a>
-<ul class="sectlevel2">
-<li><a href="#_dev_user">8.1. Dev User</a></li>
-<li><a href="#_settings">8.2. Settings</a></li>
-</ul>
-</li>
-<li><a href="#_local_certificates">9. Local certificates</a>
-<ul class="sectlevel2">
-<li><a href="#_installation_ubuntu_22_24">9.1. Installation (Ubuntu 22-24)</a></li>
-</ul>
-</li>
-<li><a href="#_minikube">10. Minikube</a>
-<ul class="sectlevel2">
-<li><a href="#_installing_minikube">10.1. Installing minikube</a></li>
-<li><a href="#_starting_minikube">10.2. Starting minikube</a></li>
-<li><a href="#_push_local_image">10.3. Push local image</a></li>
-</ul>
-</li>
-<li><a href="#_helm">11. Helm</a>
-<ul class="sectlevel2">
-<li><a href="#_installing_helm">11.1. Installing Helm</a></li>
-</ul>
-</li>
-<li><a href="#_how_to_update_elasticsearch_mapping">12. How to Update ElasticSearch Mapping</a></li>
-<li><a href="#_jmeter">13. JMeter</a>
-<ul class="sectlevel2">
-<li><a href="#_installation">13.1. Installation</a></li>
-<li><a href="#_how_to_run">13.2. How to run</a></li>
-<li><a href="#_module_structure">13.3. Module Structure</a>
+<li><a href="#_configuration">3.1. Configuration</a>
 <ul class="sectlevel3">
-<li><a href="#_setup_thread_group">13.3.1. setUp Thread Group</a></li>
-<li><a href="#_endpoint_thread_groups">13.3.2. Endpoint Thread Group(s)</a></li>
-<li><a href="#_teardown_thread_group">13.3.3. tearDown Thread Group</a></li>
+<li><a href="#_dina_module_configuration">3.1.1. DINA Module Configuration</a></li>
+<li><a href="#_dina_configs">3.1.2. DINA Configs</a></li>
 </ul>
 </li>
-<li><a href="#_crud_controllers">13.4. CRUD Controllers</a>
+<li><a href="#_starting_the_stack">3.2. Starting the Stack</a></li>
+<li><a href="#_accessing_the_application">3.3. Accessing the Application</a></li>
+<li><a href="#_stopping_the_stack">3.4. Stopping the Stack</a></li>
+</ul>
+</li>
+<li><a href="#_instance_configuration">4. Instance Configuration</a>
+<ul class="sectlevel2">
+<li><a href="#_instance_mode">4.1. Instance Mode</a></li>
+<li><a href="#_instance_name">4.2. Instance Name</a></li>
+<li><a href="#_supported_languages">4.3. Supported Languages</a></li>
+<li><a href="#_supported_geoinformational_systems">4.4. Supported Geoinformational Systems</a></li>
+</ul>
+</li>
+<li><a href="#_using_local_images">5. Using Local Images</a>
+<ul class="sectlevel2">
+<li><a href="#_export_docker_image_to_file">5.1. Export Docker image to file</a></li>
+</ul>
+</li>
+<li><a href="#_api_endpoint_testing">6. API Endpoint Testing</a>
+<ul class="sectlevel2">
+<li><a href="#_applications">6.1. Applications</a></li>
+<li><a href="#_authentication">6.2. Authentication</a></li>
+<li><a href="#_logout_of_session">6.3. Logout of Session</a></li>
+<li><a href="#_headers">6.4. Headers</a></li>
+<li><a href="#_additional_environments">6.5. Additional Environments</a></li>
+</ul>
+</li>
+<li><a href="#_postgresql">7. PostgreSQL</a></li>
+<li><a href="#_messaging">8. Messaging</a></li>
+<li><a href="#_keycloak">9. Keycloak</a>
+<ul class="sectlevel2">
+<li><a href="#_dev_user">9.1. Dev User</a></li>
+<li><a href="#_settings">9.2. Settings</a></li>
+</ul>
+</li>
+<li><a href="#_local_certificates_2">10. Local certificates</a>
+<ul class="sectlevel2">
+<li><a href="#_installation_ubuntu_22_24">10.1. Installation (Ubuntu 22-24)</a></li>
+</ul>
+</li>
+<li><a href="#_minikube">11. Minikube</a>
+<ul class="sectlevel2">
+<li><a href="#_installing_minikube">11.1. Installing minikube</a></li>
+<li><a href="#_starting_minikube">11.2. Starting minikube</a></li>
+<li><a href="#_push_local_image">11.3. Push local image</a></li>
+</ul>
+</li>
+<li><a href="#_helm">12. Helm</a>
+<ul class="sectlevel2">
+<li><a href="#_installing_helm">12.1. Installing Helm</a></li>
+</ul>
+</li>
+<li><a href="#_how_to_update_elasticsearch_mapping">13. How to Update ElasticSearch Mapping</a></li>
+<li><a href="#_jmeter">14. JMeter</a>
+<ul class="sectlevel2">
+<li><a href="#_installation">14.1. Installation</a></li>
+<li><a href="#_how_to_run">14.2. How to run</a></li>
+<li><a href="#_module_structure">14.3. Module Structure</a>
 <ul class="sectlevel3">
-<li><a href="#_create">13.4.1. Create</a></li>
-<li><a href="#_update">13.4.2. Update</a></li>
-<li><a href="#_delete">13.4.3. Delete</a></li>
-<li><a href="#_assertions">13.4.4. Assertions</a></li>
+<li><a href="#_setup_thread_group">14.3.1. setUp Thread Group</a></li>
+<li><a href="#_endpoint_thread_groups">14.3.2. Endpoint Thread Group(s)</a></li>
+<li><a href="#_teardown_thread_group">14.3.3. tearDown Thread Group</a></li>
+</ul>
+</li>
+<li><a href="#_crud_controllers">14.4. CRUD Controllers</a>
+<ul class="sectlevel3">
+<li><a href="#_create">14.4.1. Create</a></li>
+<li><a href="#_update">14.4.2. Update</a></li>
+<li><a href="#_delete">14.4.3. Delete</a></li>
+<li><a href="#_assertions">14.4.4. Assertions</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#_change_default_docker_address_pool">14. Change default Docker address pool</a></li>
+<li><a href="#_change_default_docker_address_pool">15. Change default Docker address pool</a></li>
 </ul>
 </div>
 </div>
@@ -571,7 +586,7 @@ sudo usermod -aG docker ${USER}</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
 mkdir -p $DOCKER_CONFIG/cli-plugins
-curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+curl -SL https://github.com/docker/compose/releases/download/v5.0.2/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
 chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose</code></pre>
 </div>
 </div>
@@ -616,17 +631,6 @@ yarn set version 1.22.21
 yarn install --frozen-lockfile</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>If you see the following error:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">➤ YN0028: │ The lockfile would have been modified by this install, which is explicitly forbidden.</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Ensure you are using yarn 1.22.21 and node 20:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -653,14 +657,52 @@ yarn install --frozen-lockfile</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_clone_repositories">1.2. Clone Repositories</h3>
+<h3 id="_setup_hosts_file">1.2. Setup Hosts file</h3>
 <div class="paragraph">
-<p>To get started, you can clone the projects where you are planning to update the code to your home directory:</p>
+<p>To access the DINA services locally, you will need to add entries to your <code>/etc/hosts</code> file.</p>
+</div>
+<div class="paragraph">
+<p>In Linux and Mac OSX, this is located at /etc/hosts. You should have the following entries, all pointing to the fixed IP of the Traefik container:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone --branch dev https://github.com/AAFC-BICoE/dina-ui.git
-git clone --branch dev https://github.com/AAFC-BICoE/object-store-api.git
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">192.19.33.9 dina.local
+192.19.33.9 api.dina.local
+192.19.33.9 keycloak.dina.local</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_local_certificates">1.3. Local certificates</h3>
+<div class="paragraph">
+<p>By default, everything will be accessible on https. In order to allow the local browser to work without issues and warnings
+[local development certificates](<a href="https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates" class="bare">https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates</a>) can be installed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clone_repositories">1.4. Clone Repositories</h3>
+<div class="paragraph">
+<p>For local development, you will need to clone the <code>dina-local-deployment</code> repository, this contains the docker-compose files and scripts to run the local environment.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone --branch dev https://github.com/AAFC-BICoE/dina-local-deployment.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For UI development, you will need the UI repository:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone --branch dev https://github.com/AAFC-BICoE/dina-ui.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For API development, you will need to clone the respective API you are working on. Here are all of the main DINA APIs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone --branch dev https://github.com/AAFC-BICoE/object-store-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/seqdb-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/agent-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/dina-user-api.git
@@ -671,12 +713,12 @@ git clone --branch dev https://github.com/AAFC-BICoE/dina-search-api.git</code><
 </div>
 </div>
 <div class="sect2">
-<h3 id="_visual_studio_code">1.3. Visual Studio Code</h3>
+<h3 id="_visual_studio_code">1.5. Visual Studio Code</h3>
 <div class="paragraph">
 <p>Visual Studio Code can be installed directly on your Virtual Machine or on your Windows machine using the VSCode Remote instructions below.</p>
 </div>
 <div class="sect3">
-<h4 id="_recommended_extensions">1.3.1. Recommended Extensions</h4>
+<h4 id="_recommended_extensions">1.5.1. Recommended Extensions</h4>
 <div class="paragraph">
 <p>Once you have VSCode downloaded, you can run this command to install the recommended extensions:</p>
 </div>
@@ -690,12 +732,13 @@ code --install-extension esbenp.prettier-vscode
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension firsttris.vscode-jest-runner
 code --install-extension alefragnani.project-manager
-code --install-extension firefox-devtools.vscode-firefox-debug</code></pre>
+code --install-extension firefox-devtools.vscode-firefox-debug
+code --install-extension bruno-api-client.bruno</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_vscode_remote_optional">1.3.2. VSCode Remote (Optional)</h4>
+<h4 id="_vscode_remote_optional">1.5.2. VSCode Remote (Optional)</h4>
 <div class="paragraph">
 <p>You can avoid running a slow IDE inside your virtual machine by running VS Code on your host machine instead and connecting to the dev environment using VS Code Remote.</p>
 </div>
@@ -789,7 +832,7 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_api_debugging">1.3.3. API Debugging</h4>
+<h4 id="_api_debugging">1.5.3. API Debugging</h4>
 <div class="paragraph">
 <p>To debug an API while using the local deployment, you can use the <code>docker-compose.debug.yml</code> config which can be enabled from the <code>start_stop_dina.sh</code> script.</p>
 </div>
@@ -823,7 +866,7 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_ui_debugging">1.3.4. UI Debugging</h4>
+<h4 id="_ui_debugging">1.5.4. UI Debugging</h4>
 <div class="paragraph">
 <p>You will need the <code>firefox-devtools.vscode-firefox-debug</code> extension installed in order to debug the UI. This extension allows you to debug the UI using the Firefox browser.</p>
 </div>
@@ -923,7 +966,7 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_vscode_launch_configurations">1.3.5. VSCode Launch Configurations</h4>
+<h4 id="_vscode_launch_configurations">1.5.5. VSCode Launch Configurations</h4>
 <div class="paragraph">
 <p>Here is the complete launch configuration for the DINA API projects using the default ports. This can be edited by going to the "Run and debug" tab in VSCode and clicking the gear icon to edit the <code>launch.json</code> file.</p>
 </div>
@@ -1023,7 +1066,237 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_instance_configuration">2. Instance Configuration</h2>
+<h2 id="_dina_ui_development_hot_reloading">2. DINA-UI Development (Hot Reloading)</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Configure the local dina-ui repo path</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Variable: <code>DINA_UI_REPO_DIRECTORY</code> in the <code>.env</code> file</p>
+</li>
+<li>
+<p>Default: points to <code>~/dina-ui</code></p>
+</li>
+<li>
+<p>Ensure this path is pointing to your local dina-ui repo clone. This is where hot-reloading will monitor for changes.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enable the development profile</p>
+<div class="ulist">
+<ul>
+<li>
+<p>In the <code>start_stop_dina.sh</code> script, enable the <code>docker-compose.dev.yml</code> config by uncommenting the line that adds the dev docker-compose file:</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">...
+DINA_CONFIGS+=('docker-compose.dev.yml')
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, follow the instructions below on how to start the application:</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_get_everything_running_locally">3. Get Everything Running Locally</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once you have your development environment set up, you can run the DINA application locally.</p>
+</div>
+<div class="paragraph">
+<p>The <code>dina-local-deployment</code> project contains a <code>start_stop_dina.sh</code> script that acts as a wrapper for Docker Compose. It allows you to select specific modules and configuration layers without typing out long docker compose commands manually.</p>
+</div>
+<div class="sect2">
+<h3 id="_configuration">3.1. Configuration</h3>
+<div class="paragraph">
+<p>To configure your local stack, open <code>start_stop_dina.sh</code> in your text editor. There are two sections that you can modify.</p>
+</div>
+<div class="paragraph">
+<p>Each line can be commented or uncommented to include or exclude that specific module or configuration.</p>
+</div>
+<div class="sect3">
+<h4 id="_dina_module_configuration">3.1.1. DINA Module Configuration</h4>
+<div class="paragraph">
+<p>The <code>DINA_MODULES</code> section defines which containers you wish to run.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Profile Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user_api</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starts the User API service, which handles user authentication and management. This service is required for most other services to function.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object_store_api</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starts the Object Store API service, which handles file uploads, metadata, and storage (images, documents, etc.).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">agent_api</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starts the Agent API service, which manages Agents (People and Organizations).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">search_api</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starts the Search API and Elasticsearch related containers. Provides the search functionality, indexing data into Elasticsearch.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">seqdb_api</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starts the SeqDB API service, which manages molecular and sequence database information.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">export_api</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starts the Export API service, which handles data export requests and generation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">loan_transaction_api</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starts the Loan Transaction API service, which manages loans and transactions of specimens.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kibana</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starts the Kibana dashboard. useful for visualizing data in Elasticsearch.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prometheus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starts Prometheus for scraping and monitoring metrics from the running services.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Important: Enabling too many modules may lead to high resource consumption on your local machine. Only enable the modules you need for your current development work.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dina_configs">3.1.2. DINA Configs</h4>
+<div class="paragraph">
+<p>The <code>DINA_CONFIGS</code> section defines which docker-compose configuration files to include when starting the stack. Each configuration file adds or overrides settings in the base configuration.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Config File</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">docker-compose.base.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required. Defines the core services, networks, and volumes. This is the foundation of the deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">docker-compose.local.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required. Defines the core services, networks and volumes for a local development environment. This is where you can see each specific version of services used for local deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">docker-compose.dev.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Enables hot-reloading for the dina-ui service. Useful for frontend development.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">docker-compose.debug.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Opens remote debugging ports on the Java containers. Enable this to attach a debugger from your IDE.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message-producing-override</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Configures services to emit RabbitMQ messages upon data changes. Recommended for development purposes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">persistence-override</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Configures databases to use persistent volumes on your host machine. Use this if you want your data to survive after running down.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keycloak/docker-compose.enable-dev-user.yml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Disables keycloak and automatically logs in a development user for easier testing without going through the login process.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_starting_the_stack">3.2. Starting the Stack</h3>
+<div class="paragraph">
+<p>To start the DINA application stack, run the following command from the root of the <code>dina-local-deployment</code> project:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_stop_dina.sh up</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will start all the selected configuration and follow the logs in your terminal. To run the stack in detached mode (in the background), use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_stop_dina.sh up -d</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_accessing_the_application">3.3. Accessing the Application</h3>
+<div class="paragraph">
+<p>After all the components have finished initializing, the UI will be available at <code><a href="http://dina.local/" class="bare">http://dina.local/</a></code>. By default, the following users are included:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cnc-su</code>: <code>super-user</code> in the <code>cnc</code> group</p>
+</li>
+<li>
+<p><code>cnc-user</code>: a <code>user</code> in the <code>cnc</code> group</p>
+</li>
+<li>
+<p><code>cnc-guest</code>: a <code>guest</code> in the <code>cnc</code> group</p>
+</li>
+<li>
+<p><code>cnc-ro</code>: a <code>read-only</code> user in the <code>cnc</code> group</p>
+</li>
+<li>
+<p><code>dina-admin</code>: a <code>dina-admin</code> in the <code>aafc</code> group</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The password is the same as the username for all users.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_stopping_the_stack">3.4. Stopping the Stack</h3>
+<div class="paragraph">
+<p>To stop the DINA application stack, run the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_stop_dina.sh stop</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instance_configuration">4. Instance Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>By setting environment variables for the DINA UI container, you can configure certain features and options for the runtime instance.</p>
@@ -1032,7 +1305,7 @@ sudo systemctl start ssh</code></pre>
 <p>These settings can be configured in the <code>.env</code> file.</p>
 </div>
 <div class="sect2">
-<h3 id="_instance_mode">2.1. Instance Mode</h3>
+<h3 id="_instance_mode">4.1. Instance Mode</h3>
 <div class="paragraph">
 <p>The <code>INSTANCE_MODE</code> environment variable specifies the operational mode of the runtime instance.</p>
 </div>
@@ -1047,7 +1320,7 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_instance_name">2.2. Instance Name</h3>
+<h3 id="_instance_name">4.2. Instance Name</h3>
 <div class="paragraph">
 <p>The <code>INSTANCE_NAME</code> environment variable is currently used to generate the feedback URL within the UI.</p>
 </div>
@@ -1059,7 +1332,7 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_supported_languages">2.3. Supported Languages</h3>
+<h3 id="_supported_languages">4.3. Supported Languages</h3>
 <div class="paragraph">
 <p>The <code>SUPPORTED_LANGUAGES</code> environment variable is a comma-separated list of the ISO language codes that the application will support.</p>
 </div>
@@ -1105,7 +1378,7 @@ sudo systemctl start ssh</code></pre>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_supported_geoinformational_systems">2.4. Supported Geoinformational Systems</h3>
+<h3 id="_supported_geoinformational_systems">4.4. Supported Geoinformational Systems</h3>
 <div class="paragraph">
 <p>The <code>SUPPORTED_GEOINFORMATION_SYSTEMS</code> environment variable is a comma-separated list of the geoinformational systems supported by the UI.</p>
 </div>
@@ -1170,7 +1443,7 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_using_local_images">3. Using Local Images</h2>
+<h2 id="_using_local_images">5. Using Local Images</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Running local deployment without making any changes will run the docker-hub deployed API modules. For development purposes, you can follow these steps to test your API changes.</p>
@@ -1234,7 +1507,7 @@ mvn clean install -DskipTests</code></pre>
 <p>You are now running your local changes. It&#8217;s important to understand that you are running the jar generated from step 1, so if you make more changes on the API, you will need to repeat the steps to test your latest changes.</p>
 </div>
 <div class="sect2">
-<h3 id="_export_docker_image_to_file">3.1. Export Docker image to file</h3>
+<h3 id="_export_docker_image_to_file">5.1. Export Docker image to file</h3>
 <div class="paragraph">
 <p>Exporting an image from the local registry:</p>
 </div>
@@ -1255,36 +1528,10 @@ mvn clean install -DskipTests</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_dina_ui_development">4. DINA-UI Development</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To enable dina-ui hot-reloading in dina-local-deployment, you need to configure the dina-ui repo location.
-This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY</code>. By default it looks in the home directory for dina-ui.</p>
-</div>
-<div class="paragraph">
-<p>Any changes to the pointed <code>DINA_UI_REPO_DIRECTORY</code> will cause the page to automatically reload.</p>
-</div>
-<div class="paragraph">
-<p>To use, simply add the override docker-compose configuration for dev: <code>-f docker-compose.dev.yml</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">docker-compose \
--f docker-compose.base.yml \
--f docker-compose.local.yml \
--f docker-compose.dev.yml up</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can also still use profiles or combine this with RabbitMQ messaging as well.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_api_endpoint_testing">5. API Endpoint Testing</h2>
+<h2 id="_api_endpoint_testing">6. API Endpoint Testing</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_applications">5.1. Applications</h3>
+<h3 id="_applications">6.1. Applications</h3>
 <div class="paragraph">
 <p>While any API client can be used, Bruno is our recommended API client and requires no 3rd party accounts.</p>
 </div>
@@ -1305,7 +1552,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect2">
-<h3 id="_authentication">5.2. Authentication</h3>
+<h3 id="_authentication">6.2. Authentication</h3>
 <div class="paragraph">
 <p>If using the Bruno API client with our collection loaded, the Authentication settings will be automatically loaded in.</p>
 </div>
@@ -1363,7 +1610,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect2">
-<h3 id="_logout_of_session">5.3. Logout of Session</h3>
+<h3 id="_logout_of_session">6.3. Logout of Session</h3>
 <div class="paragraph">
 <p>Sometimes you might need to login as a different user for testing, the instructions for clearing your sessions are below:</p>
 </div>
@@ -1372,7 +1619,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect2">
-<h3 id="_headers">5.4. Headers</h3>
+<h3 id="_headers">6.4. Headers</h3>
 <div class="paragraph">
 <p>Most of the API POST requests require a specific "Content-Type" header. The following headers are setup to be inherited to each request inside of the DINA so they do not need to be setup for each request.</p>
 </div>
@@ -1400,7 +1647,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </table>
 </div>
 <div class="sect2">
-<h3 id="_additional_environments">5.5. Additional Environments</h3>
+<h3 id="_additional_environments">6.5. Additional Environments</h3>
 <div class="paragraph">
 <p>Only included in the /api-client repo is the local development environment file. Other environment files can be downloaded from the DINA Wiki under the "Bruno Environments" section.</p>
 </div>
@@ -1408,7 +1655,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect1">
-<h2 id="_postgresql">6. PostgreSQL</h2>
+<h2 id="_postgresql">7. PostgreSQL</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>It is possible to query PostgreSQL when the container is running.</p>
@@ -1424,7 +1671,7 @@ This variable is stored in the <code>.env</code> as <code>DINA_UI_REPO_DIRECTORY
 </div>
 </div>
 <div class="sect1">
-<h2 id="_messaging">7. Messaging</h2>
+<h2 id="_messaging">8. Messaging</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To enable Messaging based on RabbitMQ, combine the <code>--profile search_api</code> with the override file <code>message-producing-override/docker-compose.override.messageProducer.yml</code>.</p>
@@ -1442,10 +1689,10 @@ up -d</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_keycloak">8. Keycloak</h2>
+<h2 id="_keycloak">9. Keycloak</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_dev_user">8.1. Dev User</h3>
+<h3 id="_dev_user">9.1. Dev User</h3>
 <div class="paragraph">
 <p>This option will allow the APIs to start without Keycloak but still function with a dev user.</p>
 </div>
@@ -1495,7 +1742,7 @@ the settings are applied, by default it is applied to all.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_settings">8.2. Settings</h3>
+<h3 id="_settings">9.2. Settings</h3>
 <div class="paragraph">
 <p>Traefik is responsible for TLS termination so Keycloak is configured with <code>KC_PROXY: edge</code>.</p>
 </div>
@@ -1509,13 +1756,13 @@ the settings are applied, by default it is applied to all.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_local_certificates">9. Local certificates</h2>
+<h2 id="_local_certificates_2">10. Local certificates</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In order to generate development certificates <a href="https://github.com/FiloSottile/mkcert">mkcert</a> will be used.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation_ubuntu_22_24">9.1. Installation (Ubuntu 22-24)</h3>
+<h3 id="_installation_ubuntu_22_24">10.1. Installation (Ubuntu 22-24)</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">sudo apt-get install wget libnss3-tools -y
@@ -1546,13 +1793,13 @@ sudo mv mkcert-v1.4.4-linux-amd64 /usr/bin/mkcert</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_minikube">10. Minikube</h2>
+<h2 id="_minikube">11. Minikube</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>It is possible to use minikube to deploy DINA locally using the helm chart.</p>
 </div>
 <div class="sect2">
-<h3 id="_installing_minikube">10.1. Installing minikube</h3>
+<h3 id="_installing_minikube">11.1. Installing minikube</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
@@ -1561,7 +1808,7 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_starting_minikube">10.2. Starting minikube</h3>
+<h3 id="_starting_minikube">11.2. Starting minikube</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true --kubernetes-version=stable --memory=6g</code></pre>
@@ -1586,7 +1833,7 @@ Useful alias for running kubectl commands: <code>alias k="minikube kubectl --"</
 </div>
 </div>
 <div class="sect2">
-<h3 id="_push_local_image">10.3. Push local image</h3>
+<h3 id="_push_local_image">11.3. Push local image</h3>
 <div class="paragraph">
 <p>To push local (images that are built locally) to minikube :</p>
 </div>
@@ -1600,10 +1847,10 @@ Useful alias for running kubectl commands: <code>alias k="minikube kubectl --"</
 </div>
 </div>
 <div class="sect1">
-<h2 id="_helm">11. Helm</h2>
+<h2 id="_helm">12. Helm</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_installing_helm">11.1. Installing Helm</h3>
+<h3 id="_installing_helm">12.1. Installing Helm</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
@@ -1615,7 +1862,7 @@ chmod 700 get_helm.sh
 </div>
 </div>
 <div class="sect1">
-<h2 id="_how_to_update_elasticsearch_mapping">12. How to Update ElasticSearch Mapping</h2>
+<h2 id="_how_to_update_elasticsearch_mapping">13. How to Update ElasticSearch Mapping</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Mapping settings are stored under <code>elastic-configurator-settings</code> folder.</p>
@@ -1644,13 +1891,13 @@ Insert your new field definition with its type (ElasticSearch type).</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_jmeter">13. JMeter</h2>
+<h2 id="_jmeter">14. JMeter</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://jmeter.apache.org/index.html">Apache JMeter</a> is used to execute performance/stress test plan.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation">13.1. Installation</h3>
+<h3 id="_installation">14.1. Installation</h3>
 <div class="paragraph">
 <p>You will need to have java installed on your system. Insure it&#8217;s installed using:</p>
 </div>
@@ -1681,7 +1928,7 @@ $ ./jmeter</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_how_to_run">13.2. How to run</h3>
+<h3 id="_how_to_run">14.2. How to run</h3>
 <div class="paragraph">
 <p>You can start JMeter in GUI mode (default) and open the test plan to visualize it.</p>
 </div>
@@ -1695,7 +1942,7 @@ $ ./jmeter</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_module_structure">13.3. Module Structure</h3>
+<h3 id="_module_structure">14.3. Module Structure</h3>
 <div class="paragraph">
 <p>The JMeter test plan is constructed as follows</p>
 </div>
@@ -1720,7 +1967,7 @@ $ ./jmeter</code></pre>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_setup_thread_group">13.3.1. setUp Thread Group</h4>
+<h4 id="_setup_thread_group">14.3.1. setUp Thread Group</h4>
 <div class="paragraph">
 <p>The setUp Thread Group will be executed prior to any regular thread groups, allowing us to setup
 access privileges as well as create any records that may be required by regular thread groups.</p>
@@ -1730,7 +1977,7 @@ access privileges as well as create any records that may be required by regular 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_endpoint_thread_groups">13.3.2. Endpoint Thread Group(s)</h4>
+<h4 id="_endpoint_thread_groups">14.3.2. Endpoint Thread Group(s)</h4>
 <div class="paragraph">
 <p>Each endpoint within the corresponding module will contain a corresponding endpoint thread group.
 A thread group will be responsible for setting up and testing the respective endpoint&#8217;s CRUD operations.</p>
@@ -1803,7 +2050,7 @@ that offer no unique functionality, being used primarily for organizational purp
 </div>
 </div>
 <div class="sect3">
-<h4 id="_teardown_thread_group">13.3.3. tearDown Thread Group</h4>
+<h4 id="_teardown_thread_group">14.3.3. tearDown Thread Group</h4>
 <div class="paragraph">
 <p>The tearDown Thread Group is executed after all of the other thread groups have terminated. This allows
 us to remove the records created within the setUp Thread Group without causing any conflicts with the
@@ -1815,12 +2062,12 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_crud_controllers">13.4. CRUD Controllers</h3>
+<h3 id="_crud_controllers">14.4. CRUD Controllers</h3>
 <div class="paragraph">
 <p>The CRUD Controllers are the thread group Create, Update, and Delete Controllers.</p>
 </div>
 <div class="sect3">
-<h4 id="_create">13.4.1. Create</h4>
+<h4 id="_create">14.4.1. Create</h4>
 <div class="paragraph">
 <p>This controller contains all JMeter elements required for testing record creation for the respective endpoint.</p>
 </div>
@@ -1915,7 +2162,7 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_update">13.4.2. Update</h4>
+<h4 id="_update">14.4.2. Update</h4>
 <div class="paragraph">
 <p>This controller contains all JMeter elements required for testing updating of records for the respective endpoint.</p>
 </div>
@@ -1976,7 +2223,7 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_delete">13.4.3. Delete</h4>
+<h4 id="_delete">14.4.3. Delete</h4>
 <div class="paragraph">
 <p>This controller contains all JMeter elements required for testing removal of records for the respective endpoint.</p>
 </div>
@@ -2030,7 +2277,7 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_assertions">13.4.4. Assertions</h4>
+<h4 id="_assertions">14.4.4. Assertions</h4>
 <div class="paragraph">
 <p>In all of the CRUD controllers, assertions are being made to ensure that the correct results are produced
 by each operation.</p>
@@ -2073,7 +2320,7 @@ to be true.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_change_default_docker_address_pool">14. Change default Docker address pool</h2>
+<h2 id="_change_default_docker_address_pool">15. Change default Docker address pool</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The default Docker network addess pool may overlap with other networks (e.g. VPN).</p>
@@ -2102,7 +2349,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-22 22:03:17 UTC
+Last updated 2026-01-23 16:40:12 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
