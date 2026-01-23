@@ -22,7 +22,7 @@ sudo usermod -aG docker ${USER}
 ----
 DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
 mkdir -p $DOCKER_CONFIG/cli-plugins
-curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+curl -SL https://github.com/docker/compose/releases/download/v5.0.2/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
 chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
 ----
 
@@ -52,24 +52,6 @@ nvm use 20
 corepack enable
 yarn set version 1.22.21
 yarn install --frozen-lockfile
-----
-
-If you see the following error:
-
-[source, bash]
-----
-➤ YN0028: │ The lockfile would have been modified by this install, which is explicitly forbidden.
-----
-
-Ensure you are using yarn 1.22.21 and node 18:
-
-[source, bash]
-----
-yarn -v
-1.22.21
-
-node -v
-v18.20.8
 ----
 
 * Maven
@@ -106,12 +88,24 @@ By default, everything will be accessible on https. In order to allow the local 
 
 == Clone Repositories
 
-To get started, you can git clone all of the projects to your home directory:
+For local development, you will need to clone the `dina-local-deployment` repository, this contains the docker-compose files and scripts to run the local environment.
 
 [source, bash]
 ----
 git clone --branch dev https://github.com/AAFC-BICoE/dina-local-deployment.git
+----
+
+For UI development, you will need the UI repository:
+
+[source, bash]
+----
 git clone --branch dev https://github.com/AAFC-BICoE/dina-ui.git
+----
+
+For API development, you will need to clone the respective API you are working on. Here are all of the main DINA APIs:
+
+[source, bash]
+----
 git clone --branch dev https://github.com/AAFC-BICoE/object-store-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/seqdb-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/agent-api.git
@@ -119,18 +113,6 @@ git clone --branch dev https://github.com/AAFC-BICoE/dina-user-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/natural-history-collection-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/loan-transaction-api.git 
 git clone --branch dev https://github.com/AAFC-BICoE/dina-search-api.git 
-----
-
-You can also clone the OpenAPI specification projects:
-
-[source, bash]
-----
-git clone https://github.com/DINA-Web/loan-transaction-specs.git
-git clone https://github.com/DINA-Web/object-store-specs.git
-git clone https://github.com/DINA-Web/collection-specs.git
-git clone https://github.com/DINA-Web/user-specs.git
-git clone https://github.com/DINA-Web/agent-specs.git
-git clone https://github.com/DINA-Web/sequence-specs.git
 ----
 
 == Visual Studio Code
