@@ -1,0 +1,22 @@
+meta {
+  name: Create object subtype
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/objectstore-api/object-subtype/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "object-subtype",
+      "attributes": {
+        "acSubtype": "EXPORT TEMPLATE"
+      }
+    }
+  }
+}

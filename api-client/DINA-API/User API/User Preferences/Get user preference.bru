@@ -1,0 +1,11 @@
+meta {
+  name: Get user preference
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/user-api/user
+  body: none
+  auth: inherit
+}

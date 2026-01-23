@@ -1,0 +1,45 @@
+meta {
+  name: Create Export Template
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/dina-export-api/data-export-template
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "data-export",
+      "attributes": {
+        "group": "aafc",
+        "restrictToCreatedBy": false,
+        "publiclyReleasable": true,
+        "exportOptions": {
+          "columnSeparator": "TAB"
+        },
+        "exportType": "TABULAR_DATA",
+        "name": "test 3",
+        "columns": [
+          "materialSampleName",
+          "latLong"
+        ],
+        "columnAliases": [
+          "Primary ID",
+          "Latitude and Longitude"
+        ],
+        "columnFunctions": {
+          "latLong": {
+            "functionName": "CONVERT_COORDINATES_DD",
+            "params": [
+              "collectingEvent.eventGeom"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

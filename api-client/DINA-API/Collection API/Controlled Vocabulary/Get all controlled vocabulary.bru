@@ -1,0 +1,11 @@
+meta {
+  name: Get all controlled vocabulary
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/collection-api/controlled-vocabulary
+  body: none
+  auth: inherit
+}

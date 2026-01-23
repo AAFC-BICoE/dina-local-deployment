@@ -1,0 +1,39 @@
+meta {
+  name: Create notification
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/user-api/notification
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "notification",
+      "attributes": {
+        "userIdentifier": "7070511a-1e53-4206-9980-7f858aaf656c",
+        "group": "aafc",
+        "type": "DOWNLOAD_COMPLETE",
+        "title": "Testing Message Params",
+        "message": "Download it {link}",
+        "messageParams": {
+          "link": [
+            {
+              "type": "TEXT",
+              "value": "here"
+            },
+            {
+              "type": "URL",
+              "value": "/"
+            }
+          ]
+        },
+        "status": "NEW"
+      }
+    }
+  }
+}
