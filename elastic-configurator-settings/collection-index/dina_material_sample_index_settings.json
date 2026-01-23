@@ -9,7 +9,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "2.7"
+        "number" : "2.8"
       }
     },
     "date_detection": true,
@@ -447,6 +447,15 @@
           "attributes" : {
             "properties" : {
               "dwcRecordNumber": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcFieldNumber": {
                 "type": "text",
                 "fields": {
                   "keyword": {
