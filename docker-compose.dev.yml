@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   # Nextjs's dev-mode server that hot-reloads the UI source code.
   dina-ui-dev-server:

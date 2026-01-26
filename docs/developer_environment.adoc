@@ -1,5 +1,20 @@
 = Developer Environment Setup
 
+== Tested Verisons
+
+[cols="2,1"]
+|===
+| Component | Tested version
+
+| Linux | Ubuntu 22.04
+| Docker | 29.1.5
+| Docker Compose CLI plugin | v5.0.1
+| Node.js (via nvm) | 20.x
+| nvm | v0.40.2
+| Yarn (Corepack-managed) | 1.22.21
+| Maven | 3.9.8
+|===
+
 == Prerequisites
 
 The following is required for DINA development:
@@ -10,10 +25,37 @@ The following is required for DINA development:
 
 [source, bash]
 ----
-sudo apt install curl 
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh get-docker.sh
-sudo usermod -aG docker ${USER}
+# Add Docker's official GPG key:
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+sudo apt update
+----
+
+Using this command, you will retrieve the specific version of docker for your Ubuntu version:
+
+[source, bash]
+----
+apt-cache policy docker-ce | grep 29.1.5
+----
+
+From above commands you will get list of docker version, copy respected version. This will be for your specific version of Ubuntu:
+
+[source, bash]
+----
+apt-get install docker-ce=5:25.0.1-1~ubuntu.22.04~jammy docker-ce-cli=5:25.0.1-1~ubuntu.22.04~jammy containerd.io
 ----
 
 * Docker Compose (Install on Linux)
@@ -22,7 +64,7 @@ sudo usermod -aG docker ${USER}
 ----
 DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
 mkdir -p $DOCKER_CONFIG/cli-plugins
-curl -SL https://github.com/docker/compose/releases/download/v5.0.2/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+curl -SL https://github.com/docker/compose/releases/download/v5.0.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
 chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
 ----
 
