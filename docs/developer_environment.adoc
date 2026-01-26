@@ -135,7 +135,7 @@ For local development, you will need to clone the `dina-local-deployment` reposi
 
 [source, bash]
 ----
-git clone --branch dev https://github.com/AAFC-BICoE/dina-local-deployment.git
+git clone --branch master https://github.com/AAFC-BICoE/dina-local-deployment.git
 ----
 
 For UI development, you will need the UI repository:
@@ -236,7 +236,7 @@ Now you are connected to your Virtual Machine. You can open projects and use the
 
 More info: https://code.visualstudio.com/docs/remote/remote-overview
 
-=== API Debugging
+=== API Debugging (Optional)
 
 To debug an API while using the local deployment, you can use the `docker-compose.debug.yml` config which can be enabled from the `start_stop_dina.sh` script.
 
@@ -264,7 +264,7 @@ Here is an example of a `launch.json` that can be added to an API for VSCode to 
 
 Just ensure that port lines up with the correct API and the port is exposed for VSCode to attach itself.
 
-=== UI Debugging
+=== UI Debugging (Optional)
 
 You will need the `firefox-devtools.vscode-firefox-debug` extension installed in order to debug the UI. This extension allows you to debug the UI using the Firefox browser.
 
@@ -330,7 +330,7 @@ firefox -start-debugger-server
 
 Now breakpoints should be able to set in for the DINA UI code and should automatically be hit when the code is executed from the browser.
 
-=== VSCode Launch Configurations
+=== VSCode Launch Configurations (Optional)
 
 Here is the complete launch configuration for the DINA API projects using the default ports. This can be edited by going to the "Run and debug" tab in VSCode and clicking the gear icon to edit the `launch.json` file.
 
