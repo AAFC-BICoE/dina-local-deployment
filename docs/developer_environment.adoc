@@ -24,6 +24,9 @@ Linux operating system (Virtual Machine). Tested with Ubuntu {var_ubuntu_version
 
 == Packages
 
+* Docker
+
+First we need to install the official repository in order for `apt-get` to install docker and docker compose:
 [source, bash]
 ----
 # Add Docker's official GPG key:
@@ -49,25 +52,28 @@ Using this command, you will retrieve the specific version of docker for your Ub
 
 [source, bash, subs="attributes"]
 ----
-apt-cache policy docker-ce | grep {var_docker_version}
+sudo apt-cache policy docker-ce | grep {var_docker_version}
 ----
 
 From above commands you will get list of docker version, copy respected version. This will be for your specific version of Ubuntu:
 
 [source, bash]
 ----
-apt-get install docker-ce=5:25.0.1-1~ubuntu.22.04~jammy docker-ce-cli=5:25.0.1-1~ubuntu.22.04~jammy containerd.io
+sudo apt-get install docker-ce=5:25.0.1-1~ubuntu.22.04~jammy docker-ce-cli=5:25.0.1-1~ubuntu.22.04~jammy containerd.io
 ----
+
+More info: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 
 * Docker Compose (Install on Linux)
 
+This step requires the Docker repository to be setup from the above steps.
+
 [source, bash]
 ----
-DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
-mkdir -p $DOCKER_CONFIG/cli-plugins
-curl -SL https://github.com/docker/compose/releases/download/v5.0.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
-chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+sudo apt-get install docker-compose-plugin
 ----
+
+More info: https://docs.docker.com/compose/install/linux/#install-using-the-repository
 
 * Node.js
 
