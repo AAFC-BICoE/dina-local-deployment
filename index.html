@@ -443,18 +443,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel1">
 <li><a href="#_developer_environment_setup">1. Developer Environment Setup</a>
 <ul class="sectlevel2">
-<li><a href="#_tested_verisons">1.1. Tested Verisons</a></li>
+<li><a href="#_tested_versions">1.1. Tested Versions</a></li>
 <li><a href="#_prerequisites">1.2. Prerequisites</a></li>
-<li><a href="#_setup_hosts_file">1.3. Setup Hosts file</a></li>
-<li><a href="#_local_certificates">1.4. Local certificates</a></li>
-<li><a href="#_clone_repositories">1.5. Clone Repositories</a></li>
-<li><a href="#_visual_studio_code">1.6. Visual Studio Code</a>
+<li><a href="#_packages">1.3. Packages</a></li>
+<li><a href="#_setup_hosts_file">1.4. Setup Hosts file</a></li>
+<li><a href="#_local_certificates">1.5. Local certificates</a></li>
+<li><a href="#_clone_repositories">1.6. Clone Repositories</a></li>
+<li><a href="#_visual_studio_code">1.7. Visual Studio Code</a>
 <ul class="sectlevel3">
-<li><a href="#_recommended_extensions">1.6.1. Recommended Extensions</a></li>
-<li><a href="#_vscode_remote_optional">1.6.2. VSCode Remote (Optional)</a></li>
-<li><a href="#_api_debugging">1.6.3. API Debugging</a></li>
-<li><a href="#_ui_debugging">1.6.4. UI Debugging</a></li>
-<li><a href="#_vscode_launch_configurations">1.6.5. VSCode Launch Configurations</a></li>
+<li><a href="#_recommended_extensions">1.7.1. Recommended Extensions</a></li>
+<li><a href="#_vscode_remote_optional">1.7.2. VSCode Remote (Optional)</a></li>
+<li><a href="#_api_debugging">1.7.3. API Debugging</a></li>
+<li><a href="#_ui_debugging">1.7.4. UI Debugging</a></li>
+<li><a href="#_vscode_launch_configurations">1.7.5. VSCode Launch Configurations</a></li>
 </ul>
 </li>
 </ul>
@@ -551,7 +552,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_developer_environment_setup">1. Developer Environment Setup</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_tested_verisons">1.1. Tested Verisons</h3>
+<h3 id="_tested_versions">1.1. Tested Versions</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 66.6666%;">
@@ -598,21 +599,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_prerequisites">1.2. Prerequisites</h3>
 <div class="paragraph">
-<p>The following is required for DINA development:</p>
+<p>Linux operating system (Virtual Machine). Tested with Ubuntu 22.04.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Linux operating system (Virtual Machine)</p>
-</li>
-<li>
-<p>Visual Studio Code (Install on Linux or see Remote setup below)</p>
-</li>
-<li>
-<p>Docker (Install on Linux)</p>
-</li>
-</ul>
 </div>
+<div class="sect2">
+<h3 id="_packages">1.3. Packages</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Add Docker's official GPG key:
@@ -732,7 +723,7 @@ yarn install --frozen-lockfile</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_setup_hosts_file">1.3. Setup Hosts file</h3>
+<h3 id="_setup_hosts_file">1.4. Setup Hosts file</h3>
 <div class="paragraph">
 <p>To access the DINA services locally, you will need to add entries to your <code>/etc/hosts</code> file.</p>
 </div>
@@ -748,14 +739,14 @@ yarn install --frozen-lockfile</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_local_certificates">1.4. Local certificates</h3>
+<h3 id="_local_certificates">1.5. Local certificates</h3>
 <div class="paragraph">
 <p>By default, everything will be accessible on https. In order to allow the local browser to work without issues and warnings
 [local development certificates](<a href="https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates" class="bare">https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates</a>) can be installed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_clone_repositories">1.5. Clone Repositories</h3>
+<h3 id="_clone_repositories">1.6. Clone Repositories</h3>
 <div class="paragraph">
 <p>For local development, you will need to clone the <code>dina-local-deployment</code> repository, this contains the docker-compose files and scripts to run the local environment.</p>
 </div>
@@ -788,12 +779,12 @@ git clone --branch dev https://github.com/AAFC-BICoE/dina-search-api.git</code><
 </div>
 </div>
 <div class="sect2">
-<h3 id="_visual_studio_code">1.6. Visual Studio Code</h3>
+<h3 id="_visual_studio_code">1.7. Visual Studio Code</h3>
 <div class="paragraph">
 <p>Visual Studio Code can be installed directly on your Virtual Machine or on your Windows machine using the VSCode Remote instructions below.</p>
 </div>
 <div class="sect3">
-<h4 id="_recommended_extensions">1.6.1. Recommended Extensions</h4>
+<h4 id="_recommended_extensions">1.7.1. Recommended Extensions</h4>
 <div class="paragraph">
 <p>Once you have VSCode downloaded, you can run this command to install the recommended extensions:</p>
 </div>
@@ -813,7 +804,7 @@ code --install-extension bruno-api-client.bruno</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_vscode_remote_optional">1.6.2. VSCode Remote (Optional)</h4>
+<h4 id="_vscode_remote_optional">1.7.2. VSCode Remote (Optional)</h4>
 <div class="paragraph">
 <p>You can avoid running a slow IDE inside your virtual machine by running VS Code on your host machine instead and connecting to the dev environment using VS Code Remote.</p>
 </div>
@@ -907,7 +898,7 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_api_debugging">1.6.3. API Debugging</h4>
+<h4 id="_api_debugging">1.7.3. API Debugging</h4>
 <div class="paragraph">
 <p>To debug an API while using the local deployment, you can use the <code>docker-compose.debug.yml</code> config which can be enabled from the <code>start_stop_dina.sh</code> script.</p>
 </div>
@@ -941,7 +932,7 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_ui_debugging">1.6.4. UI Debugging</h4>
+<h4 id="_ui_debugging">1.7.4. UI Debugging</h4>
 <div class="paragraph">
 <p>You will need the <code>firefox-devtools.vscode-firefox-debug</code> extension installed in order to debug the UI. This extension allows you to debug the UI using the Firefox browser.</p>
 </div>
@@ -1041,7 +1032,7 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_vscode_launch_configurations">1.6.5. VSCode Launch Configurations</h4>
+<h4 id="_vscode_launch_configurations">1.7.5. VSCode Launch Configurations</h4>
 <div class="paragraph">
 <p>Here is the complete launch configuration for the DINA API projects using the default ports. This can be edited by going to the "Run and debug" tab in VSCode and clicking the gear icon to edit the <code>launch.json</code> file.</p>
 </div>
@@ -2430,7 +2421,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-26 16:17:51 UTC
+Last updated 2026-01-26 18:27:54 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
