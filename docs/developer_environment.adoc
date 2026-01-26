@@ -1,13 +1,16 @@
 = Developer Environment Setup
 
-== Tested Verisons
+== Tested Versions
 
-[cols="2,1"]
+:var_ubuntu_version: 22.04
+:var_docker_version: 29.1.5
+
+[cols="2,1, subs="attributes""]
 |===
 | Component | Tested version
 
-| Linux | Ubuntu 22.04
-| Docker | 29.1.5
+| Linux | Ubuntu {var_ubuntu_version}
+| Docker | {var_docker_version}
 | Docker Compose CLI plugin | v5.0.1
 | Node.js (via nvm) | 20.x
 | nvm | v0.40.2
@@ -17,11 +20,9 @@
 
 == Prerequisites
 
-The following is required for DINA development:
+Linux operating system (Virtual Machine). Tested with Ubuntu {var_ubuntu_version}.
 
-* Linux operating system (Virtual Machine)
-* Visual Studio Code (Install on Linux or see Remote setup below)
-* Docker (Install on Linux)
+== Packages
 
 [source, bash]
 ----
