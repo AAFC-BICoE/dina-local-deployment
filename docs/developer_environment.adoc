@@ -5,7 +5,7 @@
 :var_ubuntu_version: 22.04
 :var_docker_version: 29.1.5
 
-[cols="2,1, subs="attributes""]
+[cols="2,1", subs="attributes"]
 |===
 | Component | Tested version
 
@@ -47,9 +47,9 @@ sudo apt update
 
 Using this command, you will retrieve the specific version of docker for your Ubuntu version:
 
-[source, bash]
+[source, bash, subs="attributes"]
 ----
-apt-cache policy docker-ce | grep 29.1.5
+apt-cache policy docker-ce | grep {var_docker_version}
 ----
 
 From above commands you will get list of docker version, copy respected version. This will be for your specific version of Ubuntu:
@@ -124,7 +124,7 @@ In Linux and Mac OSX, this is located at /etc/hosts. You should have the followi
 192.19.33.9 keycloak.dina.local
 ----
 
-## Local certificates
+== Local certificates
 
 By default, everything will be accessible on https. In order to allow the local browser to work without issues and warnings
 [local development certificates](https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates) can be installed.
