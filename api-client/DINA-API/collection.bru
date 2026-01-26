@@ -1,11 +1,5 @@
-meta {
-  name: DINA v2
-  type: collection
-}
-
 headers {
   Content-Type: application/vnd.api+json
-  Authorization: Bearer {{oauth2_token}}
 }
 
 auth {
@@ -14,22 +8,79 @@ auth {
 
 auth:oauth2 {
   grant_type: authorization_code
-  callback_url: {{callback_url}}
+  callback_url: 
   authorization_url: {{auth_url}}
   access_token_url: {{token_url}}
+  refresh_token_url: {{token_url}}
   client_id: {{client_id}}
   client_secret: 
   scope: {{scope}}
+  state: 
   pkce: false
+  credentials_placement: basic_auth_header
+  credentials_id: credentials
+  token_placement: header
+  token_header_prefix: Bearer
+  auto_fetch_token: true
+  auto_refresh_token: true
 }
 
-script:post-response {
-  // Used to pass the oauth2 token generated to the headers.
-  var token = res.body.access_token;
-  if (token) {
-    bru.setVar('oauth2_token', token);
-  }
+docs {
+  [![Bruno Supported Version](https://img.shields.io/badge/Bruno%20Supported%20Version-v3.0.2-blue.svg)](https://www.usebruno.com/)
   
-  // Can be used for generate a unique name when you need to generate a bunch of entities.
-  bru.setVar('currentMillis', Date.now());
+  # DINA UI Bruno Collection
+  
+  This Bruno API collection is organized around the multiple DINA APIs.
+  
+  ## 🚀 Getting Started
+  
+  At this point, you should have the DINA-API collection imported into the Bruno project. Which is located in the `dina-local-deployment` repo under `/api-client/DINA-API`.
+  
+  1. Select your environment using the Environment Dropdown menu at the top.
+  
+  > Only the "DINA Local" environment is provided by default. Other environments can be added by downloading the environment files in the DINA Wiki under the `Bruno Environments` section. 
+  > Add these files under /api-client/DINA-API/environments/ in the `dina-local-deployment` repo.
+  
+  2. Running any request will prompt you to authenticate via OAuth2. Login with your DINA credentials to obtain an access token.
+  
+  ## 📂 Folder Structure
+  
+  The collection is organized into folders representing the different DINA APIs. Each folder contains additional subfolders for each resource type within that API.
+  
+  Inside of the resource type folders, you will find individual requests for common operations such as:
+  
+  - Get All [Entity]s
+  - Get [Entity] by ID
+  - Create [Entity]
+  - Update [Entity]
+  - Delete [Entity]
+  
+  **Example of the folder structure:**
+  
+  - DINA-API
+    - Collection API
+      - Collections
+        - Get All Collections
+        - Get Collection by ID
+        - Create Collection
+        - Update Collection
+        - Delete Collection
+      - Material Samples
+    - Object Store API
+      - Metadata
+    - Agent API
+      - Agents
+      - Organizations
+  
+  
+  ## 👥 Collaboration  
+  
+  This collection is intended to be a collaborative resource. Feel free to contribute by adding new requests, updating existing ones, or improving the documentation.
+  
+  Please ensure no sensitive information (like client secrets or personal data) is included in the collection before sharing.
+  
+  ## 📚 Additional Resources
+  
+  * [DINA Local Deployment Repository](https://github.com/AAFC-BICoE/dina-local-deployment)
+  * [DINA Local Deployment Documentation](https://aafc-bicoe.github.io/dina-local-deployment/)
 }

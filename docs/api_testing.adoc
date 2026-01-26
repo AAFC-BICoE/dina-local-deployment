@@ -6,19 +6,21 @@ While any API client can be used, Bruno is our recommended API client and requir
 
 Bruno can be downloaded from: https://www.usebruno.com/downloads
 
-Once downloaded, you can open the DINA collection of API endpoints by going to `File` > `Open collection` > Navigate to dina-local-deployment/api-client/DINA-API and open that folder.
+Once downloaded, you can open the DINA API collection by clicking the `+` icon at the top left where it says "Collections". A popup will appear, select "Open Collection". Then navigate to the `dina-local-deployment/api-client/DINA-API/collection.bru` file inside of the `dina-local-deployment` repo.
 
 You will also need to select the environment variables for the instance you want to connect to, for local dina development you would select `DINA Local`. The dropdown at the top right of the screen lets you change the environment variables.
 
 For local development, you will need to open the Bruno preferences (`CTRL` + `,`), Under the General tab, you will see an option for "Use custom CA certificate", make sure this is checked on. Click the "Select file" option and navigate to `/etc/ssl/certs/ca-certificates.crt`. (Be sure that you have ran the Local Certificate steps in order for the dina local certificates to be inside of the `ca-certificates.crt` file)
 
-Please note that bruno is still under active development.
-
 == Authentication
 
 If using the Bruno API client with our collection loaded, the Authentication settings will be automatically loaded in.
 
-Click the gear icon located at the top right of the screen. Then go to the `Auth` where you can click the "Get Access Token". Currently you need to do this each time to generate the token but probably in the future this will happen automatically when the token has expired. Each request will need to use the inherit authentication option.
+Based on the environment you have selected, the authentication settings will be pre-configured for you.
+
+When sending a request for the first time, a popup will appear asking you to login to the DINA application. Use your DINA credentials to login and obtain an access token. The access token will be automatically added to the request headers for you.
+
+It will also automatically refresh the access token when it expires.
 
 In other API clients, you can setup the authentication using these settings:
 
@@ -42,7 +44,7 @@ In other API clients, you can setup the authentication using these settings:
 |dina-public
 
 |Redirect URL / Callback URL
-|https://dina.local
+|https://dina.local (Some API clients may require this to be empty so it can use their own URL)
 
 |Scope
 |openid
@@ -54,7 +56,7 @@ Then when sending the request, you should see a popup which will let you login t
 
 Sometimes you might need to login as a different user for testing, the instructions for clearing your sessions are below:
 
-To logout of your session on the Bruno application, go to the collection settings by using the gear icon at the top right of the screen, then click `Auth` to access the authentication settings. At the bottom of the page there is a button to clear the session.
+To logout of your session on the Bruno application, go to the collection settings by using the gear icon at the top right of the screen, then click `Auth` to access the authentication settings. At the bottom of the page there is a button to clear the cache.
 
 == Headers
 
@@ -68,6 +70,8 @@ Most of the API POST requests require a specific "Content-Type" header. The foll
 |application/vnd.api+json
 |This is only required for POST requests, by default Postman and Insomnia might put `application/json` which will cause an error.
 |===
+
+This header is already included in the Bruno collection for you.
 
 == Additional Environments
 
