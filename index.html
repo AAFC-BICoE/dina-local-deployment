@@ -1539,16 +1539,13 @@ mvn clean install -DskipTests</code></pre>
 <p>Bruno can be downloaded from: <a href="https://www.usebruno.com/downloads" class="bare">https://www.usebruno.com/downloads</a></p>
 </div>
 <div class="paragraph">
-<p>Once downloaded, you can open the DINA collection of API endpoints by going to <code>File</code> &gt; <code>Open collection</code> &gt; Navigate to dina-local-deployment/api-client/DINA-API and open that folder.</p>
+<p>Once downloaded, you can open the DINA API collection by clicking the <code>+</code> icon at the top left where it says "Collections". A popup will appear, select "Open Collection". Then navigate to the <code>dina-local-deployment/api-client/DINA-API/collection.bru</code> file inside of the <code>dina-local-deployment</code> repo.</p>
 </div>
 <div class="paragraph">
 <p>You will also need to select the environment variables for the instance you want to connect to, for local dina development you would select <code>DINA Local</code>. The dropdown at the top right of the screen lets you change the environment variables.</p>
 </div>
 <div class="paragraph">
 <p>For local development, you will need to open the Bruno preferences (<code>CTRL</code> + <code>,</code>), Under the General tab, you will see an option for "Use custom CA certificate", make sure this is checked on. Click the "Select file" option and navigate to <code>/etc/ssl/certs/ca-certificates.crt</code>. (Be sure that you have ran the Local Certificate steps in order for the dina local certificates to be inside of the <code>ca-certificates.crt</code> file)</p>
-</div>
-<div class="paragraph">
-<p>Please note that bruno is still under active development.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1557,7 +1554,13 @@ mvn clean install -DskipTests</code></pre>
 <p>If using the Bruno API client with our collection loaded, the Authentication settings will be automatically loaded in.</p>
 </div>
 <div class="paragraph">
-<p>Click the gear icon located at the top right of the screen. Then go to the <code>Auth</code> where you can click the "Get Access Token". Currently you need to do this each time to generate the token but probably in the future this will happen automatically when the token has expired. Each request will need to use the inherit authentication option.</p>
+<p>Based on the environment you have selected, the authentication settings will be pre-configured for you.</p>
+</div>
+<div class="paragraph">
+<p>When sending a request for the first time, a popup will appear asking you to login to the DINA application. Use your DINA credentials to login and obtain an access token. The access token will be automatically added to the request headers for you.</p>
+</div>
+<div class="paragraph">
+<p>It will also automatically refresh the access token when it expires.</p>
 </div>
 <div class="paragraph">
 <p>In other API clients, you can setup the authentication using these settings:</p>
@@ -1597,7 +1600,7 @@ mvn clean install -DskipTests</code></pre>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Redirect URL / Callback URL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://dina.local" class="bare">https://dina.local</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://dina.local" class="bare">https://dina.local</a> (Some API clients may require this to be empty so it can use their own URL)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Scope</p></td>
@@ -1615,7 +1618,7 @@ mvn clean install -DskipTests</code></pre>
 <p>Sometimes you might need to login as a different user for testing, the instructions for clearing your sessions are below:</p>
 </div>
 <div class="paragraph">
-<p>To logout of your session on the Bruno application, go to the collection settings by using the gear icon at the top right of the screen, then click <code>Auth</code> to access the authentication settings. At the bottom of the page there is a button to clear the session.</p>
+<p>To logout of your session on the Bruno application, go to the collection settings by using the gear icon at the top right of the screen, then click <code>Auth</code> to access the authentication settings. At the bottom of the page there is a button to clear the cache.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1645,6 +1648,9 @@ mvn clean install -DskipTests</code></pre>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>This header is already included in the Bruno collection for you.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_additional_environments">6.5. Additional Environments</h3>
@@ -2349,7 +2355,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-23 16:51:07 UTC
+Last updated 2026-01-26 15:53:22 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
