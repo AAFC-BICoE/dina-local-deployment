@@ -604,6 +604,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_packages">1.3. Packages</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Docker</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>First we need to install the official repository in order for <code>apt-get</code> to install docker and docker compose:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Add Docker's official GPG key:
@@ -630,7 +640,7 @@ sudo apt update</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">apt-cache policy docker-ce | grep 29.1.5</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo apt-cache policy docker-ce | grep 29.1.5</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -638,8 +648,11 @@ sudo apt update</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">apt-get install docker-ce=5:25.0.1-1~ubuntu.22.04~jammy docker-ce-cli=5:25.0.1-1~ubuntu.22.04~jammy containerd.io</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo apt-get install docker-ce=5:25.0.1-1~ubuntu.22.04~jammy docker-ce-cli=5:25.0.1-1~ubuntu.22.04~jammy containerd.io</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>More info: <a href="https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository" class="bare">https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository</a></p>
 </div>
 <div class="ulist">
 <ul>
@@ -648,13 +661,16 @@ sudo apt update</code></pre>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>This step requires the Docker repository to be setup from the above steps.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
-mkdir -p $DOCKER_CONFIG/cli-plugins
-curl -SL https://github.com/docker/compose/releases/download/v5.0.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
-chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo apt-get install docker-compose-plugin</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>More info: <a href="https://docs.docker.com/compose/install/linux/#install-using-the-repository" class="bare">https://docs.docker.com/compose/install/linux/#install-using-the-repository</a></p>
 </div>
 <div class="ulist">
 <ul>
@@ -2421,7 +2437,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-26 18:54:28 UTC
+Last updated 2026-01-26 19:08:03 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
