@@ -4,6 +4,7 @@
 
 :var_ubuntu_version: 22.04
 :var_docker_version: 29.1.5
+:var_node_version: 20
 
 [cols="2,1", subs="attributes"]
 |===
@@ -12,7 +13,7 @@
 | Linux | Ubuntu {var_ubuntu_version}
 | Docker | {var_docker_version}
 | Docker Compose CLI plugin | v5.0.1
-| Node.js (via nvm) | 20.x
+| Node.js (via nvm) | {var_node_version}
 | nvm | v0.40.2
 | Yarn (Corepack-managed) | 1.22.21
 | Maven | 3.9.8
@@ -20,7 +21,7 @@
 
 == Prerequisites
 
-Linux operating system (Virtual Machine). Tested with Ubuntu {var_ubuntu_version}.
+Linux operating system (Virtual Machine) with approx. 100GB of disk space. Tested with Ubuntu {var_ubuntu_version}.
 
 == Packages
 
@@ -79,19 +80,19 @@ More info: https://docs.docker.com/compose/install/linux/#install-using-the-repo
 
 Install Node Version Manager (NVM): 
 
-[source, bash]
+[source, bash, subs="attributes"]
 ----
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
 ----
 
 More info: https://github.com/nvm-sh/nvm#installing-and-updating
 
-Install node 20
+Install node {var_node_version}
 
-[source, bash]
+[source, bash, subs="attributes"]
 ----
-nvm install 20
-nvm use 20
+nvm install {var_node_version}
+nvm use {var_node_version}
 ----
 
 * Yarn
