@@ -1,0 +1,1 @@
+The mock stubs in collecting-event-getAll-stubs.json were generated using AI.

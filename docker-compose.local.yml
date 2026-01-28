@@ -85,6 +85,7 @@ services:
 
   collection-api:
     image: aafcbicoe/natural-history-collection-api:0.114
+    profiles: ["collection_api"]
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -384,18 +385,18 @@ services:
     networks:
         - dina_rabbitmq_net
         
-  mockServer:
-    image: mockserver/mockserver:mockserver-5.11.1
-    profiles: ["mockServer"]
+  wiremock:
+    image: wiremock/wiremock:3x
+    profiles: ["wiremock"]
+    networks:
+      - dina
     ports:
-      - 1080:1080
+      - "8089:8080"
     environment:
-      MOCKSERVER_PROPERTY_FILE: /usr/share/mock-server/config/mockserver.properties
-      MOCKSERVER_INITIALIZATION_JSON_PATH: /usr/share/mock-server/config/initializerJson.json
+      - JAVA_OPTS=-Xmx512m
     volumes:
-      - type: bind
-        source: ./mock-server
-        target: /usr/share/mock-server/config
+      - ./wiremock/mappings:/home/wiremock/mappings
+     # - ./wiremock/__files:/home/wiremock/__files
 
 volumes:
   elasticsearch-data:

@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/api/v1/collecting-event/[a-f0-9\\-]+"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": {
+        "type": "collecting-event",
+        "id": "00000000-0000-0000-0000-000000000001",
+        "attributes": {
+          "startEventDateTime": "2023-06-15T10:30:00Z",
+          "endEventDateTime": "2023-06-15T16:45:00Z",
+          "verbatimEventDescription": "Collection in tropical rainforest",
+          "eventGeography": "Amazon Basin",
+          "eventRemarks": "Collected during dry season",
+          "createdOn": "2023-06-16T08:00:00Z",
+          "createdBy": "user@example.com"
+        }
+      }
+    }
+  }
+}
