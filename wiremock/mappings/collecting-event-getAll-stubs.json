@@ -16,9 +16,13 @@
           "attributes": {
             "startEventDateTime": "2023-06-15T10:30:00Z",
             "endEventDateTime": "2023-06-15T16:45:00Z",
+            "verbatimEventDateTime": "June 15, 2023, 10:30 AM - 4:45 PM",
             "verbatimEventDescription": "Collection in tropical rainforest",
             "eventGeography": "Amazon Basin",
             "eventRemarks": "Collected during dry season",
+            "dwcFieldNumber": "2023-001",
+            "dwcRecordNumber": "1001",
+            "otherRecordNumbers": ["2001", "3001", "4001"],
             "createdOn": "2023-06-16T08:00:00Z",
             "createdBy": "user@example.com"
           }
@@ -29,9 +33,13 @@
           "attributes": {
             "startEventDateTime": "2023-07-22T06:00:00Z",
             "endEventDateTime": "2023-07-22T14:30:00Z",
+            "verbatimEventDateTime": "July 22, 2023, 6:00 AM - 2:30 PM",
             "verbatimEventDescription": "Mountain ridge survey",
             "eventGeography": "Rocky Mountains, Colorado",
             "eventRemarks": "High altitude collection at 3200m elevation",
+            "dwcFieldNumber": "2023-002",
+            "dwcRecordNumber": "1002",
+            "otherRecordNumbers": ["2002", "3002"],
             "createdOn": "2023-07-23T09:15:00Z",
             "createdBy": "researcher@university.edu"
           }
@@ -42,9 +50,13 @@
           "attributes": {
             "startEventDateTime": "2023-08-10T08:45:00Z",
             "endEventDateTime": "2023-08-10T17:00:00Z",
+            "verbatimEventDateTime": "August 10, 2023, 8:45 AM - 5:00 PM",
             "verbatimEventDescription": "Coastal mangrove ecosystem study",
             "eventGeography": "Everglades National Park, Florida",
             "eventRemarks": "Specimens collected at low tide",
+            "dwcFieldNumber": "2023-003",
+            "dwcRecordNumber": "1003",
+            "otherRecordNumbers": ["2003", "3003", "4003", "5003"],
             "createdOn": "2023-08-11T10:30:00Z",
             "createdBy": "marine.bio@research.org"
           }
@@ -53,11 +65,14 @@
           "type": "collecting-event",
           "id": "d9e2f4a6-7b8c-4d1e-9f3a-4b5c6d7e8f9a",
           "attributes": {
-            "startEventDateTime": "2023-09-05T07:15:00Z",
-            "endEventDateTime": "2023-09-05T12:00:00Z",
+
+            "verbatimEventDateTime": "September 5, 2023, 7:15 AM - 12:00 PM",
             "verbatimEventDescription": "Desert scrubland sampling",
             "eventGeography": "Sonoran Desert, Arizona",
             "eventRemarks": "Early morning collection to avoid heat",
+            "dwcFieldNumber": "2023-004",
+            "dwcRecordNumber": "1004",
+            "otherRecordNumbers": ["2004"],
             "createdOn": "2023-09-06T08:45:00Z",
             "createdBy": "desert.specialist@field.org"
           }
@@ -68,9 +83,11 @@
           "attributes": {
             "startEventDateTime": "2023-10-12T09:00:00Z",
             "endEventDateTime": "2023-10-12T18:30:00Z",
-            "verbatimEventDescription": "Temperate deciduous forest transect",
-            "eventGeography": "Great Smoky Mountains, Tennessee",
-            "eventRemarks": "Fall foliage period, excellent visibility",
+            "verbatimEventDateTime": "October 12, 2023, 9:00 AM - 6:30 PM",
+
+            "dwcFieldNumber": "2023-005",
+            "dwcRecordNumber": "1005",
+            "otherRecordNumbers": ["2005", "3005", "4005"],
             "createdOn": "2023-10-13T07:20:00Z",
             "createdBy": "botanist@nature.edu"
           }
@@ -81,9 +98,12 @@
           "attributes": {
             "startEventDateTime": "2023-11-18T05:30:00Z",
             "endEventDateTime": "2023-11-18T11:45:00Z",
+            "verbatimEventDateTime": "November 18, 2023, 5:30 AM - 11:45 AM",
             "verbatimEventDescription": "Wetland bird survey",
             "eventGeography": "Okavango Delta, Botswana",
-            "eventRemarks": "Peak migration season observations",
+            "dwcFieldNumber": "2023-006",
+            "dwcRecordNumber": "1006",
+            "otherRecordNumbers": ["2006", "3006"],
             "createdOn": "2023-11-19T14:00:00Z",
             "createdBy": "ornithologist@birds.org"
           }
@@ -94,11 +114,14 @@
           "attributes": {
             "startEventDateTime": "2024-01-25T10:00:00Z",
             "endEventDateTime": "2024-01-25T15:30:00Z",
+            "verbatimEventDateTime": "January 25, 2024, 10:00 AM - 3:30 PM",
             "verbatimEventDescription": "Alpine tundra expedition",
             "eventGeography": "Swiss Alps, Switzerland",
             "eventRemarks": "Snow cover present, limited access areas",
+            "dwcFieldNumber": "2024-001",
+            "dwcRecordNumber": "1007",
+            "otherRecordNumbers": ["2007", "3007", "4007", "5007"],
             "createdOn": "2024-01-26T09:00:00Z",
-            "createdBy": "alpine.research@swiss.edu"
           }
         },
         {
@@ -107,9 +130,13 @@
           "attributes": {
             "startEventDateTime": "2024-02-14T08:30:00Z",
             "endEventDateTime": "2024-02-14T16:00:00Z",
+            "verbatimEventDateTime": "February 14, 2024, 8:30 AM - 4:00 PM",
             "verbatimEventDescription": "Coral reef biodiversity assessment",
             "eventGeography": "Great Barrier Reef, Australia",
             "eventRemarks": "Underwater collection via SCUBA diving",
+            "dwcFieldNumber": "2024-002",
+            "dwcRecordNumber": "1008",
+            "otherRecordNumbers": ["2008", "3008"],
             "createdOn": "2024-02-15T11:45:00Z",
             "createdBy": "marine.lab@ocean.edu"
           }
@@ -120,9 +147,13 @@
           "attributes": {
             "startEventDateTime": "2024-03-08T07:00:00Z",
             "endEventDateTime": "2024-03-08T13:30:00Z",
+            "verbatimEventDateTime": "March 8, 2024, 7:00 AM - 1:30 PM",
             "verbatimEventDescription": "Grassland prairie survey",
             "eventGeography": "Serengeti National Park, Tanzania",
             "eventRemarks": "Post-rainy season, abundant vegetation",
+            "dwcFieldNumber": "2024-003",
+            "dwcRecordNumber": "1009",
+            "otherRecordNumbers": ["2009", "3009", "4009"],
             "createdOn": "2024-03-09T10:15:00Z",
             "createdBy": "ecologist@wildlife.org"
           }
@@ -133,9 +164,13 @@
           "attributes": {
             "startEventDateTime": "2024-04-20T09:15:00Z",
             "endEventDateTime": "2024-04-20T17:45:00Z",
+            "verbatimEventDateTime": "April 20, 2024, 9:15 AM - 5:45 PM",
             "verbatimEventDescription": "Boreal forest sampling",
             "eventGeography": "Taiga, Northern Canada",
             "eventRemarks": "Spring thaw conditions, muddy terrain",
+            "dwcFieldNumber": "2024-004",
+            "dwcRecordNumber": "1010",
+            "otherRecordNumbers": ["2010"],
             "createdOn": "2024-04-21T08:30:00Z",
             "createdBy": "forest.researcher@boreal.ca"
           }
@@ -146,9 +181,13 @@
           "attributes": {
             "startEventDateTime": "2024-05-17T06:45:00Z",
             "endEventDateTime": "2024-05-17T12:15:00Z",
+            "verbatimEventDateTime": "May 17, 2024, 6:45 AM - 12:15 PM",
             "verbatimEventDescription": "Mediterranean shrubland study",
             "eventGeography": "Provence, Southern France",
             "eventRemarks": "Peak flowering season for native species",
+            "dwcFieldNumber": "2024-005",
+            "dwcRecordNumber": "1011",
+            "otherRecordNumbers": ["2011", "3011", "4011"],
             "createdOn": "2024-05-18T09:00:00Z",
             "createdBy": "botanist@mediterranean.fr"
           }
@@ -159,9 +198,13 @@
           "attributes": {
             "startEventDateTime": "2024-06-30T08:00:00Z",
             "endEventDateTime": "2024-06-30T16:30:00Z",
+            "verbatimEventDateTime": "June 30, 2024, 8:00 AM - 4:30 PM",
             "verbatimEventDescription": "Volcanic island endemic survey",
             "eventGeography": "Galápagos Islands, Ecuador",
             "eventRemarks": "Focus on unique island species",
+            "dwcFieldNumber": "2024-006",
+            "dwcRecordNumber": "1012",
+            "otherRecordNumbers": ["2012", "3012"],
             "createdOn": "2024-07-01T10:45:00Z",
             "createdBy": "darwin.institute@galapagos.ec"
           }
@@ -172,9 +215,13 @@
           "attributes": {
             "startEventDateTime": "2024-08-12T10:30:00Z",
             "endEventDateTime": "2024-08-12T18:00:00Z",
+            "verbatimEventDateTime": "August 12, 2024, 10:30 AM - 6:00 PM",
             "verbatimEventDescription": "Subtropical cloud forest expedition",
             "eventGeography": "Monteverde, Costa Rica",
             "eventRemarks": "High humidity, epiphyte-rich canopy",
+            "dwcFieldNumber": "2024-007",
+            "dwcRecordNumber": "1013",
+            "otherRecordNumbers": ["2013", "3013", "4013", "5013"],
             "createdOn": "2024-08-13T07:15:00Z",
             "createdBy": "tropical.bio@costarica.org"
           }
@@ -185,9 +232,12 @@
           "attributes": {
             "startEventDateTime": "2024-09-25T07:30:00Z",
             "endEventDateTime": "2024-09-25T14:00:00Z",
+            "verbatimEventDateTime": "September 25, 2024, 7:30 AM - 2:00 PM",
             "verbatimEventDescription": "Steppe grassland documentation",
             "eventGeography": "Mongolian Steppe, Mongolia",
             "eventRemarks": "Nomadic herding area, minimal human impact",
+            "dwcFieldNumber": "2024-008",
+            "dwcRecordNumber": "1014",
             "createdOn": "2024-09-26T11:30:00Z",
             "createdBy": "steppe.study@mongolia.mn"
           }
@@ -198,9 +248,11 @@
           "attributes": {
             "startEventDateTime": "2024-10-19T09:00:00Z",
             "endEventDateTime": "2024-10-19T15:45:00Z",
+            "verbatimEventDateTime": "October 19, 2024, 9:00 AM - 3:45 PM",
             "verbatimEventDescription": "Arctic coastal survey",
             "eventGeography": "Svalbard Archipelago, Norway",
             "eventRemarks": "Permafrost environment, polar conditions",
+            "otherRecordNumbers": ["2015", "3015", "4015"],
             "createdOn": "2024-10-20T08:00:00Z",
             "createdBy": "arctic.field@polar.no"
           }
