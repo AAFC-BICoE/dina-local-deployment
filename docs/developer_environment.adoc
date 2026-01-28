@@ -4,7 +4,11 @@
 
 :var_ubuntu_version: 22.04
 :var_docker_version: 29.1.5
+:var_docker_compose_version: 5.0.1
+:var_nvm_version: 0.40.2
 :var_node_version: 20
+:var_yarn_version: 1.22.21
+:var_maven_version: 3.9.8
 
 [cols="2,1", subs="attributes"]
 |===
@@ -12,11 +16,11 @@
 
 | Linux | Ubuntu {var_ubuntu_version}
 | Docker | {var_docker_version}
-| Docker Compose CLI plugin | v5.0.1
+| Docker Compose CLI plugin | v{var_docker_compose_version}
 | Node.js (via nvm) | {var_node_version}
-| nvm | v0.40.2
-| Yarn (Corepack-managed) | 1.22.21
-| Maven | 3.9.8
+| nvm | v{var_nvm_version}
+| Yarn (Corepack-managed) | {var_yarn_version}
+| Maven | {var_maven_version}
 |===
 
 == Prerequisites
@@ -25,7 +29,7 @@ Linux operating system (Virtual Machine) with approx. 100GB of disk space. Teste
 
 == Packages
 
-* Docker
+=== Docker (Install on Linux)
 
 First we need to install the official repository in order for `apt-get` to install docker and docker compose:
 [source, bash]
@@ -65,7 +69,7 @@ sudo apt-get install docker-ce=5:25.0.1-1~ubuntu.22.04~jammy docker-ce-cli=5:25.
 
 More info: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 
-* Docker Compose (Install on Linux)
+=== Docker Compose (Install on Linux)
 
 This step requires the Docker repository to be setup from the above steps.
 
@@ -76,13 +80,13 @@ sudo apt-get install docker-compose-plugin
 
 More info: https://docs.docker.com/compose/install/linux/#install-using-the-repository
 
-* Node.js
+=== Node.js
 
 Install Node Version Manager (NVM): 
 
 [source, bash, subs="attributes"]
 ----
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v{var_nvm_version}/install.sh | bash
 ----
 
 More info: https://github.com/nvm-sh/nvm#installing-and-updating
@@ -95,23 +99,22 @@ nvm install {var_node_version}
 nvm use {var_node_version}
 ----
 
-* Yarn
+=== Yarn
 
-[source, bash]
+[source, bash, subs="attributes"]
 ----
 corepack enable
-yarn set version 1.22.21
-yarn install --frozen-lockfile
+yarn set version {var_yarn_version}
 ----
 
-* Maven
+===  Maven
 
 [source, bash]
 ----
 sudo apt install maven
 ----
 
-* Git
+=== Git
 
 [source, bash]
 ----
@@ -150,6 +153,9 @@ For UI development, you will need the UI repository:
 [source, bash]
 ----
 git clone --branch dev https://github.com/AAFC-BICoE/dina-ui.git
+cd dina-ui
+yarn install
+yarn workspace dina-ui build
 ----
 
 For API development, you will need to clone the respective API you are working on. Here are all of the main DINA APIs:
@@ -177,7 +183,7 @@ Once you have VSCode downloaded, you can run this command to install the recomme
 ----
 code --install-extension vscjava.vscode-java-pack
 code --install-extension msjsdiag.debugger-for-chrome
-code --install-extension ms-azuretools.vscode-docker
+code --install-extension ms-azuretools.vscode-containers
 code --install-extension gabrielbb.vscode-lombok
 code --install-extension esbenp.prettier-vscode
 code --install-extension dbaeumer.vscode-eslint
