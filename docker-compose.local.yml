@@ -10,7 +10,7 @@ services:
       OBJECTSTORE_API_ADDRESS: object-store-api:8080
       AGENT_API_ADDRESS: agent-api:8080
       SEQDB_API_ADDRESS: seqdb-api:8080
-      COLLECTION_API_ADDRESS: collection-api:8080
+      COLLECTION_API_ADDRESS: wiremock:8080
       USER_API_ADDRESS: dina-user-api:8080
       SEARCH_API_ADDRESS: search-ws:8085
       LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
@@ -85,6 +85,7 @@ services:
 
   collection-api:
     image: aafcbicoe/natural-history-collection-api:0.114
+    profiles: ["collection_api"]
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -387,6 +388,8 @@ services:
   wiremock:
     image: wiremock/wiremock:3x
     profiles: ["wiremock"]
+    networks:
+      - dina
     ports:
       - "8089:8080"
     environment:

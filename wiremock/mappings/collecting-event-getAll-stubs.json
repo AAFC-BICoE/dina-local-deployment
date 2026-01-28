@@ -1,0 +1,211 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/api/v1/collecting-event(\\?.*)?"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": [
+        {
+          "type": "collecting-event",
+          "id": "a3d5e8f1-4b2c-4d6e-8f9a-1c2d3e4f5a6b",
+          "attributes": {
+            "startEventDateTime": "2023-06-15T10:30:00Z",
+            "endEventDateTime": "2023-06-15T16:45:00Z",
+            "verbatimEventDescription": "Collection in tropical rainforest",
+            "eventGeography": "Amazon Basin",
+            "eventRemarks": "Collected during dry season",
+            "createdOn": "2023-06-16T08:00:00Z",
+            "createdBy": "user@example.com"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "b7c9d2e4-5f6a-4b8c-9d1e-2f3a4b5c6d7e",
+          "attributes": {
+            "startEventDateTime": "2023-07-22T06:00:00Z",
+            "endEventDateTime": "2023-07-22T14:30:00Z",
+            "verbatimEventDescription": "Mountain ridge survey",
+            "eventGeography": "Rocky Mountains, Colorado",
+            "eventRemarks": "High altitude collection at 3200m elevation",
+            "createdOn": "2023-07-23T09:15:00Z",
+            "createdBy": "researcher@university.edu"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "c8d1e3f5-6a7b-4c9d-8e2f-3a4b5c6d7e8f",
+          "attributes": {
+            "startEventDateTime": "2023-08-10T08:45:00Z",
+            "endEventDateTime": "2023-08-10T17:00:00Z",
+            "verbatimEventDescription": "Coastal mangrove ecosystem study",
+            "eventGeography": "Everglades National Park, Florida",
+            "eventRemarks": "Specimens collected at low tide",
+            "createdOn": "2023-08-11T10:30:00Z",
+            "createdBy": "marine.bio@research.org"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "d9e2f4a6-7b8c-4d1e-9f3a-4b5c6d7e8f9a",
+          "attributes": {
+            "startEventDateTime": "2023-09-05T07:15:00Z",
+            "endEventDateTime": "2023-09-05T12:00:00Z",
+            "verbatimEventDescription": "Desert scrubland sampling",
+            "eventGeography": "Sonoran Desert, Arizona",
+            "eventRemarks": "Early morning collection to avoid heat",
+            "createdOn": "2023-09-06T08:45:00Z",
+            "createdBy": "desert.specialist@field.org"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "e1f3a5b7-8c9d-4e2f-1a4b-5c6d7e8f9a1b",
+          "attributes": {
+            "startEventDateTime": "2023-10-12T09:00:00Z",
+            "endEventDateTime": "2023-10-12T18:30:00Z",
+            "verbatimEventDescription": "Temperate deciduous forest transect",
+            "eventGeography": "Great Smoky Mountains, Tennessee",
+            "eventRemarks": "Fall foliage period, excellent visibility",
+            "createdOn": "2023-10-13T07:20:00Z",
+            "createdBy": "botanist@nature.edu"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "f2a4b6c8-9d1e-4f3a-2b5c-6d7e8f9a1b2c",
+          "attributes": {
+            "startEventDateTime": "2023-11-18T05:30:00Z",
+            "endEventDateTime": "2023-11-18T11:45:00Z",
+            "verbatimEventDescription": "Wetland bird survey",
+            "eventGeography": "Okavango Delta, Botswana",
+            "eventRemarks": "Peak migration season observations",
+            "createdOn": "2023-11-19T14:00:00Z",
+            "createdBy": "ornithologist@birds.org"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "a5b7c9d1-1e2f-4a3b-5c6d-7e8f9a1b2c3d",
+          "attributes": {
+            "startEventDateTime": "2024-01-25T10:00:00Z",
+            "endEventDateTime": "2024-01-25T15:30:00Z",
+            "verbatimEventDescription": "Alpine tundra expedition",
+            "eventGeography": "Swiss Alps, Switzerland",
+            "eventRemarks": "Snow cover present, limited access areas",
+            "createdOn": "2024-01-26T09:00:00Z",
+            "createdBy": "alpine.research@swiss.edu"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "b6c8d1e3-2f4a-4b5c-6d7e-8f9a1b2c3d4e",
+          "attributes": {
+            "startEventDateTime": "2024-02-14T08:30:00Z",
+            "endEventDateTime": "2024-02-14T16:00:00Z",
+            "verbatimEventDescription": "Coral reef biodiversity assessment",
+            "eventGeography": "Great Barrier Reef, Australia",
+            "eventRemarks": "Underwater collection via SCUBA diving",
+            "createdOn": "2024-02-15T11:45:00Z",
+            "createdBy": "marine.lab@ocean.edu"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "c7d9e2f4-3a5b-4c6d-7e8f-9a1b2c3d4e5f",
+          "attributes": {
+            "startEventDateTime": "2024-03-08T07:00:00Z",
+            "endEventDateTime": "2024-03-08T13:30:00Z",
+            "verbatimEventDescription": "Grassland prairie survey",
+            "eventGeography": "Serengeti National Park, Tanzania",
+            "eventRemarks": "Post-rainy season, abundant vegetation",
+            "createdOn": "2024-03-09T10:15:00Z",
+            "createdBy": "ecologist@wildlife.org"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "d8e1f3a5-4b6c-4d7e-8f9a-1b2c3d4e5f6a",
+          "attributes": {
+            "startEventDateTime": "2024-04-20T09:15:00Z",
+            "endEventDateTime": "2024-04-20T17:45:00Z",
+            "verbatimEventDescription": "Boreal forest sampling",
+            "eventGeography": "Taiga, Northern Canada",
+            "eventRemarks": "Spring thaw conditions, muddy terrain",
+            "createdOn": "2024-04-21T08:30:00Z",
+            "createdBy": "forest.researcher@boreal.ca"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "e9f2a4b6-5c7d-4e8f-9a1b-2c3d4e5f6a7b",
+          "attributes": {
+            "startEventDateTime": "2024-05-17T06:45:00Z",
+            "endEventDateTime": "2024-05-17T12:15:00Z",
+            "verbatimEventDescription": "Mediterranean shrubland study",
+            "eventGeography": "Provence, Southern France",
+            "eventRemarks": "Peak flowering season for native species",
+            "createdOn": "2024-05-18T09:00:00Z",
+            "createdBy": "botanist@mediterranean.fr"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "f1a3b5c7-6d8e-4f9a-1b2c-3d4e5f6a7b8c",
+          "attributes": {
+            "startEventDateTime": "2024-06-30T08:00:00Z",
+            "endEventDateTime": "2024-06-30T16:30:00Z",
+            "verbatimEventDescription": "Volcanic island endemic survey",
+            "eventGeography": "Galápagos Islands, Ecuador",
+            "eventRemarks": "Focus on unique island species",
+            "createdOn": "2024-07-01T10:45:00Z",
+            "createdBy": "darwin.institute@galapagos.ec"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "a2b4c6d8-7e9f-4a1b-2c3d-4e5f6a7b8c9d",
+          "attributes": {
+            "startEventDateTime": "2024-08-12T10:30:00Z",
+            "endEventDateTime": "2024-08-12T18:00:00Z",
+            "verbatimEventDescription": "Subtropical cloud forest expedition",
+            "eventGeography": "Monteverde, Costa Rica",
+            "eventRemarks": "High humidity, epiphyte-rich canopy",
+            "createdOn": "2024-08-13T07:15:00Z",
+            "createdBy": "tropical.bio@costarica.org"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "b3c5d7e9-8f1a-4b2c-3d4e-5f6a7b8c9d1e",
+          "attributes": {
+            "startEventDateTime": "2024-09-25T07:30:00Z",
+            "endEventDateTime": "2024-09-25T14:00:00Z",
+            "verbatimEventDescription": "Steppe grassland documentation",
+            "eventGeography": "Mongolian Steppe, Mongolia",
+            "eventRemarks": "Nomadic herding area, minimal human impact",
+            "createdOn": "2024-09-26T11:30:00Z",
+            "createdBy": "steppe.study@mongolia.mn"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "c4d6e8f1-9a2b-4c3d-4e5f-6a7b8c9d1e2f",
+          "attributes": {
+            "startEventDateTime": "2024-10-19T09:00:00Z",
+            "endEventDateTime": "2024-10-19T15:45:00Z",
+            "verbatimEventDescription": "Arctic coastal survey",
+            "eventGeography": "Svalbard Archipelago, Norway",
+            "eventRemarks": "Permafrost environment, polar conditions",
+            "createdOn": "2024-10-20T08:00:00Z",
+            "createdBy": "arctic.field@polar.no"
+          }
+        }
+      ]
+    }
+  }
+}
