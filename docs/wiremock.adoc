@@ -1,0 +1,48 @@
+= WireMock API Mocking
+
+For testing purposes, DINA provides a way to mock API responses using predefined JSON files. This can be useful for frontend development or testing without needing a live backend.
+
+To enable API mocking, change the appropriate API address in the environment variables of the ```dina-ui``` service in ```docker-compose.local.yml``` to ```wiremock:8080```. 
+Then, enable the ```wiremock``` profile in ```dina_start_stop.sh``` and unselect the actual API modules you wish to mock. 
+
+The mock API stubs are located in dina-local-deployment/wiremock/mappings.
+
+https://wiremock.org/docs/stubbing/[WireMock stubbing documentation] provides more information on how to create and manage mock API responses.
+
+[source:yaml]
+  services:
+    dina-ui:
+        image: aafcbicoe/dina-ui:0.209.0
+        environment:
+        KEYCLOAK_ENABLED: true
+        KEYCLOAK_CLIENTID: dina-public
+        KEYCLOAK_REALM: dina
+        KEYCLOAK_PUBLIC_URL: ${KEYCLOAK_EXTERNAL_URL}
+        OBJECTSTORE_API_ADDRESS: object-store-api:8080 
+        AGENT_API_ADDRESS: agent-api:8080 
+        SEQDB_API_ADDRESS: seqdb-api:8080 
+        COLLECTION_API_ADDRESS: collection-api:8080 
+        USER_API_ADDRESS: dina-user-api:8080 
+        SEARCH_API_ADDRESS: search-ws:8085 
+        LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080 
+        REPORT_LABEL_API_ADDRESS: dina-export-api:8080 
+        INSTANCE_MODE: ${INSTANCE_MODE}
+        INSTANCE_NAME: ${INSTANCE_NAME}
+        SUPPORTED_LANGUAGES_ISO: ${SUPPORTED_LANGUAGES_ISO}
+        SUPPORTED_GEOINFORMATION_SYSTEMS: ${SUPPORTED_GEOINFORMATION_SYSTEMS}
+        SCIENTIFIC_NAMES_SEARCH_ENDPOINT: ${SCIENTIFIC_NAMES_SEARCH_ENDPOINT}
+        SCIENTIFIC_NAMES_DATASETS_ENDPOINT: ${SCIENTIFIC_NAMES_DATASETS_ENDPOINT}
+
+[source:bash]
+  # DINA Modules to activate
+  DINA_MODULES=()
+  DINA_MODULES+=('user_api')
+  #DINA_MODULES+=('collection_api') 
+  #DINA_MODULES+=('object_store_api')
+  #DINA_MODULES+=('agent_api')
+  #DINA_MODULES+=('search_api')
+  #DINA_MODULES+=('seqdb_api')
+  #DINA_MODULES+=('export_api')
+  #DINA_MODULES+=('loan_transaction_api')
+  DINA_MODULES+=('wiremock') # currently mocks collection-api collecting event  get requests
+ 
