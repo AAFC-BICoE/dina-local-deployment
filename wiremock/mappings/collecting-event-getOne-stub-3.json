@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/api/v1/collecting-event/c8d1e3f5-6a7b-4c9d-8e2f-3a4b5c6d7e8f(\\?.*)?"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": {
+          "type": "collecting-event",
+          "id": "c8d1e3f5-6a7b-4c9d-8e2f-3a4b5c6d7e8f",
+          "attributes": {
+            "startEventDateTime": "2023-08-10T08:45:00Z",
+            "endEventDateTime": "2023-08-10T17:00:00Z",
+            "verbatimEventDateTime": "August 10, 2023, 8:45 AM - 5:00 PM",
+            "verbatimEventDescription": "Coastal mangrove ecosystem study",
+            "eventGeography": "Everglades National Park, Florida",
+            "eventRemarks": "Specimens collected at low tide",
+            "dwcFieldNumber": "2023-003",
+            "dwcRecordNumber": "1003",
+            "otherRecordNumbers": ["2003", "3003", "4003", "5003"],
+            "createdOn": "2023-08-11T10:30:00Z",
+            "createdBy": "marine.bio@research.org"
+          }
+        }
+    }
+  }
+}

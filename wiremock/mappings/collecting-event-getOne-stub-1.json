@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/api/v1/collecting-event/a3d5e8f1-4b2c-4d6e-8f9a-1c2d3e4f5a6b(\\?.*)?"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": {
+          "type": "collecting-event",
+          "id": "a3d5e8f1-4b2c-4d6e-8f9a-1c2d3e4f5a6b",
+          "attributes": {
+            "startEventDateTime": "2023-06-15T10:30:00Z",
+            "endEventDateTime": "2023-06-15T16:45:00Z",
+            "verbatimEventDateTime": "June 15, 2023, 10:30 AM - 4:45 PM",
+            "verbatimEventDescription": "Collection in tropical rainforest",
+            "eventGeography": "Amazon Basin",
+            "eventRemarks": "Collected during dry season",
+            "dwcFieldNumber": "2023-001",
+            "dwcRecordNumber": "1001",
+            "otherRecordNumbers": ["2001", "3001", "4001"],
+            "createdOn": "2023-06-16T08:00:00Z",
+            "createdBy": "user@example.com"
+          }
+        }
+    }
+  }
+}
