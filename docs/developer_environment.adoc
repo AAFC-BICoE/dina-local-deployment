@@ -6,7 +6,7 @@
 :var_docker_version: 29.1.5
 :var_docker_compose_version: 5.0.1
 :var_nvm_version: 0.40.2
-:var_node_version: 20
+:var_node_version: 22
 :var_yarn_version: 1.22.21
 :var_maven_version: 3.9.8
 
