@@ -5,7 +5,7 @@ For testing purposes, DINA provides a way to mock API responses using predefined
 To enable API mocking, change the appropriate API address in the environment variables of the ```dina-ui``` service in ```docker-compose.local.yml``` to ```wiremock:8080```. 
 Then, enable the ```wiremock``` profile in ```dina_start_stop.sh``` and unselect the actual API modules you wish to mock. 
 
-The mock API stubs are located in dina-local-deployment/wiremock/mappings.
+The mock API stubs are located in https://github.com/AAFC-BICoE/dina-local-deployment/tree/master/wiremock/mappings[dina-local-deployment/wiremock/mappings].
 
 https://wiremock.org/docs/stubbing/[WireMock stubbing documentation] provides more information on how to create and manage mock API responses.
 
@@ -26,12 +26,6 @@ https://wiremock.org/docs/stubbing/[WireMock stubbing documentation] provides mo
         SEARCH_API_ADDRESS: search-ws:8085 
         LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080 
         REPORT_LABEL_API_ADDRESS: dina-export-api:8080 
-        INSTANCE_MODE: ${INSTANCE_MODE}
-        INSTANCE_NAME: ${INSTANCE_NAME}
-        SUPPORTED_LANGUAGES_ISO: ${SUPPORTED_LANGUAGES_ISO}
-        SUPPORTED_GEOINFORMATION_SYSTEMS: ${SUPPORTED_GEOINFORMATION_SYSTEMS}
-        SCIENTIFIC_NAMES_SEARCH_ENDPOINT: ${SCIENTIFIC_NAMES_SEARCH_ENDPOINT}
-        SCIENTIFIC_NAMES_DATASETS_ENDPOINT: ${SCIENTIFIC_NAMES_DATASETS_ENDPOINT}
 
 [source:bash]
   # DINA Modules to activate
