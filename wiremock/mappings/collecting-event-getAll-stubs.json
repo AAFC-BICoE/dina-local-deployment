@@ -1,0 +1,67 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/api/v1/collecting-event(\\?.*)?"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": [
+        {
+          "type": "collecting-event",
+          "id": "a3d5e8f1-4b2c-4d6e-8f9a-1c2d3e4f5a6b",
+          "attributes": {
+            "startEventDateTime": "2023-06-15T10:30:00Z",
+            "endEventDateTime": "2023-06-15T16:45:00Z",
+            "verbatimEventDateTime": "June 15, 2023, 10:30 AM - 4:45 PM",
+            "verbatimEventDescription": "Collection in tropical rainforest",
+            "eventGeography": "Amazon Basin",
+            "eventRemarks": "Collected during dry season",
+            "dwcFieldNumber": "2023-001",
+            "dwcRecordNumber": "1001",
+            "otherRecordNumbers": ["2001", "3001", "4001"],
+            "createdOn": "2023-06-16T08:00:00Z",
+            "createdBy": "user@example.com"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "b7c9d2e4-5f6a-4b8c-9d1e-2f3a4b5c6d7e",
+          "attributes": {
+            "startEventDateTime": "2023-07-22T06:00:00Z",
+            "endEventDateTime": "2023-07-22T14:30:00Z",
+            "verbatimEventDateTime": "July 22, 2023, 6:00 AM - 2:30 PM",
+            "verbatimEventDescription": "Mountain ridge survey",
+            "eventGeography": "Rocky Mountains, Colorado",
+            "eventRemarks": "High altitude collection at 3200m elevation",
+            "dwcFieldNumber": "2023-002",
+            "dwcRecordNumber": "1002",
+            "otherRecordNumbers": ["2002", "3002"],
+            "createdOn": "2023-07-23T09:15:00Z",
+            "createdBy": "researcher@university.edu"
+          }
+        },
+        {
+          "type": "collecting-event",
+          "id": "c8d1e3f5-6a7b-4c9d-8e2f-3a4b5c6d7e8f",
+          "attributes": {
+            "startEventDateTime": "2023-08-10T08:45:00Z",
+            "endEventDateTime": "2023-08-10T17:00:00Z",
+            "verbatimEventDateTime": "August 10, 2023, 8:45 AM - 5:00 PM",
+            "verbatimEventDescription": "Coastal mangrove ecosystem study",
+            "eventGeography": "Everglades National Park, Florida",
+            "eventRemarks": "Specimens collected at low tide",
+            "dwcFieldNumber": "2023-003",
+            "dwcRecordNumber": "1003",
+            "otherRecordNumbers": ["2003", "3003", "4003", "5003"],
+            "createdOn": "2023-08-11T10:30:00Z",
+            "createdBy": "marine.bio@research.org"
+          }
+        }
+      ]
+    }
+
+  }}

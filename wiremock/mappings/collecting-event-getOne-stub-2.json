@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/api/v1/collecting-event/b7c9d2e4-5f6a-4b8c-9d1e-2f3a4b5c6d7e(\\?.*)?"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": {
+          "type": "collecting-event",
+          "id": "b7c9d2e4-5f6a-4b8c-9d1e-2f3a4b5c6d7e",
+          "attributes": {
+            "startEventDateTime": "2023-07-22T06:00:00Z",
+            "endEventDateTime": "2023-07-22T14:30:00Z",
+            "verbatimEventDateTime": "July 22, 2023, 6:00 AM - 2:30 PM",
+            "verbatimEventDescription": "Mountain ridge survey",
+            "eventGeography": "Rocky Mountains, Colorado",
+            "eventRemarks": "High altitude collection at 3200m elevation",
+            "dwcFieldNumber": "2023-002",
+            "dwcRecordNumber": "1002",
+            "otherRecordNumbers": ["2002", "3002"],
+            "createdOn": "2023-07-23T09:15:00Z",
+            "createdBy": "researcher@university.edu"
+          }
+        }
+    }
+  }
+}
