@@ -10,8 +10,8 @@ DINA_MODULES+=('user_api')
 #DINA_MODULES+=('seqdb_api')
 #DINA_MODULES+=('export_api')
 #DINA_MODULES+=('loan_transaction_api')
-DINA_MODULES+=('wiremock') # currently mocks collection-api collecting event get requests
 
+#DINA_MODULES+=('wiremock')
 #DINA_MODULES+=('kibana')
 #DINA_MODULES+=('prometheus')
 
