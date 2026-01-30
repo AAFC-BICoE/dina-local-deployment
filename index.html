@@ -505,7 +505,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_additional_environments">6.5. Additional Environments</a></li>
 </ul>
 </li>
-<li><a href="#_wiremock_api_mocking">7. WireMock API Mocking</a></li>
+<li><a href="#_wiremock_api_mocking">7. WireMock API Mocking</a>
+<ul class="sectlevel2">
+<li><a href="#_setup">7.1. Setup</a></li>
+<li><a href="#_creating_mocks">7.2. Creating Mocks</a></li>
+<li><a href="#_refresh_mocks">7.3. Refresh Mocks</a></li>
+</ul>
+</li>
 <li><a href="#_postgresql">8. PostgreSQL</a></li>
 <li><a href="#_messaging">9. Messaging</a></li>
 <li><a href="#_keycloak">10. Keycloak</a>
@@ -1734,51 +1740,89 @@ mvn clean install -DskipTests</code></pre>
 <h2 id="_wiremock_api_mocking">7. WireMock API Mocking</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For testing purposes, DINA provides a way to mock API responses using predefined JSON files. This can be useful for frontend development or testing without needing a live backend.</p>
+<p>Mock API responses for frontend development and testing without a live backend using <a href="https://wiremock.org/">WireMock</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_setup">7.1. Setup</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Configure local hostnames</strong>: In <code>docker-compose.local.yml</code>, change the desired local hostnames in the <code>dina-ui</code> service environment to <code>wiremock:8080</code>. You can set it for multiple services if needed.</p>
+</li>
+<li>
+<p><strong>Enable WireMock profile</strong>: In <code>dina_start_stop.sh`</code>, enable the <code>wiremock</code> profile and disable the API modules you want to mock.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>To enable API mocking, change the appropriate API address in the environment variables of the <code><code>dina-ui</code></code> service in <code><code>docker-compose.local.yml</code></code> to <code><code>wiremock:8080</code></code>.
-Then, enable the <code><code>wiremock</code></code> profile in <code><code>dina_start_stop.sh</code></code> and unselect the actual API modules you wish to mock.</p>
+<p>Example Configuration:</p>
 </div>
 <div class="paragraph">
-<p>The mock API stubs are located in <a href="https://github.com/AAFC-BICoE/dina-local-deployment/tree/master/wiremock/mappings">dina-local-deployment/wiremock/mappings</a>.</p>
+<p><strong>docker-compose.local.yml</strong></p>
 </div>
-<div class="paragraph">
-<p><a href="https://wiremock.org/docs/stubbing/">WireMock stubbing documentation</a> provides more information on how to create and manage mock API responses.</p>
-</div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>services:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">services:
   dina-ui:
-      image: aafcbicoe/dina-ui:0.209.0
-      environment:
-      KEYCLOAK_ENABLED: true
-      KEYCLOAK_CLIENTID: dina-public
-      KEYCLOAK_REALM: dina
-      KEYCLOAK_PUBLIC_URL: ${KEYCLOAK_EXTERNAL_URL}
-      OBJECTSTORE_API_ADDRESS: object-store-api:8080
-      AGENT_API_ADDRESS: agent-api:8080
-      SEQDB_API_ADDRESS: seqdb-api:8080
-      COLLECTION_API_ADDRESS: collection-api:8080
-      USER_API_ADDRESS: dina-user-api:8080
-      SEARCH_API_ADDRESS: search-ws:8085
-      LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
-      REPORT_LABEL_API_ADDRESS: dina-export-api:8080</pre>
+    environment:
+      # ...
+      COLLECTION_API_ADDRESS: wiremock:8080  # Mocked API
+      AGENT_API_ADDRESS: agent-api:8080      # Live API
+      # ...</code></pre>
 </div>
 </div>
-<div class="literalblock">
+<div class="paragraph">
+<p><strong>dina_start_stop.sh</strong></p>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre># DINA Modules to activate
-DINA_MODULES=()
-DINA_MODULES+=('user_api')
-#DINA_MODULES+=('collection_api')
-#DINA_MODULES+=('object_store_api')
-#DINA_MODULES+=('agent_api')
-#DINA_MODULES+=('search_api')
-#DINA_MODULES+=('seqdb_api')
-#DINA_MODULES+=('export_api')
-#DINA_MODULES+=('loan_transaction_api')
-DINA_MODULES+=('wiremock') # currently mocks collection-api collecting event  get requests</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">#DINA_MODULES+=('collection_api')   # Disabled - using WireMock instead
+DINA_MODULES+=('wiremock')          # Enable this.</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_mocks">7.2. Creating Mocks</h3>
+<div class="paragraph">
+<p>Mock responses are organized in the following directory structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/wiremock/mappings/
+  └── [API folder]/
+      └── [Entity folder]/
+          └── [mock-definition.json]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add new mocks:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a folder for the API you want to mock (e.g., <code>collection-api</code>, <code>agent-api</code>)</p>
+</li>
+<li>
+<p>Inside the API folder, create a folder for each entity type (e.g., <code>collecting-event</code>, <code>person</code>)</p>
+</li>
+<li>
+<p>Add your WireMock stub JSON files in the entity folder</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Refer to the <a href="https://wiremock.org/docs/stubbing/">WireMock stubbing documentation</a> for details on creating stub definitions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_refresh_mocks">7.3. Refresh Mocks</h3>
+<div class="paragraph">
+<p>After editing mocks, reload without restarting the WireMock container:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -X POST http://localhost:8089/__admin/mappings/reset</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -2478,7 +2522,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-30 15:27:38 UTC
+Last updated 2026-01-30 16:40:23 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
