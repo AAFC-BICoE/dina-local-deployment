@@ -1,42 +1,58 @@
 = WireMock API Mocking
 
-For testing purposes, DINA provides a way to mock API responses using predefined JSON files. This can be useful for frontend development or testing without needing a live backend.
+Mock API responses for frontend development and testing without a live backend using https://wiremock.org/[WireMock].
 
-To enable API mocking, change the appropriate API address in the environment variables of the ```dina-ui``` service in ```docker-compose.local.yml``` to ```wiremock:8080```. 
-Then, enable the ```wiremock``` profile in ```dina_start_stop.sh``` and unselect the actual API modules you wish to mock. 
+== Setup
 
-The mock API stubs are located in https://github.com/AAFC-BICoE/dina-local-deployment/tree/master/wiremock/mappings[dina-local-deployment/wiremock/mappings].
+1. *Configure local hostnames*: In `docker-compose.local.yml`, change the desired local hostnames in the `dina-ui` service environment to `wiremock:8080`. You can set it for multiple services if needed.
 
-https://wiremock.org/docs/stubbing/[WireMock stubbing documentation] provides more information on how to create and manage mock API responses.
+2. *Enable WireMock profile*: In `dina_start_stop.sh``, enable the `wiremock` profile and disable the API modules you want to mock.
 
-[source:yaml]
-  services:
-    dina-ui:
-        image: aafcbicoe/dina-ui:0.209.0
-        environment:
-        KEYCLOAK_ENABLED: true
-        KEYCLOAK_CLIENTID: dina-public
-        KEYCLOAK_REALM: dina
-        KEYCLOAK_PUBLIC_URL: ${KEYCLOAK_EXTERNAL_URL}
-        OBJECTSTORE_API_ADDRESS: object-store-api:8080 
-        AGENT_API_ADDRESS: agent-api:8080 
-        SEQDB_API_ADDRESS: seqdb-api:8080 
-        COLLECTION_API_ADDRESS: collection-api:8080 
-        USER_API_ADDRESS: dina-user-api:8080 
-        SEARCH_API_ADDRESS: search-ws:8085 
-        LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080 
-        REPORT_LABEL_API_ADDRESS: dina-export-api:8080 
+Example Configuration:
 
-[source:bash]
-  # DINA Modules to activate
-  DINA_MODULES=()
-  DINA_MODULES+=('user_api')
-  #DINA_MODULES+=('collection_api') 
-  #DINA_MODULES+=('object_store_api')
-  #DINA_MODULES+=('agent_api')
-  #DINA_MODULES+=('search_api')
-  #DINA_MODULES+=('seqdb_api')
-  #DINA_MODULES+=('export_api')
-  #DINA_MODULES+=('loan_transaction_api')
-  DINA_MODULES+=('wiremock') # currently mocks collection-api collecting event  get requests
- 
+**docker-compose.local.yml**
+[source,yaml]
+----
+services:
+  dina-ui:
+    environment:
+      # ...
+      COLLECTION_API_ADDRESS: wiremock:8080  # Mocked API
+      AGENT_API_ADDRESS: agent-api:8080      # Live API
+      # ...
+----
+
+**dina_start_stop.sh**
+[source,bash]
+----
+#DINA_MODULES+=('collection_api')   # Disabled - using WireMock instead
+DINA_MODULES+=('wiremock')          # Enable this.
+----
+
+== Creating Mocks
+
+Mock responses are organized in the following directory structure:
+
+----
+/wiremock/mappings/
+  └── [API folder]/
+      └── [Entity folder]/
+          └── [mock-definition.json]
+----
+
+To add new mocks:
+
+1. Create a folder for the API you want to mock (e.g., `collection-api`, `agent-api`)
+2. Inside the API folder, create a folder for each entity type (e.g., `collecting-event`, `person`)
+3. Add your WireMock stub JSON files in the entity folder
+
+Refer to the https://wiremock.org/docs/stubbing/[WireMock stubbing documentation] for details on creating stub definitions.
+
+== Refresh Mocks
+
+After editing mocks, reload without restarting the WireMock container:
+
+[source,bash]
+----
+curl -X POST http://localhost:8089/__admin/mappings/reset
+----
