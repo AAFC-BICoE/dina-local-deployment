@@ -18,6 +18,8 @@ include::local_images.adoc[]
 
 include::api_testing.adoc[]
 
+include::wiremock.adoc[]
+
 include::postgres.adoc[]
 
 include::messaging.adoc[]
