@@ -1,5 +1,3 @@
-version: "3.9"
-
 # Configuration for the DINA services
 x-dev-user-config: &dev-user-config
   SPRING_APPLICATION_JSON: |-

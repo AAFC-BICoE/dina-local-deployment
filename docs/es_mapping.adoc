@@ -1,0 +1,22 @@
+
+= How to Update ElasticSearch Mapping
+
+Mapping settings are stored under `elastic-configurator-settings` folder.
+
+To add a new field to Elasticsearch mapping file, first identify the correct location in the nested properties structure where the field belongs. Most fields are under 
+`mappings → properties → data → properties → attributes → properties` and nested documents (representing the relationship) would go under `mappings → properties → included → properties → attributes → properties`.
+Insert your new field definition with its type (ElasticSearch type).
+
+Always increment the version number to allow the automatic schema migration.
+
+[source,json]
+----
+  "mappings": {
+    "_meta" : {
+      "version" : {
+        "number" : "2.7"
+      }
+    }
+----
+
+ElasticSearch schema migration is applied by https://github.com/AAFC-BICoE/dina-search-api/tree/main/es-init-container[es-init-container].

@@ -1,0 +1,11 @@
+meta {
+  name: Get all organizations
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/agent-api/organization/
+  body: none
+  auth: inherit
+}

@@ -1,8 +1,7 @@
-version: "3.9"
 services:
 
   dina-ui:
-    image: aafcbicoe/dina-ui:0.206.0
+    image: aafcbicoe/dina-ui:0.209.0
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
@@ -35,7 +34,7 @@ services:
       - "${UI_CUSTOMIZATION_FOLDER_PATH}:/srv/public"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.24.0
+    image: aafcbicoe/seqdb-api:2.25.0
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
@@ -85,7 +84,7 @@ services:
         condition: service_completed_successfully 
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.111
+    image: aafcbicoe/natural-history-collection-api:0.114
     environment:
       keycloak.enabled: "true"
       keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
@@ -138,7 +137,7 @@ services:
         condition: service_completed_successfully 
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.22
+    image: aafcbicoe/dina-user-api:0.23
     profiles: ["user_api"]
     mem_limit: 512m
     environment:
@@ -197,7 +196,7 @@ services:
         condition: service_completed_successfully 
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.17
+    image: aafcbicoe/dina-export-api:0.18
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
@@ -373,7 +372,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.46
+    image: aafcbicoe/dina-search-ws:0.48
     mem_limit: 512m
     profiles: ["search_api"]
     networks:
@@ -385,7 +384,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.46
+    image: aafcbicoe/dina-search-cli:0.48
     profiles: ["search_api"]
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/

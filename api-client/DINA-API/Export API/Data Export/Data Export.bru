@@ -1,0 +1,39 @@
+meta {
+  name: Data Export
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/dina-export-api/data-export
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "data-export",
+      "attributes": {
+        "exportOptions": {
+          "columnSeparator": "TAB"
+        },
+        "source": "dina_material_sample_index",
+        "query": "{\"query\":{\"terms\":{\"data.id\":[\"019349e8-1e8b-7d68-a26a-53d45830bdf3\",\"019349e5-bcd6-7290-90b3-a45113f192db\"]}}}",
+        "name": "test",
+        "columns": [
+          "materialSampleName",
+          "latLong"
+        ],
+        "columnFunctions": {
+          "latLong": {
+            "functionName": "CONVERT_COORDINATES_DD",
+            "params": [
+              "collectingEvent.eventGeom"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

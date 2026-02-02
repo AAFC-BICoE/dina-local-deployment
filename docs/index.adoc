@@ -8,11 +8,13 @@
 
 include::developer_environment.adoc[]
 
+include::ui_development.adoc[]
+
+include::run_application.adoc[]
+
 include::instance_configuration.adoc[]
 
 include::local_images.adoc[]
-
-include::ui_development.adoc[]
 
 include::api_testing.adoc[]
 
@@ -28,7 +30,8 @@ include::minikube.adoc[]
 
 include::helm.adoc[]
 
+include::es_mapping.adoc[]
+
 include::jmeter.adoc[]
 
 include::docker_network.adoc[]
-

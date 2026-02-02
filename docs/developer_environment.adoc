@@ -1,30 +1,79 @@
 = Developer Environment Setup
 
+== Tested Versions
+
+:var_ubuntu_version: 22.04
+:var_docker_version: 29.1.5
+
+[cols="2,1", subs="attributes"]
+|===
+| Component | Tested version
+
+| Linux | Ubuntu {var_ubuntu_version}
+| Docker | {var_docker_version}
+| Docker Compose CLI plugin | v5.0.1
+| Node.js (via nvm) | 20.x
+| nvm | v0.40.2
+| Yarn (Corepack-managed) | 1.22.21
+| Maven | 3.9.8
+|===
+
 == Prerequisites
 
-The following is required for DINA development:
+Linux operating system (Virtual Machine). Tested with Ubuntu {var_ubuntu_version}.
 
-* Linux operating system (Virtual Machine)
-* Visual Studio Code (Install on Linux or see Remote setup below)
-* Docker (Install on Linux)
+== Packages
+
+* Docker
+
+First we need to install the official repository in order for `apt-get` to install docker and docker compose:
+[source, bash]
+----
+# Add Docker's official GPG key:
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+sudo apt update
+----
+
+Using this command, you will retrieve the specific version of docker for your Ubuntu version:
+
+[source, bash, subs="attributes"]
+----
+sudo apt-cache policy docker-ce | grep {var_docker_version}
+----
+
+From above commands you will get list of docker version, copy respected version. This will be for your specific version of Ubuntu:
 
 [source, bash]
 ----
-sudo apt install curl 
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh get-docker.sh
-sudo usermod -aG docker ${USER}
+sudo apt-get install docker-ce=5:25.0.1-1~ubuntu.22.04~jammy docker-ce-cli=5:25.0.1-1~ubuntu.22.04~jammy containerd.io
 ----
+
+More info: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 
 * Docker Compose (Install on Linux)
 
+This step requires the Docker repository to be setup from the above steps.
+
 [source, bash]
 ----
-DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
-mkdir -p $DOCKER_CONFIG/cli-plugins
-curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
-chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+sudo apt-get install docker-compose-plugin
 ----
+
+More info: https://docs.docker.com/compose/install/linux/#install-using-the-repository
 
 * Node.js
 
@@ -54,24 +103,6 @@ yarn set version 1.22.21
 yarn install --frozen-lockfile
 ----
 
-If you see the following error:
-
-[source, bash]
-----
-➤ YN0028: │ The lockfile would have been modified by this install, which is explicitly forbidden.
-----
-
-Ensure you are using yarn 1.22.21 and node 18:
-
-[source, bash]
-----
-yarn -v
-1.22.21
-
-node -v
-v18.20.8
-----
-
 * Maven
 
 [source, bash]
@@ -86,13 +117,44 @@ sudo apt install maven
 sudo apt install git
 ----
 
+== Setup Hosts file
+
+To access the DINA services locally, you will need to add entries to your `/etc/hosts` file.
+
+In Linux and Mac OSX, this is located at /etc/hosts. You should have the following entries, all pointing to the fixed IP of the Traefik container:
+
+[source, text]
+----
+192.19.33.9 dina.local
+192.19.33.9 api.dina.local
+192.19.33.9 keycloak.dina.local
+----
+
+== Local certificates
+
+By default, everything will be accessible on https. In order to allow the local browser to work without issues and warnings
+[local development certificates](https://aafc-bicoe.github.io/dina-local-deployment/#_local_certificates) can be installed.
+
 == Clone Repositories
 
-To get started, you can git clone all of the projects to your home directory:
+For local development, you will need to clone the `dina-local-deployment` repository, this contains the docker-compose files and scripts to run the local environment.
+
+[source, bash]
+----
+git clone --branch master https://github.com/AAFC-BICoE/dina-local-deployment.git
+----
+
+For UI development, you will need the UI repository:
 
 [source, bash]
 ----
 git clone --branch dev https://github.com/AAFC-BICoE/dina-ui.git
+----
+
+For API development, you will need to clone the respective API you are working on. Here are all of the main DINA APIs:
+
+[source, bash]
+----
 git clone --branch dev https://github.com/AAFC-BICoE/object-store-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/seqdb-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/agent-api.git
@@ -100,18 +162,6 @@ git clone --branch dev https://github.com/AAFC-BICoE/dina-user-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/natural-history-collection-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/loan-transaction-api.git 
 git clone --branch dev https://github.com/AAFC-BICoE/dina-search-api.git 
-----
-
-You can also clone the OpenAPI specification projects:
-
-[source, bash]
-----
-git clone https://github.com/DINA-Web/loan-transaction-specs.git
-git clone https://github.com/DINA-Web/object-store-specs.git
-git clone https://github.com/DINA-Web/collection-specs.git
-git clone https://github.com/DINA-Web/user-specs.git
-git clone https://github.com/DINA-Web/agent-specs.git
-git clone https://github.com/DINA-Web/sequence-specs.git
 ----
 
 == Visual Studio Code
@@ -133,6 +183,7 @@ code --install-extension dbaeumer.vscode-eslint
 code --install-extension firsttris.vscode-jest-runner
 code --install-extension alefragnani.project-manager
 code --install-extension firefox-devtools.vscode-firefox-debug
+code --install-extension bruno-api-client.bruno
 ----
 
 === VSCode Remote (Optional)
@@ -191,7 +242,7 @@ Now you are connected to your Virtual Machine. You can open projects and use the
 
 More info: https://code.visualstudio.com/docs/remote/remote-overview
 
-=== API Debugging
+=== API Debugging (Optional)
 
 To debug an API while using the local deployment, you can use the `docker-compose.debug.yml` config which can be enabled from the `start_stop_dina.sh` script.
 
@@ -219,7 +270,7 @@ Here is an example of a `launch.json` that can be added to an API for VSCode to 
 
 Just ensure that port lines up with the correct API and the port is exposed for VSCode to attach itself.
 
-=== UI Debugging
+=== UI Debugging (Optional)
 
 You will need the `firefox-devtools.vscode-firefox-debug` extension installed in order to debug the UI. This extension allows you to debug the UI using the Firefox browser.
 
@@ -285,7 +336,7 @@ firefox -start-debugger-server
 
 Now breakpoints should be able to set in for the DINA UI code and should automatically be hit when the code is executed from the browser.
 
-=== VSCode Launch Configurations
+=== VSCode Launch Configurations (Optional)
 
 Here is the complete launch configuration for the DINA API projects using the default ports. This can be edited by going to the "Run and debug" tab in VSCode and clicking the gear icon to edit the `launch.json` file.
 
