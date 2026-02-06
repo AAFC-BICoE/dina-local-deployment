@@ -8,6 +8,8 @@
 
 include::developer_environment.adoc[]
 
+include::wsl2.adoc[]
+
 include::ui_development.adoc[]
 
 include::run_application.adoc[]
