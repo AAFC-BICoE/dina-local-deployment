@@ -472,6 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_wsl2">2. WSL2</a>
 <ul class="sectlevel2">
 <li><a href="#_setup">2.1. Setup</a></li>
+<li><a href="#_vpn">2.2. VPN</a></li>
 </ul>
 </li>
 <li><a href="#_dina_ui_development_hot_reloading">3. DINA-UI Development (Hot Reloading)</a></li>
@@ -1149,6 +1150,10 @@ sudo systemctl start ssh</code></pre>
 <div class="sect1">
 <h2 id="_wsl2">2. WSL2</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>WSL2 (Windows Subsystem for Linux 2) is a compatibility layer that enables you to run a full Linux kernel natively on Windows 10/11.
+On Windows, WSL2 should be used in replacement of the Ubuntu Virtual Machine mentioned above.</p>
+</div>
 <div class="sect2">
 <h3 id="_setup">2.1. Setup</h3>
 <div class="paragraph">
@@ -1164,6 +1169,25 @@ Added <code>generateHosts = false</code> to <code>/etc/wsl.conf</code>.</p>
 127.0.0.1 api.dina.local
 127.0.0.1 keycloak.dina.local</code></pre>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vpn">2.2. VPN</h3>
+<div class="paragraph">
+<p>On VPN the WSL2 networking can be affected.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>shutdown wsl if running (wsl --shutdown)</p>
+</li>
+<li>
+<p>Open WSL Setting (through windows search bar) &#8594; Networking &#8594; Set "Networking mode" to "Mirrored"</p>
+</li>
+<li>
+<p>Restart host machine</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -2549,7 +2573,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-06 15:44:59 UTC
+Last updated 2026-02-06 15:50:47 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
