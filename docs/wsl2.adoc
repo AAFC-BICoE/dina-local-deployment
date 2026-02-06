@@ -6,7 +6,14 @@ On Windows, WSL2 should be used in replacement of the Ubuntu Virtual Machine men
 == Setup
 
 To stop WSL from overwriting `/etc/hosts` every time it starts, disable automatic host generation in WSL to add the custom DINA entries.
-Added `generateHosts = false` to `/etc/wsl.conf`.
+
+Edit the `/etc/wsl.conf` to have at the bottom of the file:
+
+[source, bash]
+----
+[network]
+generateHosts = false
+----
 
 In WSL the content of `/etc/hosts` should be changed to:
 
