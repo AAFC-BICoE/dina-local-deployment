@@ -1,0 +1,15 @@
+= WSL2
+
+== Setup
+
+To stop WSL from overwriting `/etc/hosts` every time it starts, disable automatic host generation in WSL to add the custom DINA entries.
+Added `generateHosts = false` to `/etc/wsl.conf`.
+
+In WSL the content of `/etc/hosts` should be changed to:
+
+[source, bash]
+----
+127.0.0.1 dina.local
+127.0.0.1 api.dina.local
+127.0.0.1 keycloak.dina.local
+----
