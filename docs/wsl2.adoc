@@ -1,5 +1,8 @@
 = WSL2
 
+WSL2 (Windows Subsystem for Linux 2) is a compatibility layer that enables you to run a full Linux kernel natively on Windows 10/11.
+On Windows, WSL2 should be used in replacement of the Ubuntu Virtual Machine mentioned above.
+
 == Setup
 
 To stop WSL from overwriting `/etc/hosts` every time it starts, disable automatic host generation in WSL to add the custom DINA entries.
@@ -13,3 +16,10 @@ In WSL the content of `/etc/hosts` should be changed to:
 127.0.0.1 api.dina.local
 127.0.0.1 keycloak.dina.local
 ----
+
+== VPN
+On VPN the WSL2 networking can be affected.
+
+1. shutdown wsl if running (wsl --shutdown)
+2. Open WSL Setting (through windows search bar) -> Networking -> Set "Networking mode" to "Mirrored"
+3. Restart host machine
