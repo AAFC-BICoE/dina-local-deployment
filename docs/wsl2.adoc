@@ -20,6 +20,8 @@ In WSL the content of `/etc/hosts` should be changed to:
 == VPN
 On VPN the WSL2 networking can be affected.
 
-1. shutdown wsl if running (wsl --shutdown)
-2. Open WSL Setting (through windows search bar) -> Networking -> Set "Networking mode" to "Mirrored"
-3. Restart host machine
+You can change WSL Network mode:
+
+. shutdown wsl if running (wsl --shutdown)
+. Open WSL Setting (through windows search bar) -> Networking -> Set "Networking mode" to "Mirrored"
+. Restart host machine
