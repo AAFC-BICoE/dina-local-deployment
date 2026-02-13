@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/generic-molecular-analysis/ee36540e-9f46-454b-9937-ea9695390f9e"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": {
+        "id": "ee36540e-9f46-454b-9937-ea9695390f9e",
+        "type": "generic-molecular-analysis",
+        "attributes": {
+          "createdBy": "test-user-3",
+          "createdOn": "2023-10-03T09:15:00Z",
+          "group": "test-group-a",
+          "name": "Molecular Analysis Gamma",
+          "analysisType": "hrms",
+          "managedAttributes": {}
+        }
+      }
+    }
+  }
+}

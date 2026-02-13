@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/v1/metadata/0192fe4d-4647-7ff3-af23-2fb43684442d"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": {
+        "id": "0192fe4d-4647-7ff3-af23-2fb43684442d",
+        "type": "metadata",
+        "attributes": {
+          "createdBy": "bio_imaging_user",
+          "createdOn": "2024-10-25T14:30:00.000000Z",
+          "bucket": "general-specimens",
+          "fileIdentifier": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+          "originalFilename": "specimen_sample_042_dorsal.jpg",
+          "filename": "specimen_sample_042_dorsal.jpg",
+          "fileExtension": ".jpg",
+          "resourceExternalURL": "https://repo.example-bio-institute.org/images/550e8400",
+          "sourceSet": null,
+          "dcFormat": "image/jpeg",
+          "dcType": "IMAGE",
+          "acCaption": "Dorsal view of generic biological specimen for reference.",
+          "acDigitizationDate": null,
+          "xmpMetadataDate": "2024-11-05T21:48:50.154341Z",
+          "xmpRightsWebStatement": "https://open.canada.ca/en/open-government-licence-canada",
+          "dcRights": "© His Majesty The King in Right of Canada, as represented by the Minister of Agriculture and Agri-Food | © Sa Majesté le Roi du chef du Canada, représentée par le ministre de l’Agriculture et de l’Agroalimentaire",
+          "xmpRightsOwner": "Government of Canada",
+          "xmpRightsUsageTerms": "Government of Canada Usage Term",
+          "orientation": null,
+          "acHashFunction": "SHA-1",
+          "acHashValue": "104a28b8ec93d61253008c357b6dd11c93c21aa9",
+          "publiclyReleasable": false,
+          "notPubliclyReleasableReason": "default based on Type : Text",
+          "group": "ccfc",
+          "managedAttributes": {}
+        }
+      },
+      "meta": {
+        "moduleVersion": "1.31"
+      }
+    }
+  }
+}

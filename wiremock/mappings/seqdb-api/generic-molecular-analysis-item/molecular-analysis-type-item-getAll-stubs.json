@@ -1,0 +1,266 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/generic-molecular-analysis-item",
+    "queryParameters": {
+      "filter[rsql]": {
+        "contains": "9ec1322f-fdc5-4e28-b9e5-f60d476b9e01"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": [
+        {
+          "id": "60fb1329-b18d-4d80-9c6c-c0fbcf9384d9",
+          "type": "generic-molecular-analysis-item",
+          "attributes": {
+            "createdBy": "dina-admin",
+            "createdOn": "2025-06-16T17:16:34.533712Z"
+          },
+          "relationships": {
+            "materialSample": {
+              "data": {
+                "id": "0190ffb9-beaa-7ab2-8346-8576a5729d3c",
+                "type": "material-sample"
+              }
+            },
+            "molecularAnalysisRunItem": {
+              "data": {
+                "id": "f1e4a352-116d-4317-9732-52e9eaa75d57",
+                "type": "molecular-analysis-run-item"
+              }
+            }
+          }
+        },
+        {
+          "id": "3f0f5ece-2375-48e1-a543-275b7631be1c",
+          "type": "generic-molecular-analysis-item",
+          "attributes": {
+            "createdBy": "dina-admin",
+            "createdOn": "2025-06-16T17:16:34.533712Z"
+          },
+          "relationships": {
+            "materialSample": {
+              "data": {
+                "id": "0190ffb9-bed8-7315-8dd9-69d9a362ad9a",
+                "type": "material-sample"
+              }
+            },
+            "molecularAnalysisRunItem": {
+              "data": {
+                "id": "72106f66-0afa-4fa5-ab49-cab36e81b056",
+                "type": "molecular-analysis-run-item"
+              }
+            }
+          }
+        },
+        {
+          "id": "d4f380b7-e6d6-4f75-9871-0b5fbe170a98",
+          "type": "generic-molecular-analysis-item",
+          "attributes": {
+            "createdBy": "dina-admin",
+            "createdOn": "2025-06-16T17:16:34.533712Z"
+          },
+          "relationships": {
+            "materialSample": {
+              "data": {
+                "id": "0190ffb9-bf0a-7efc-abc2-0658c2938dae",
+                "type": "material-sample"
+              }
+            },
+            "molecularAnalysisRunItem": {
+              "data": {
+                "id": "c2d64141-b41f-4c66-970a-f9d43690895e",
+                "type": "molecular-analysis-run-item"
+              }
+            }
+          }
+        },
+        {
+          "id": "b0ec7cf5-848a-45da-af08-c2f4ce30b644",
+          "type": "generic-molecular-analysis-item",
+          "attributes": {
+            "createdBy": "dina-admin",
+            "createdOn": "2025-06-16T17:16:34.533712Z"
+          },
+          "relationships": {
+            "materialSample": {
+              "data": {
+                "id": "0190ffb9-bf3d-7a6f-96e6-b984f8034f0f",
+                "type": "material-sample"
+              }
+            },
+            "molecularAnalysisRunItem": {
+              "data": {
+                "id": "0a9826f0-6866-4a0c-827d-00f636463971",
+                "type": "molecular-analysis-run-item"
+              }
+            }
+          }
+        },
+        {
+          "id": "89117212-eaa3-47e8-8291-7189ec1a0cf0",
+          "type": "generic-molecular-analysis-item",
+          "attributes": {
+            "createdBy": "dina-admin",
+            "createdOn": "2025-06-16T17:16:34.533712Z"
+          },
+          "relationships": {
+            "materialSample": {
+              "data": {
+                "id": "0190ffb9-bf6b-7a00-a9e0-aef4a5d72063",
+                "type": "material-sample"
+              }
+            },
+            "molecularAnalysisRunItem": {
+              "data": {
+                "id": "b9f0843e-5e17-4426-8b65-afcec4d0e926",
+                "type": "molecular-analysis-run-item"
+              }
+            }
+          }
+        }
+      ],
+      "included": [
+        {
+          "id": "0190ffb9-beaa-7ab2-8346-8576a5729d3c",
+          "type": "material-sample"
+        },
+        {
+          "id": "0190ffb9-bed8-7315-8dd9-69d9a362ad9a",
+          "type": "material-sample"
+        },
+        {
+          "id": "0190ffb9-bf0a-7efc-abc2-0658c2938dae",
+          "type": "material-sample"
+        },
+        {
+          "id": "0190ffb9-bf3d-7a6f-96e6-b984f8034f0f",
+          "type": "material-sample"
+        },
+        {
+          "id": "0190ffb9-bf6b-7a00-a9e0-aef4a5d72063",
+          "type": "material-sample"
+        },
+        {
+          "id": "9fb134bd-9484-4e5b-8744-42a881c623e5",
+          "type": "molecular-analysis-run",
+          "attributes": {
+            "createdBy": "dina-admin",
+            "createdOn": "2025-06-16T17:17:05.043802Z",
+            "group": "aafc",
+            "name": "Test"
+          }
+        },
+        {
+          "id": "0a9826f0-6866-4a0c-827d-00f636463971",
+          "type": "molecular-analysis-run-item",
+          "attributes": {
+            "createdBy": "dina-admin",
+            "createdOn": "2025-06-16T17:17:05.085763Z",
+            "usageType": "generic-molecular-analysis-item",
+            "name": "item4"
+          },
+          "relationships": {
+            "run": {
+              "data": {
+                "id": "9fb134bd-9484-4e5b-8744-42a881c623e5",
+                "type": "molecular-analysis-run"
+              }
+            }
+          }
+        },
+        {
+          "id": "72106f66-0afa-4fa5-ab49-cab36e81b056",
+          "type": "molecular-analysis-run-item",
+          "attributes": {
+            "createdBy": "dina-admin",
+            "createdOn": "2025-06-16T17:17:05.085763Z",
+            "usageType": "generic-molecular-analysis-item",
+            "name": "item2"
+          },
+          "relationships": {
+            "run": {
+              "data": {
+                "id": "9fb134bd-9484-4e5b-8744-42a881c623e5",
+                "type": "molecular-analysis-run"
+              }
+            }
+          }
+        },
+        {
+          "id": "b9f0843e-5e17-4426-8b65-afcec4d0e926",
+          "type": "molecular-analysis-run-item",
+          "attributes": {
+            "createdBy": "dina-admin",
+            "createdOn": "2025-06-16T17:17:05.085763Z",
+            "usageType": "generic-molecular-analysis-item",
+            "name": "item5"
+          },
+          "relationships": {
+            "run": {
+              "data": {
+                "id": "9fb134bd-9484-4e5b-8744-42a881c623e5",
+                "type": "molecular-analysis-run"
+              }
+            }
+          }
+        },
+        {
+          "id": "c2d64141-b41f-4c66-970a-f9d43690895e",
+          "type": "molecular-analysis-run-item",
+          "attributes": {
+            "createdBy": "dina-admin",
+            "createdOn": "2025-06-16T17:17:05.085763Z",
+            "usageType": "generic-molecular-analysis-item",
+            "name": "item3"
+          },
+          "relationships": {
+            "run": {
+              "data": {
+                "id": "9fb134bd-9484-4e5b-8744-42a881c623e5",
+                "type": "molecular-analysis-run"
+              }
+            }
+          }
+        },
+        {
+          "id": "f1e4a352-116d-4317-9732-52e9eaa75d57",
+          "type": "molecular-analysis-run-item",
+          "attributes": {
+            "createdBy": "dina-admin",
+            "createdOn": "2025-06-16T17:17:05.085763Z",
+            "usageType": "generic-molecular-analysis-item",
+            "name": "item1"
+          },
+          "relationships": {
+            "run": {
+              "data": {
+                "id": "9fb134bd-9484-4e5b-8744-42a881c623e5",
+                "type": "molecular-analysis-run"
+              }
+            }
+          }
+        }
+      ],
+      "meta": {
+        "totalResourceCount": 5,
+        "external": [
+          {
+            "type": "material-sample",
+            "href": "collection/api/v1/material-sample"
+          },
+          {
+            "type": "storage-unit-usage",
+            "href": "collection/api/v1/storage-unit-usage"
+          }
+        ]
+      }
+    }
+  }
+}
