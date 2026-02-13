@@ -25,10 +25,51 @@ In WSL the content of `/etc/hosts` should be changed to:
 ----
 
 == VPN
+
 On VPN the WSL2 networking can be affected.
 
 You can change WSL Network mode:
 
-. shutdown wsl if running (wsl --shutdown)
+. Shutdown wsl if running (wsl --shutdown)
 . Open WSL Setting (through windows search bar) -> Networking -> Set "Networking mode" to "Mirrored"
 . Restart host machine
+
+== Browser Installation
+
+To access `dina.local`, you must install a browser directly within the WSL2 environment.
+
+=== Firefox
+Follow the official documentation to install the `.deb` package:
+
+link:https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions-recommended[Install Firefox on Linux^]
+
+=== Google Chrome
+Run the following commands in your WSL2 terminal:
+
+[source,bash]
+----
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+google-chrome
+----
+
+== Visual Studio Code Integration
+
+You can continue using the Windows version of VS Code by connecting it to WSL via the official extension.
+
+.Install the WSL Extension
+You can find this in the Extensions marketplace or run:
+[source,bash]
+----
+code --install-extension ms-vscode-remote.remote-wsl
+----
+
+.Connecting to WSL
+1. Open the **Command Palette** (kbd:[Ctrl+Shift+P]).
+2. Search for and select `WSL: Connect to WSL`.
+3. Choose `Ubuntu` (or your specific distro) as the environment.
+
+[TIP]
+====
+Once connected, you can use the VS Code integrated terminal to install tools and clone repositories directly into the Linux file system.
+====
