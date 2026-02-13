@@ -50,9 +50,9 @@ Refer to the https://wiremock.org/docs/stubbing/[WireMock stubbing documentation
 
 == Refresh Mocks
 
-After editing mocks, reload without restarting the WireMock container:
+After editing mocks, you can restart the mock server using:
 
 [source,bash]
 ----
-curl -X POST http://localhost:8089/__admin/mappings/reset
+./start_stop_dina.sh restart wiremock
 ----

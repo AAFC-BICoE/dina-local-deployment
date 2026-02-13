@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "urlPattern": "/api/v1/collecting-event/b7c9d2e4-5f6a-4b8c-9d1e-2f3a4b5c6d7e(\\?.*)?"
+    "urlPath": "/api/v1/collecting-event/b7c9d2e4-5f6a-4b8c-9d1e-2f3a4b5c6d7e"
   },
   "response": {
     "status": 200,
