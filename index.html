@@ -1957,11 +1957,11 @@ DINA_MODULES+=('wiremock')          # Enable this.</code></pre>
 <div class="sect2">
 <h3 id="_refresh_mocks">8.3. Refresh Mocks</h3>
 <div class="paragraph">
-<p>After editing mocks, reload without restarting the WireMock container:</p>
+<p>After editing mocks, you can restart the mock server using:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -X POST http://localhost:8089/__admin/mappings/reset</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./start_stop_dina.sh restart wiremock</code></pre>
 </div>
 </div>
 </div>
@@ -2662,7 +2662,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-13 19:34:46 UTC
+Last updated 2026-02-13 19:47:27 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
