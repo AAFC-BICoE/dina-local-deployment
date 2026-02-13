@@ -473,6 +473,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_setup">2.1. Setup</a></li>
 <li><a href="#_vpn">2.2. VPN</a></li>
+<li><a href="#_browser_installation">2.3. Browser Installation</a>
+<ul class="sectlevel3">
+<li><a href="#_firefox">2.3.1. Firefox</a></li>
+<li><a href="#_google_chrome">2.3.2. Google Chrome</a></li>
+</ul>
+</li>
+<li><a href="#_visual_studio_code_integration">2.4. Visual Studio Code Integration</a></li>
 </ul>
 </li>
 <li><a href="#_dina_ui_development_hot_reloading">3. DINA-UI Development (Hot Reloading)</a></li>
@@ -1190,7 +1197,7 @@ generateHosts = false</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>shutdown wsl if running (wsl --shutdown)</p>
+<p>Shutdown wsl if running (wsl --shutdown)</p>
 </li>
 <li>
 <p>Open WSL Setting (through windows search bar) &#8594; Networking &#8594; Set "Networking mode" to "Mirrored"</p>
@@ -1199,6 +1206,77 @@ generateHosts = false</code></pre>
 <p>Restart host machine</p>
 </li>
 </ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_browser_installation">2.3. Browser Installation</h3>
+<div class="paragraph">
+<p>To access <code>dina.local</code>, you must install a browser directly within the WSL2 environment.</p>
+</div>
+<div class="sect3">
+<h4 id="_firefox">2.3.1. Firefox</h4>
+<div class="paragraph">
+<p>Follow the official documentation to install the <code>.deb</code> package:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions-recommended" target="_blank" rel="noopener">Install Firefox on Linux</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_google_chrome">2.3.2. Google Chrome</h4>
+<div class="paragraph">
+<p>Run the following commands in your WSL2 terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+google-chrome</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_visual_studio_code_integration">2.4. Visual Studio Code Integration</h3>
+<div class="paragraph">
+<p>You can continue using the Windows version of VS Code by connecting it to WSL via the official extension.</p>
+</div>
+<div class="paragraph">
+<div class="title">Install the WSL Extension</div>
+<p>You can find this in the Extensions marketplace or run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">code --install-extension ms-vscode-remote.remote-wsl</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<div class="title">Connecting to WSL</div>
+<ol class="arabic">
+<li>
+<p>Open the <strong>Command Palette</strong> (kbd:[Ctrl+Shift+P]).</p>
+</li>
+<li>
+<p>Search for and select <code>WSL: Connect to WSL</code>.</p>
+</li>
+<li>
+<p>Choose <code>Ubuntu</code> (or your specific distro) as the environment.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Once connected, you can use the VS Code integrated terminal to install tools and clone repositories directly into the Linux file system.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -2584,7 +2662,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-10 20:43:58 UTC
+Last updated 2026-02-13 19:30:36 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
