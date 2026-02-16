@@ -5,13 +5,7 @@ meta {
 }
 
 get {
-  url: {{base_url}}/agent-api/person/46b776a5-68b7-4b4a-bb50-877104e60d91?fields[organization]=aliases&fields[person]=displayName&include=organizations
+  url: {{base_url}}/agent-api/person
   body: none
   auth: inherit
-}
-
-query {
-  fields[organization]: aliases
-  fields[person]: displayName
-  include: organizations
 }
