@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "urlPath": "/api/v1/metadata/0192fe4d-4647-7ff3-af23-2fb43684442d"
+    "urlPattern": "/api/v1/metadata(/0192fe4d-4647-7ff3-af23-2fb43684442d(\\?.*)?)?"
   },
   "response": {
     "status": 200,
