@@ -8,11 +8,11 @@ services:
     # NodeJS Garbage Collection Heap Size is configured here, can be useful to increase if you are 
     # out of memory in dev mode. Size is in MB.
     command: >
-      bash -c "
+      bash -c '
       export NODE_OPTIONS="--max-old-space-size=6144" ;
       yarn --cwd=/dina-ui/packages/dina-ui ;
       yarn --cwd=/dina-ui/packages/dina-ui dev
-      "
+      '
     networks:
       - dina
   

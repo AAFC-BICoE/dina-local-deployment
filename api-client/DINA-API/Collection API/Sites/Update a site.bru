@@ -1,0 +1,35 @@
+meta {
+  name: Update a site
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/collection-api/site/019c4911-b9e4-73c2-b204-83d036eaa023
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "site",
+      "id": "019c4911-b9e4-73c2-b204-83d036eaa023",
+      "attributes": {
+        "group": "cnc",
+        "name": "site-name",
+        "code": "site-code"
+      },
+      "relationships": {
+        "attachment": {
+          "data": [
+            {
+              "id": "019c4914-1246-7e46-b8d7-68c0e37aebd0",
+              "type": "metadata"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
