@@ -1,3 +1,18 @@
+# Persistent Volume Claim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.app.name }}-object-store-pvc
+spec:
+  accessModes: 
+  - {{ .Values.services.objectstoreapi.storage.accessModes }}
+  storageClassName: {{ .Values.services.objectstoreapi.storage.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.resources.objectstoreapi.storage_limit_gb }}Gi
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -101,12 +116,6 @@ spec:
               value: {{ .Values.services.objectstoreapi.environment.spring.servlet.multipart.max_file_size }}
             - name: SPRING_SERVLET_MULTIPART_MAX-REQUEST-SIZE
               value: {{ .Values.services.objectstoreapi.environment.spring.servlet.multipart.max_request_size }}
-            - name: MINIO_HOST
-              value: {{ tpl .Values.services.objectstoreapi.environment.minio.host . }}
-            - name: MINIO_ACCESSKEY
-              value: {{ tpl .Values.services.objectstoreapi.environment.minio.accessKey . }}
-            - name: MINIO_SECRETKEY
-              value: {{ tpl .Values.services.objectstoreapi.environment.minio.secretKey . }}
             - name: KEYCLOAK_AUTH-SERVER-URL
               value: {{ tpl .Values.global.environment.keycloak.auth_server_url . }}
             - name: SPRING_DATASOURCE_URL
@@ -135,6 +144,10 @@ spec:
               {{- end }}
             - name: JDK_JAVA_OPTIONS
               value: "{{ .Values.services.objectstoreapi.config.java_opts }}"
+            - name: DINA_FILESTORAGE_IMPLEMENTATION
+              value: "{{ .Values.services.objectstoreapi.environment.dina.filestorage.implementation }}"
+            - name: DINA_FILESTORAGE_ROOT
+              value: "{{ .Values.services.objectstoreapi.environment.dina.filestorage.root }}"
           readinessProbe:
             tcpSocket:
               port: 8080
@@ -147,4 +160,14 @@ spec:
             limits:
               memory: {{ .Values.resources.objectstoreapi.memory_limit_mb }}M
               cpu: {{ .Values.resources.objectstoreapi.cpu_limit_m }}m
+
+          volumeMounts:
+            - name: {{.Values.services.objectstoreapi.storage.volumeName}}
+              mountPath: {{ .Values.services.objectstoreapi.environment.dina.filestorage.root }}
+
+      volumes:
+        - name: {{ .Values.services.objectstoreapi.storage.volumeName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.app.name }}-object-store-pvc
+        
 status: {}
