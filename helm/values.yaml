@@ -321,7 +321,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
   objectstoreapi:
-    image: aafcbicoe/object-store-api:1.31
+    image: aafcbicoe/object-store-api:1.32
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
     environment:
