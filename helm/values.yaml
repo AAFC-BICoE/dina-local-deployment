@@ -26,15 +26,15 @@ app:
 global:
   environment:
     git:
-      host: 
-      repo: 
-      project: 
+      host:
+      repo:
+      project:
     config:
       dina_db:
         label: dina-db
         service: dina-db-service
         db_name: dina
-        db_password: 
+        db_password:
         db_user: pguser
       db_init:
         restore_db: false
@@ -42,14 +42,14 @@ global:
       agent_api:
         label: agent-api
         service: agent-api-service
-        datasource_password: 
+        datasource_password:
         datasource_user: web_user_agent
         liquibase_user: migration_user_agent
         liquibase_password:
       dina_export_api:
         label: dina-export-api
         service: dina-export-api-service
-        datasource_password: 
+        datasource_password:
         datasource_user: web_user_ex
         liquibase_user: migration_user_ex
         liquibase_password:
@@ -60,18 +60,18 @@ global:
         service: minio-service
         accessKey: minio
         secretKey: minio123
-      keycloak: 
+      keycloak:
         label: keycloak
         service: keycloak-service
         db_name: keycloak_db
-        db_password: 
+        db_password:
         db_user: keycloak_user
         keycloak_admin: admin
         keycloak_admin_password:
       collection_api:
         label: collection-api
         service: collection-api-service
-        datasource_password: 
+        datasource_password:
         datasource_user: web_user_coll
         liquibase_user: migration_user_coll
         liquibase_password:
@@ -94,11 +94,11 @@ global:
         DINA_DB: object_store
         label: objectstore-api
         service: objectstore-api-service
-        datasource_password: 
+        datasource_password:
         datasource_user: web_user_os
         liquibase_user: migration_user_os
         liquibase_password:
-      dina_ui: 
+      dina_ui:
         label: dina-ui
         service: dina-ui-service
         instance_mode: developer
@@ -344,7 +344,7 @@ services:
           multipart:
             max_file_size: 1GB
             max_request_size: 1GB
-      minio: 
+      minio:
         host: "{{ .Values.global.environment.config.minio.service }}"
         accessKey: "{{ .Values.global.environment.config.minio.accessKey }}"
         secretKey: "{{ .Values.global.environment.config.minio.secretKey }}"
@@ -404,6 +404,8 @@ services:
       DINA_TRANSACTION_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_loan_transaction_index_settings.json
       DINA_PROJECT_INDEX_NAME: dina_project_index
       DINA_PROJECT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_project_index_settings.json
+      DINA_COLLECTING_EVENT_INDEX_NAME: dina_collecting_event_index
+      DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/collecting-event-index/dina_collecting_event_index_settings.json
   dinadb:
     image: "postgis/postgis:13-3.2"
     environment:
@@ -501,4 +503,3 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
-

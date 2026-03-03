@@ -1,0 +1,203 @@
+{
+  "settings": {
+    "index": {
+      "number_of_shards": "1",
+      "number_of_replicas": "1"
+    }
+  },
+  "mappings": {
+    "_meta": {
+      "version": {
+        "number": "1.0"
+      }
+    },
+    "date_detection": true,
+    "numeric_detection": false,
+    "dynamic_templates": [
+      {
+        "ids_as_keywords": {
+          "path_match": "*.id",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      },
+      {
+        "included_objects": {
+          "path_match": "included",
+          "mapping": {
+            "type": "nested"
+          }
+        }
+      }
+    ],
+    "properties": {
+      "data": {
+        "properties": {
+          "type": {
+            "type": "constant_keyword",
+            "value": "collecting-event"
+          },
+
+          "id": {
+            "type": "keyword"
+          },
+
+          "attributes": {
+            "properties": {
+              "uuid": { "type": "keyword" },
+
+              "createdBy": { "type": "keyword" },
+
+              "createdOn": { "type": "date" },
+
+              "group": { "type": "keyword" },
+
+              "dwcFieldNumber": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+
+              "dwcRecordNumber": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+
+              "dwcRecordedBy": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+
+              "dwcCountry": { "type": "keyword" },
+
+              "dwcCountryCode": { "type": "keyword" },
+
+              "dwcStateProvince": { "type": "keyword" },
+
+              "dwcVerbatimLocality": {
+                "type": "text"
+              },
+
+              "habitat": { "type": "text" },
+
+              "substrate": { "type": "text" },
+
+              "host": { "type": "text" },
+
+              "remarks": { "type": "text" },
+
+              "publiclyReleasable": { "type": "boolean" },
+
+              "startEventDateTime": { "type": "date" },
+
+              "endEventDateTime": { "type": "date" },
+
+              "dwcMinimumElevationInMeters": { "type": "float" },
+
+              "dwcMaximumElevationInMeters": { "type": "float" },
+
+              "dwcMinimumDepthInMeters": { "type": "float" },
+
+              "dwcMaximumDepthInMeters": { "type": "float" },
+
+              "eventGeom": {
+                "type": "geo_point"
+              },
+
+              "tags": {
+                "type": "keyword"
+              },
+
+              "managedAttributes": {
+                "type": "object",
+                "dynamic": true
+              },
+
+              "extensionValues": {
+                "type": "object",
+                "dynamic": true
+              },
+
+              "multilingualDescription": {
+                "properties": {
+                  "descriptions": {
+                    "type": "nested",
+                    "properties": {
+                      "lang": { "type": "keyword" },
+                      "desc": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+
+          "relationships": {
+            "properties": {
+              "site": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "site"
+                      },
+                      "id": {
+                        "type": "keyword"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+
+      "included": {
+        "type": "nested",
+        "properties": {
+          "type": { "type": "keyword" },
+
+          "id": { "type": "keyword" },
+
+          "attributes": {
+            "properties": {
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+
+              "group": { "type": "keyword" },
+
+              "code": { "type": "keyword" },
+
+              "siteGeom": {
+                "type": "geo_point"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
