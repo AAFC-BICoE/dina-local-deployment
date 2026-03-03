@@ -130,4 +130,4 @@ spec:
             - key: dina_agent_index_settings.json
               path: agent-index/dina_agent_index_settings.json
             - key: dina_collecting_event_index_settings.json
-              path: collecting-event-index/dina_collecting_event_index_settings.json
+              path: dina_collecting_event_index_settings.json

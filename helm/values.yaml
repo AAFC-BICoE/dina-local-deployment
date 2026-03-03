@@ -405,7 +405,7 @@ services:
       DINA_PROJECT_INDEX_NAME: dina_project_index
       DINA_PROJECT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_project_index_settings.json
       DINA_COLLECTING_EVENT_INDEX_NAME: dina_collecting_event_index
-      DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/collecting-event-index/dina_collecting_event_index_settings.json
+      DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_collecting_event_index_settings.json
   dinadb:
     image: "postgis/postgis:13-3.2"
     environment:
