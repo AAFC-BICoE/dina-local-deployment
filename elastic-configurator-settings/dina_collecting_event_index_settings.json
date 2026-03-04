@@ -213,26 +213,6 @@
               "extensionValues": {
                 "type": "object",
                 "dynamic": true
-              },
-
-              "multilingualDescription": {
-                "properties": {
-                  "descriptions": {
-                    "type": "nested",
-                    "properties": {
-                      "lang": { "type": "keyword" },
-                      "desc": {
-                        "type": "text",
-                        "fields": {
-                          "keyword": {
-                            "type": "keyword",
-                            "ignore_above": 256
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
               }
             }
           },
