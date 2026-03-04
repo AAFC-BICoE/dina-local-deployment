@@ -1,0 +1,19 @@
+meta {
+  name: Collecting Event Mapping
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/search-api/search-ws/mapping?indexName=dina_collecting_event_index
+  body: none
+  auth: inherit
+}
+
+params:query {
+  indexName: dina_collecting_event_index
+}
+
+headers {
+  Content-Type: application/json
+}
