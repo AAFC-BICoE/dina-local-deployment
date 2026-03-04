@@ -23,10 +23,101 @@
         }
       },
       {
-        "included_objects": {
-          "path_match": "included",
+        "type_as_keywords": {
+          "match_mapping_type": "string",
+          "match": "type",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      },
+      {
+        "included_as_nested": {
+          "match_mapping_type": "object",
+          "match": "included",
           "mapping": {
             "type": "nested"
+          }
+        }
+      },
+      {
+        "verbatim_as_text": {
+          "match": "*verbatim*",
+          "mapping": {
+            "type": "text"
+          }
+        }
+      },
+      {
+        "dwc_verbatim_as_text": {
+          "match": "dwcVerbatim*",
+          "mapping": {
+            "type": "text"
+          }
+        }
+      },
+      {
+        "extension_values_as_text": {
+          "path_match": "*.extensionValues.*.*",
+          "mapping": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      {
+        "managed_attributes_integer": {
+          "path_match": ".*managedAttributes\\..*_integer",
+          "match_pattern": "regex",
+          "mapping": {
+            "type": "integer"
+          }
+        }
+      },
+      {
+        "managed_attributes_date": {
+          "path_match": ".*managedAttributes\\..*_date",
+          "match_pattern": "regex",
+          "mapping": {
+            "type": "date"
+          }
+        }
+      },
+      {
+        "managed_attributes_bool": {
+          "path_match": ".*managedAttributes\\..*_bool",
+          "match_pattern": "regex",
+          "mapping": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "managed_attributes_decimal": {
+          "path_match": ".*managedAttributes\\..*_decimal",
+          "match_pattern": "regex",
+          "mapping": {
+            "type": "float"
+          }
+        }
+      },
+      {
+        "managed_attributes_default": {
+          "path_match": ".*managedAttributes\\..*",
+          "match_pattern": "regex",
+          "mapping": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
           }
         }
       }
