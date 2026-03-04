@@ -1,0 +1,19 @@
+meta {
+  name: Project Mapping
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{base_url}}/search-api/search-ws/mapping?indexName=dina_project_index
+  body: none
+  auth: inherit
+}
+
+params:query {
+  indexName: dina_project_index
+}
+
+headers {
+  Content-Type: application/json
+}

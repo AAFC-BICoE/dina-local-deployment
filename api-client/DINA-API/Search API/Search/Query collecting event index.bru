@@ -1,17 +1,17 @@
 meta {
-  name: Query material sample index
+  name: Query collecting event index
   type: http
-  seq: 3
+  seq: 7
 }
 
 post {
-  url: {{base_url}}/search-api/search-ws/search?indexName=dina_material_sample_index
+  url: {{base_url}}/search-api/search-ws/search?indexName=dina_collecting_event_index
   body: json
   auth: inherit
 }
 
 params:query {
-  indexName: dina_material_sample_index
+  indexName: dina_collecting_event_index
 }
 
 headers {

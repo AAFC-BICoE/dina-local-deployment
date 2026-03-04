@@ -1,5 +1,4 @@
 services:
-
   dina-ui:
     image: aafcbicoe/dina-ui:0.211.0
     environment:
@@ -55,7 +54,7 @@ services:
       - "traefik.http.routers.seqdbapi.middlewares=stripseqdb@docker"
     depends_on:
       init-db:
-        condition: service_completed_successfully 
+        condition: service_completed_successfully
 
   agent-api:
     image: aafcbicoe/agent-api:0.32
@@ -81,7 +80,7 @@ services:
       - "traefik.docker.network=dina-local-deployment_dina"
     depends_on:
       init-db:
-        condition: service_completed_successfully 
+        condition: service_completed_successfully
 
   collection-api:
     image: aafcbicoe/natural-history-collection-api:0.115
@@ -108,7 +107,7 @@ services:
       - "traefik.docker.network=dina-local-deployment_dina"
     depends_on:
       init-db:
-        condition: service_completed_successfully 
+        condition: service_completed_successfully
 
   loan-transaction-api:
     image: aafcbicoe/loan-transaction-api:0.14
@@ -135,7 +134,7 @@ services:
       - "traefik.docker.network=dina-local-deployment_dina"
     depends_on:
       init-db:
-        condition: service_completed_successfully 
+        condition: service_completed_successfully
 
   dina-user-api:
     image: aafcbicoe/dina-user-api:0.24
@@ -162,7 +161,7 @@ services:
       - "traefik.http.services.dinauserapi.loadbalancer.server.port=8080"
     depends_on:
       init-db:
-        condition: service_completed_successfully 
+        condition: service_completed_successfully
 
   object-store-api:
     image: aafcbicoe/object-store-api:1.31
@@ -194,7 +193,7 @@ services:
       - "traefik.docker.network=dina-local-deployment_dina"
     depends_on:
       init-db:
-        condition: service_completed_successfully 
+        condition: service_completed_successfully
 
   dina-export-api:
     image: aafcbicoe/dina-export-api:0.19
@@ -227,7 +226,7 @@ services:
       - export-data:/data
     depends_on:
       init-db:
-        condition: service_completed_successfully 
+        condition: service_completed_successfully
 
   minio:
     image: minio/minio:RELEASE.2022-10-05T14-58-27Z
@@ -304,7 +303,7 @@ services:
 
   # Check the status of elasticsearch and configure indices if not already present.
   elastic-configurator:
-    image: aafcbicoe/es-init-container:0.15
+    image: aafcbicoe/es-init-container:0.16
     profiles: ["search_api"]
     environment:
       ELASTIC_SERVER_URL: $ELASTIC_SERVER_URL
@@ -323,6 +322,8 @@ services:
       DINA_TRANSACTION_INDEX_SETTINGS_FILE: $DINA_LOAN_TRANSACTION_INDEX_SETTINGS_FILE
       DINA_PROJECT_INDEX_NAME: $DINA_PROJECT_INDEX_NAME
       DINA_PROJECT_INDEX_SETTINGS_FILE: $DINA_PROJECT_INDEX_SETTINGS_FILE
+      DINA_COLLECTING_EVENT_INDEX_NAME: $DINA_COLLECTING_EVENT_INDEX_NAME
+      DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE: $DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE
     volumes:
       - ./elastic-configurator-settings:/usr/share/elastic-configurator/settings
     depends_on:
@@ -371,20 +372,20 @@ services:
   rabbitmq-dina:
     image: rabbitmq:3.9.29-management-alpine
     profiles: ["search_api"]
-    container_name: 'rabbitmq-dina'
+    container_name: "rabbitmq-dina"
     hostname: rabbit_dina_node_1
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     ports:
-        - 5672:5672
-        - 15672:15672
+      - 5672:5672
+      - 15672:15672
     volumes:
-        - ./rabbitmq-data:/var/lib/rabbitmq
+      - ./rabbitmq-data:/var/lib/rabbitmq
     #    - ./rabbitmq-log:/var/log/rabbitmq
     networks:
-        - dina_rabbitmq_net
-        
+      - dina_rabbitmq_net
+
   wiremock:
     image: wiremock/wiremock:3x
     profiles: ["wiremock"]
@@ -396,7 +397,7 @@ services:
       - JAVA_OPTS=-Xmx512m
     volumes:
       - ./wiremock/mappings:/home/wiremock/mappings
-     # - ./wiremock/__files:/home/wiremock/__files
+      # - ./wiremock/__files:/home/wiremock/__files
 
 volumes:
   elasticsearch-data:
