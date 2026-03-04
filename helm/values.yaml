@@ -246,7 +246,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.114
+    image: aafcbicoe/natural-history-collection-api:0.115
     pullPolicy: IfNotPresent
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
@@ -291,7 +291,7 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.211.0
+    image: aafcbicoe/dina-ui:0.212.0
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
