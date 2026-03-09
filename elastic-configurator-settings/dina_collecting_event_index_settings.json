@@ -8,7 +8,7 @@
   "mappings": {
     "_meta": {
       "version": {
-        "number": "1.0"
+        "number": "1.1"
       }
     },
     "date_detection": true,
@@ -198,7 +198,7 @@
               "dwcMaximumDepthInMeters": { "type": "float" },
 
               "eventGeom": {
-                "type": "geo_point"
+                "type": "object"
               },
 
               "tags": {
@@ -263,7 +263,7 @@
               "code": { "type": "keyword" },
 
               "siteGeom": {
-                "type": "geo_point"
+                "type": "geo_shape"
               }
             }
           }
