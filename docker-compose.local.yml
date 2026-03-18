@@ -1,6 +1,6 @@
 services:
   dina-ui:
-    image: aafcbicoe/dina-ui:0.211.0
+    image: aafcbicoe/dina-ui:0.214.0
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
@@ -164,7 +164,7 @@ services:
         condition: service_completed_successfully
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.31
+    image: aafcbicoe/object-store-api:1.32
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
@@ -178,9 +178,10 @@ services:
       spring.datasource.password: ${OBJ_STORE_WEB_USER_PW}
       spring.servlet.multipart.max-file-size: 1GB
       spring.servlet.multipart.max-request-size: 1GB
-      minio.host: minio
-      minio.accessKey: ${MINIO_ACCESS_KEY}
-      minio.secretKey: ${MINIO_SECRET_KEY}
+      dina.fileStorage.implementation: S3
+      s3.endpoint: http://minio
+      s3.accessKey: ${MINIO_ACCESS_KEY}
+      s3.secretKey: ${MINIO_SECRET_KEY}
     networks:
       - dina
     extra_hosts:

@@ -246,7 +246,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.115
+    image: aafcbicoe/natural-history-collection-api:0.116
     pullPolicy: IfNotPresent
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
@@ -291,7 +291,7 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.212.0
+    image: aafcbicoe/dina-ui:0.214.0
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
@@ -325,7 +325,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
   objectstoreapi:
-    image: aafcbicoe/object-store-api:1.31
+    image: aafcbicoe/object-store-api:1.32
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
     environment:
@@ -337,6 +337,8 @@ services:
       dina:
         messaging:
           isProducer: true
+        fileStorage:
+          implementation: S3
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/object_store?currentSchema=object_store
@@ -344,8 +346,8 @@ services:
           multipart:
             max_file_size: 1GB
             max_request_size: 1GB
-      minio:
-        host: "{{ .Values.global.environment.config.minio.service }}"
+      s3:
+        endpoint: "http://{{ .Values.global.environment.config.minio.service }}"
         accessKey: "{{ .Values.global.environment.config.minio.accessKey }}"
         secretKey: "{{ .Values.global.environment.config.minio.secretKey }}"
   minio:
@@ -413,7 +415,7 @@ services:
       DB_USER: "{{ .Values.global.environment.config.keycloak.db_user }}"
       DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
   searchcli:
-    image: aafcbicoe/dina-search-cli:0.48
+    image: aafcbicoe/dina-search-cli:0.50
     environment:
       http_client:
         openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/"
@@ -430,7 +432,7 @@ services:
       IS_MESSAGE_CONSUMER: true
       IS_MESSAGE_PRODUCER: true
   searchws:
-    image: aafcbicoe/dina-search-ws:0.48
+    image: aafcbicoe/dina-search-ws:0.50
     environment:
       elasticsearch:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
