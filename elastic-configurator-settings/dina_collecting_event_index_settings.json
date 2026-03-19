@@ -8,7 +8,7 @@
   "mappings": {
     "_meta": {
       "version": {
-        "number": "1.1"
+        "number": "1.2"
       }
     },
     "date_detection": true,
@@ -129,94 +129,123 @@
             "type": "constant_keyword",
             "value": "collecting-event"
           },
-
-          "id": {
-            "type": "keyword"
-          },
-
           "attributes": {
             "properties": {
               "uuid": { "type": "keyword" },
-
-              "createdBy": { "type": "keyword" },
-
+              "createdBy": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
               "createdOn": { "type": "date" },
-
-              "group": { "type": "keyword" },
-
+              "group": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
               "dwcFieldNumber": {
                 "type": "text",
                 "fields": {
                   "keyword": { "type": "keyword", "ignore_above": 256 }
                 }
               },
-
               "dwcRecordNumber": {
                 "type": "text",
                 "fields": {
                   "keyword": { "type": "keyword", "ignore_above": 256 }
                 }
               },
-
               "dwcRecordedBy": {
                 "type": "text",
                 "fields": {
                   "keyword": { "type": "keyword", "ignore_above": 256 }
                 }
               },
-
-              "dwcCountry": { "type": "keyword" },
-
-              "dwcCountryCode": { "type": "keyword" },
-
-              "dwcStateProvince": { "type": "keyword" },
-
-              "dwcVerbatimLocality": {
-                "type": "text"
+              "dwcCountry": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
               },
-
-              "habitat": { "type": "text" },
-
-              "substrate": { "type": "text" },
-
-              "host": { "type": "text" },
-
-              "remarks": { "type": "text" },
-
+              "dwcCountryCode": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "dwcStateProvince": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "dwcVerbatimLocality": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "habitat": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "substrate": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "host": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "remarks": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
               "publiclyReleasable": { "type": "boolean" },
-
               "startEventDateTime": { "type": "date" },
-
               "endEventDateTime": { "type": "date" },
-
               "dwcMinimumElevationInMeters": { "type": "float" },
-
               "dwcMaximumElevationInMeters": { "type": "float" },
-
               "dwcMinimumDepthInMeters": { "type": "float" },
-
               "dwcMaximumDepthInMeters": { "type": "float" },
-
               "eventGeom": {
                 "type": "object"
               },
-
               "tags": {
-                "type": "keyword"
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
               },
-
               "managedAttributes": {
                 "type": "object",
                 "dynamic": true
               },
-
               "extensionValues": {
                 "type": "object",
                 "dynamic": true
               }
             }
           },
-
           "relationships": {
             "properties": {
               "site": {
@@ -226,9 +255,6 @@
                       "type": {
                         "type": "constant_keyword",
                         "value": "site"
-                      },
-                      "id": {
-                        "type": "keyword"
                       }
                     }
                   }
@@ -238,14 +264,11 @@
           }
         }
       },
-
       "included": {
         "type": "nested",
+        "include_in_parent" : true,
         "properties": {
           "type": { "type": "keyword" },
-
-          "id": { "type": "keyword" },
-
           "attributes": {
             "properties": {
               "name": {
@@ -257,14 +280,29 @@
                   }
                 }
               },
-
               "group": { "type": "keyword" },
-
-              "code": { "type": "keyword" },
-
+              "code": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
               "siteGeom": {
                 "type": "geo_shape"
-              }
+              },
+              "createdBy": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "createdOn": { "type": "date" }
             }
           }
         }
