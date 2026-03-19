@@ -346,7 +346,7 @@ services:
     storage:
       accessModes: ReadWriteOnce
       volumeName: object-store-volume
-      storageClassName: microk8s-hostpath
+      storageClassName: "{{ .Values.global.environment.storageClass }}"
 
   keycloak:
     pullPolicy: IfNotPresent
