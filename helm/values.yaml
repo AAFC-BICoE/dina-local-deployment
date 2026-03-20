@@ -346,7 +346,7 @@ services:
     storage:
       accessModes: ReadWriteOnce
       volumeName: object-store-volume
-      storageClassName: "{{ .Values.global.environment.storageClass }}"
+      storageClassName: standard
 
   keycloak:
     pullPolicy: IfNotPresent
