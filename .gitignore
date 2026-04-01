@@ -9,6 +9,8 @@ logs/*
 # Bruno Environment files
 DINA Dev2.bru
 DINA PROD.bru
+GRDI PROD.bru
+GRDI Test.bru
 
 # DINA DB Data
 dina-db-data/*
