@@ -1,0 +1,36 @@
+meta {
+  name: Single Resource Data Export
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/dina-export-api/data-export
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "data-export",
+      "attributes": {
+        "name": "Material Sample Export",
+        "source": "dina_material_sample_index",
+        "query": "{\"query\": {\"match_all\": {}}}",
+        "schema": {
+          "material-sample": {
+            "columns": [
+              "id",
+              "materialSampleName",
+              "collectingEvent.dwcVerbatimLocality"
+            ]
+          }
+        },
+        "exportOptions": {
+          "columnSeparator": "COMMA"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+meta {
+  name: Multi Resource Data Export
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/dina-export-api/data-export
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": {
+      "type": "data-export",
+      "attributes": {
+        "name": "Multi-Entity Export",
+        "source": "dina_material_sample_index",
+        "query": "{\"query\": {\"match_all\": {}}}",
+        "schema": {
+          "material-sample": {
+            "columns": [
+              "id",
+              "materialSampleName",
+              "group"
+            ],
+            "aliases": [
+              "Sample ID",
+              "Sample Name",
+              "Group"
+            ]
+          },
+          "collecting-event": {
+            "columns": [
+              "id",
+              "dwcVerbatimElevation",
+              "createdBy"
+            ],
+            "aliases": [
+              "Event ID",
+              "Elevation",
+              "Created By"
+            ]
+          }
+        },
+        "exportOptions": {
+          "enablePackaging": "true",
+          "columnSeparator": "COMMA"
+        }
+      }
+    }
+  }
+}

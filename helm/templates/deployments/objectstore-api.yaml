@@ -116,6 +116,16 @@ spec:
               value: {{ .Values.services.objectstoreapi.environment.spring.servlet.multipart.max_file_size }}
             - name: SPRING_SERVLET_MULTIPART_MAX-REQUEST-SIZE
               value: {{ .Values.services.objectstoreapi.environment.spring.servlet.multipart.max_request_size }}
+            - name: S3_ENDPOINT
+              value: {{ tpl .Values.services.objectstoreapi.environment.s3.endpoint . }}
+            - name: S3_ACCESSKEY
+              value: {{ tpl .Values.services.objectstoreapi.environment.s3.accessKey . }}
+            - name: S3_SECRETKEY
+              value: {{ tpl .Values.services.objectstoreapi.environment.s3.secretKey . }}         
+            - name: DINA_FILESTORAGE_IMPLEMENTATION
+              value: {{ tpl .Values.services.objectstoreapi.environment.dina.fileStorage.implementation . }}
+            - name: DINA_FILESTORAGE_ROOT
+              value: {{ tpl .Values.services.objectstoreapi.environment.dina.fileStorage.root . }}
             - name: KEYCLOAK_AUTH-SERVER-URL
               value: {{ tpl .Values.global.environment.keycloak.auth_server_url . }}
             - name: SPRING_DATASOURCE_URL
@@ -144,10 +154,6 @@ spec:
               {{- end }}
             - name: JDK_JAVA_OPTIONS
               value: "{{ .Values.services.objectstoreapi.config.java_opts }}"
-            - name: DINA_FILESTORAGE_IMPLEMENTATION
-              value: "{{ .Values.services.objectstoreapi.environment.dina.filestorage.implementation }}"
-            - name: DINA_FILESTORAGE_ROOT
-              value: "{{ .Values.services.objectstoreapi.environment.dina.filestorage.root }}"
           readinessProbe:
             tcpSocket:
               port: 8080
@@ -163,7 +169,7 @@ spec:
 
           volumeMounts:
             - name: {{.Values.services.objectstoreapi.storage.volumeName}}
-              mountPath: {{ .Values.services.objectstoreapi.environment.dina.filestorage.root }}
+              mountPath: {{ .Values.services.objectstoreapi.environment.dina.fileStorage.root }}
 
       volumes:
         - name: {{ .Values.services.objectstoreapi.storage.volumeName }}

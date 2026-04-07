@@ -1,0 +1,312 @@
+{
+  "settings": {
+    "index": {
+      "number_of_shards": "1",
+      "number_of_replicas": "1"
+    }
+  },
+  "mappings": {
+    "_meta": {
+      "version": {
+        "number": "1.2"
+      }
+    },
+    "date_detection": true,
+    "numeric_detection": false,
+    "dynamic_templates": [
+      {
+        "ids_as_keywords": {
+          "path_match": "*.id",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      },
+      {
+        "type_as_keywords": {
+          "match_mapping_type": "string",
+          "match": "type",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      },
+      {
+        "included_as_nested": {
+          "match_mapping_type": "object",
+          "match": "included",
+          "mapping": {
+            "type": "nested"
+          }
+        }
+      },
+      {
+        "verbatim_as_text": {
+          "match": "*verbatim*",
+          "mapping": {
+            "type": "text"
+          }
+        }
+      },
+      {
+        "dwc_verbatim_as_text": {
+          "match": "dwcVerbatim*",
+          "mapping": {
+            "type": "text"
+          }
+        }
+      },
+      {
+        "extension_values_as_text": {
+          "path_match": "*.extensionValues.*.*",
+          "mapping": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      {
+        "managed_attributes_integer": {
+          "path_match": ".*managedAttributes\\..*_integer",
+          "match_pattern": "regex",
+          "mapping": {
+            "type": "integer"
+          }
+        }
+      },
+      {
+        "managed_attributes_date": {
+          "path_match": ".*managedAttributes\\..*_date",
+          "match_pattern": "regex",
+          "mapping": {
+            "type": "date"
+          }
+        }
+      },
+      {
+        "managed_attributes_bool": {
+          "path_match": ".*managedAttributes\\..*_bool",
+          "match_pattern": "regex",
+          "mapping": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "managed_attributes_decimal": {
+          "path_match": ".*managedAttributes\\..*_decimal",
+          "match_pattern": "regex",
+          "mapping": {
+            "type": "float"
+          }
+        }
+      },
+      {
+        "managed_attributes_default": {
+          "path_match": ".*managedAttributes\\..*",
+          "match_pattern": "regex",
+          "mapping": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      }
+    ],
+    "properties": {
+      "data": {
+        "properties": {
+          "type": {
+            "type": "constant_keyword",
+            "value": "collecting-event"
+          },
+          "attributes": {
+            "properties": {
+              "uuid": { "type": "keyword" },
+              "createdBy": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "createdOn": { "type": "date" },
+              "group": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dwcFieldNumber": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "dwcRecordNumber": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "dwcRecordedBy": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "dwcCountry": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "dwcCountryCode": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "dwcStateProvince": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "dwcVerbatimLocality": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "habitat": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "substrate": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "host": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "remarks": {
+                "type": "text",
+                "fields": {
+                  "keyword": { "type": "keyword", "ignore_above": 256 }
+                }
+              },
+              "publiclyReleasable": { "type": "boolean" },
+              "startEventDateTime": { "type": "date" },
+              "endEventDateTime": { "type": "date" },
+              "dwcMinimumElevationInMeters": { "type": "float" },
+              "dwcMaximumElevationInMeters": { "type": "float" },
+              "dwcMinimumDepthInMeters": { "type": "float" },
+              "dwcMaximumDepthInMeters": { "type": "float" },
+              "eventGeom": {
+                "type": "object"
+              },
+              "tags": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "managedAttributes": {
+                "type": "object",
+                "dynamic": true
+              },
+              "extensionValues": {
+                "type": "object",
+                "dynamic": true
+              }
+            }
+          },
+          "relationships": {
+            "properties": {
+              "site": {
+                "properties": {
+                  "data": {
+                    "properties": {
+                      "type": {
+                        "type": "constant_keyword",
+                        "value": "site"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "included": {
+        "type": "nested",
+        "include_in_parent" : true,
+        "properties": {
+          "type": { "type": "keyword" },
+          "attributes": {
+            "properties": {
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "group": { "type": "keyword" },
+              "code": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "siteGeom": {
+                "type": "geo_shape"
+              },
+              "createdBy": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "createdOn": { "type": "date" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
