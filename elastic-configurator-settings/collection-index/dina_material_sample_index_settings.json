@@ -9,7 +9,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "2.8"
+        "number" : "2.9"
       }
     },
     "date_detection": true,
@@ -478,7 +478,7 @@
                 }
               },
               "eventGeom": {
-                "type": "geo_point"
+                "type": "object"
               },
               "determination" : {
                 "properties" : {
