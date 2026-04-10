@@ -325,6 +325,7 @@ services:
       DINA_PROJECT_INDEX_SETTINGS_FILE: $DINA_PROJECT_INDEX_SETTINGS_FILE
       DINA_COLLECTING_EVENT_INDEX_NAME: $DINA_COLLECTING_EVENT_INDEX_NAME
       DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE: $DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE
+      DINA_COLLECTING_EVENT_REINDEX_SCRIPT: "def geom = ctx._source?.data?.attributes?.eventGeom; if (geom != null && geom.containsKey('coordinates')) { def coords = geom['coordinates']; ctx._source.data.attributes.eventGeom = [ 'lat': coords[1], 'lon': coords[0] ]; }"
     volumes:
       - ./elastic-configurator-settings:/usr/share/elastic-configurator/settings
     depends_on:
