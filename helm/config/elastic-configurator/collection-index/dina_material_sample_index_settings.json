@@ -9,7 +9,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "2.8"
+        "number" : "2.9"
       }
     },
     "date_detection": true,
@@ -134,22 +134,10 @@
           "attributes": {
             "properties": {
               "group": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 256
-                  }
-                }
+                "type": "keyword"
               },
               "createdBy": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 256
-                  }
-                }
+                "type": "keyword"
               },
               "createdOn": {
                 "type": "date"
@@ -628,17 +616,10 @@
       "meta": {
         "properties": {
           "moduleVersion": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
-              }
-            }
+            "type": "keyword"
           }
         }
       }
     }
   }
 }
-
