@@ -56,11 +56,7 @@ global:
         http_client:
           username: cnc-su
           password: cnc-su
-      minio:
-        service: minio-service
-        accessKey: minio
-        secretKey: minio123
-      keycloak:
+      keycloak: 
         label: keycloak
         service: keycloak-service
         db_name: keycloak_db
@@ -338,7 +334,12 @@ services:
         messaging:
           isProducer: true
         fileStorage:
-          implementation: S3
+          implementation: FS
+          root: /object-store-storage
+      s3:
+        secretKey: ""
+        accessKey: ""
+        endpoint: ""
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/object_store?currentSchema=object_store
@@ -346,15 +347,11 @@ services:
           multipart:
             max_file_size: 1GB
             max_request_size: 1GB
-      s3:
-        endpoint: "http://{{ .Values.global.environment.config.minio.service }}"
-        accessKey: "{{ .Values.global.environment.config.minio.accessKey }}"
-        secretKey: "{{ .Values.global.environment.config.minio.secretKey }}"
-  minio:
-    image: minio/minio:RELEASE.2022-10-05T14-58-27Z
-    environment:
-      MINIO_ROOT_USER: "{{ .Values.global.environment.config.minio.accessKey }}"
-      MINIO_ROOT_PASSWORD: "{{ .Values.global.environment.config.minio.secretKey }}"
+    storage:
+      accessModes: ReadWriteOnce
+      volumeName: object-store-volume
+      storageClassName: standard
+
   keycloak:
     pullPolicy: IfNotPresent
     image: "quay.io/keycloak/keycloak:22.0.5"
@@ -489,6 +486,7 @@ resources:
   objectstoreapi:
     memory_limit_mb: 1024
     cpu_limit_m: 500
+    storage_limit_gb: 2
   seqdbapi:
     memory_limit_mb: 1024
     cpu_limit_m: 500

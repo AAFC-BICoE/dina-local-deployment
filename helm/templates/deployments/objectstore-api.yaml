@@ -1,3 +1,18 @@
+# Persistent Volume Claim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.app.name }}-object-store-pvc
+spec:
+  accessModes: 
+  - {{ .Values.services.objectstoreapi.storage.accessModes }}
+  storageClassName: {{ .Values.services.objectstoreapi.storage.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.resources.objectstoreapi.storage_limit_gb }}Gi
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -109,6 +124,8 @@ spec:
               value: {{ tpl .Values.services.objectstoreapi.environment.s3.secretKey . }}         
             - name: DINA_FILESTORAGE_IMPLEMENTATION
               value: {{ tpl .Values.services.objectstoreapi.environment.dina.fileStorage.implementation . }}
+            - name: DINA_FILESTORAGE_ROOT
+              value: {{ tpl .Values.services.objectstoreapi.environment.dina.fileStorage.root . }}
             - name: KEYCLOAK_AUTH-SERVER-URL
               value: {{ tpl .Values.global.environment.keycloak.auth_server_url . }}
             - name: SPRING_DATASOURCE_URL
@@ -149,4 +166,14 @@ spec:
             limits:
               memory: {{ .Values.resources.objectstoreapi.memory_limit_mb }}M
               cpu: {{ .Values.resources.objectstoreapi.cpu_limit_m }}m
+
+          volumeMounts:
+            - name: {{.Values.services.objectstoreapi.storage.volumeName}}
+              mountPath: {{ .Values.services.objectstoreapi.environment.dina.fileStorage.root }}
+
+      volumes:
+        - name: {{ .Values.services.objectstoreapi.storage.volumeName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.app.name }}-object-store-pvc
+        
 status: {}
