@@ -350,7 +350,6 @@ services:
     storage:
       accessModes: ReadWriteOnce
       volumeName: object-store-volume
-      storageClassName: standard
 
   keycloak:
     pullPolicy: IfNotPresent

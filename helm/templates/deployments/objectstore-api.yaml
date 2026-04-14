@@ -6,7 +6,7 @@ metadata:
 spec:
   accessModes: 
   - {{ .Values.services.objectstoreapi.storage.accessModes }}
-  storageClassName: {{ .Values.services.objectstoreapi.storage.storageClassName }}
+  storageClassName: {{ .Values.global.environment.storageClass }}
   resources:
     requests:
       storage: {{ .Values.resources.objectstoreapi.storage_limit_gb }}Gi
