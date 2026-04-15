@@ -127,6 +127,8 @@ global:
           queue: dina.search.queue
         export:
           queue: dina.export.queue
+        user:
+          queue: dina.user.queue
     keycloak:
       client_id: dina-public
       realm: dina
@@ -269,8 +271,11 @@ services:
       dina:
         messaging:
           isConsumer: true
+          isProducer: true
           export:
             queue: "{{ .Values.global.environment.config.rabbitmq.export.queue }}"
+          user:
+            queue: "{{ .Values.global.environment.config.rabbitmq.user.queue }}"
         export:
           objectStoreDownloadUrl: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1/toa
           workingFolder: /tmp/dina-data-export
@@ -309,6 +314,15 @@ services:
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/dina_user?currentSchema=dina_user
+      dina:
+        messaging:
+          isConsumer: true
+          user:
+            queue: "{{ .Values.global.environment.config.rabbitmq.user.queue }}"
+      rabbitmq:
+        host: "{{ .Values.global.environment.config.rabbitmq.service }}"
+        username: "{{ .Values.global.environment.config.rabbitmq.username }}"
+        password: "{{ .Values.global.environment.config.rabbitmq.password }}"
   loantransactionapi:
     image: aafcbicoe/loan-transaction-api:0.14
     environment:
