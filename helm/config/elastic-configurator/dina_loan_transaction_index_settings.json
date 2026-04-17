@@ -8,7 +8,7 @@
   "mappings": {
     "_meta": {
       "version": {
-        "number": 1.1
+        "number": "1.2"
       }
     },
     "date_detection": true,
@@ -60,25 +60,13 @@
           "attributes": {
             "properties": {
               "createdBy": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 256
-                  }
-                }
+                "type": "keyword"
               },
               "createdOn": {
                 "type": "date"
               },
               "group": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 256
-                  }
-                }
+                "type": "keyword"
               },
               "transactionNumber": {
                 "type": "text",
@@ -111,13 +99,7 @@
       "meta": {
         "properties": {
           "moduleVersion": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
-              }
-            }
+            "type": "keyword"
           }
         }
       }

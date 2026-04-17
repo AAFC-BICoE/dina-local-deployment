@@ -8,7 +8,7 @@
   "mappings": {
     "_meta": {
       "version": {
-        "number": "1.3"
+        "number": "1.4"
       }
     },
     "date_detection": true,
@@ -133,23 +133,11 @@
             "properties": {
               "uuid": { "type": "keyword" },
               "createdBy": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 256
-                  }
-                }
+                "type": "keyword"
               },
               "createdOn": { "type": "date" },
               "group": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 256
-                  }
-                }
+                "type": "keyword"
               },
               "dwcFieldNumber": {
                 "type": "text",
@@ -294,16 +282,17 @@
                 "type": "geo_shape"
               },
               "createdBy": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 256
-                  }
-                }
+                "type": "keyword"
               },
               "createdOn": { "type": "date" }
             }
+          }
+        }
+      },
+      "meta": {
+        "properties": {
+          "moduleVersion": {
+            "type": "keyword"
           }
         }
       }
