@@ -93,7 +93,7 @@ spec:
             - name: KEYCLOAK_USER_SVC_SECRET
               value: 120c0b7a-5ed2-4295-9a31-29c2fcbc714f    
             - name: KEYCLOAK_AUTH-SERVER-URL
-              value: {{ tpl .Values.global.environment.keycloak.auth_server_url . }}
+              value: {{ tpl .Values.global.environment.keycloak.auth_server_url_internal . }}
             - name: SPRING_DATASOURCE_URL
               value: {{ tpl .Values.services.dinauserapi.environment.spring.datasource.url . }}
             - name: SPRING_DATASOURCE_USERNAME
