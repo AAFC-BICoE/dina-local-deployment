@@ -1,0 +1,63 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/generic-molecular-analysis"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": [
+        {
+          "id": "9ec1322f-fdc5-4e28-b9e5-f60d476b9e01",
+          "type": "generic-molecular-analysis",
+          "attributes": {
+            "createdBy": "test-user-1",
+            "createdOn": "2023-10-01T12:00:00Z",
+            "group": "test-group-a",
+            "name": "Molecular Analysis Alpha",
+            "analysisType": "hrms",
+            "managedAttributes": {}
+          }
+        },
+        {
+          "id": "5af845fa-fd61-4878-89b4-c82ecbc6cb28",
+          "type": "generic-molecular-analysis",
+          "attributes": {
+            "createdBy": "test-user-2",
+            "createdOn": "2023-10-02T14:30:00Z",
+            "group": "test-group-b",
+            "name": "Molecular Analysis Beta",
+            "analysisType": "sequencing",
+            "managedAttributes": {
+              "test_key": "test_value"
+            }
+          }
+        },
+        {
+          "id": "ee36540e-9f46-454b-9937-ea9695390f9e",
+          "type": "generic-molecular-analysis",
+          "attributes": {
+            "createdBy": "test-user-3",
+            "createdOn": "2023-10-03T09:15:00Z",
+            "group": "test-group-a",
+            "name": "Molecular Analysis Gamma",
+            "analysisType": "hrms",
+            "managedAttributes": {}
+          }
+        }
+      ],
+      "meta": {
+        "totalResourceCount": 3,
+        "external": [
+          {
+            "type": "protocol",
+            "href": "collection/api/v1/protocol"
+          }
+        ]
+      }
+    }
+  }
+}

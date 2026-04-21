@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/generic-molecular-analysis/9ec1322f-fdc5-4e28-b9e5-f60d476b9e01"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": {
+        "id": "9ec1322f-fdc5-4e28-b9e5-f60d476b9e01",
+        "type": "generic-molecular-analysis",
+        "attributes": {
+          "createdBy": "test-user-1",
+          "createdOn": "2023-10-01T12:00:00Z",
+          "group": "test-group-a",
+          "name": "Molecular Analysis Alpha",
+          "analysisType": "hrms",
+          "managedAttributes": {}
+        }
+      }
+    }
+  }
+}

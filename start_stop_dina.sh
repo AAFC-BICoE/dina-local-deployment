@@ -3,6 +3,7 @@
 # DINA Modules to activate
 DINA_MODULES=()
 DINA_MODULES+=('user_api')
+#DINA_MODULES+=('collection_api') 
 #DINA_MODULES+=('object_store_api')
 #DINA_MODULES+=('agent_api')
 #DINA_MODULES+=('search_api')
@@ -10,6 +11,7 @@ DINA_MODULES+=('user_api')
 #DINA_MODULES+=('export_api')
 #DINA_MODULES+=('loan_transaction_api')
 
+#DINA_MODULES+=('wiremock')
 #DINA_MODULES+=('kibana')
 #DINA_MODULES+=('prometheus')
 
@@ -33,9 +35,19 @@ export COMPOSE_PROFILES=$(echo ${module_arr%,})
 # Remove training commas to display the compose configs to be applied.
 COMPOSE_CONFIGS=$(echo ${config_arr%,})
 
-# Print the profiles and configs being used
+# Print the ascii-art, profiles and configs being used.
+GREEN_COLOR_CODE="\033[32m"
 YELLOW_COLOR_CODE="\033[33m"
 WHITE_COLOR_CODE="\033[0m"
+echo -e "${GREEN_COLOR_CODE}"
+echo "*%%%%%%%%%=    .%%%.  #%%%#    :%%%       %%%%%      "
+echo "*%%%..-*%%%%.  .%%%.  #%%%%%:  :%%%      +%%%%%#     "
+echo "*%%%     *%%%  .%%%.  #%%%%%%# :%%%     +%%%.%%%+    "
+echo "*%%%     -%%%  .%%%.  #%%# #%%%#%%%    -%%%.  %%%+   "
+echo "*%%%    =%%%#  .%%%.  #%%#  -%%%%%%   .%%%%%%%%%%%-  "
+echo "*%%%%%%%%%%-   .%%%.  #%%#    *%%%%   %%%*.....*%%%. "
+echo "=######+.       ###.  +##+     .###  *##*       +### "
+echo -e "${WHITE_COLOR_CODE}"
 echo -e "${YELLOW_COLOR_CODE}Using the following profile(s):${WHITE_COLOR_CODE} $COMPOSE_PROFILES"
 echo -e "${YELLOW_COLOR_CODE}Using the following config(s):${WHITE_COLOR_CODE} $COMPOSE_CONFIGS"
 

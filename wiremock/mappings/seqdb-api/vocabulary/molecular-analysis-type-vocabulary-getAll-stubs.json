@@ -1,0 +1,73 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/vocabulary/molecularAnalysisType"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": {
+        "id": "molecularAnalysisType",
+        "type": "vocabulary",
+        "attributes": {
+          "vocabularyElements": [
+            {
+              "key": "hrms",
+              "name": "HRMS",
+              "term": null,
+              "multilingualTitle": {
+                "titles": [
+                  {
+                    "lang": "en",
+                    "title": "High Resolution Mass Spectrometry (HRMS)"
+                  },
+                  {
+                    "lang": "fr",
+                    "title": "Spectrométrie de masse haute résolution (HRMS)"
+                  }
+                ]
+              }
+            },
+            {
+              "key": "gcms",
+              "name": "GCMS",
+              "term": null,
+              "multilingualTitle": {
+                "titles": [
+                  {
+                    "lang": "en",
+                    "title": "Gas chromatography coupled to low-resolution mass spectrometry (GCMS)"
+                  },
+                  {
+                    "lang": "fr",
+                    "title": "Chromatographie en phase gazeuse couplée à la spectrométrie de masse basse résolution, simple (GCMS)"
+                  }
+                ]
+              }
+            },
+            {
+              "key": "qe",
+              "name": "QE",
+              "term": null,
+              "multilingualTitle": {
+                "titles": [
+                  {
+                    "lang": "en",
+                    "title": "Q-Exactive ?"
+                  },
+                  {
+                    "lang": "fr",
+                    "title": "Q-Exactive ?"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/v1/site"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": [
+        {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+          "type": "site",
+          "attributes": {
+            "name": "Algonquin Research Station",
+            "group": "ECOLOGY",
+            "code": "ALG-001",
+            "multilingualDescription": {
+              "descriptions": [
+                {
+                  "lang": "en",
+                  "desc": "Primary research site in Algonquin Provincial Park."
+                },
+                {
+                  "lang": "fr",
+                  "desc": "Site de recherche principal dans le parc provincial Algonquin."
+                }
+              ]
+            },
+            "createdBy": "test.user",
+            "createdOn": "2024-02-05T11:15:30Z"
+          },
+          "relationships": {
+            "attachment": {
+              "data": [
+                {
+                  "type": "metadata",
+                  "id": "0192fe4d-4647-7ff3-af23-2fb43684442d"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

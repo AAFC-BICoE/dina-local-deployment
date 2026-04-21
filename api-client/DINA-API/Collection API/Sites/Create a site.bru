@@ -1,0 +1,24 @@
+meta {
+  name: Create a site
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/collection-api/site
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "data": {
+        "type": "site",
+        "attributes": {
+          "group": "cnc",
+          "name": "site-name",
+          "code": "site-code"
+        }
+      }
+    }
+}

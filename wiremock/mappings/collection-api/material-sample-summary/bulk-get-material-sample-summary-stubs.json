@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/v1/material-sample-summary/bulk-load"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": "{ \"data\": [ {{#each (jsonPath request.body '$.data')}} { \"id\": \"{{this.id}}\", \"type\": \"material-sample-summary\", \"attributes\": { \"materialSampleName\": \"SAMPLE-{{this.id}}\", \"effectiveDeterminations\": [ { \"verbatimScientificName\": \"Fusarium sporotrichioidies\", \"verbatimDeterminer\": null, \"verbatimDate\": null, \"scientificName\": null, \"transcriberRemarks\": null, \"verbatimRemarks\": null, \"determinationRemarks\": null, \"typeStatus\": null, \"typeStatusEvidence\": null, \"determiner\": null, \"determinedOn\": null, \"qualifier\": null, \"scientificNameSource\": \"CUSTOM\", \"scientificNameDetails\": { \"labelHtml\": null, \"classificationPath\": \"Fungi|Ascomycota|Sordariomycetes|Hypocreales|Nectriaceae|Fusarium|sporotrichioidies\", \"classificationRanks\": \"kingdom|phylum|class|order|family|genus|species\", \"sourceUrl\": null, \"recordedOn\": null, \"currentName\": null, \"isSynonym\": null }, \"isPrimary\": true, \"isFiledAs\": null, \"managedAttributes\": null } ], \"jsonApiType\": \"material-sample-summary\", \"jsonApiId\": \"{{this.id}}\" } } {{#unless @last}},{{/unless}} {{/each}} ], \"meta\": { \"moduleVersion\": \"0.113\", \"totalRequested\": \"{{jsonPath request.body '$.data.length()'}}\" } }",
+    "transformers": ["response-template"]
+  }
+}

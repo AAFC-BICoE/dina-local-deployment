@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/molecular-analysis-run/9fb134bd-9484-4e5b-8744-42a881c623e5"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": {
+        "id": "9fb134bd-9484-4e5b-8744-42a881c623e5",
+        "type": "molecular-analysis-run",
+        "attributes": {
+          "createdBy": "dina-admin",
+          "createdOn": "2025-06-16T17:17:05.043802Z",
+          "group": "aafc",
+          "name": "Test"
+        },
+        "relationships": {
+          "attachments": {
+            "data": []
+          }
+        }
+      },
+      "meta": {
+        "totalResourceCount": 1,
+        "external": [
+          {
+            "type": "metadata",
+            "href": "objectstore/api/v1/metadata"
+          }
+        ]
+      }
+    }
+  }
+}

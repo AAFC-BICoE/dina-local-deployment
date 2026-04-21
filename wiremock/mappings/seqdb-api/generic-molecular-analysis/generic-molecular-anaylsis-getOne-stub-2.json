@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/generic-molecular-analysis/5af845fa-fd61-4878-89b4-c82ecbc6cb28"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": {
+        "id": "5af845fa-fd61-4878-89b4-c82ecbc6cb28",
+        "type": "generic-molecular-analysis",
+        "attributes": {
+          "createdBy": "test-user-2",
+          "createdOn": "2023-10-02T14:30:00Z",
+          "group": "test-group-b",
+          "name": "Molecular Analysis Beta",
+          "analysisType": "sequencing",
+          "managedAttributes": {
+            "test_key": "test_value"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+meta {
+  name: Query collecting event index
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/search-api/search-ws/search?indexName=dina_collecting_event_index
+  body: json
+  auth: inherit
+}
+
+params:query {
+  indexName: dina_collecting_event_index
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "query": {
+      "match_all": {}
+    }
+  }
+}

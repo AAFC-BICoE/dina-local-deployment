@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/v1/controlled-vocabulary"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": [
+        {
+          "id": "0199874f-a9bd-71c9-aec1-56b529471d0e",
+          "type": "controlled-vocabulary",
+          "attributes": {
+            "name": "Coordinate Format",
+            "key": "coordinate_format",
+            "type": "SYSTEM",
+            "vocabClass": "CONTROLLED_TERM"
+          }
+        },
+        {
+          "id": "01998155-a6f0-7c2f-9fcc-994d74222f9c",
+          "type": "controlled-vocabulary",
+          "attributes": {
+            "name": "Managed Attribute",
+            "key": "managed_attribute",
+            "type": "MANAGED_ATTRIBUTE",
+            "vocabClass": "QUALIFIED_VALUE"
+          }
+        }
+      ],
+      "meta": {
+        "totalResourceCount": 2
+      }
+    }
+  }
+}

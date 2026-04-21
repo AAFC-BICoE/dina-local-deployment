@@ -1,0 +1,11 @@
+meta {
+  name: Get all sites
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/collection-api/site
+  body: none
+  auth: inherit
+}

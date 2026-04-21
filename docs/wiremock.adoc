@@ -1,0 +1,58 @@
+= WireMock API Mocking
+
+Mock API responses for frontend development and testing without a live backend using https://wiremock.org/[WireMock].
+
+== Setup
+
+1. *Configure local hostnames*: In `docker-compose.local.yml`, change the desired local hostnames in the `dina-ui` service environment to `wiremock:8080`. You can set it for multiple services if needed.
+
+2. *Enable WireMock profile*: In `dina_start_stop.sh``, enable the `wiremock` profile and disable the API modules you want to mock.
+
+Example Configuration:
+
+**docker-compose.local.yml**
+[source,yaml]
+----
+services:
+  dina-ui:
+    environment:
+      # ...
+      COLLECTION_API_ADDRESS: wiremock:8080  # Mocked API
+      AGENT_API_ADDRESS: agent-api:8080      # Live API
+      # ...
+----
+
+**dina_start_stop.sh**
+[source,bash]
+----
+#DINA_MODULES+=('collection_api')   # Disabled - using WireMock instead
+DINA_MODULES+=('wiremock')          # Enable this.
+----
+
+== Creating Mocks
+
+Mock responses are organized in the following directory structure:
+
+----
+/wiremock/mappings/
+  └── [API folder]/
+      └── [Entity folder]/
+          └── [mock-definition.json]
+----
+
+To add new mocks:
+
+1. Create a folder for the API you want to mock (e.g., `collection-api`, `agent-api`)
+2. Inside the API folder, create a folder for each entity type (e.g., `collecting-event`, `person`)
+3. Add your WireMock stub JSON files in the entity folder
+
+Refer to the https://wiremock.org/docs/stubbing/[WireMock stubbing documentation] for details on creating stub definitions.
+
+== Refresh Mocks
+
+After editing mocks, you can restart the mock server using:
+
+[source,bash]
+----
+./start_stop_dina.sh restart wiremock
+----

@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/molecular-analysis-run-item",
+    "queryParameters": {
+      "filter[rsql]": {
+        "contains": "run.uuid==9fb134bd-9484-4e5b-8744-42a881c623e5;usageType==quality-control"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": [],
+      "meta": {
+        "totalResourceCount": 0,
+        "moduleVersion": "2.25.0"
+      }
+    }
+  }
+}

@@ -57,6 +57,10 @@ spec:
               value: {{ .Values.services.elasticconfigurator.environment.DINA_PROJECT_INDEX_NAME }}
             - name: DINA_PROJECT_INDEX_SETTINGS_FILE
               value: {{ .Values.services.elasticconfigurator.environment.DINA_PROJECT_INDEX_SETTINGS_FILE }}
+            - name: DINA_COLLECTING_EVENT_INDEX_NAME
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_COLLECTING_EVENT_INDEX_NAME }}
+            - name: DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE }}
           resources:
             requests:
               memory: {{ .Values.resources.apis.requests.memory }}
@@ -125,3 +129,5 @@ spec:
               path: collection-index/dina_material_sample_update_index.json
             - key: dina_agent_index_settings.json
               path: agent-index/dina_agent_index_settings.json
+            - key: dina_collecting_event_index_settings.json
+              path: dina_collecting_event_index_settings.json

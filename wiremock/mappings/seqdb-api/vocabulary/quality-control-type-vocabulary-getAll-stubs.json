@@ -1,0 +1,73 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/vocabulary/qualityControlType"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "jsonBody": {
+      "data": {
+        "id": "qualityControlType",
+        "type": "vocabulary",
+        "attributes": {
+          "vocabularyElements": [
+            {
+              "key": "reserpine_standard",
+              "name": "reserpine standard",
+              "term": null,
+              "multilingualTitle": {
+                "titles": [
+                  {
+                    "lang": "en",
+                    "title": "Reserpine Standard"
+                  },
+                  {
+                    "lang": "fr",
+                    "title": "Standard Reserpine"
+                  }
+                ]
+              }
+            },
+            {
+              "key": "acn_blank",
+              "name": "acn blank",
+              "term": null,
+              "multilingualTitle": {
+                "titles": [
+                  {
+                    "lang": "en",
+                    "title": "ACN Blank"
+                  },
+                  {
+                    "lang": "fr",
+                    "title": "ACN Blank (fr)"
+                  }
+                ]
+              }
+            },
+            {
+              "key": "meoh_blank",
+              "name": "meoh blank",
+              "term": null,
+              "multilingualTitle": {
+                "titles": [
+                  {
+                    "lang": "en",
+                    "title": "MEOH Blank"
+                  },
+                  {
+                    "lang": "fr",
+                    "title": "MEOH Blank (fr)"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

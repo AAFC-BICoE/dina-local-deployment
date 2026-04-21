@@ -1,18 +1,18 @@
 services:
   # Nextjs's dev-mode server that hot-reloads the UI source code.
   dina-ui-dev-server:
-    image: node:20
+    image: node:22
     volumes:
       - "${DINA_UI_REPO_DIRECTORY}:/dina-ui"
     stop_signal: SIGKILL
     # NodeJS Garbage Collection Heap Size is configured here, can be useful to increase if you are 
     # out of memory in dev mode. Size is in MB.
     command: >
-      bash -c "
-      export NODE_OPTIONS="--max-old-space-size=4096" ;
+      bash -c '
+      export NODE_OPTIONS="--max-old-space-size=6144" ;
       yarn --cwd=/dina-ui/packages/dina-ui ;
       yarn --cwd=/dina-ui/packages/dina-ui dev
-      "
+      '
     networks:
       - dina
   
