@@ -121,6 +121,10 @@ spec:
               {{- else }}
               value: {{ tpl .Values.services.initdb.config.agentapi.spring.liquibase.password . }}
               {{- end }}
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI
+              value: {{ tpl .Values.services.agentapi.environment.spring.security.oauth2.resourceserver.jwt.issuer_uri . | quote }}
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
+              value: {{ tpl .Values.services.agentapi.environment.spring.security.oauth2.resourceserver.jwt.jwk_set_uri . | quote }}
           readinessProbe:
             tcpSocket:
               port: 8080

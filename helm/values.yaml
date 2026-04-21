@@ -231,7 +231,7 @@ services:
             password: "{{ .Values.global.environment.config.seqdb_api.liquibase_password }}"
         PG_EXTENSION_seqdb: pgcrypto
   agentapi:
-    image: aafcbicoe/agent-api:0.32
+    image: agent-api:dev
     pullPolicy: IfNotPresent
     environment:
       rabbitmq:
@@ -246,8 +246,8 @@ services:
           oauth2:
             resourceserver:
               jwt:
-                issuer-uri: "{{ tpl .Values.global.environment.keycloak.auth_server_url_external . }}/realms/dina"
-                jwk-set-uri: "{{ tpl .Values.global.environment.keycloak.auth_server_url_internal . }}/realms/dina/protocol/openid-connect/certs"
+                issuer_uri: "{{ tpl .Values.global.environment.keycloak.auth_server_url_external . }}/realms/dina"
+                jwk_set_uri: "{{ tpl .Values.global.environment.keycloak.auth_server_url_internal . }}/realms/dina/protocol/openid-connect/certs"
   collectionapi:
     image: aafcbicoe/natural-history-collection-api:0.116
     pullPolicy: IfNotPresent
