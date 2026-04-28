@@ -231,7 +231,7 @@ services:
             password: "{{ .Values.global.environment.config.seqdb_api.liquibase_password }}"
         PG_EXTENSION_seqdb: pgcrypto
   agentapi:
-    image: agent-api:dev
+    image: aafcbicoe/agent-api:0.33
     pullPolicy: IfNotPresent
     environment:
       rabbitmq:
