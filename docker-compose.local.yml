@@ -62,7 +62,6 @@ services:
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       spring.datasource.url: jdbc:postgresql://dina-db/agent?currentSchema=agent
       spring.liquibase.user: ${AGENT_MIGRATION_USER}
       spring.liquibase.password: ${AGENT_MIGRATION_USER_PW}
