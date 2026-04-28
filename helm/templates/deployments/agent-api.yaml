@@ -95,8 +95,6 @@ spec:
           env:
             - name: KEYCLOAK_ENABLED
               value: {{ .Values.global.environment.keycloak.enabled | quote }}
-            - name: KEYCLOAK_AUTH-SERVER-URL
-              value: {{ tpl .Values.global.environment.keycloak.auth_server_url . }}
             - name: SPRING_DATASOURCE_URL
               value: {{ tpl .Values.services.agentapi.environment.spring.datasource.url . }}
             - name: SPRING_DATASOURCE_USERNAME
@@ -121,6 +119,10 @@ spec:
               {{- else }}
               value: {{ tpl .Values.services.initdb.config.agentapi.spring.liquibase.password . }}
               {{- end }}
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI
+              value: {{ tpl .Values.services.agentapi.environment.spring.security.oauth2.resourceserver.jwt.issuer_uri . | quote }}
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
+              value: {{ tpl .Values.services.agentapi.environment.spring.security.oauth2.resourceserver.jwt.jwk_set_uri . | quote }}
           readinessProbe:
             tcpSocket:
               port: 8080

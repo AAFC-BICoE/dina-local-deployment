@@ -133,7 +133,8 @@ global:
       client_id: dina-public
       realm: dina
       enabled: true
-      auth_server_url: http://{{ .Values.global.environment.config.keycloak.service }}:8080/auth
+      auth_server_url_internal: http://{{ .Values.global.environment.config.keycloak.service }}:8080/auth
+      auth_server_url_external: https://{{ .Values.global.endpoints.ui }}/auth
     storageClass: standard
     securityContext:
       enabled: true
@@ -232,7 +233,7 @@ services:
             password: "{{ .Values.global.environment.config.seqdb_api.liquibase_password }}"
         PG_EXTENSION_seqdb: pgcrypto
   agentapi:
-    image: aafcbicoe/agent-api:0.32
+    image: aafcbicoe/agent-api:0.33
     pullPolicy: IfNotPresent
     environment:
       rabbitmq:
@@ -243,6 +244,12 @@ services:
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
+        security:
+          oauth2:
+            resourceserver:
+              jwt:
+                issuer_uri: "{{ tpl .Values.global.environment.keycloak.auth_server_url_external . }}/realms/dina"
+                jwk_set_uri: "{{ tpl .Values.global.environment.keycloak.auth_server_url_internal . }}/realms/dina/protocol/openid-connect/certs"
   collectionapi:
     image: aafcbicoe/natural-history-collection-api:0.117
     pullPolicy: IfNotPresent
@@ -280,7 +287,7 @@ services:
           objectStoreDownloadUrl: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1/toa
           workingFolder: /tmp/dina-data-export
       http_client:
-        openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/"
+        openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url_internal . }}/realms/dina/protocol/openid-connect/"
         client_id: "{{ .Values.global.environment.keycloak.client_id }}"
         username: "{{ .Values.global.environment.config.dina_export_api.http_client.username }}"
         password: "{{ .Values.global.environment.config.dina_export_api.http_client.password }}"
@@ -296,7 +303,7 @@ services:
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
-      KEYCLOAK_PUBLIC_URL: https://{{ .Values.global.endpoints.ui }}/auth
+      KEYCLOAK_PUBLIC_URL: "{{ .Values.global.environment.keycloak.auth_server_url_external }}"
       OBJECTSTORE_API_ADDRESS: "{{ .Values.global.environment.config.objectstore_api.service }}:8080"
       AGENT_API_ADDRESS: "{{ .Values.global.environment.config.agent_api.service }}:8080"
       SEQDB_API_ADDRESS: "{{ .Values.global.environment.config.seqdb_api.service }}:8080"
@@ -428,7 +435,7 @@ services:
     image: aafcbicoe/dina-search-cli:0.52.1
     environment:
       http_client:
-        openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url . }}/realms/dina/protocol/openid-connect/"
+        openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url_internal . }}/realms/dina/protocol/openid-connect/"
         client_id: "{{ .Values.global.environment.keycloak.client_id }}"
         username: "{{ .Values.global.environment.config.search_cli.http_client.username }}"
         password: "{{ .Values.global.environment.config.search_cli.http_client.password }}"
