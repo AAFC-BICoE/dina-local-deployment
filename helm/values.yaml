@@ -317,7 +317,7 @@ services:
       INSTANCE_NAME: "{{ .Values.global.environment.config.dina_ui.instance_name }}"
       SUPPORTED_LANGUAGES_ISO: "{{ .Values.global.environment.config.dina_ui.supported_languages_iso }}"
   dinauserapi:
-    image: aafcbicoe/dina-user-api:0.25
+    image: aafcbicoe/dina-user-api:0.26
     environment:
       spring:
         datasource:
