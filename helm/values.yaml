@@ -135,6 +135,13 @@ global:
       enabled: true
       auth_server_url_internal: http://{{ .Values.global.environment.config.keycloak.service }}:8080/auth
       auth_server_url_external: https://{{ .Values.global.endpoints.ui }}/auth
+    spring:
+      security:
+        oauth2:
+          resourceserver:
+            jwt:
+              issuer_uri: "{{ tpl .Values.global.environment.keycloak.auth_server_url_external . }}/realms/dina"
+              jwk_set_uri: "{{ tpl .Values.global.environment.keycloak.auth_server_url_internal . }}/realms/dina/protocol/openid-connect/certs"
     storageClass: standard
     securityContext:
       enabled: true
@@ -244,12 +251,6 @@ services:
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
-        security:
-          oauth2:
-            resourceserver:
-              jwt:
-                issuer_uri: "{{ tpl .Values.global.environment.keycloak.auth_server_url_external . }}/realms/dina"
-                jwk_set_uri: "{{ tpl .Values.global.environment.keycloak.auth_server_url_internal . }}/realms/dina/protocol/openid-connect/certs"
   collectionapi:
     image: aafcbicoe/natural-history-collection-api:0.117
     pullPolicy: IfNotPresent
@@ -316,7 +317,7 @@ services:
       INSTANCE_NAME: "{{ .Values.global.environment.config.dina_ui.instance_name }}"
       SUPPORTED_LANGUAGES_ISO: "{{ .Values.global.environment.config.dina_ui.supported_languages_iso }}"
   dinauserapi:
-    image: aafcbicoe/dina-user-api:0.25
+    image: aafcbicoe/dina-user-api:0.26
     environment:
       spring:
         datasource:
