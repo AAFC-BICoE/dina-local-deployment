@@ -191,7 +191,7 @@ services:
             password: "{{ .Values.global.environment.config.collection_api.liquibase_password }}"
         actuator:
           allowedIP: prometheus
-        PG_EXTENSION_collection: postgis
+        PG_EXTENSION_collection: postgis pgcrypto
       dinaexportapi:
         DINA_DB: export
         spring:
