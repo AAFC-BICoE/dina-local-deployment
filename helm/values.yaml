@@ -252,7 +252,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.119
+    image: aafcbicoe/natural-history-collection-api:0.119.2
     pullPolicy: IfNotPresent
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
