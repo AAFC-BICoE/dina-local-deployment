@@ -17,7 +17,6 @@
  * 
  * If the API is unavailable or no banner matches, nothing is displayed.
  */
-
 const INSTANCE_BANNERS = [
   {
     match: {
@@ -38,7 +37,7 @@ const INSTANCE_BANNERS = [
 
 (function () {
   // API endpoint for fetching instance information.
-  const ENDPOINT = "/api/instance-mode.json";
+  const ENDPOINT = "/api/instance.json";
 
   // Banner containers (English + French)
   const EN_CONTAINER_ID = "instance-banner-en";
