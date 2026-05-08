@@ -39,6 +39,13 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: keycloak-certificates
+data:
+{{ (.Files.Glob "config/keycloak-certificates/*").AsConfig | indent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: elastic-settings
 data:
 {{ (.Files.Glob "config/elastic-configurator/*").AsConfig | indent 2 }}
