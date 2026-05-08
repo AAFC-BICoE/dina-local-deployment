@@ -134,7 +134,7 @@ global:
       realm: dina
       enabled: true
       auth_server_url_internal: http://{{ .Values.global.environment.config.keycloak.service }}:8080/auth
-      auth_server_url_external: https://{{ .Values.global.endpoints.ui }}/auth
+      auth_server_url_external: https://{{ .Values.global.endpoints.ui }}/auth 
     spring:
       security:
         oauth2:
@@ -304,7 +304,7 @@ services:
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
-      KEYCLOAK_PUBLIC_URL: "{{ .Values.global.environment.keycloak.auth_server_url_external }}"
+      KEYCLOAK_PUBLIC_URL: "https://{{ .Values.global.endpoints.ui }}/auth"
       OBJECTSTORE_API_ADDRESS: "{{ .Values.global.environment.config.objectstore_api.service }}:8080"
       AGENT_API_ADDRESS: "{{ .Values.global.environment.config.agent_api.service }}:8080"
       SEQDB_API_ADDRESS: "{{ .Values.global.environment.config.seqdb_api.service }}:8080"
