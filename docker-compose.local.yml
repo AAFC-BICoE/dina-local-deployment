@@ -139,7 +139,7 @@ services:
         condition: service_completed_successfully
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.26
+    image: aafcbicoe/dina-user-api:0.27
     profiles: ["user_api"]
     mem_limit: 512m
     environment:
