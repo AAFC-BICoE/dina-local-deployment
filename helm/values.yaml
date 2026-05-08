@@ -375,7 +375,7 @@ services:
 
   keycloak:
     pullPolicy: IfNotPresent
-    image: "quay.io/keycloak/keycloak:24.0"
+    image: "quay.io/keycloak/keycloak:24.0.5"
     environment:
       KC_DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
       KEYCLOAK_ADMIN: "{{ .Values.global.environment.config.keycloak.keycloak_admin }}"
