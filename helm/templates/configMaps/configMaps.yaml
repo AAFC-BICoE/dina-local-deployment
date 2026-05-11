@@ -108,6 +108,6 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ui-welcome
+  name: ui-config
 data:
-{{ (.Files.Glob "config/ui/welcome-bienvenue.html").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/ui/*").AsConfig | indent 2 }}
