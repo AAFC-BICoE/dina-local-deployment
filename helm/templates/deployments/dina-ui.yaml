@@ -69,5 +69,5 @@ spec:
       volumes:
         - name: ui-welcome-volume
           configMap:
-            name: ui-welcome
+            name: ui-config
 status: {}

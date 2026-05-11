@@ -3,6 +3,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Values.app.name }}-object-store-pvc
+  annotations:
+    helm.sh/resource-policy: keep
 spec:
   accessModes: 
   - {{ .Values.services.objectstoreapi.storage.accessModes }}
