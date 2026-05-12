@@ -152,7 +152,7 @@ global:
     elasticsearch: elasticsearch.dina.localhost
 services:
   initdb:
-    image: aafcbicoe/dina-db-init-container:0.6
+    image: aafcbicoe/dina-db-init-container:0.8
     pullPolicy: IfNotPresent
     environment:
       # Database Connection Environment Variables:
