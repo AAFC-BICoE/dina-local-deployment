@@ -146,6 +146,8 @@ spec:
               mountPath: /opt/keycloak/scripts
             - name: certs-volume
               mountPath: /etc/certs
+            - name: ldap-certs
+              mountPath: /opt/keycloak/conf/truststores/
       volumes:
         - name: keycloak-dina-starter-volume
           configMap:
@@ -168,4 +170,7 @@ spec:
         - name: certs-volume
           configMap:
             name: certs
+        - name: ldap-certs
+          configMap:
+            name: keycloak-certificates
 status: {}
