@@ -201,12 +201,11 @@ services:
         condition: service_completed_successfully
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.21
+    image: aafcbicoe/dina-export-api:0.22
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
       keycloak.enabled: "true"
-      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
       spring.datasource.url: jdbc:postgresql://dina-db/export?currentSchema=export
       spring.liquibase.user: ${EXPORT_MIGRATION_USER}
       spring.liquibase.password: ${EXPORT_MIGRATION_USER_PW}
@@ -218,6 +217,8 @@ services:
       dina.report.templateFolder: /data/templates
       elasticsearch.host: elasticsearch-dina
       elasticsearch.port: 9200
+      spring.security.oauth2.resourceserver.jwt.issuer-uri: ${KEYCLOAK_EXTERNAL_URL}/realms/dina
+      spring.security.oauth2.resourceserver.jwt.jwk-set-uri: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/certs
     labels:
       # Opens http://api.dina.local/export/api/v1 module endpoint
       - "traefik.http.middlewares.stripreportlabel.stripprefix.prefixes=${EXPORT_API_PREFIX}"
