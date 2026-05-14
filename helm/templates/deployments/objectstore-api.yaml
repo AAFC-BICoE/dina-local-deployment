@@ -128,8 +128,10 @@ spec:
               value: {{ tpl .Values.services.objectstoreapi.environment.dina.fileStorage.implementation . }}
             - name: DINA_FILESTORAGE_ROOT
               value: {{ tpl .Values.services.objectstoreapi.environment.dina.fileStorage.root . }}
-            - name: KEYCLOAK_AUTH-SERVER-URL
-              value: {{ tpl .Values.global.environment.keycloak.auth_server_url_internal . }}
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI
+              value: {{ tpl .Values.global.environment.spring.security.oauth2.resourceserver.jwt.issuer_uri . | quote }}
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
+              value: {{ tpl .Values.global.environment.spring.security.oauth2.resourceserver.jwt.jwk_set_uri . | quote }}
             - name: SPRING_DATASOURCE_URL
               value: {{ tpl .Values.services.objectstoreapi.environment.spring.datasource.url . }}
             - name: SPRING_DATASOURCE_USERNAME
