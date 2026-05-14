@@ -248,44 +248,9 @@ services:
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch-dina:
     # we need a plugin so a custom image is built (to ensure an immutable Docker image)
-    image: elasticsearch_icu:7.17.10
-    build: elasticsearch/
-    profiles: ["search_api"]
-    environment:
-      - ingest.geoip.downloader.enabled=false
-      - xpack.security.enabled=false
-      - discovery.type=single-node
-      - action.auto_create_index=false
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    cap_add:
-      - IPC_LOCK
-    volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
-    extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
-    networks:
-      - dina
-    ports:
-      - 9200:9200
-      - 9300:9300
-    deploy:
-      resources:
-        limits:
-          memory: 2000M
-    labels:
-      - "traefik.http.routers.elasticsearch.rule=Host(`elasticsearch-dina.localhost`)"
-
-  elasticsearch8-dina:
-    # we need a plugin so a custom image is built (to ensure an immutable Docker image)
     image: elasticsearch_icu:8.11.1
-    build: elasticsearch8/
-    profiles: [ "es8" ]
+    build: elasticsearch/
+    profiles: [ "search_api" ]
     environment:
       - "ELASTIC_PASSWORD=DINAIndexPassword3!" # Sets the password on first boot
       - ingest.geoip.downloader.enabled=false
@@ -307,7 +272,7 @@ services:
     cap_add:
       - IPC_LOCK
     volumes:
-      - elasticsearch8-data:/usr/share/elasticsearch/data
+      - elasticsearch-data:/usr/share/elasticsearch/data
       - elasticsearch-certs:/usr/share/elasticsearch/config/certs
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
@@ -322,13 +287,14 @@ services:
           memory: 2000M
     labels:
       - "traefik.http.routers.elasticsearch.rule=Host(`elasticsearch-dina.localhost`)"
+      - "traefik.http.routers.elasticsearch.tls=true"
 
   # Addition of Kibana, for development purpose or browsing through the dina indices.
   kibana-dina:
     image: docker.elastic.co/kibana/kibana:7.16.2
     profiles: ["kibana"]
     environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch-dina:9200
+      - ELASTICSEARCH_HOSTS=https://elasticsearch-dina:9200
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     networks:
@@ -350,7 +316,7 @@ services:
 
   # Check the status of elasticsearch and configure indices if not already present.
   elastic-configurator:
-    image: aafcbicoe/es-init-container:0.15
+    image: es-init-container:es8
     profiles: ["search_api"]
     environment:
       ELASTIC_SERVER_URL: $ELASTIC_SERVER_URL
@@ -379,9 +345,11 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.52.1
+    image: search-ws:es8
     mem_limit: 512m
     profiles: ["search_api"]
+    environment:
+      elasticsearch.host: elasticsearch-dina
     networks:
       - dina
     labels:
@@ -391,7 +359,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.52.1
+    image: search-cli:es8
     profiles: ["search_api"]
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
@@ -448,8 +416,6 @@ services:
 
 volumes:
   elasticsearch-data:
-    driver: local
-  elasticsearch8-data:
     driver: local
   elasticsearch-certs:
     driver: local
