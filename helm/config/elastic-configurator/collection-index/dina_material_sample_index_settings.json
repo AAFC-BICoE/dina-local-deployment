@@ -9,7 +9,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "2.9"
+        "number" : "2.10"
       }
     },
     "date_detection": true,
@@ -221,6 +221,15 @@
                 "type": "boolean"
               },
               "notPubliclyReleasableReason": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "lifeStage": {
                 "type": "text",
                 "fields": {
                   "keyword": {
