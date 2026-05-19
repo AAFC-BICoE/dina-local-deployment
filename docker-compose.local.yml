@@ -1,6 +1,6 @@
 services:
   dina-ui:
-    image: aafcbicoe/dina-ui:0.216.0
+    image: aafcbicoe/dina-ui:0.219.0
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
@@ -84,7 +84,7 @@ services:
         condition: service_completed_successfully
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.119.2
+    image: aafcbicoe/natural-history-collection-api:0.120
     profiles: ["collection_api"]
     environment:
       keycloak.enabled: "true"
