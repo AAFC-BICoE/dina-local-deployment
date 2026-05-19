@@ -339,6 +339,7 @@ services:
       DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE: $DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE
     volumes:
       - ./elastic-configurator-settings:/usr/share/elastic-configurator/settings
+      - elasticsearch-certs:/usr/share/elastic-configurator/certs:ro
     depends_on:
       - elasticsearch-dina
     networks:
@@ -350,6 +351,11 @@ services:
     profiles: ["search_api"]
     environment:
       elasticsearch.host: elasticsearch-dina
+      elasticsearch.username: elastic
+      elasticsearch.password: elasticsearch-dina
+      elasticsearch.certPath: /app/certs/elastic-certificates.p12
+    volumes:
+      - elasticsearch-certs:/app/certs:ro
     networks:
       - dina
     labels:
@@ -366,7 +372,11 @@ services:
       http-client.clientId: dina-public
       http-client.username: ${DINA_HTTP_DEFAULT_SU_USERNAME}
       http-client.password: ${DINA_HTTP_DEFAULT_SU_PASSWORD}
-      ELASTICSEARCH_URL: elasticsearch-dina
+      elasticsearch.host: elasticsearch-dina
+      elasticsearch.username: elastic
+      elasticsearch.password: elasticsearch-dina
+      elasticsearch.certPath: /app/certs/elastic-certificates.p12
+      # ELASTICSEARCH_URL: elasticsearch-dina
       COLLECTION_API_URL: http://collection-api:8080/api/v1
       OBJECT_STORE_API_URL: http://object-store-api:8080/api/v1
       AGENT_API_URL: http://agent-api:8080/api/v1
@@ -375,6 +385,8 @@ services:
       RABBITMQ_HOSTNAME: rabbitmq-dina
       IS_MESSAGE_CONSUMER: "true"
       IS_MESSAGE_PRODUCER: "true"
+    volumes:
+      - elasticsearch-certs:/app/certs:ro
     stdin_open: true
     tty: true
     networks:
