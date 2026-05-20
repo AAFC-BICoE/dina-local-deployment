@@ -9,7 +9,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "2.9"
+        "number" : "2.10"
       }
     },
     "date_detection": true,
@@ -467,6 +467,15 @@
               },
               "eventGeom": {
                 "type": "geo_point"
+              },
+              "lifeStage": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
               },
               "determination" : {
                 "properties" : {
