@@ -254,11 +254,9 @@ services:
     environment:
       - "ELASTIC_PASSWORD=DINAIndexPassword3!" # Sets the password on first boot
       - ingest.geoip.downloader.enabled=false
-      - xpack.security.enabled=true
       # Needed for client HTTPS connections
       - xpack.security.http.ssl.enabled=true
-      - xpack.security.http.ssl.keystore.path=certs/elastic-certificates.p12
-      - xpack.security.http.ssl.truststore.path=certs/elastic-certificates.p12
+      - xpack.security.http.ssl.keystore.path=certs/elasticsearch/http.p12
       # Needed for inter nodes not required but we keep it for later
       - xpack.security.transport.ssl.enabled=true
       - xpack.security.transport.ssl.verification_mode=certificate
@@ -278,7 +276,7 @@ services:
       - IPC_LOCK
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
-      - elasticsearch-certs:/usr/share/elasticsearch/config/certs
+      - elasticsearch-certs:/usr/share/elasticsearch/config/certs/
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     networks:
