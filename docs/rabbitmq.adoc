@@ -1,0 +1,13 @@
+= RabbitMQ
+
+== Retry messages in DeadLetter Queue
+
+**From the RabbitMQ Container**
+[source,bash]
+----
+rabbitmq-plugins enable rabbitmq_shovel
+rabbitmq-plugins enable rabbitmq_shovel_management
+
+rabbitmqctl set_parameter shovel dlq-to-q-shovel '{"src-uri": "amqp://guest:guest@localhost:5672/%2F", "src-queue": "dina.search.queue.dlq", "dest-uri": "amqp://guest:guest@localhost:5672/%2F", "dest-queue": "dina.search.queue"}'
+
+----
