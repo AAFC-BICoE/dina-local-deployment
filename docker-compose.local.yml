@@ -252,7 +252,7 @@ services:
     build: elasticsearch/
     profiles: [ "search_api" ]
     environment:
-      - "ELASTIC_PASSWORD=DINAIndexPassword3!" # Sets the password on first boot
+      - "ELASTIC_PASSWORD=${ELASTIC_PASSWORD}" # Sets the password on first boot
       - ingest.geoip.downloader.enabled=false
       # Needed for client HTTPS connections
       - xpack.security.http.ssl.enabled=true
@@ -299,7 +299,7 @@ services:
     image: docker.elastic.co/kibana/kibana:7.16.2
     profiles: ["kibana"]
     environment:
-      - ELASTICSEARCH_HOSTS=https://elasticsearch-dina:9200
+      - ELASTICSEARCH_HOSTS=${ELASTIC_SERVER_URL}
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     networks:
@@ -325,7 +325,8 @@ services:
     profiles: ["search_api"]
     environment:
       ELASTIC_SERVER_URL: $ELASTIC_SERVER_URL
-      ES_P12_FILE: /usr/share/elastic-configurator/certs/elastic-node-certificates.p12
+      ES_CA_FILE: /usr/share/elastic-configurator/certs/ca/ca.crt
+      ES_PASSWORD: $ELASTIC_PASSWORD
       DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE TRANSACTION PROJECT COLLECTING_EVENT
       DINA_AGENT_INDEX_NAME: $DINA_AGENT_INDEX_NAME
       DINA_AGENT_INDEX_SETTINGS_FILE: $DINA_AGENT_INDEX_SETTINGS_FILE
