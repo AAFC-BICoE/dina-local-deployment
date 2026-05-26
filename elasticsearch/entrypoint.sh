@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -f /usr/share/elasticsearch/config/certs/ca.p12 ] && [ -f /usr/share/elasticsearch/config/certs/elastic-certificates.p12 ]; then
+if [ -f /usr/share/elasticsearch/config/certs/ca/ca.crt ] && [ -f /usr/share/elasticsearch/config/certs/elastic-node-certificates.p12 ]; then
   echo '✓ Certificates exist'
 else
   echo 'Generating certificates...'

@@ -325,7 +325,7 @@ services:
     profiles: ["search_api"]
     environment:
       ELASTIC_SERVER_URL: $ELASTIC_SERVER_URL
-      ES_P12_FILE: /usr/share/elastic-configurator/certs/elastic-certificates.p12
+      ES_P12_FILE: /usr/share/elastic-configurator/certs/elastic-node-certificates.p12
       DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE TRANSACTION PROJECT COLLECTING_EVENT
       DINA_AGENT_INDEX_NAME: $DINA_AGENT_INDEX_NAME
       DINA_AGENT_INDEX_SETTINGS_FILE: $DINA_AGENT_INDEX_SETTINGS_FILE
@@ -359,7 +359,7 @@ services:
       elasticsearch.host: elasticsearch-dina
       elasticsearch.username: elastic
       elasticsearch.password: elasticsearch-dina
-      elasticsearch.certPath: /app/certs/elastic-certificates.p12
+      elasticsearch.certPath: /app/certs/ca/ca.crt
     volumes:
       - elasticsearch-certs:/app/certs:ro
     networks:
@@ -381,7 +381,7 @@ services:
       elasticsearch.host: elasticsearch-dina
       elasticsearch.username: elastic
       elasticsearch.password: elasticsearch-dina
-      elasticsearch.certPath: /app/certs/elastic-certificates.p12
+      elasticsearch.certPath: /app/certs/ca/ca.crt
       # ELASTICSEARCH_URL: elasticsearch-dina
       COLLECTION_API_URL: http://collection-api:8080/api/v1
       OBJECT_STORE_API_URL: http://object-store-api:8080/api/v1
