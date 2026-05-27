@@ -152,7 +152,7 @@ global:
     elasticsearch: elasticsearch.dina.localhost
 services:
   initdb:
-    image: aafcbicoe/dina-db-init-container:0.6
+    image: aafcbicoe/dina-db-init-container:0.8
     pullPolicy: IfNotPresent
     environment:
       # Database Connection Environment Variables:
@@ -252,7 +252,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.119.2
+    image: aafcbicoe/natural-history-collection-api:0.121
     pullPolicy: IfNotPresent
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
@@ -268,7 +268,7 @@ services:
       actuator:
         allowedIP: prometheus
   dinaexportapi:
-    image: aafcbicoe/dina-export-api:0.21
+    image: aafcbicoe/dina-export-api:0.22
     pullPolicy: IfNotPresent
     environment:
       spring:
@@ -300,7 +300,7 @@ services:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         port: 9200
   dinaui:
-    image: aafcbicoe/dina-ui:0.217.0
+    image: aafcbicoe/dina-ui:0.219.0
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
@@ -343,7 +343,7 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
   objectstoreapi:
-    image: aafcbicoe/object-store-api:1.33
+    image: aafcbicoe/object-store-api:1.34
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
     environment:
