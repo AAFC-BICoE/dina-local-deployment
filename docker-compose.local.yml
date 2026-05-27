@@ -356,7 +356,7 @@ services:
       - dina
 
   search-ws:
-    image: search-ws:es8
+    image: aafcbicoe/dina-search-ws:0.54
     mem_limit: 512m
     profiles: ["search_api"]
     environment:
@@ -375,7 +375,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: search-cli:es8
+    image: aafcbicoe/dina-search-cli:0.54
     profiles: ["search_api"]
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
@@ -386,7 +386,6 @@ services:
       elasticsearch.username: elastic
       elasticsearch.password: $ELASTIC_PASSWORD
       elasticsearch.certPath: /app/certs/ca/ca.crt
-      # ELASTICSEARCH_URL: elasticsearch-dina
       COLLECTION_API_URL: http://collection-api:8080/api/v1
       OBJECT_STORE_API_URL: http://object-store-api:8080/api/v1
       AGENT_API_URL: http://agent-api:8080/api/v1
