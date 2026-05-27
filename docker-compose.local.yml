@@ -250,12 +250,24 @@ services:
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch-dina:
     # we need a plugin so a custom image is built (to ensure an immutable Docker image)
-    image: elasticsearch_icu:7.17.10
+    image: elasticsearch_icu:8.11.1
     build: elasticsearch/
-    profiles: ["search_api"]
+    profiles: [ "search_api" ]
     environment:
+      - "ELASTIC_PASSWORD=${ELASTIC_PASSWORD}" # Sets the password on first boot
       - ingest.geoip.downloader.enabled=false
-      - xpack.security.enabled=false
+      # Needed for client HTTPS connections
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certs/elastic-certs/elastic-certs.key
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certs/elastic-certs/elastic-certs.crt
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certs/ca/ca.crt
+      # Needed for inter nodes not required but we keep it for later
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate
+      - xpack.security.transport.ssl.client_authentication=required
+      - xpack.security.transport.ssl.keystore.path=certs/elastic-node-certificates.p12
+      - xpack.security.transport.ssl.truststore.path=certs/elastic-node-certificates.p12
       - discovery.type=single-node
       - action.auto_create_index=false
     ulimits:
@@ -269,6 +281,7 @@ services:
       - IPC_LOCK
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
+      - elasticsearch-certs:/usr/share/elasticsearch/config/certs/
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     networks:
@@ -282,13 +295,14 @@ services:
           memory: 2000M
     labels:
       - "traefik.http.routers.elasticsearch.rule=Host(`elasticsearch-dina.localhost`)"
+      - "traefik.http.routers.elasticsearch.tls=true"
 
   # Addition of Kibana, for development purpose or browsing through the dina indices.
   kibana-dina:
     image: docker.elastic.co/kibana/kibana:7.16.2
     profiles: ["kibana"]
     environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch-dina:9200
+      - ELASTICSEARCH_HOSTS=${ELASTIC_SERVER_URL}
     extra_hosts:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     networks:
@@ -310,10 +324,12 @@ services:
 
   # Check the status of elasticsearch and configure indices if not already present.
   elastic-configurator:
-    image: aafcbicoe/es-init-container:0.15
+    image: aafcbicoe/es-init-container:0.16
     profiles: ["search_api"]
     environment:
       ELASTIC_SERVER_URL: $ELASTIC_SERVER_URL
+      ES_CA_FILE: /usr/share/elastic-configurator/certs/ca/ca.crt
+      ES_PASSWORD: $ELASTIC_PASSWORD
       DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE TRANSACTION PROJECT COLLECTING_EVENT
       DINA_AGENT_INDEX_NAME: $DINA_AGENT_INDEX_NAME
       DINA_AGENT_INDEX_SETTINGS_FILE: $DINA_AGENT_INDEX_SETTINGS_FILE
@@ -333,15 +349,23 @@ services:
       DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE: $DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE
     volumes:
       - ./elastic-configurator-settings:/usr/share/elastic-configurator/settings
+      - elasticsearch-certs:/usr/share/elastic-configurator/certs:ro
     depends_on:
       - elasticsearch-dina
     networks:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.53
+    image: aafcbicoe/dina-search-ws:0.54
     mem_limit: 512m
     profiles: ["search_api"]
+    environment:
+      elasticsearch.host: elasticsearch-dina
+      elasticsearch.username: elastic
+      elasticsearch.password: $ELASTIC_PASSWORD
+      elasticsearch.certPath: /app/certs/ca/ca.crt
+    volumes:
+      - elasticsearch-certs:/app/certs:ro
     networks:
       - dina
     labels:
@@ -351,14 +375,17 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.53
+    image: aafcbicoe/dina-search-cli:0.54
     profiles: ["search_api"]
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
       http-client.clientId: dina-public
       http-client.username: ${DINA_HTTP_DEFAULT_SU_USERNAME}
       http-client.password: ${DINA_HTTP_DEFAULT_SU_PASSWORD}
-      ELASTICSEARCH_URL: elasticsearch-dina
+      elasticsearch.host: elasticsearch-dina
+      elasticsearch.username: elastic
+      elasticsearch.password: $ELASTIC_PASSWORD
+      elasticsearch.certPath: /app/certs/ca/ca.crt
       COLLECTION_API_URL: http://collection-api:8080/api/v1
       OBJECT_STORE_API_URL: http://object-store-api:8080/api/v1
       AGENT_API_URL: http://agent-api:8080/api/v1
@@ -367,6 +394,8 @@ services:
       RABBITMQ_HOSTNAME: rabbitmq-dina
       IS_MESSAGE_CONSUMER: "true"
       IS_MESSAGE_PRODUCER: "true"
+    volumes:
+      - elasticsearch-certs:/app/certs:ro
     stdin_open: true
     tty: true
     networks:
@@ -408,6 +437,8 @@ services:
 
 volumes:
   elasticsearch-data:
+    driver: local
+  elasticsearch-certs:
     driver: local
   elastic-configurator-settings:
     driver: local
