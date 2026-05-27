@@ -360,7 +360,7 @@ services:
     environment:
       elasticsearch.host: elasticsearch-dina
       elasticsearch.username: elastic
-      elasticsearch.password: elasticsearch-dina
+      elasticsearch.password: $ELASTIC_PASSWORD
       elasticsearch.certPath: /app/certs/ca/ca.crt
     volumes:
       - elasticsearch-certs:/app/certs:ro
@@ -382,7 +382,7 @@ services:
       http-client.password: ${DINA_HTTP_DEFAULT_SU_PASSWORD}
       elasticsearch.host: elasticsearch-dina
       elasticsearch.username: elastic
-      elasticsearch.password: elasticsearch-dina
+      elasticsearch.password: $ELASTIC_PASSWORD
       elasticsearch.certPath: /app/certs/ca/ca.crt
       # ELASTICSEARCH_URL: elasticsearch-dina
       COLLECTION_API_URL: http://collection-api:8080/api/v1
