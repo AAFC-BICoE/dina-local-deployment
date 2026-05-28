@@ -27,6 +27,19 @@ spec:
           env:
             - name: ELASTICSEARCH_HOST
               value: {{ tpl .Values.services.searchws.environment.elasticsearch.host . }}
+            - name: ELASTICSEARCH_USERNAME
+              value: {{ tpl .Values.services.searchcli.environment.elasticsearch.username . }}
+            - name: ELASTICSEARCH_PASSWORD
+              {{- if not .Values.global.environment.config.elasticsearch.password }}
+              valueFrom:
+                secretKeyRef:
+                  name: elasticsearch-secret
+                  key: password
+              {{- else }}
+              value: {{ tpl .Values.global.environment.config.elasticsearch.password . }}
+              {{- end }}
+            - name: ELASTICSEARCH_CERTPATH
+              value: {{ tpl .Values.services.searchcli.environment.elasticsearch.certPath . }}
           ports:
             - name: http
               containerPort: 8085
@@ -42,3 +55,15 @@ spec:
             limits:
               memory: {{ .Values.resources.apis.limits.memory }} 
               cpu: {{ .Values.resources.apis.limits.cpu }}
+          volumeMounts:
+            - name: es-certs
+              mountPath: /app/certs:ro
+  volumeClaimTemplates:
+  - metadata:
+      name: es-certs
+    spec:
+      accessModes: [ "ReadOnlyMany" ]
+      storageClassName: {{ .Values.global.environment.storageClass }}
+      resources:
+        requests:
+          storage: 100Mi

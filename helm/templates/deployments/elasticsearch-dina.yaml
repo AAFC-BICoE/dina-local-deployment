@@ -27,8 +27,35 @@ spec:
             echo 'ElasticSearch is restarting' &&
             ./bin/elasticsearch
           env:
+            - ELASTIC_PASSWORD: 
+              {{- if not .Values.global.environment.config.elasticsearch.password }}
+              valueFrom:
+                secretKeyRef:
+                  name: elasticsearch-secret
+                  key: password
+              {{- else }}
+              value: {{ tpl .Values.global.environment.config.elasticsearch.password . }}
+              {{- end }}
             - name: xpack.security.enabled
               value: {{ .Values.services.elasticsearchdina.environment.xpack.security.enabled | quote }}
+            - name: xpack.security.http.ssl.enabled
+              value: {{ .Values.services.elasticsearchdina.environment.xpack.security.http.ssl.enabled | quote }}
+            - name: xpack.security.http.ssl.key
+              value: {{ .Values.services.elasticsearchdina.environment.xpack.security.http.ssl.key | quote }}
+            - name: xpack.security.http.ssl.certificate
+              value: {{ .Values.services.elasticsearchdina.environment.xpack.security.http.ssl.certificate | quote }}
+            - name: xpack.security.http.ssl.certificate_authorities
+              value: {{ .Values.services.elasticsearchdina.environment.xpack.security.http.ssl.certificate_authorities | quote }}
+            - name: xpack.security.transport.ssl.enabled
+              value: {{ .Values.services.elasticsearchdina.environment.xpack.security.transport.ssl.enabled | quote }}
+            - name: xpack.security.transport.ssl.verification_mode
+              value: {{ .Values.services.elasticsearchdina.environment.xpack.security.transport.ssl.verification_mode | quote }}
+            - name: xpack.security.transport.ssl.client_authentication
+              value: {{ .Values.services.elasticsearchdina.environment.xpack.security.transport.ssl.client_authentication | quote }}
+            - name: xpack.security.transport.ssl.keystore.path
+              value: {{ .Values.services.elasticsearchdina.environment.xpack.security.transport.ssl.keystore.path | quote }}
+            - name: xpack.security.transport.ssl.truststore.path
+              value: {{ .Values.services.elasticsearchdina.environment.xpack.security.transport.ssl.truststore.path | quote }}
             - name: discovery.type
               value: {{ .Values.services.elasticsearchdina.environment.discovery.type }}
             - name: action.auto_create_index
@@ -59,6 +86,8 @@ spec:
           volumeMounts:
             - name: es-data
               mountPath: /usr/share/elasticsearch/data
+            - name: es-certs
+              mountPath: /usr/share/elasticsearch/config/certs/
   volumeClaimTemplates:
   - metadata:
       name: es-data
@@ -68,4 +97,12 @@ spec:
       resources:
         requests:
           storage: 1Gi
+  - metadata:
+      name: es-certs
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ .Values.global.environment.storageClass }}
+      resources:
+        requests:
+          storage: 100Mi
 status: {}

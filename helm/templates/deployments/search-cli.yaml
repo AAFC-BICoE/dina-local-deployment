@@ -27,6 +27,17 @@ spec:
           env:
             - name: ELASTIC_SERVER_URL
               value: {{ .Values.services.elasticconfigurator.environment.ELASTIC_SERVER_URL }}
+            - name: ES_CA_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.ES_CA_FILE }}
+            - name: ES_PASSWORD
+              {{- if not .Values.global.environment.config.elasticsearch.password }}
+              valueFrom:
+                secretKeyRef:
+                  name: elasticsearch-secret
+                  key: password
+              {{- else }}
+              value: {{ tpl .Values.global.environment.config.elasticsearch.password . }}
+              {{- end }}
             - name: DINA_INDEX_DECLARATIONS
               value: {{ .Values.services.elasticconfigurator.environment.DINA_INDEX_DECLARATIONS }}
             - name: DINA_AGENT_INDEX_NAME
@@ -71,6 +82,8 @@ spec:
           volumeMounts:
             - name: elastic-pv
               mountPath: /usr/share/elastic-configurator/settings
+            - name: es-certs
+              mountPath: /usr/share/elastic-configurator/certs:ro
       containers:
         - name: search-cli
           image: {{ .Values.services.searchcli.image }}
@@ -85,6 +98,19 @@ spec:
               value: {{ tpl .Values.services.searchcli.environment.http_client.password . }}
             - name: ELASTICSEARCH_URL
               value: {{ tpl .Values.services.searchcli.environment.ELASTICSEARCH_URL . }}
+            - name: ELASTICSEARCH_USERNAME
+              value: {{ tpl .Values.services.searchcli.environment.elasticsearch.username . }}
+            - name: ELASTICSEARCH_PASSWORD
+              {{- if not .Values.global.environment.config.elasticsearch.password }}
+              valueFrom:
+                secretKeyRef:
+                  name: elasticsearch-secret
+                  key: password
+              {{- else }}
+              value: {{ tpl .Values.global.environment.config.elasticsearch.password . }}
+              {{- end }}
+            - name: ELASTICSEARCH_CERTPATH
+              value: {{ tpl .Values.services.searchcli.environment.elasticsearch.certPath . }}
             - name: COLLECTION_API_URL
               value: {{ tpl .Values.services.searchcli.environment.COLLECTION_API_URL . }}
             - name: AGENT_API_URL
@@ -110,6 +136,9 @@ spec:
             limits:
               memory: {{ .Values.resources.apis.limits.memory }} 
               cpu: {{ .Values.resources.apis.limits.cpu }}
+          volumeMounts:
+            - name: es-certs
+              mountPath: /app/certs:ro
       volumes:
         - name: elastic-pv
           configMap:
@@ -131,3 +160,12 @@ spec:
               path: agent-index/dina_agent_index_settings.json
             - key: dina_collecting_event_index_settings.json
               path: dina_collecting_event_index_settings.json
+  volumeClaimTemplates:
+  - metadata:
+      name: es-certs
+    spec:
+      accessModes: [ "ReadOnlyMany" ]
+      storageClassName: {{ .Values.global.environment.storageClass }}
+      resources:
+        requests:
+          storage: 100Mi
