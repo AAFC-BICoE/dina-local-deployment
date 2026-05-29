@@ -25,9 +25,9 @@ spec:
           - |
             /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu &&
             echo 'ElasticSearch is restarting' &&
-            ./bin/elasticsearch
+            /usr/share/elasticsearch/scripts/entrypoint.sh
           env:
-            - ELASTIC_PASSWORD: 
+            - name: ELASTIC_PASSWORD
               {{- if not .Values.global.environment.config.elasticsearch.password }}
               valueFrom:
                 secretKeyRef:
@@ -88,6 +88,15 @@ spec:
               mountPath: /usr/share/elasticsearch/data
             - name: es-certs
               mountPath: /usr/share/elasticsearch/config/certs/
+            - name: es-scripts
+              mountPath: /usr/share/elasticsearch/scripts
+      volumes:
+        - name: es-scripts
+          configMap:
+            name: elasticsearch-scripts
+            items:
+            - key: entrypoint.sh
+              path: entrypoint.sh
   volumeClaimTemplates:
   - metadata:
       name: es-data
