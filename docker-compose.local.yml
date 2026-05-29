@@ -233,6 +233,7 @@ services:
       - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     volumes:
       - export-data:/data
+      - elasticsearch-certs:/app/certs:ro
     depends_on:
       init-db:
         condition: service_completed_successfully
