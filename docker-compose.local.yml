@@ -367,10 +367,15 @@ services:
       elasticsearch.username: elastic
       elasticsearch.password: $ELASTIC_PASSWORD
       elasticsearch.certPath: /app/certs/ca/ca.crt
+      keycloak.enabled: "true"
+      spring.security.oauth2.resourceserver.jwt.issuer-uri: ${KEYCLOAK_EXTERNAL_URL}/realms/dina
+      spring.security.oauth2.resourceserver.jwt.jwk-set-uri: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/certs
     volumes:
       - elasticsearch-certs:/app/certs:ro
     networks:
       - dina
+    extra_hosts:
+      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
     labels:
       # maps api.dina.local/search... -> /search
       - "traefik.http.middlewares.stripsearchws.stripprefix.prefixes=${SEARCH_API_PREFIX}"
