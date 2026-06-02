@@ -83,7 +83,7 @@ spec:
             - name: elastic-pv
               mountPath: /usr/share/elastic-configurator/settings
             - name: es-certs
-              mountPath: /usr/share/elastic-configurator/certs:ro
+              mountPath: /usr/share/elastic-configurator/certs
       containers:
         - name: search-cli
           image: {{ .Values.services.searchcli.image }}
@@ -138,7 +138,7 @@ spec:
               cpu: {{ .Values.resources.apis.limits.cpu }}
           volumeMounts:
             - name: es-certs
-              mountPath: /app/certs:ro
+              mountPath: /app/certs
       volumes:
         - name: elastic-pv
           configMap:
@@ -160,12 +160,6 @@ spec:
               path: agent-index/dina_agent_index_settings.json
             - key: dina_collecting_event_index_settings.json
               path: dina_collecting_event_index_settings.json
-  volumeClaimTemplates:
-  - metadata:
-      name: es-certs
-    spec:
-      accessModes: [ "ReadOnlyMany" ]
-      storageClassName: {{ .Values.global.environment.storageClass }}
-      resources:
-        requests:
-          storage: 100Mi
+        - name: es-certs
+          persistentVolumeClaim:
+            claimName: es-certs-{{ .Values.app.name }}-elasticsearch-dina-0

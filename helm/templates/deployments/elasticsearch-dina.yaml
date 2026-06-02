@@ -110,7 +110,7 @@ spec:
   - metadata:
       name: es-certs
     spec:
-      accessModes: [ "ReadWriteOnce" ]
+      accessModes: [ "ReadWriteMany" ]
       storageClassName: {{ .Values.global.environment.storageClass }}
       resources:
         requests:
