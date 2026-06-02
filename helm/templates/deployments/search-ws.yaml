@@ -25,6 +25,8 @@ spec:
         - name: search-ws
           image: {{ .Values.services.searchws.image }}
           env:
+            - name: KEYCLOAK_ENABLED
+              value: {{ .Values.global.environment.keycloak.enabled | quote }}
             - name: ELASTICSEARCH_HOST
               value: {{ tpl .Values.services.searchws.environment.elasticsearch.host . }}
             - name: ELASTICSEARCH_USERNAME
@@ -40,6 +42,10 @@ spec:
               {{- end }}
             - name: ELASTICSEARCH_CERTPATH
               value: {{ tpl .Values.services.searchws.environment.elasticsearch.certPath . }}
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI
+              value: {{ tpl .Values.global.environment.spring.security.oauth2.resourceserver.jwt.issuer_uri . | quote }}
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
+              value: {{ tpl .Values.global.environment.spring.security.oauth2.resourceserver.jwt.jwk_set_uri . | quote }}
           ports:
             - name: http
               containerPort: 8085
