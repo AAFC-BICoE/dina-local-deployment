@@ -111,3 +111,12 @@ metadata:
   name: ui-config
 data:
 {{ (.Files.Glob "config/ui/*").AsConfig | indent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rabbitmq-plugins-conf
+data:
+  # This loops through the array and creates the format [plugin_a,plugin_b]. including the period
+  enabled_plugins: |
+    [{{ join "," .Values.services.rabbitmq.config.enabledPlugins }}].

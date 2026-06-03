@@ -3,6 +3,7 @@ minio-data/*
 certs/*.pem
 keycloak-data
 rabbitmq-data
+rabbitmq-data-1
 logs/*
 *.pem
 

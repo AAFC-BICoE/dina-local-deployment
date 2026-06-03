@@ -43,12 +43,18 @@ spec:
               memory: {{ .Values.resources.general.limits.memory }} 
               cpu: {{ .Values.resources.general.limits.cpu }}
           volumeMounts:
-            - name: rabbit-data-pv
+            - name: rabbit-data-pv-1
               mountPath: /var/lib/rabbitmq
             - name: rabbit-logs-pv
               mountPath: /var/log/rabbitmq
+            - name: rabbit-plugins
+              mountPath: /etc/rabbitmq/enabled_plugins
+              subPath: enabled_plugins
       volumes:
-        - name: rabbit-data-pv
+        - name: rabbit-data-pv-1
           emptyDir: {}
         - name: rabbit-logs-pv
           emptyDir: {}
+        - name: rabbit-plugins
+          configMap:
+            name: rabbitmq-plugins-conf

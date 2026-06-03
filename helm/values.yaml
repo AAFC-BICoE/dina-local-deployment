@@ -468,7 +468,11 @@ services:
         messaging:
           isProducer: true
   rabbitmq:
-    image: rabbitmq:3.9.29-management-alpine
+    image: rabbitmq:4.3.1-management-alpine
+    config:
+      enabledPlugins: 
+        - rabbitmq_shovel
+        - rabbitmq_shovel_management
 
 imagePullSecrets: []
 nameOverride: ""
