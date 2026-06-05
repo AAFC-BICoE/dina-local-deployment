@@ -75,6 +75,17 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: message-producer-override-userapi
+data:
+  DINA_MESSAGING_ISCONSUMER: {{ .Values.services.dinauserapi.environment.dina.messaging.isConsumer | quote }}
+  RABBITMQ_HOST: {{ tpl .Values.services.dinauserapi.environment.rabbitmq.host . }}
+  DINA_MESSAGING_USER_QUEUE: {{ tpl .Values.services.dinauserapi.environment.dina.messaging.user.queue . }}
+  RABBITMQ_USERNAME: {{ tpl .Values.services.dinauserapi.environment.rabbitmq.username . }}
+  RABBITMQ_PASSWORD: {{ tpl .Values.services.dinauserapi.environment.rabbitmq.password . }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: message-producer-override-collection
 data:
   DINA_MESSAGING_ISPRODUCER: {{ .Values.services.collectionapi.environment.dina.messaging.isProducer | quote }}
@@ -101,8 +112,10 @@ kind: ConfigMap
 metadata:
   name: message-producer-override-exportapi
 data:
+  DINA_MESSAGING_ISPRODUCER: {{ .Values.services.dinaexportapi.environment.dina.messaging.isProducer | quote }}
   DINA_MESSAGING_ISCONSUMER: {{ .Values.services.dinaexportapi.environment.dina.messaging.isConsumer | quote }}
   DINA_MESSAGING_EXPORT_QUEUE: {{ tpl .Values.services.dinaexportapi.environment.dina.messaging.export.queue . }}
+  DINA_MESSAGING_USER_QUEUE: {{ tpl .Values.services.dinaexportapi.environment.dina.messaging.user.queue . }}
   DINA_EXPORT_OBJECT_STORE_DOWNLOAD_URL: {{ tpl .Values.services.dinaexportapi.environment.dina.export.objectStoreDownloadUrl . }}
   RABBITMQ_HOST: {{ tpl .Values.services.dinaexportapi.environment.rabbitmq.host . }}
   RABBITMQ_USERNAME: {{ tpl .Values.services.dinaexportapi.environment.rabbitmq.username . }}

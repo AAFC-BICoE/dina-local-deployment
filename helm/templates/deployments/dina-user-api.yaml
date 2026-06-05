@@ -87,6 +87,11 @@ spec:
       containers:
         - name: dina-user-api
           image: {{ .Values.services.dinauserapi.image }}
+          {{- if .Values.messageProducerOverride.enabled }}
+          envFrom:
+            - configMapRef:
+                name: message-producer-override-userapi
+          {{- end }}
           env:
             - name: KEYCLOAK_ENABLED
               value: {{ .Values.global.environment.keycloak.enabled | quote }}     
