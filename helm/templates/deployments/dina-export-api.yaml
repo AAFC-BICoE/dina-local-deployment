@@ -131,6 +131,19 @@ spec:
               value: {{ tpl .Values.services.dinaexportapi.environment.elasticsearch.host . }}
             - name: ELASTICSEARCH_PORT
               value: {{ .Values.services.dinaexportapi.environment.elasticsearch.port | quote }}
+            - name: ELASTICSEARCH_USERNAME
+              value: {{ tpl .Values.services.dinaexportapi.environment.elasticsearch.username . }}
+            - name: ELASTICSEARCH_PASSWORD
+              {{- if not .Values.global.environment.config.elasticsearch.password }}
+              valueFrom:
+                secretKeyRef:
+                  name: elasticsearch-secret
+                  key: password
+              {{- else }}
+              value: {{ tpl .Values.global.environment.config.elasticsearch.password . }}
+              {{- end }}
+            - name: ELASTICSEARCH_CERTPATH
+              value: {{ tpl .Values.services.dinaexportapi.environment.elasticsearch.certPath . }}
           readinessProbe:
             tcpSocket:
               port: 8080
@@ -139,6 +152,8 @@ spec:
           volumeMounts:
             - name: dina-export-pv
               mountPath: /tmp/templates
+            - name: es-certs
+              mountPath: /app/certs
           resources:
             requests:
               memory: {{ .Values.resources.apis.requests.memory }}
@@ -149,4 +164,7 @@ spec:
       volumes:
         - name: dina-export-pv
           emptyDir: {}
+        - name: es-certs
+          persistentVolumeClaim:
+            claimName: es-certs-{{ .Values.app.name }}-elasticsearch-dina-0
 status: {}

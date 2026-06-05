@@ -57,6 +57,13 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: elasticsearch-scripts
+data:
+{{ (.Files.Glob "config/elasticsearch/*").AsConfig | indent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: message-producer-override-objectstore
 data:
   DINA_MESSAGING_ISPRODUCER: {{ .Values.services.objectstoreapi.environment.dina.messaging.isProducer | quote }}

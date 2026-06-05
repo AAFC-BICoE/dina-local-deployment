@@ -29,6 +29,19 @@ spec:
               value: {{ .Values.global.environment.keycloak.enabled | quote }}
             - name: ELASTICSEARCH_HOST
               value: {{ tpl .Values.services.searchws.environment.elasticsearch.host . }}
+            - name: ELASTICSEARCH_USERNAME
+              value: {{ tpl .Values.services.searchws.environment.elasticsearch.username . }}
+            - name: ELASTICSEARCH_PASSWORD
+              {{- if not .Values.global.environment.config.elasticsearch.password }}
+              valueFrom:
+                secretKeyRef:
+                  name: elasticsearch-secret
+                  key: password
+              {{- else }}
+              value: {{ tpl .Values.global.environment.config.elasticsearch.password . }}
+              {{- end }}
+            - name: ELASTICSEARCH_CERTPATH
+              value: {{ tpl .Values.services.searchws.environment.elasticsearch.certPath . }}
             - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI
               value: {{ tpl .Values.global.environment.spring.security.oauth2.resourceserver.jwt.issuer_uri . | quote }}
             - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI
@@ -48,3 +61,10 @@ spec:
             limits:
               memory: {{ .Values.resources.apis.limits.memory }} 
               cpu: {{ .Values.resources.apis.limits.cpu }}
+          volumeMounts:
+            - name: es-certs
+              mountPath: /app/certs
+      volumes:
+        - name: es-certs
+          persistentVolumeClaim:
+            claimName: es-certs-{{ .Values.app.name }}-elasticsearch-dina-0
