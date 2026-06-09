@@ -23,7 +23,10 @@ spec:
     spec:
       containers:
         - name: dina-ui
-          image: {{ .Values.services.dinaui.image }}
+          {{- with .Values.dinaui.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
           env:
             - name: KEYCLOAK_CLIENTID
               value: {{ tpl .Values.services.dinaui.environment.KEYCLOAK_CLIENTID . }}
