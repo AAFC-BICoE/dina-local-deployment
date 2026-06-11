@@ -569,7 +569,6 @@ services:
         messaging:
           isProducer: true
   rabbitmq:
-    image: rabbitmq:4.3.1-management-alpine
     config:
       enabledPlugins: 
         - rabbitmq_shovel
