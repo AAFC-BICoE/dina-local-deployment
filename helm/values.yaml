@@ -95,7 +95,7 @@ rabbitmq:
   image:
     registry: docker.io
     repository: rabbitmq
-    tag: 3.9.29-management-alpine
+    tag: 4.3.1-management-alpine
     pullPolicy: IfNotPresent
 
 profiles:
