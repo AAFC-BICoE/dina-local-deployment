@@ -22,22 +22,7 @@ spec:
         app: {{ .Values.app.name }}-{{ .Values.global.environment.config.seqdb_api.label }}
     spec:
       initContainers:
-        - name: check-db
-          {{- with .Values.initdb.image }}
-          image: {{ include "dina-helm.build-image-name" . | quote }}
-          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
-          {{- end }}
-          command:
-            - sh
-            - -c
-            - until pg_isready -h {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}; do echo waiting for database; sleep 10; done;
-          resources:
-            requests:
-              memory: {{ .Values.resources.initcontainers.requests.memory }}
-              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
-            limits:
-              memory: {{ .Values.resources.initcontainers.limits.memory }} 
-              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
+        {{- include "dina-helm.initContainer.checkDb" . | nindent 8 }}
         - name: init-db
           {{- with .Values.initdb.image }}
           image: {{ include "dina-helm.build-image-name" . | quote }}

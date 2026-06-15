@@ -28,3 +28,18 @@ Usage: {{ include "dina-helm.build-image-name" .Values.agentapi }}
   {{- printf "%s:%s" $repository $tag -}}
 {{- end -}}
 {{- end -}}
+
+{{/* Common check-db init container */}}
+{{- define "dina-helm.initContainer.checkDb" -}}
+- name: check-db
+  {{- with .Values.initdb.image }}
+  image: {{ include "dina-helm.build-image-name" . | quote }}
+  imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+  {{- end }}
+  command:
+    - sh
+    - -c
+    - until pg_isready -h {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}; do echo waiting for database; sleep 10; done;
+  resources:
+    {{- toYaml .Values.resources.initcontainers | nindent 4 }}
+{{- end -}}
