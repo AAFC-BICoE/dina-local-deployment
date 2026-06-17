@@ -1,6 +1,6 @@
 services:
   dina-ui:
-    image: aafcbicoe/dina-ui:0.220.0
+    image: aafcbicoe/dina-ui:0.221.0
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
@@ -58,7 +58,7 @@ services:
         condition: service_completed_successfully
 
   agent-api:
-    image: aafcbicoe/agent-api:0.33
+    image: aafcbicoe/agent-api:0.34
     profiles: ["agent_api"]
     mem_limit: 512m
     environment:
@@ -85,7 +85,7 @@ services:
         condition: service_completed_successfully
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.120
+    image: aafcbicoe/natural-history-collection-api:0.122.1
     profiles: ["collection_api"]
     environment:
       keycloak.enabled: "true"
@@ -113,7 +113,7 @@ services:
         condition: service_completed_successfully
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.14
+    image: aafcbicoe/loan-transaction-api:0.15
     profiles: ["loan_transaction_api"]
     mem_limit: 512m
     environment:
@@ -140,7 +140,7 @@ services:
         condition: service_completed_successfully
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.27
+    image: aafcbicoe/dina-user-api:0.28
     profiles: ["user_api"]
     mem_limit: 512m
     environment:
@@ -203,7 +203,7 @@ services:
         condition: service_completed_successfully
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.23
+    image: aafcbicoe/dina-export-api:0.24
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
@@ -360,7 +360,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.54
+    image: aafcbicoe/dina-search-ws:0.55
     mem_limit: 512m
     profiles: ["search_api"]
     environment:
@@ -384,7 +384,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.54
+    image: aafcbicoe/dina-search-cli:0.55
     profiles: ["search_api"]
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
