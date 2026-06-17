@@ -144,6 +144,7 @@ global:
               issuer_uri: "{{ tpl .Values.global.environment.keycloak.auth_server_url_external . }}/realms/dina"
               jwk_set_uri: "{{ tpl .Values.global.environment.keycloak.auth_server_url_internal . }}/realms/dina/protocol/openid-connect/certs"
     storageClass: standard
+    storageClassRWX: standard
     securityContext:
       enabled: true
   endpoints:

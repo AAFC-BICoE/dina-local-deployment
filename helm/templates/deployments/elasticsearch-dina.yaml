@@ -111,8 +111,8 @@ spec:
       name: es-certs
     spec:
       accessModes: [ "ReadWriteMany" ]
-      storageClassName: {{ .Values.global.environment.storageClass }}
+      storageClassName: {{ .Values.global.environment.storageClassRWX }}
       resources:
         requests:
-          storage: 100Mi
+          storage: 10Mi
 status: {}
