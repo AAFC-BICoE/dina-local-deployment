@@ -22,7 +22,10 @@ spec:
     spec:
       initContainers:
         - name: check-db
-          image: {{ .Values.services.initdb.image }}
+          {{- with .Values.initdb.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
           command:
             - sh
             - -c
@@ -35,7 +38,10 @@ spec:
               memory: {{ .Values.resources.initcontainers.limits.memory }} 
               cpu: {{ .Values.resources.initcontainers.limits.cpu }}
         - name: init-db
-          image: {{ .Values.services.initdb.image }}
+          {{- with .Values.initdb.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
           resources:
             requests:
               memory: {{ .Values.resources.initcontainers.requests.memory }}
@@ -74,6 +80,10 @@ spec:
             {{- end }}
       containers:
         - name: keycloak
+          {{- with .Values.keycloak.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
           command:
           - /bin/bash
           - -ce
@@ -81,8 +91,6 @@ spec:
           - |
             /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path=/auth
             /opt/keycloak/bin/kc.sh start --import-realm --optimized
-          image: {{ .Values.services.keycloak.image }}
-          imagePullPolicy: {{ .Values.services.keycloak.pullPolicy }}
           env:
             - name: KC_DB_PASSWORD
               {{- if not .Values.global.environment.config.keycloak.db_password }}

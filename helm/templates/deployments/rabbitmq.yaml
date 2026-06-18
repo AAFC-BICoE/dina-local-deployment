@@ -24,7 +24,10 @@ spec:
       hostname: rabbit-dina-node-1
       containers:
         - name: rabbitmq-dina
-          image: {{ .Values.services.rabbitmq.image }}
+          {{- with .Values.rabbitmq.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
           ports:
             - name: producer-port
               containerPort: 5672

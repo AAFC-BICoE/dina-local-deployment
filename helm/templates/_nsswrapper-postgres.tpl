@@ -1,7 +1,6 @@
 {{- define "nss-wrapper-init-postgres" -}}
 initContainers:
   - name: nss-wrapper-init
-    imagePullPolicy: IfNotPresent
     command:
       - bash
       - -cx

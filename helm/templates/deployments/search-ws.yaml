@@ -23,7 +23,10 @@ spec:
     spec:
       containers:
         - name: search-ws
-          image: {{ .Values.services.searchws.image }}
+          {{- with .Values.searchws.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
           env:
             - name: KEYCLOAK_ENABLED
               value: {{ .Values.global.environment.keycloak.enabled | quote }}

@@ -1,6 +1,103 @@
 # Default values for dina-helm-test.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+initdb:
+  image:
+    registry: docker.io
+    repository: aafcbicoe/dina-db-init-container
+    tag: 0.8
+    pullPolicy: IfNotPresent
+agentapi:
+  image:
+    registry: docker.io
+    repository: aafcbicoe/agent-api
+    tag: 0.34
+    pullPolicy: IfNotPresent
+collectionapi:
+  image:
+    registry: docker.io
+    repository: aafcbicoe/natural-history-collection-api
+    tag: 0.122.1
+    pullPolicy: IfNotPresent
+dinaexportapi:
+  image:
+    registry: docker.io
+    repository: aafcbicoe/dina-export-api
+    tag: 0.24
+    pullPolicy: IfNotPresent
+dinaui:
+  image:
+    registry: docker.io
+    repository: aafcbicoe/dina-ui
+    tag: 0.221.0
+    pullPolicy: IfNotPresent
+dinauserapi:
+  image:
+    registry: docker.io
+    repository: aafcbicoe/dina-user-api
+    tag: 0.28
+    pullPolicy: IfNotPresent
+loantransactionapi:
+  image:
+    registry: docker.io
+    repository: aafcbicoe/loan-transaction-api
+    tag: 0.15
+    pullPolicy: IfNotPresent
+objectstoreapi:
+  image:
+    registry: docker.io
+    repository: aafcbicoe/object-store-api
+    tag: 1.34
+    pullPolicy: IfNotPresent
+keycloak:
+  image:
+    registry: quay.io
+    repository: keycloak/keycloak
+    tag: 24.0.5
+    pullPolicy: IfNotPresent
+elasticsearchdina:
+  image:
+    registry: docker.elastic.co
+    repository: elasticsearch/elasticsearch
+    tag: 8.11.1
+    pullPolicy: IfNotPresent
+elasticconfigurator:
+  image:
+    registry: docker.io
+    repository: aafcbicoe/es-init-container
+    tag: 0.16
+    pullPolicy: IfNotPresent
+dinadb:
+  image:
+    registry: docker.io
+    repository: postgis/postgis
+    tag: 13-3.2
+    pullPolicy: IfNotPresent
+searchcli:
+  image:
+    registry: docker.io
+    repository: aafcbicoe/dina-search-cli
+    tag: 0.55
+    pullPolicy: IfNotPresent
+searchws:
+  image:
+    registry: docker.io
+    repository: aafcbicoe/dina-search-ws
+    tag: 0.55
+    pullPolicy: IfNotPresent
+seqdbapi:
+  image:
+    registry: docker.io
+    repository: aafcbicoe/seqdb-api
+    tag: 2.26.0
+    pullPolicy: IfNotPresent
+rabbitmq:
+  image:
+    registry: docker.io
+    repository: rabbitmq
+    tag: 4.3.1-management-alpine
+    pullPolicy: IfNotPresent
+
 profiles:
   agent_api:
     enabled: true
@@ -154,8 +251,6 @@ global:
     elasticsearch: elasticsearch.dina.localhost
 services:
   initdb:
-    image: aafcbicoe/dina-db-init-container:0.8
-    pullPolicy: IfNotPresent
     environment:
       # Database Connection Environment Variables:
       POSTGRES_DB: "{{ .Values.global.environment.config.dina_db.db_name }}"
@@ -242,8 +337,6 @@ services:
             password: "{{ .Values.global.environment.config.seqdb_api.liquibase_password }}"
         PG_EXTENSION_seqdb: pgcrypto
   agentapi:
-    image: aafcbicoe/agent-api:0.34
-    pullPolicy: IfNotPresent
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
@@ -254,8 +347,6 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
   collectionapi:
-    image: aafcbicoe/natural-history-collection-api:0.122.1
-    pullPolicy: IfNotPresent
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
     environment:
@@ -270,8 +361,6 @@ services:
       actuator:
         allowedIP: prometheus
   dinaexportapi:
-    image: aafcbicoe/dina-export-api:0.24
-    pullPolicy: IfNotPresent
     environment:
       spring:
         datasource:
@@ -304,7 +393,6 @@ services:
         username: elastic
         certPath: /app/certs/ca/ca.crt
   dinaui:
-    image: aafcbicoe/dina-ui:0.221.0
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
@@ -321,7 +409,6 @@ services:
       INSTANCE_NAME: "{{ .Values.global.environment.config.dina_ui.instance_name }}"
       SUPPORTED_LANGUAGES_ISO: "{{ .Values.global.environment.config.dina_ui.supported_languages_iso }}"
   dinauserapi:
-    image: aafcbicoe/dina-user-api:0.28
     environment:
       spring:
         datasource:
@@ -336,7 +423,6 @@ services:
         username: "{{ .Values.global.environment.config.rabbitmq.username }}"
         password: "{{ .Values.global.environment.config.rabbitmq.password }}"
   loantransactionapi:
-    image: aafcbicoe/loan-transaction-api:0.15
     environment:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
@@ -347,7 +433,6 @@ services:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
   objectstoreapi:
-    image: aafcbicoe/object-store-api:1.34
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
     environment:
@@ -378,8 +463,6 @@ services:
       volumeName: object-store-volume
 
   keycloak:
-    pullPolicy: IfNotPresent
-    image: "quay.io/keycloak/keycloak:24.0.5"
     environment:
       KC_DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
       KEYCLOAK_ADMIN: "{{ .Values.global.environment.config.keycloak.keycloak_admin }}"
@@ -391,7 +474,6 @@ services:
       KC_HOSTNAME_ADMIN: "{{ .Values.global.endpoints.keycloak }}"
       KC_PROXY: edge
   elasticsearchdina:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.1
     environment:
       xpack:
         security:
@@ -425,7 +507,6 @@ services:
     cap_add:
       - IPC_LOCK
   elasticconfigurator:
-    image: aafcbicoe/es-init-container:0.16
     environment:
       ELASTIC_SERVER_URL: https://elasticsearch-service:9200
       ES_CA_FILE: /usr/share/elastic-configurator/certs/ca/ca.crt
@@ -447,13 +528,11 @@ services:
       DINA_COLLECTING_EVENT_INDEX_NAME: dina_collecting_event_index
       DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_collecting_event_index_settings.json
   dinadb:
-    image: "postgis/postgis:13-3.2"
     environment:
       POSTGRES_DB: "{{ .Values.global.environment.config.keycloak.db_name }}"
       DB_USER: "{{ .Values.global.environment.config.keycloak.db_user }}"
       DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
   searchcli:
-    image: aafcbicoe/dina-search-cli:0.55
     environment:
       http_client:
         openid_connect_base_url: "{{ tpl .Values.global.environment.keycloak.auth_server_url_internal . }}/realms/dina/protocol/openid-connect/"
@@ -473,14 +552,12 @@ services:
       IS_MESSAGE_CONSUMER: true
       IS_MESSAGE_PRODUCER: true
   searchws:
-    image: aafcbicoe/dina-search-ws:0.55
     environment:
       elasticsearch:
         host: "{{ .Values.global.environment.config.elasticsearch.service }}"
         username: elastic
         certPath: /app/certs/ca/ca.crt
   seqdbapi:
-    image: aafcbicoe/seqdb-api:2.26.0
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
     environment:
@@ -493,7 +570,6 @@ services:
         messaging:
           isProducer: true
   rabbitmq:
-    image: rabbitmq:4.3.1-management-alpine
     config:
       enabledPlugins: 
         - rabbitmq_shovel

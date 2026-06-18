@@ -23,7 +23,10 @@ spec:
     spec:
       initContainers:
         - name: check-db
-          image: {{ .Values.services.initdb.image }}
+          {{- with .Values.initdb.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
           command:
             - sh
             - -c
@@ -36,7 +39,10 @@ spec:
               memory: {{ .Values.resources.initcontainers.limits.memory }} 
               cpu: {{ .Values.resources.initcontainers.limits.cpu }}
         - name: init-db
-          image: {{ .Values.services.initdb.image }}
+          {{- with .Values.initdb.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
           env:
           - name: POSTGRES_DB
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
@@ -86,7 +92,10 @@ spec:
               cpu: {{ .Values.resources.initcontainers.limits.cpu }}
       containers:
         - name: dina-user-api
-          image: {{ .Values.services.dinauserapi.image }}
+          {{- with .Values.dinauserapi.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
           {{- if .Values.messageProducerOverride.enabled }}
           envFrom:
             - configMapRef:
