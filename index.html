@@ -473,13 +473,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_setup">2.1. Setup</a></li>
 <li><a href="#_vpn">2.2. VPN</a></li>
-<li><a href="#_browser_installation">2.3. Browser Installation</a>
+<li><a href="#_visual_studio_code_integration">2.3. Visual Studio Code Integration</a></li>
+<li><a href="#_browser_installation">2.4. Browser Installation</a>
 <ul class="sectlevel3">
-<li><a href="#_firefox">2.3.1. Firefox</a></li>
-<li><a href="#_google_chrome">2.3.2. Google Chrome</a></li>
+<li><a href="#_using_vs_code_integrated_browser_experimental">2.4.1. Using VS Code Integrated Browser (Experimental)</a></li>
+<li><a href="#_firefox">2.4.2. Firefox</a></li>
+<li><a href="#_google_chrome">2.4.3. Google Chrome</a></li>
 </ul>
 </li>
-<li><a href="#_visual_studio_code_integration">2.4. Visual Studio Code Integration</a></li>
 </ul>
 </li>
 <li><a href="#_dina_ui_development_hot_reloading">3. DINA-UI Development (Hot Reloading)</a></li>
@@ -633,7 +634,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_prerequisites">1.2. Prerequisites</h3>
 <div class="paragraph">
-<p>Linux operating system (Virtual Machine) with approx. 100GB of disk space. Tested with Ubuntu 22.04.</p>
+<p>A Linux environment with approximately 100 GB of disk space is required. This can be set up using one of the following options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>WSL2 running Ubuntu (recommended)</p>
+</li>
+<li>
+<p>A Linux Virtual Machine (tested with Ubuntu 22.04)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For WSL2 setup, please refer to the WSL2 instructions to get started.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1163,8 +1177,10 @@ sudo systemctl start ssh</code></pre>
 <h2 id="_wsl2">2. WSL2</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>WSL2 (Windows Subsystem for Linux 2) is a compatibility layer that enables you to run a full Linux kernel natively on Windows 10/11.
-On Windows, WSL2 should be used in replacement of the Ubuntu Virtual Machine mentioned above.</p>
+<p>WSL2 (Windows Subsystem for Linux 2) is a compatibility layer that enables you to run a full Linux kernel natively on Windows 10/11.</p>
+</div>
+<div class="paragraph">
+<p>On Windows, WSL2 should be used in replacement of the Ubuntu Virtual Machine mentioned above.</p>
 </div>
 <div class="sect2">
 <h3 id="_setup">2.1. Setup</h3>
@@ -1214,35 +1230,7 @@ generateHosts = false</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_browser_installation">2.3. Browser Installation</h3>
-<div class="paragraph">
-<p>To access <code>dina.local</code>, you must install a browser directly within the WSL2 environment.</p>
-</div>
-<div class="sect3">
-<h4 id="_firefox">2.3.1. Firefox</h4>
-<div class="paragraph">
-<p>Follow the official documentation to install the <code>.deb</code> package:</p>
-</div>
-<div class="paragraph">
-<p><a href="https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions-recommended" target="_blank" rel="noopener">Install Firefox on Linux</a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_google_chrome">2.3.2. Google Chrome</h4>
-<div class="paragraph">
-<p>Run the following commands in your WSL2 terminal:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome-stable_current_amd64.deb
-google-chrome</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_visual_studio_code_integration">2.4. Visual Studio Code Integration</h3>
+<h3 id="_visual_studio_code_integration">2.3. Visual Studio Code Integration</h3>
 <div class="paragraph">
 <p>You can continue using the Windows version of VS Code by connecting it to WSL via the official extension.</p>
 </div>
@@ -1282,6 +1270,83 @@ google-chrome</code></pre>
 </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_browser_installation">2.4. Browser Installation</h3>
+<div class="paragraph">
+<p>To access <code>dina.local</code>, you must install a browser directly within the WSL2 environment <strong>or</strong> use the VS Code integrated browser (see below).</p>
+</div>
+<div class="sect3">
+<h4 id="_using_vs_code_integrated_browser_experimental">2.4.1. Using VS Code Integrated Browser (Experimental)</h4>
+<div class="paragraph">
+<p>Instead of installing a browser inside WSL2, you can use the VS Code integrated browser while connected to a WSL2 remote session.</p>
+</div>
+<div class="paragraph">
+<p>To enable this:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure you are connected to WSL using the VS Code Remote - WSL extension</p>
+</li>
+<li>
+<p>Open VS Code Settings</p>
+</li>
+<li>
+<p>Search for and enable:</p>
+<div class="paragraph">
+<p><code>workbench.browser.enableRemoteProxy</code></p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Once enabled, you can open and access <code>dina.local</code> directly from within VS Code without installing a browser inside WSL.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You will recieve a Certificate Error the first time you connect, you can click Proceed Anyway.</p>
+</div>
+<div class="paragraph">
+<p>Please note that browser extensions are not supported in the VS Code integrated browser at this time. Installing an additional browser (see below) can be useful when you need tools such as React Developer Tools.</p>
+</div>
+<div class="paragraph">
+<p>Learn more about the integrated browser here:
+<a href="https://code.visualstudio.com/docs/debugtest/integrated-browser" class="bare">https://code.visualstudio.com/docs/debugtest/integrated-browser</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_firefox">2.4.2. Firefox</h4>
+<div class="paragraph">
+<p>Follow the official documentation to install the <code>.deb</code> package:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions-recommended" target="_blank" rel="noopener">Install Firefox on Linux</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_google_chrome">2.4.3. Google Chrome</h4>
+<div class="paragraph">
+<p>Run the following commands in your WSL2 terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+google-chrome</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2686,7 +2751,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-18 18:14:48 UTC
+Last updated 2026-06-18 19:02:46 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
