@@ -1,6 +1,7 @@
 = WSL2
 
 WSL2 (Windows Subsystem for Linux 2) is a compatibility layer that enables you to run a full Linux kernel natively on Windows 10/11.
+
 On Windows, WSL2 should be used in replacement of the Ubuntu Virtual Machine mentioned above.
 
 == Setup
@@ -34,31 +35,13 @@ You can change WSL Network mode:
 . Open WSL Setting (through windows search bar) -> Networking -> Set "Networking mode" to "Mirrored"
 . Restart host machine
 
-== Browser Installation
-
-To access `dina.local`, you must install a browser directly within the WSL2 environment.
-
-=== Firefox
-Follow the official documentation to install the `.deb` package:
-
-link:https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions-recommended[Install Firefox on Linux^]
-
-=== Google Chrome
-Run the following commands in your WSL2 terminal:
-
-[source,bash]
-----
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome-stable_current_amd64.deb
-google-chrome
-----
-
 == Visual Studio Code Integration
 
 You can continue using the Windows version of VS Code by connecting it to WSL via the official extension.
 
 .Install the WSL Extension
 You can find this in the Extensions marketplace or run:
+
 [source,bash]
 ----
 code --install-extension ms-vscode-remote.remote-wsl
@@ -73,3 +56,48 @@ code --install-extension ms-vscode-remote.remote-wsl
 ====
 Once connected, you can use the VS Code integrated terminal to install tools and clone repositories directly into the Linux file system.
 ====
+
+== Browser Installation
+
+To access `dina.local`, you must install a browser directly within the WSL2 environment *or* use the VS Code integrated browser (see below).
+
+=== Using VS Code Integrated Browser (Experimental)
+
+Instead of installing a browser inside WSL2, you can use the VS Code integrated browser while connected to a WSL2 remote session.
+
+To enable this:
+
+. Ensure you are connected to WSL using the VS Code Remote - WSL extension
+. Open VS Code Settings
+. Search for and enable:
++
+`workbench.browser.enableRemoteProxy`
+
+Once enabled, you can open and access `dina.local` directly from within VS Code without installing a browser inside WSL.
+
+[NOTE]
+====
+You will recieve a Certificate Error the first time you connect, you can click Proceed Anyway.
+
+Please note that browser extensions are not supported in the VS Code integrated browser at this time. Installing an additional browser (see below) can be useful when you need tools such as React Developer Tools.
+
+Learn more about the integrated browser here:
+https://code.visualstudio.com/docs/debugtest/integrated-browser
+====
+
+=== Firefox
+
+Follow the official documentation to install the `.deb` package:
+
+link:https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions-recommended[Install Firefox on Linux^]
+
+=== Google Chrome
+
+Run the following commands in your WSL2 terminal:
+
+[source,bash]
+----
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+google-chrome
+----
