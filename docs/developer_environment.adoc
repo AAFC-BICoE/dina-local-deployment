@@ -25,7 +25,12 @@
 
 == Prerequisites
 
-Linux operating system (Virtual Machine) with approx. 100GB of disk space. Tested with Ubuntu {var_ubuntu_version}.
+A Linux environment with approximately 100 GB of disk space is required. This can be set up using one of the following options:
+
+- WSL2 running Ubuntu (recommended)
+- A Linux Virtual Machine (tested with Ubuntu {var_ubuntu_version})
+
+For WSL2 setup, please refer to the WSL2 instructions to get started.
 
 == Packages
 
