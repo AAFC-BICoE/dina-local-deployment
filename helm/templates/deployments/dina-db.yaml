@@ -23,7 +23,10 @@ spec:
       terminationGracePeriodSeconds: 10
       {{- if .Values.global.environment.isOpenShift }}
       {{- include "nss-wrapper-init-postgres" . | nindent 6 }}
-          image: {{ .Values.services.dinadb.image }}
+          {{- with .Values.dinadb.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
       {{- end}}
       containers:
         - env:
@@ -43,7 +46,10 @@ spec:
             {{- if .Values.global.environment.isOpenShift }}
               {{- include "nss-wrapper-env" . | nindent 10 }}
             {{- end}}
-          image: {{ .Values.services.dinadb.image }}
+          {{- with .Values.dinadb.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
           volumeMounts:
             - name: postgres-data
               mountPath: /var/lib/postgresql/

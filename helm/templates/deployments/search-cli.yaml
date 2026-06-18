@@ -23,7 +23,10 @@ spec:
     spec:
       initContainers:
         - name: elastic-configurator
-          image: {{ .Values.services.elasticconfigurator.image }}
+          {{- with .Values.elasticconfigurator.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
           env:
             - name: ELASTIC_SERVER_URL
               value: {{ .Values.services.elasticconfigurator.environment.ELASTIC_SERVER_URL }}
@@ -86,7 +89,10 @@ spec:
               mountPath: /usr/share/elastic-configurator/certs
       containers:
         - name: search-cli
-          image: {{ .Values.services.searchcli.image }}
+          {{- with .Values.searchcli.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
           env:
             - name: HTTP-CLIENT_OPENIDCONNECTBASEURL
               value: {{ tpl .Values.services.searchcli.environment.http_client.openid_connect_base_url . }}
