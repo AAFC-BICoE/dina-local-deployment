@@ -22,76 +22,8 @@ spec:
         app: {{ .Values.app.name }}-{{ .Values.global.environment.config.seqdb_api.label }}
     spec:
       initContainers:
-        - name: check-db
-          {{- with .Values.initdb.image }}
-          image: {{ include "dina-helm.build-image-name" . | quote }}
-          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
-          {{- end }}
-          command:
-            - sh
-            - -c
-            - until pg_isready -h {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}; do echo waiting for database; sleep 10; done;
-          resources:
-            requests:
-              memory: {{ .Values.resources.initcontainers.requests.memory }}
-              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
-            limits:
-              memory: {{ .Values.resources.initcontainers.limits.memory }} 
-              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
-        - name: init-db
-          {{- with .Values.initdb.image }}
-          image: {{ include "dina-helm.build-image-name" . | quote }}
-          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
-          {{- end }}
-          env:
-            - name: POSTGRES_DB
-              value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
-            - name: POSTGRES_PASSWORD
-              {{- if not .Values.global.environment.config.dina_db.db_password }}
-              valueFrom:
-                secretKeyRef:
-                  name: dina-db-secret
-                  key: password
-              {{- else }}
-              value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
-              {{- end }}
-            - name: POSTGRES_HOST
-              value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
-            - name: POSTGRES_USER
-              value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
-            - name: DINA_DB
-              value: {{ .Values.services.initdb.config.seqdbapi.DINA_DB }}
-            - name: MIGRATION_USER_seqdb
-              value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.liquibase.username . }}
-            - name: MIGRATION_USER_PW_seqdb
-              {{- if not .Values.global.environment.config.seqdb_api.liquibase_password }}
-              valueFrom:
-                secretKeyRef:
-                  name: seqdbapi-liquibase-secret
-                  key: password
-              {{- else }}
-              value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.liquibase.password . }}
-              {{- end }}
-            - name: WEB_USER_seqdb
-              value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.datasource.username . }}
-            - name: WEB_USER_PW_seqdb
-              {{- if not .Values.global.environment.config.seqdb_api.datasource_password }}
-              valueFrom:
-                secretKeyRef:
-                  name: seqdbapi-datasource-secret
-                  key: password
-              {{- else }}
-              value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.datasource.password . }}
-              {{- end }}
-            - name: PG_EXTENSION_seqdb
-              value: {{ .Values.services.initdb.config.seqdbapi.PG_EXTENSION_seqdb }}
-          resources:
-            requests:
-              memory: {{ .Values.resources.initcontainers.requests.memory }}
-              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
-            limits:
-              memory: {{ .Values.resources.initcontainers.limits.memory }} 
-              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
+        {{- include "dina-helm.initContainer.checkDb" . | nindent 8 }}
+        {{- include "dina-helm.initContainer.initDb" (dict "root" . "serviceKey" "seqdbapi" "environmentKey" "seqdb_api" "shortName" "seqdb") | nindent 8 }}
       containers:
         - name: seqdb-api
           {{- with .Values.seqdbapi.image }}
