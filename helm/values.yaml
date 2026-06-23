@@ -139,15 +139,11 @@ global:
       agent_api:
         label: agent-api
         service: agent-api-service
-        datasource_password:
-        datasource_user: web_user_agent
         liquibase_user: migration_user_agent
         liquibase_password:
       dina_export_api:
         label: dina-export-api
         service: dina-export-api-service
-        datasource_password:
-        datasource_user: web_user_ex
         liquibase_user: migration_user_ex
         liquibase_password:
         http_client:
@@ -164,22 +160,16 @@ global:
       collection_api:
         label: collection-api
         service: collection-api-service
-        datasource_password:
-        datasource_user: web_user_coll
         liquibase_user: migration_user_coll
         liquibase_password:
       dina_user_api:
         label: dina-user-api
         service: dina-user-api-service
-        datasource_password:
-        datasource_user: web_user_dina_user
         liquibase_user: migration_user_dina_user
         liquibase_password:
       loan_transaction_api:
         label: loan-transaction-api
         service: loan-transaction-api-service
-        datasource_password:
-        datasource_user: web_user_lt
         liquibase_user: migration_user_lt
         liquibase_password:
         contexts: schema-change, initial-data, data-migration
@@ -187,8 +177,6 @@ global:
         DINA_DB: object_store
         label: objectstore-api
         service: objectstore-api-service
-        datasource_password:
-        datasource_user: web_user_os
         liquibase_user: migration_user_os
         liquibase_password:
       dina_ui:
@@ -208,8 +196,6 @@ global:
       seqdb_api:
         label: seqdb-api
         service: seqdb-api-service
-        datasource_password:
-        datasource_user: web_user_seqdb
         liquibase_user: migration_user_seqdb
         liquibase_password:
       elasticsearch:
@@ -271,18 +257,12 @@ services:
       agentapi:
         DINA_DB: agent
         spring:
-          datasource:
-            username: "{{ .Values.global.environment.config.agent_api.datasource_user }}"
-            password: "{{ .Values.global.environment.config.agent_api.datasource_password }}"
           liquibase:
             username: "{{ .Values.global.environment.config.agent_api.liquibase_user }}"
             password: "{{ .Values.global.environment.config.agent_api.liquibase_password }}"
       collectionapi:
         DINA_DB: collection
         spring:
-          datasource:
-            username: "{{ .Values.global.environment.config.collection_api.datasource_user }}"
-            password: "{{ .Values.global.environment.config.collection_api.datasource_password }}"
           liquibase:
             username: "{{ .Values.global.environment.config.collection_api.liquibase_user }}"
             password: "{{ .Values.global.environment.config.collection_api.liquibase_password }}"
@@ -292,27 +272,18 @@ services:
       dinaexportapi:
         DINA_DB: export
         spring:
-          datasource:
-            username: "{{ .Values.global.environment.config.dina_export_api.datasource_user }}"
-            password: "{{ .Values.global.environment.config.dina_export_api.datasource_password }}"
           liquibase:
             username: "{{ .Values.global.environment.config.dina_export_api.liquibase_user }}"
             password: "{{ .Values.global.environment.config.dina_export_api.liquibase_password }}"
       dinauserapi:
         DINA_DB: dina_user
         spring:
-          datasource:
-            username: "{{ .Values.global.environment.config.dina_user_api.datasource_user }}"
-            password: "{{ .Values.global.environment.config.dina_user_api.datasource_password }}"
           liquibase:
             username: "{{ .Values.global.environment.config.dina_user_api.liquibase_user }}"
             password: "{{ .Values.global.environment.config.dina_user_api.liquibase_password }}"
       loantransactionapi:
         DINA_DB: loan_transaction
         spring:
-          datasource:
-            username: "{{ .Values.global.environment.config.loan_transaction_api.datasource_user }}"
-            password: "{{ .Values.global.environment.config.loan_transaction_api.datasource_password }}"
           liquibase:
             username: "{{ .Values.global.environment.config.loan_transaction_api.liquibase_user }}"
             password: "{{ .Values.global.environment.config.loan_transaction_api.liquibase_password }}"
@@ -320,18 +291,12 @@ services:
       objectstoreapi:
         DINA_DB: object_store
         spring:
-          datasource:
-            username: "{{ .Values.global.environment.config.objectstore_api.datasource_user }}"
-            password: "{{ .Values.global.environment.config.objectstore_api.datasource_password }}"
           liquibase:
             username: "{{ .Values.global.environment.config.objectstore_api.liquibase_user }}"
             password: "{{ .Values.global.environment.config.objectstore_api.liquibase_password }}"
       seqdbapi:
         DINA_DB: seqdb
         spring:
-          datasource:
-            username: "{{ .Values.global.environment.config.seqdb_api.datasource_user }}"
-            password: "{{ .Values.global.environment.config.seqdb_api.datasource_password }}"
           liquibase:
             username: "{{ .Values.global.environment.config.seqdb_api.liquibase_user }}"
             password: "{{ .Values.global.environment.config.seqdb_api.liquibase_password }}"
@@ -346,6 +311,8 @@ services:
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/agent?currentSchema=agent
+          username: web_user_agent
+          password:
   collectionapi:
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
@@ -358,6 +325,8 @@ services:
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/collection?currentSchema=collection
+          username: web_user_coll
+          password:
       actuator:
         allowedIP: prometheus
   dinaexportapi:
@@ -365,6 +334,8 @@ services:
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/export?currentSchema=export
+          username: web_user_ex
+          password:
         freemarker:
           template_loader_path: classpath:/templates/,file:/tmp/dina-data-export/templates/
       dina:
@@ -413,6 +384,8 @@ services:
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/dina_user?currentSchema=dina_user
+          username: web_user_dina_user
+          password:
       dina:
         messaging:
           isConsumer: true
@@ -432,6 +405,8 @@ services:
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
+          username: web_user_lt
+          password:
   objectstoreapi:
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
@@ -454,6 +429,8 @@ services:
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/object_store?currentSchema=object_store
+          username: web_user_os
+          password:
         servlet:
           multipart:
             max_file_size: 1GB
@@ -564,6 +541,8 @@ services:
       spring:
         datasource:
           url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/seqdb?currentSchema=seqdb
+          username: web_user_seqdb
+          password:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
       dina:

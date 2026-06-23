@@ -22,74 +22,8 @@ spec:
         app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_export_api.label }}
     spec:
       initContainers:
-        - name: check-db
-          {{- with .Values.initdb.image }}
-          image: {{ include "dina-helm.build-image-name" . | quote }}
-          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
-          {{- end }}
-          command:
-            - sh
-            - -c
-            - until pg_isready -h {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}; do echo waiting for database; sleep 10; done;
-          resources:
-            requests:
-              memory: {{ .Values.resources.initcontainers.requests.memory }}
-              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
-            limits:
-              memory: {{ .Values.resources.initcontainers.limits.memory }} 
-              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
-        - name: init-db
-          {{- with .Values.initdb.image }}
-          image: {{ include "dina-helm.build-image-name" . | quote }}
-          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
-          {{- end }}
-          env:
-          - name: POSTGRES_DB
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
-          - name: POSTGRES_PASSWORD
-            {{- if not .Values.global.environment.config.dina_db.db_password }}
-            valueFrom:
-              secretKeyRef:
-                name: dina-db-secret
-                key: password
-            {{- else }}
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
-            {{- end }}
-          - name: POSTGRES_HOST
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
-          - name: POSTGRES_USER
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
-          - name: DINA_DB
-            value: {{ .Values.services.initdb.config.dinaexportapi.DINA_DB }}
-          - name: MIGRATION_USER_export
-            value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.liquibase.username . }}
-          - name: MIGRATION_USER_PW_export
-            {{- if not .Values.global.environment.config.dina_export_api.liquibase_password }}
-            valueFrom:
-              secretKeyRef:
-                name: dinaexportapi-liquibase-secret
-                key: password
-            {{- else }}
-            value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.liquibase.password . }}
-            {{- end }}
-          - name: WEB_USER_export
-            value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.datasource.username . }}
-          - name: WEB_USER_PW_export
-            {{- if not .Values.global.environment.config.dina_export_api.datasource_password }}
-            valueFrom:
-              secretKeyRef:
-                name: dinaexportapi-datasource-secret
-                key: password
-            {{- else }}
-            value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.datasource.password . }}
-            {{- end }}
-          resources:
-            requests:
-              memory: {{ .Values.resources.initcontainers.requests.memory }}
-              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
-            limits:
-              memory: {{ .Values.resources.initcontainers.limits.memory }} 
-              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
+        {{- include "dina-helm.initContainer.checkDb" . | nindent 8 }}
+        {{- include "dina-helm.initContainer.initDb" (dict "root" . "serviceKey" "dinaexportapi" "environmentKey" "dina_export_api" "shortName" "export") | nindent 8 }}
       containers:
         - name: dina-export-api
           {{- with .Values.dinaexportapi.image }}
@@ -111,15 +45,15 @@ spec:
             - name: SPRING_DATASOURCE_URL
               value: {{ tpl .Values.services.dinaexportapi.environment.spring.datasource.url . }}
             - name: SPRING_DATASOURCE_USERNAME
-              value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.datasource.username . }}
+              value: {{ .Values.services.dinaexportapi.environment.spring.datasource.username }}
             - name: SPRING_DATASOURCE_PASSWORD
-              {{- if not .Values.global.environment.config.dina_export_api.datasource_password }}
+              {{- if .Values.services.dinaexportapi.environment.spring.datasource.password }}
+              value: {{ .Values.services.dinaexportapi.environment.spring.datasource.password }}
+              {{- else }}
               valueFrom:
                 secretKeyRef:
                   name: dinaexportapi-datasource-secret
                   key: password
-              {{- else }}
-              value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.datasource.password . }}
               {{- end }}
             - name: SPRING_LIQUIBASE_USER
               value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.liquibase.username . }}
