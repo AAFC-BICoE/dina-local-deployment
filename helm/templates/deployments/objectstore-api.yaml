@@ -91,13 +91,13 @@ spec:
             - name: SPRING_LIQUIBASE_USER
               value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.username . }}
             - name: SPRING_LIQUIBASE_PASSWORD
-              {{- if not .Values.global.environment.config.objectstore_api.liquibase_password }}
+              {{- if .Values.services.objectstoreapi.environment.spring.liquibase.password }}
+              value: {{ .Values.services.objectstoreapi.environment.spring.liquibase.password }}
+              {{- else }}
               valueFrom:
                 secretKeyRef:
                   name: objectstoreapi-liquibase-secret
                   key: password
-              {{- else }}
-              value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.password . }}
               {{- end }}
             - name: JDK_JAVA_OPTIONS
               value: "{{ .Values.services.objectstoreapi.config.java_opts }}"

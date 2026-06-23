@@ -53,13 +53,13 @@ spec:
             - name: SPRING_LIQUIBASE_USER
               value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.liquibase.username .}}
             - name: SPRING_LIQUIBASE_PASSWORD
-              {{- if not .Values.global.environment.config.seqdb_api.liquibase_password }}
+              {{- if .Values.services.seqdbapi.environment.spring.liquibase.password }}
+              value: {{ .Values.services.seqdbapi.environment.spring.liquibase.password }}
+              {{- else }}
               valueFrom:
                 secretKeyRef:
                   name: seqdbapi-liquibase-secret
                   key: password
-              {{- else }}
-              value: {{ tpl .Values.services.initdb.config.seqdbapi.spring.liquibase.password . }}
               {{- end }}
             - name: JDK_JAVA_OPTIONS
               value: "{{ .Values.services.seqdbapi.config.java_opts }}"

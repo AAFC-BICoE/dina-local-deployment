@@ -60,13 +60,13 @@ spec:
             - name: SPRING_LIQUIBASE_USER
               value: {{ tpl .Values.services.initdb.config.loantransactionapi.spring.liquibase.username . }}
             - name: SPRING_LIQUIBASE_PASSWORD
-              {{- if not .Values.global.environment.config.loan_transaction_api.liquibase_password }}
+              {{- if .Values.services.loantransactionapi.environment.spring.liquibase.password }}
+              value: {{ .Values.services.loantransactionapi.environment.spring.liquibase.password }}
+              {{- else }}
               valueFrom:
                 secretKeyRef:
                   name: loantransactionapi-liquibase-secret
                   key: password
-              {{- else }}
-              value: {{ tpl .Values.services.initdb.config.loantransactionapi.spring.liquibase.password . }}
               {{- end }}
             - name: SPRING_LIQUIBASE_CONTEXTS
               value: {{ tpl .Values.services.initdb.config.loantransactionapi.spring.liquibase.contexts . }}

@@ -58,13 +58,13 @@ spec:
             - name: SPRING_LIQUIBASE_USER
               value: {{ tpl .Values.services.initdb.config.dinauserapi.spring.liquibase.username . }}
             - name: SPRING_LIQUIBASE_PASSWORD
-              {{- if not .Values.global.environment.config.dina_user_api.liquibase_password }}
+              {{- if .Values.services.dinauserapi.environment.spring.liquibase.password }}
+              value: {{ .Values.services.dinauserapi.environment.spring.liquibase.password }}
+              {{- else }}
               valueFrom:
                 secretKeyRef:
                   name: dinauserapi-liquibase-secret
                   key: password
-              {{- else }}
-              value: {{ tpl .Values.services.initdb.config.dinauserapi.spring.liquibase.password . }}
               {{- end }}
             - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI
               value: {{ tpl .Values.global.environment.spring.security.oauth2.resourceserver.jwt.issuer_uri . | quote }}

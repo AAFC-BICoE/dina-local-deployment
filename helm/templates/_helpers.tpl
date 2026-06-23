@@ -83,8 +83,8 @@ Usage: {{ include "dina-helm.build-image-name" .Values.agentapi }}
   - name: MIGRATION_USER_PW_{{ $shortName }}
     {{- /* We use the shortName to dynamically find the secret name pattern */}}
     {{- $secretBase := (replace "-" "" $serviceKey) -}}
-    {{- if (index $root.Values.global.environment.config $environmentKey).liquibase_password }}
-    value: {{ tpl $config.spring.liquibase.password $root }}
+    {{- if $serviceConfig.environment.spring.liquibase.password }}
+    value: {{ $serviceConfig.environment.spring.liquibase.password }}
     {{- else }}
     valueFrom:
       secretKeyRef:
