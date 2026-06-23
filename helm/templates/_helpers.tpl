@@ -54,6 +54,7 @@ Usage: {{ include "dina-helm.build-image-name" .Values.agentapi }}
 {{- $environmentKey := .environmentKey -}}
 {{- $shortName := .shortName -}}
 {{- $config := index $root.Values.services.initdb.config $serviceKey -}}
+{{- $serviceConfig := index $root.Values.services $serviceKey -}}
 - name: init-db
   {{- with $root.Values.initdb.image }}
   image: {{ include "dina-helm.build-image-name" . | quote }}
@@ -93,8 +94,8 @@ Usage: {{ include "dina-helm.build-image-name" .Values.agentapi }}
   - name: WEB_USER_{{ $shortName }}
     value: {{ tpl $config.spring.datasource.username $root }}
   - name: WEB_USER_PW_{{ $shortName }}
-    {{- if (index $root.Values.global.environment.config $environmentKey).datasource_password }}
-    value: {{ tpl $config.spring.datasource.password $root }}
+    {{- if $serviceConfig.environment.spring.datasource.password }}
+    value: {{ $serviceConfig.environment.spring.datasource.password }}
     {{- else }}
     valueFrom:
       secretKeyRef:
