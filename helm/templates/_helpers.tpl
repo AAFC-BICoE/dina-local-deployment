@@ -92,7 +92,7 @@ Usage: {{ include "dina-helm.build-image-name" .Values.agentapi }}
         key: password
     {{- end }}
   - name: WEB_USER_{{ $shortName }}
-    value: {{ tpl $config.spring.datasource.username $root }}
+    value: {{ $serviceConfig.environment.spring.datasource.username }}
   - name: WEB_USER_PW_{{ $shortName }}
     {{- if $serviceConfig.environment.spring.datasource.password }}
     value: {{ $serviceConfig.environment.spring.datasource.password }}

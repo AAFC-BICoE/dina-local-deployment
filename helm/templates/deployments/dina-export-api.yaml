@@ -45,7 +45,7 @@ spec:
             - name: SPRING_DATASOURCE_URL
               value: {{ tpl .Values.services.dinaexportapi.environment.spring.datasource.url . }}
             - name: SPRING_DATASOURCE_USERNAME
-              value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.datasource.username . }}
+              value: {{ .Values.services.dinaexportapi.environment.spring.datasource.username }}
             - name: SPRING_DATASOURCE_PASSWORD
               {{- if .Values.services.dinaexportapi.environment.spring.datasource.password }}
               value: {{ .Values.services.dinaexportapi.environment.spring.datasource.password }}

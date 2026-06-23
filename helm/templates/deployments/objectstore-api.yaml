@@ -78,7 +78,7 @@ spec:
             - name: SPRING_DATASOURCE_URL
               value: {{ tpl .Values.services.objectstoreapi.environment.spring.datasource.url . }}
             - name: SPRING_DATASOURCE_USERNAME
-              value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.username . }}
+              value: {{ .Values.services.objectstoreapi.environment.spring.datasource.username }}
             - name: SPRING_DATASOURCE_PASSWORD
               {{- if .Values.services.objectstoreapi.environment.spring.datasource.password }}
               value: {{ .Values.services.objectstoreapi.environment.spring.datasource.password }}
