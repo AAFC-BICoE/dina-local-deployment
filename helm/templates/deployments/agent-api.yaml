@@ -52,7 +52,7 @@ spec:
                   key: password
               {{- end }}
             - name: SPRING_LIQUIBASE_USER
-              value: {{ tpl .Values.services.initdb.config.agentapi.spring.liquibase.username . }}
+              value: {{ .Values.services.agentapi.environment.spring.liquibase.username }}
             - name: SPRING_LIQUIBASE_PASSWORD
               {{- if .Values.services.agentapi.environment.spring.liquibase.password }}
               value: {{ .Values.services.agentapi.environment.spring.liquibase.password }}

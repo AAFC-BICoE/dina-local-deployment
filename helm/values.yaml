@@ -139,11 +139,9 @@ global:
       agent_api:
         label: agent-api
         service: agent-api-service
-        liquibase_user: migration_user_agent
       dina_export_api:
         label: dina-export-api
         service: dina-export-api-service
-        liquibase_user: migration_user_ex
         http_client:
           username: cnc-su
           password: cnc-su
@@ -158,21 +156,17 @@ global:
       collection_api:
         label: collection-api
         service: collection-api-service
-        liquibase_user: migration_user_coll
       dina_user_api:
         label: dina-user-api
         service: dina-user-api-service
-        liquibase_user: migration_user_dina_user
       loan_transaction_api:
         label: loan-transaction-api
         service: loan-transaction-api-service
-        liquibase_user: migration_user_lt
         contexts: schema-change, initial-data, data-migration
       objectstore_api:
         DINA_DB: object_store
         label: objectstore-api
         service: objectstore-api-service
-        liquibase_user: migration_user_os
       dina_ui:
         label: dina-ui
         service: dina-ui-service
@@ -190,7 +184,6 @@ global:
       seqdb_api:
         label: seqdb-api
         service: seqdb-api-service
-        liquibase_user: migration_user_seqdb
       elasticsearch:
         label: elasticsearch-dina
         service: elasticsearch-service
@@ -249,43 +242,24 @@ services:
     config:
       agentapi:
         DINA_DB: agent
-        spring:
-          liquibase:
-            username: "{{ .Values.global.environment.config.agent_api.liquibase_user }}"
       collectionapi:
         DINA_DB: collection
-        spring:
-          liquibase:
-            username: "{{ .Values.global.environment.config.collection_api.liquibase_user }}"
         actuator:
           allowedIP: prometheus
         PG_EXTENSION_collection: postgis pgcrypto
       dinaexportapi:
         DINA_DB: export
-        spring:
-          liquibase:
-            username: "{{ .Values.global.environment.config.dina_export_api.liquibase_user }}"
       dinauserapi:
         DINA_DB: dina_user
-        spring:
-          liquibase:
-            username: "{{ .Values.global.environment.config.dina_user_api.liquibase_user }}"
       loantransactionapi:
         DINA_DB: loan_transaction
         spring:
           liquibase:
-            username: "{{ .Values.global.environment.config.loan_transaction_api.liquibase_user }}"
             contexts: "{{ .Values.global.environment.config.loan_transaction_api.contexts }}"
       objectstoreapi:
         DINA_DB: object_store
-        spring:
-          liquibase:
-            username: "{{ .Values.global.environment.config.objectstore_api.liquibase_user }}"
       seqdbapi:
         DINA_DB: seqdb
-        spring:
-          liquibase:
-            username: "{{ .Values.global.environment.config.seqdb_api.liquibase_user }}"
         PG_EXTENSION_seqdb: pgcrypto
   agentapi:
     environment:
@@ -300,6 +274,7 @@ services:
           username: web_user_agent
           password:
         liquibase:
+          username: migration_user_agent
           password:
   collectionapi:
     config:
@@ -316,6 +291,7 @@ services:
           username: web_user_coll
           password:
         liquibase:
+          username: migration_user_coll
           password:
       actuator:
         allowedIP: prometheus
@@ -327,6 +303,7 @@ services:
           username: web_user_ex
           password:
         liquibase:
+          username: migration_user_ex
           password:
         freemarker:
           template_loader_path: classpath:/templates/,file:/tmp/dina-data-export/templates/
@@ -379,6 +356,7 @@ services:
           username: web_user_dina_user
           password:
         liquibase:
+          username: migration_user_dina_user
           password:
       dina:
         messaging:
@@ -402,6 +380,7 @@ services:
           username: web_user_lt
           password:
         liquibase:
+          username: migration_user_lt
           password:
   objectstoreapi:
     config:
@@ -428,6 +407,7 @@ services:
           username: web_user_os
           password:
         liquibase:
+          username: migration_user_os
           password:
         servlet:
           multipart:
@@ -542,6 +522,7 @@ services:
           username: web_user_seqdb
           password:
         liquibase:
+          username: migration_user_seqdb
           password:
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
