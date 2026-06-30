@@ -4,11 +4,51 @@
       "properties": {
         "attributes": {
           "properties": {
+            "identifiers": {
+              "properties": {
+                "tube_id": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                }
+              }
+            },
             "managedAttributes": {
               "properties": {
+                "sample_version": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }                  
+                },
                 "seq_db_legacy": {
                   "type": "text",
                   "index": false
+                },
+                "fermentation_time": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "experimental_replicate": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
                 }
               }
             },
@@ -40,10 +80,32 @@
       "properties": {
         "attributes": {
           "properties": {
+            "managedAttributes": {
+              "properties": {
+                "tot_phosp_string": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                }
+              }
+            },
             "extensionValues": {
               "properties": {
                 "mixs_water_v4": {
                   "properties": {
+                    "nitrate": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword",
+                          "ignore_above": 256
+                        }
+                      }
+                    },
                     "conduc": {
                       "type": "float"
                     },
@@ -81,6 +143,33 @@
                 },
                 "mixs_soil_v4": {
                   "properties": {
+                    "annual_season_temp": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword",
+                          "ignore_above": 256
+                        }
+                      }
+                    },
+                    "samp_vol_we_dna_ext": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword",
+                          "ignore_above": 256
+                        }
+                      }
+                    },
+                    "crop_rotation": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword",
+                          "ignore_above": 256
+                        }
+                      }
+                    },
                     "water_content": {
                       "type": "float"
                     },
