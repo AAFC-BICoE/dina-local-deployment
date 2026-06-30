@@ -112,7 +112,7 @@ spec:
             {{- if not .Values.global.environment.config.collection_api.liquibase_password }}
             valueFrom:
               secretKeyRef:
-                name: collection-liquibase-secret
+                name: collectionapi-liquibase-secret
                 key: password
             {{- else }}
             value: {{ tpl .Values.services.initdb.config.collectionapi.spring.liquibase.password . }}
@@ -123,7 +123,7 @@ spec:
             {{- if not .Values.global.environment.config.collection_api.datasource_password }}
             valueFrom:
               secretKeyRef:
-                name: collection-datasource-secret
+                name: collectionapi-datasource-secret
                 key: password
             {{- else }}
             value: {{ tpl .Values.services.initdb.config.collectionapi.spring.datasource.password . }}
@@ -210,7 +210,7 @@ spec:
             {{- if not .Values.global.environment.config.objectstore_api.liquibase_password }}
             valueFrom:
               secretKeyRef:
-                name: objectstore-liquibase-secret
+                name: objectstoreapi-liquibase-secret
                 key: password
             {{- else }}
             value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.liquibase.password . }}
@@ -221,7 +221,7 @@ spec:
             {{- if not .Values.global.environment.config.objectstore_api.datasource_password }}
             valueFrom:
               secretKeyRef:
-                name: objectstore-datasource-secret
+                name: objectstoreapi-datasource-secret
                 key: password
             {{- else }}
             value: {{ tpl .Values.services.initdb.config.objectstoreapi.spring.datasource.password . }}
