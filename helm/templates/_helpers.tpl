@@ -54,6 +54,7 @@ Usage: {{ include "dina-helm.build-image-name" .Values.agentapi }}
 {{- $environmentKey := .environmentKey -}}
 {{- $shortName := .shortName -}}
 {{- $config := index $root.Values.services.initdb.config $serviceKey -}}
+{{- $serviceConfig := index $root.Values.services $serviceKey -}}
 - name: init-db
   {{- with $root.Values.initdb.image }}
   image: {{ include "dina-helm.build-image-name" . | quote }}
@@ -78,12 +79,12 @@ Usage: {{ include "dina-helm.build-image-name" .Values.agentapi }}
   - name: DINA_DB
     value: {{ $config.DINA_DB }}
   - name: MIGRATION_USER_{{ $shortName }}
-    value: {{ tpl $config.spring.liquibase.username $root }}
+    value: {{ $serviceConfig.environment.spring.liquibase.username }}
   - name: MIGRATION_USER_PW_{{ $shortName }}
     {{- /* We use the shortName to dynamically find the secret name pattern */}}
     {{- $secretBase := (replace "-" "" $serviceKey) -}}
-    {{- if (index $root.Values.global.environment.config $environmentKey).liquibase_password }}
-    value: {{ tpl $config.spring.liquibase.password $root }}
+    {{- if $serviceConfig.environment.spring.liquibase.password }}
+    value: {{ $serviceConfig.environment.spring.liquibase.password }}
     {{- else }}
     valueFrom:
       secretKeyRef:
@@ -91,10 +92,10 @@ Usage: {{ include "dina-helm.build-image-name" .Values.agentapi }}
         key: password
     {{- end }}
   - name: WEB_USER_{{ $shortName }}
-    value: {{ tpl $config.spring.datasource.username $root }}
+    value: {{ $serviceConfig.environment.spring.datasource.username }}
   - name: WEB_USER_PW_{{ $shortName }}
-    {{- if (index $root.Values.global.environment.config $environmentKey).datasource_password }}
-    value: {{ tpl $config.spring.datasource.password $root }}
+    {{- if $serviceConfig.environment.spring.datasource.password }}
+    value: {{ $serviceConfig.environment.spring.datasource.password }}
     {{- else }}
     valueFrom:
       secretKeyRef:
