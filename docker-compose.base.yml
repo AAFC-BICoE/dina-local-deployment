@@ -28,7 +28,7 @@ services:
 
   keycloak:
     # we need a custom image optimized for Postgres. We are using the image tag to force a rebuild when there is a new Keycloak base container.
-    image: keycloak_pg:24.0.5
+    image: keycloak_pg:25.0.6
     build:
       context: keycloak/.
     environment:
@@ -38,14 +38,12 @@ services:
       KC_DB_URL_DATABASE: keycloak_db
       KC_DB_USERNAME: keycloak_user
       KC_DB_PASSWORD: ${KEYCLOAK_DATABASE_PW}
-      KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
-      KC_HOSTNAME_ADMIN: ${KEYCLOAK_ADMIN_HOSTNAME}
-      KC_PROXY: edge
-#      use CERTIFICATE with proxy passthrough
-#      KC_HTTPS_CERTIFICATE_FILE: /etc/certs/dina-local-cert.pem
-#      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/certs/dina-local-key.pem
-    ports:
-      - 8443:8443
+      KC_HOSTNAME: ${KEYCLOAK_EXTERNAL_URL}
+      KC_HOSTNAME_ADMIN: ${KEYCLOAK_EXTERNAL_ADMIN_URL}
+      KC_HTTP_RELATIVE_PATH: /auth
+      KC_PROXY_HEADERS: xforwarded
+      KC_HTTP_ENABLED: "true"
+#      KC_HOSTNAME_DEBUG: "true"
     networks:
       dina:
     volumes:
