@@ -56,15 +56,15 @@ spec:
                   key: password
               {{- end }}
             - name: SPRING_LIQUIBASE_USER
-              value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.liquibase.username . }}
+              value: {{ .Values.services.dinaexportapi.environment.spring.liquibase.username }}
             - name: SPRING_LIQUIBASE_PASSWORD
-              {{- if not .Values.global.environment.config.dina_export_api.liquibase_password }}
+              {{- if .Values.services.dinaexportapi.environment.spring.liquibase.password }}
+              value: {{ .Values.services.dinaexportapi.environment.spring.liquibase.password }}
+              {{- else }}
               valueFrom:
                 secretKeyRef:
                   name: dinaexportapi-liquibase-secret
                   key: password
-              {{- else }}
-              value: {{ tpl .Values.services.initdb.config.dinaexportapi.spring.liquibase.password . }}
               {{- end }}
             - name: SPRING_FREEMARKER_TEMPLATE-LOADER-PATH
               value: {{ .Values.services.dinaexportapi.environment.spring.freemarker.template_loader_path }}

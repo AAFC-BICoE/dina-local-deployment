@@ -52,15 +52,15 @@ spec:
                   key: password
               {{- end }}
             - name: SPRING_LIQUIBASE_USER
-              value: {{ tpl .Values.services.initdb.config.collectionapi.spring.liquibase.username . }}
+              value: {{ .Values.services.collectionapi.environment.spring.liquibase.username }}
             - name: SPRING_LIQUIBASE_PASSWORD
-              {{- if not .Values.global.environment.config.collection_api.liquibase_password }}
+              {{- if .Values.services.collectionapi.environment.spring.liquibase.password }}
+              value: {{ .Values.services.collectionapi.environment.spring.liquibase.password }}
+              {{- else }}
               valueFrom:
                 secretKeyRef:
                   name: collectionapi-liquibase-secret
                   key: password
-              {{- else }}
-              value: {{ tpl .Values.services.initdb.config.collectionapi.spring.liquibase.password . }}
               {{- end }}
             - name: ACTUATOR_ALLOWEDIP
               value: {{ .Values.services.collectionapi.environment.actuator.allowedIP }}
