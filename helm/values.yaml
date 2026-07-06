@@ -71,7 +71,7 @@ dinadb:
   image:
     registry: docker.io
     repository: postgis/postgis
-    tag: 13-3.2
+    tag: 18-3.6
     pullPolicy: IfNotPresent
 searchcli:
   image:

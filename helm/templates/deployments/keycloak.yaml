@@ -63,6 +63,37 @@ spec:
             {{- else }}
             value: {{ tpl .Values.services.dinadb.environment.DB_PASSWORD . }}
             {{- end }}
+        - name: init-keycloak-schema
+          {{- with .Values.initdb.image }}
+          image: {{ include "dina-helm.build-image-name" . | quote }}
+          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
+          {{- end }}
+          command: ["/bin/bash", "-ce"]
+          args:
+            - |
+              export PGPASSWORD="$POSTGRES_PASSWORD"
+              echo "Creating $DB_SCHEMA if it does not exist..."
+              psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$DB_NAME" -c "CREATE SCHEMA IF NOT EXISTS $DB_SCHEMA AUTHORIZATION $DB_USER;"
+          env:
+          - name: POSTGRES_HOST
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
+          - name: POSTGRES_USER
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
+          - name: DB_NAME
+            value: {{ tpl .Values.services.keycloak.environment.KC_DB_URL_DATABASE . }}
+          - name: DB_SCHEMA
+            value: "keycloak_schema"
+          - name: DB_USER
+            value: {{ tpl .Values.services.keycloak.environment.KC_DB_USERNAME . }}
+          - name: POSTGRES_PASSWORD
+            {{- if not .Values.global.environment.config.dina_db.db_password }}
+            valueFrom:
+              secretKeyRef:
+                name: dina-db-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
+            {{- end }}
       containers:
         - name: keycloak
           {{- with .Values.keycloak.image }}
@@ -99,6 +130,8 @@ spec:
               value: {{ tpl .Values.services.keycloak.environment.KC_DB_URL_DATABASE . }}
             - name: KC_DB_URL_HOST
               value: {{ tpl .Values.services.keycloak.environment.KC_DB_URL_HOST . }}
+            - name: KC_DB_SCHEMA
+              value: "keycloak_schema"
             - name: KC_DB_USERNAME
               value: {{ tpl .Values.services.keycloak.environment.KC_DB_USERNAME . }}
             - name: KC_HOSTNAME
