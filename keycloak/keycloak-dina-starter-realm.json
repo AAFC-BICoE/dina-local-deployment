@@ -239,6 +239,17 @@
       },
       "protocolMappers": [
         {
+          "id": "e81a1c15-d4af-4944-a587-08fd043c7ed8",
+          "name": "sub",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        },
+        {
           "id": "8bece971-1da5-4228-a6a5-3251b5d06f05",
           "name": "is-service-account",
           "protocol": "openid-connect",
@@ -267,6 +278,33 @@
             "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "agent-identifier",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "id": "77c5b8ab-db47-40d8-bd57-1a5e911aea17",
+      "name": "roles",
+      "description": "OpenID Connect scope for add user roles to the access token",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "false",
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "${rolesScopeConsentText}"
+      },
+      "protocolMappers": [
+        {
+          "id": "bceda3ea-3bd6-4788-a234-32d4aa0339b4",
+          "name": "realm roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "user.attribute": "foo",
+            "access.token.claim": "true",
+            "claim.name": "realm_access.roles",
             "jsonType.label": "String"
           }
         }
