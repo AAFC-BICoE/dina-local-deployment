@@ -51,6 +51,7 @@
       },
       "subGroups": [
         { "id": "c7be2b30-9989-4e1d-bdf7-1515b3c7e7ba", "name": "super-user", "path": "/aafc/super-user", "realmRoles": ["super-user"] },
+        { "id": "4ad80118-6317-4a3d-af07-a83a3edef5b3", "name": "dina-admin", "path": "/aafc/dina-admin", "realmRoles": ["dina-admin"] },
         { "id": "a2597c35-e44d-44a5-82ca-07146675d7cf", "name": "user",       "path": "/aafc/user",       "realmRoles": ["user"] },
         { "id": "e4f5ccda-772f-477b-8c28-c95ac82c4d14", "name": "guest",      "path": "/aafc/guest",      "realmRoles": ["guest"] },
         { "id": "e997973a-723d-4e6a-9d88-b991b9c81351", "name": "read-only",  "path": "/aafc/read-only",  "realmRoles": ["read-only"] }
@@ -375,6 +376,16 @@
     ]
   },
   "users": [
+    {
+      "username": "dina-admin",
+      "enabled": true,
+      "realmRoles": ["dina-realm-user", "dina-admin"],
+      "groups": ["aafc/dina-admin"],
+      "totp": false,
+      "credentials": [{ "type": "password", "value": "dina-admin", "temporary": false }],
+      "requiredActions": [],
+      "attributes": { "agentId": [ "3c47203f-9833-4945-b673-ece4e3bd4f9a" ] }
+    },
     {
       "username": "cnc-su",
       "enabled": true,
