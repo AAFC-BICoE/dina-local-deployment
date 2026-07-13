@@ -216,7 +216,7 @@
       "redirectUris": ["*"],
       "webOrigins": ["*"],
       "protocol": "openid-connect",
-      "fullScopeAllowed": false,
+      "fullScopeAllowed": true,
       "defaultClientScopes": [
         "web-origins",
         "dina-attributes",
@@ -379,8 +379,6 @@
       "username": "dina-admin",
       "enabled": true,
       "realmRoles": ["dina-realm-user", "dina-admin"],
-      "groups": [],
-      "totp": false,
       "credentials": [{ "type": "password", "value": "dina-admin", "temporary": false }],
       "requiredActions": [],
       "attributes": { "agentId": [ "3c47203f-9833-4945-b673-ece4e3bd4f9a" ] }
