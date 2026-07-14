@@ -22,47 +22,6 @@ spec:
     spec:
       initContainers:
         {{- include "dina-helm.initContainer.checkDb" . | nindent 8 }}
-        - name: init-db
-          {{- with .Values.initdb.image }}
-          image: {{ include "dina-helm.build-image-name" . | quote }}
-          imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
-          {{- end }}
-          resources:
-            requests:
-              memory: {{ .Values.resources.initcontainers.requests.memory }}
-              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
-            limits:
-              memory: {{ .Values.resources.initcontainers.limits.memory }} 
-              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
-          env:
-          - name: POSTGRES_DB
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
-          - name: POSTGRES_PASSWORD
-            {{- if not .Values.global.environment.config.dina_db.db_password }}
-            valueFrom:
-              secretKeyRef:
-                name: dina-db-secret
-                key: password
-            {{- else }}
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
-            {{- end }}
-          - name: POSTGRES_HOST
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
-          - name: POSTGRES_USER
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
-          - name: DB_NAME
-            value: {{ tpl .Values.services.dinadb.environment.POSTGRES_DB . }}
-          - name : DB_USER
-            value: {{ tpl .Values.services.dinadb.environment.DB_USER . }}
-          - name: DB_PASSWORD
-            {{- if not .Values.global.environment.config.keycloak.db_password }}
-            valueFrom:
-              secretKeyRef:
-                name: keycloak-db-secret
-                key: password
-            {{- else }}
-            value: {{ tpl .Values.services.dinadb.environment.DB_PASSWORD . }}
-            {{- end }}
         - name: init-keycloak-schema
           {{- with .Values.initdb.image }}
           image: {{ include "dina-helm.build-image-name" . | quote }}
