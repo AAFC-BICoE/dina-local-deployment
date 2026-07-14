@@ -52,7 +52,7 @@ spec:
           {{- end }}
           volumeMounts:
             - name: postgres-data
-              mountPath: /var/lib/postgresql/
+              mountPath: /var/lib/postgresql
             - name: tmp
               mountPath: /tmp
           name: dina-db
