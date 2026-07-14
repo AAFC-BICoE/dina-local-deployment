@@ -53,6 +53,8 @@ spec:
             {{- else }}
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
             {{- end }}
+          resources:
+            {{- toYaml .Values.resources.initcontainers | nindent 4 }}
       containers:
         - name: keycloak
           {{- with .Values.keycloak.image }}
