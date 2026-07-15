@@ -34,7 +34,8 @@ spec:
               /work/createUser.sh "${DB_NAME}" "${DB_USER}" "${DB_PASSWORD}"
               export PGPASSWORD="$POSTGRES_PASSWORD"
               echo "Creating schema $DB_SCHEMA in database $DB_NAME with authorization to user $DB_USER if it does not exist..."
-              psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$DB_NAME" -c "CREATE SCHEMA IF NOT EXISTS $DB_SCHEMA AUTHORIZATION $DB_USER;"
+              psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$DB_NAME" -c "CREATE SCHEMA IF NOT EXISTS \"$DB_SCHEMA\";"
+              psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$DB_NAME" -c "ALTER SCHEMA \"$DB_SCHEMA\" OWNER TO \"$DB_USER\";"
           env:
           - name: POSTGRES_HOST
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
