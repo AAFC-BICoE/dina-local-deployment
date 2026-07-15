@@ -18,8 +18,6 @@ else
     PG_ENV=""
 fi
 
-# kubectl exec -i "$MIGRATION_POD_NAME" -- sh -c "$PG_ENV pg_dumpall -U '$DB_USER' -h '$DB_HOST' --globals-only" > globals.sql
-
 kubectl exec "$MIGRATION_POD_NAME" -- sh -c "$PG_ENV psql -U '$DB_USER' -h '$DB_HOST' -d '$DB_NAME' -Atc \"SELECT datname FROM pg_database WHERE NOT datistemplate AND datname != 'postgres'\"" > dbs.txt
 
 while read -r db; do

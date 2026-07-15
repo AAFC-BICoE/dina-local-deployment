@@ -12,10 +12,6 @@ export DB_NAME="dina"
 # A (space separated) list of databases to exclude migrating
 export EXCLUDE_DBS=("keycloak_db")
 
-# echo "Applying global roles and configuration..."
-# Pipe errors to stdout or strip role errors if you want a clean terminal output:
-# kubectl exec -i "$POD_NAME" -- psql -U "$DB_USER" -d "$DB_NAME" < globals.sql || true
-
 while read -r db; do
     # Skip blank lines
     [ -z "$db" ] && continue
