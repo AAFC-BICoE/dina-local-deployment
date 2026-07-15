@@ -30,8 +30,11 @@ spec:
           command: ["/bin/bash", "-ce"]
           args:
             - |
+              export POSTGRES_DB="$DB_NAME"
+              export DB_PASSWORD="$POSTGRES_PASSWORD"
+              /work/createUser.sh "${DB_NAME}" "${DB_USER}" "${DB_PASSWORD}"
               export PGPASSWORD="$POSTGRES_PASSWORD"
-              echo "Creating $DB_SCHEMA if it does not exist..."
+              echo "Creating schema $DB_SCHEMA in database $DB_NAME with authorization to user $DB_USER if it does not exist..."
               psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$DB_NAME" -c "CREATE SCHEMA IF NOT EXISTS $DB_SCHEMA AUTHORIZATION $DB_USER;"
           env:
           - name: POSTGRES_HOST
