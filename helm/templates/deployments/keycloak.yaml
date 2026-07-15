@@ -62,7 +62,7 @@ spec:
                 name: keycloak-db-secret
                 key: password
             {{- else }}
-            value: {{ tpl .Values.services.dinadb.environment.DB_PASSWORD . }}
+            value: {{ tpl .Values.services.keycloak.environment.KC_DB_PASSWORD . }}
             {{- end }}
           resources:
             {{- toYaml .Values.resources.initcontainers | nindent 12 }}
