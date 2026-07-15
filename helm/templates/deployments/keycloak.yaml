@@ -31,7 +31,6 @@ spec:
           args:
             - |
               export POSTGRES_DB="$DB_NAME"
-              export DB_PASSWORD="$POSTGRES_PASSWORD"
               /work/createUser.sh "${DB_NAME}" "${DB_USER}" "${DB_PASSWORD}"
               export PGPASSWORD="$POSTGRES_PASSWORD"
               echo "Creating schema $DB_SCHEMA in database $DB_NAME with authorization to user $DB_USER if it does not exist..."
@@ -55,6 +54,15 @@ spec:
                 key: password
             {{- else }}
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
+            {{- end }}
+          - name: DB_PASSWORD
+            {{- if not .Values.global.environment.config.keycloak.db_password }}
+            valueFrom:
+              secretKeyRef:
+                name: keycloak-db-secret
+                key: password
+            {{- else }}
+            value: {{ tpl .Values.services.dinadb.environment.DB_PASSWORD . }}
             {{- end }}
           resources:
             {{- toYaml .Values.resources.initcontainers | nindent 12 }}
