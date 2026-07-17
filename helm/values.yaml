@@ -53,7 +53,7 @@ keycloak:
   image:
     registry: quay.io
     repository: keycloak/keycloak
-    tag: 24.0.5
+    tag: 25.0.6
     pullPolicy: IfNotPresent
 elasticsearchdina:
   image:
@@ -207,7 +207,6 @@ global:
       enabled: true
       auth_server_url_internal: http://{{ .Values.global.environment.config.keycloak.service }}:8080{{ .Values.global.endpoints.keycloakPath }}
       auth_server_url_external: https://{{ .Values.global.endpoints.ui }}{{ .Values.global.endpoints.keycloakPath }}
-      auth_server_admin_external: https://{{ .Values.global.endpoints.keycloak }}{{ .Values.global.endpoints.keycloakPath }}
     spring:
       security:
         oauth2:
@@ -429,8 +428,8 @@ services:
       KC_DB_URL_HOST: "{{ .Values.global.environment.config.dina_db.service }}"
       KC_DB_URL_DATABASE: "{{ .Values.global.environment.config.dina_db.db_name }}"
       KC_DB_USERNAME: "{{ .Values.global.environment.config.keycloak.db_user }}"
-      KC_HOSTNAME: "{{ .Values.global.environment.keycloak.auth_server_url_external }}"
-      KC_HOSTNAME_ADMIN: "{{ .Values.global.environment.keycloak.auth_server_admin_external }}"
+      KC_HOSTNAME: "https://{{ .Values.global.endpoints.ui }}{{ .Values.global.endpoints.keycloakPath }}"
+      KC_HOSTNAME_ADMIN: "https://{{ .Values.global.endpoints.keycloak }}{{ .Values.global.endpoints.keycloakPath }}"
       KC_HTTP_RELATIVE_PATH: "{{ .Values.global.endpoints.keycloakPath }}"
       KC_PROXY_HEADERS: "{{ .Values.global.environment.config.keycloak.keycloak_proxy_headers }}"
       KC_HTTP_ENABLED: "{{ .Values.global.environment.config.keycloak.keycloak_http_enabled }}"

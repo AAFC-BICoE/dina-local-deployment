@@ -106,11 +106,11 @@ spec:
             - name: KC_HOSTNAME_ADMIN
               value: {{ tpl .Values.services.keycloak.environment.KC_HOSTNAME_ADMIN . }}
             - name: KC_HTTP_RELATIVE_PATH
-              value: {{ .Values.services.keycloak.environment.KC_HTTP_RELATIVE_PATH }}
+              value: {{ tpl .Values.services.keycloak.environment.KC_HTTP_RELATIVE_PATH . }}
             - name: KC_PROXY_HEADERS
-              value: {{ .Values.services.keycloak.environment.KC_PROXY_HEADERS }}
+              value: {{ tpl .Values.services.keycloak.environment.KC_PROXY_HEADERS . }}
             - name: KC_HTTP_ENABLED
-              value: {{ .Values.services.keycloak.environment.KC_HTTP_ENABLED }}
+              value: {{ tpl .Values.services.keycloak.environment.KC_HTTP_ENABLED . | quote }}
             - name: KEYCLOAK_ADMIN
               value: {{ tpl .Values.services.keycloak.environment.KEYCLOAK_ADMIN . }}
           ports:
