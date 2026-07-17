@@ -74,7 +74,7 @@ spec:
           - -ce
           args:
           - |
-            /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path=/auth
+            /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path={{ .Values.global.endpoints.keycloakPath }}
             /opt/keycloak/bin/kc.sh start --import-realm --optimized
           env:
             - name: KC_DB_PASSWORD
