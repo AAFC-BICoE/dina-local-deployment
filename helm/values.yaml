@@ -153,6 +153,8 @@ global:
         db_user: keycloak_user
         keycloak_admin: admin
         keycloak_admin_password:
+        keycloak_proxy_headers: xforwarded
+        keycloak_http_enabled: true
       collection_api:
         label: collection-api
         service: collection-api-service
@@ -203,8 +205,9 @@ global:
       client_id: dina-public
       realm: dina
       enabled: true
-      auth_server_url_internal: http://{{ .Values.global.environment.config.keycloak.service }}:8080/auth
-      auth_server_url_external: https://{{ .Values.global.endpoints.ui }}/auth 
+      auth_server_url_internal: http://{{ .Values.global.environment.config.keycloak.service }}:8080{{ .Values.global.endpoints.keycloakPath }}
+      auth_server_url_external: https://{{ .Values.global.endpoints.ui }}{{ .Values.global.endpoints.keycloakPath }}
+      auth_server_admin_external: https://{{ .Values.global.endpoints.keycloak }}{{ .Values.global.endpoints.keycloakPath }}
     spring:
       security:
         oauth2:
@@ -220,6 +223,7 @@ global:
     api: api.dina.local
     ui: dina.local
     keycloak: keycloak.dina.local
+    keycloakPath: /auth
     elasticsearch: elasticsearch.dina.localhost
 services:
   initdb:
@@ -336,7 +340,7 @@ services:
     environment:
       KEYCLOAK_CLIENTID: "{{ .Values.global.environment.keycloak.client_id }}"
       KEYCLOAK_REALM: "{{ .Values.global.environment.keycloak.realm }}"
-      KEYCLOAK_PUBLIC_URL: "https://{{ .Values.global.endpoints.ui }}/auth"
+      KEYCLOAK_PUBLIC_URL: "https://{{ .Values.global.endpoints.ui }}{{ .Values.global.endpoints.keycloakPath }}"
       OBJECTSTORE_API_ADDRESS: "{{ .Values.global.environment.config.objectstore_api.service }}:8080"
       AGENT_API_ADDRESS: "{{ .Values.global.environment.config.agent_api.service }}:8080"
       SEQDB_API_ADDRESS: "{{ .Values.global.environment.config.seqdb_api.service }}:8080"
@@ -425,9 +429,11 @@ services:
       KC_DB_URL_HOST: "{{ .Values.global.environment.config.dina_db.service }}"
       KC_DB_URL_DATABASE: "{{ .Values.global.environment.config.dina_db.db_name }}"
       KC_DB_USERNAME: "{{ .Values.global.environment.config.keycloak.db_user }}"
-      KC_HOSTNAME: "{{ .Values.global.endpoints.ui }}"
-      KC_HOSTNAME_ADMIN: "{{ .Values.global.endpoints.keycloak }}"
-      KC_PROXY: edge
+      KC_HOSTNAME: "{{ .Values.global.environment.keycloak.auth_server_url_external }}"
+      KC_HOSTNAME_ADMIN: "{{ .Values.global.environment.keycloak.auth_server_admin_external }}"
+      KC_HTTP_RELATIVE_PATH: "{{ .Values.global.endpoints.keycloakPath }}"
+      KC_PROXY_HEADERS: "{{ .Values.global.environment.config.keycloak.keycloak_proxy_headers }}"
+      KC_HTTP_ENABLED: "{{ .Values.global.environment.config.keycloak.keycloak_http_enabled }}"
   elasticsearchdina:
     environment:
       xpack:
