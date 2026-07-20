@@ -44,7 +44,7 @@ spec:
           - name: DB_NAME
             value: {{ tpl .Values.services.keycloak.environment.KC_DB_URL_DATABASE . }}
           - name: DB_SCHEMA
-            value: "keycloak"
+            value: {{ .Values.services.keycloak.environment.KC_DB_SCHEMA }}
           - name: DB_USER
             value: {{ tpl .Values.services.keycloak.environment.KC_DB_USERNAME . }}
           - name: POSTGRES_PASSWORD
@@ -104,7 +104,7 @@ spec:
             - name: KC_DB_URL_HOST
               value: {{ tpl .Values.services.keycloak.environment.KC_DB_URL_HOST . }}
             - name: KC_DB_SCHEMA
-              value: "keycloak"
+              value: {{ .Values.services.keycloak.environment.KC_DB_SCHEMA }}
             - name: KC_DB_USERNAME
               value: {{ tpl .Values.services.keycloak.environment.KC_DB_USERNAME . }}
             - name: KC_HOSTNAME

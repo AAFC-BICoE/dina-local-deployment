@@ -422,6 +422,7 @@ services:
       KC_DB_PASSWORD: "{{ .Values.global.environment.config.keycloak.db_password }}"
       KEYCLOAK_ADMIN: "{{ .Values.global.environment.config.keycloak.keycloak_admin }}"
       KEYCLOAK_ADMIN_PASSWORD: "{{ .Values.global.environment.config.keycloak.keycloak_admin_password }}"
+      KC_DB_SCHEMA: "keycloak"
       KC_DB_URL_HOST: "{{ .Values.global.environment.config.dina_db.service }}"
       KC_DB_URL_DATABASE: "{{ .Values.global.environment.config.dina_db.db_name }}"
       KC_DB_USERNAME: "{{ .Values.global.environment.config.keycloak.db_user }}"
