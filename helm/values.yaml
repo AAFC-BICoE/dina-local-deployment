@@ -17,7 +17,7 @@ collectionapi:
   image:
     registry: docker.io
     repository: aafcbicoe/natural-history-collection-api
-    tag: 0.123
+    tag: 0.125
     pullPolicy: IfNotPresent
 dinaexportapi:
   image:
@@ -29,19 +29,19 @@ dinaui:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-ui
-    tag: 0.222.0
+    tag: 0.224.1
     pullPolicy: IfNotPresent
 dinauserapi:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-user-api
-    tag: 0.28
+    tag: 0.29
     pullPolicy: IfNotPresent
 loantransactionapi:
   image:
     registry: docker.io
     repository: aafcbicoe/loan-transaction-api
-    tag: 0.15
+    tag: 0.16
     pullPolicy: IfNotPresent
 objectstoreapi:
   image:
