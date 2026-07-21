@@ -59,7 +59,7 @@ services:
       - keycloak-db
 
   keycloak-db:
-    image: "postgres:12"
+    image: "postgres:18"
     environment:
       POSTGRES_DB: keycloak_db
       POSTGRES_PASSWORD: ${KEYCLOAK_DATABASE_PW}
@@ -67,10 +67,10 @@ services:
     networks:
       - dina
     volumes:
-      - ./keycloak-data:/var/lib/postgresql/data
+      - ./keycloak-data:/var/lib/postgresql
 
   dina-db:
-    image: "postgis/postgis:12-3.1-alpine"
+    image: "postgis/postgis:18-3.6-alpine"
     healthcheck:
       test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
       timeout: 5s
