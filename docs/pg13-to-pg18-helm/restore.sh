@@ -37,7 +37,7 @@ while read -r db; do
     fi
 
     # Ensure PostGIS is present
-    kubectl exec "$POD_NAME" -- psql -U "$DB_USER" -d "$db" -c "CREATE EXTENSION IF NOT EXISTS postgis;"
+    # kubectl exec "$POD_NAME" -- psql -U "$DB_USER" -d "$db" -c "CREATE EXTENSION IF NOT EXISTS postgis;"
 
     # Stream and untar the local archive into the target pod's /tmp directory
     echo "Streaming backup files into the pod..."
@@ -56,4 +56,3 @@ while read -r db; do
     echo "Successfully synchronized $db."
 
 done < dbs.txt
-

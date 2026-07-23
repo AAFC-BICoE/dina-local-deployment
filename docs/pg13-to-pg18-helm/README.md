@@ -15,98 +15,52 @@
 ./scale.sh
 ```
 
-2. Access the terminal of the `dina-helm-dina-db` stateful set (e.g. `kubectl exec -it statefulset.apps/dina-helm-dina-db -- bash`). On a `dina-helm-dina-db` pod, install the required packages.
+2. Copy the `keycloak_migration.sql` file onto a pod in the `dina-helm-dina-db` stateful set.
 
 ```bash
-apt-get update
-apt-get install -y postgresql-common nano
+kubectl cp keycloak_migration.sql dina-helm-dina-db-0:/
 ```
 
-3. On the `dina-helm-dina-db` pod from the previous step, execute the `/usr/share/postgresql-common/pgdg/apt.postgresql.org.sh` script, entering `1` if prompted `What do you want to do about modified configuration file createcluster.conf?`.
+3. Access the terminal of the `dina-helm-dina-db` stateful set (e.g. `kubectl exec -it statefulset.apps/dina-helm-dina-db -- bash`). On a `dina-helm-dina-db` pod, run the `keycloak_migration.sql` file in a single transaction using `psql`.
 
 ```bash
-/usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+psql --single-transaction -v ON_ERROR_STOP=1 -U pguser -d dina -f keycloak_migration.sql
 ```
 
-4. On the `dina-helm-dina-db` pod from the previous step, upgrade the required packages:
+Exit the bash terminal.
 
-```bash
-apt-get update
-apt-get install -y --only-upgrade 'postgresql*'
-```
-
-5. On the `dina-helm-dina-db` pod from the previous step, enter a `psql` terminal, accessing the `dina` database as the `pguser` user.
-
-```bash
-psql -U pguser -d dina
-```
-
-6. On the psql terminal from the previous step, execute the following SQL to upgrade the version of PostGIS being used.
-
-```sql
-SELECT postgis_extensions_upgrade();
-```
-
-7. On the psql terminal from the previous step, execute the following SQL to begin a transaction.
-
-```sql
-BEGIN;
-```
-
-8. On the psql terminal from the previous step, execute the following SQL to open an editor.
-
-```sql
-\e
-```
-
-9. In the editor from the previous step, copy and paste the SQL from `keycloak_migration.sql` into the editor, ensuring only the contents of `keycloak_migration.sql` are in the editor. Once complete, save the contents of the editor (Ctrl+S) and then exit the editor (Ctrl+X).
-10. In the psql terminal from the previous steps, ensure that no errors were raised. If no errors occured, commit the transaction.
-
-```sql
-COMMIT;
-```
-
-Exit the psql terminal and the bash terminal from the previous steps.
-
-11. Use `kubectl` to apply the `pg18.yaml` file, bringing up a migration pod running PostgreSQL v18.
+4.  Use `kubectl` to apply the `pg18.yaml` file, bringing up a migration pod running PostgreSQL v18.
 
 ```bash
 kubectl apply -f pg18.yaml
 ```
 
-12. Once the migration pod from the previous step is ready, inspect the configuration section at the top of the `dump.sh` script to confirm the defined variables are correct for your specific migration scenario. Once confirmed, export the `DB_PASSWORD` variable with contents equal to the `password` field within the `dina-db-secret` secret. Once complete, run the `dump.sh` script to dump the contents of the database cluster to the current directory. **Note: the `dump.sh` script dumps the contents of the PostgreSQL v13 cluster as tar gzipped files into your local directory. Execute this script in a directory (ideally an empty one) with enough storage space to hold the dumped contents of the PostgreSQL cluster being migrated.**
+5. Once the migration pod from the previous step is ready, inspect the configuration section at the top of the `dump.sh` script to confirm the defined variables are correct for your specific migration scenario. Once confirmed, export the `DB_PASSWORD` variable with contents equal to the `password` field within the `dina-db-secret` secret. Once complete, run the `dump.sh` script to dump the contents of the database cluster to the current directory. **Note: the `dump.sh` script dumps the contents of the PostgreSQL v13 cluster as tar gzipped files into your local directory. Execute this script in a directory (ideally an empty one) with enough storage space to hold the dumped contents of the PostgreSQL cluster being migrated.**
 
 ```bash
 export DB_PASSWORD="$(kubectl get secrets/dina-db-secret --template={{.data.password}} | base64 -d)"
 ./dump.sh
 ```
 
-13. Uninstall the existing helm release.
-
-```bash
-helm uninstall dina-helm
-```
-
-14. Update the helm chart's code such that it supports PostgreSQL v18.
+6. Update the helm chart's code such that it supports PostgreSQL v18.
 
 ```bash
 git pull
-git checkout 38618-upgrade-postgresql-image
 ```
 
-15. Install a release of the helm chart.
+7.  Upgrade the release of the helm chart.
 
 ```
-helm install dina-helm .
+helm upgrade dina-helm .
 ```
 
-16. Once the release has been installed and all pods are ready, scale down all deployments and all stateful sets, except for the `dina-helm-dina-db`, to 0 replicas.
+8. Once the release has been installed and all pods are ready, scale down all deployments and all stateful sets, except for the `dina-helm-dina-db`, to 0 replicas.
 
 ```bash
 ./scale.sh
 ```
 
-17. Once all relevant pods have been scaled down, inspect the configuration section at the top of the `dump.sh` script to confirm the defined variables are correct for your specific migration scenario. Once confirmed, run the `restore.sh` script to restore the contents of the database dump from the current directory. **Note: the `restore.sh` scripts expects that the dumped database files (as created by `dump.sh`) exist within the current directory.**
+9. Once all relevant pods have been scaled down, inspect the configuration section at the top of the `dump.sh` script to confirm the defined variables are correct for your specific migration scenario. Once confirmed, run the `restore.sh` script to restore the contents of the database dump from the current directory. **Note: the `restore.sh` scripts expects that the dumped database files (as created by `dump.sh`) exist within the current directory.**
 
 ```bash
 ./restore.sh
