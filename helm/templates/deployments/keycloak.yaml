@@ -22,21 +22,31 @@ spec:
     spec:
       initContainers:
         {{- include "dina-helm.initContainer.checkDb" . | nindent 8 }}
-        - name: init-db
+        - name: init-keycloak-schema
           {{- with .Values.initdb.image }}
           image: {{ include "dina-helm.build-image-name" . | quote }}
           imagePullPolicy: {{ .pullPolicy | default "IfNotPresent" | quote }}
           {{- end }}
-          resources:
-            requests:
-              memory: {{ .Values.resources.initcontainers.requests.memory }}
-              cpu: {{ .Values.resources.initcontainers.requests.cpu }}            
-            limits:
-              memory: {{ .Values.resources.initcontainers.limits.memory }} 
-              cpu: {{ .Values.resources.initcontainers.limits.cpu }}
+          command: ["/bin/bash", "-ce"]
+          args:
+            - |
+              export POSTGRES_DB="$DB_NAME"
+              /work/createUser.sh "${DB_NAME}" "${DB_USER}" "${DB_PASSWORD}"
+              export PGPASSWORD="$POSTGRES_PASSWORD"
+              echo "Creating schema $DB_SCHEMA in database $DB_NAME with authorization to user $DB_USER if it does not exist..."
+              psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$DB_NAME" -c "CREATE SCHEMA IF NOT EXISTS \"$DB_SCHEMA\";"
+              psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$DB_NAME" -c "ALTER SCHEMA \"$DB_SCHEMA\" OWNER TO \"$DB_USER\";"
           env:
-          - name: POSTGRES_DB
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_DB . }}
+          - name: POSTGRES_HOST
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
+          - name: POSTGRES_USER
+            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
+          - name: DB_NAME
+            value: {{ tpl .Values.services.keycloak.environment.KC_DB_URL_DATABASE . }}
+          - name: DB_SCHEMA
+            value: {{ .Values.services.keycloak.environment.KC_DB_SCHEMA }}
+          - name: DB_USER
+            value: {{ tpl .Values.services.keycloak.environment.KC_DB_USERNAME . }}
           - name: POSTGRES_PASSWORD
             {{- if not .Values.global.environment.config.dina_db.db_password }}
             valueFrom:
@@ -46,14 +56,6 @@ spec:
             {{- else }}
             value: {{ tpl .Values.services.initdb.environment.POSTGRES_PASSWORD . }}
             {{- end }}
-          - name: POSTGRES_HOST
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_HOST . }}
-          - name: POSTGRES_USER
-            value: {{ tpl .Values.services.initdb.environment.POSTGRES_USER . }}
-          - name: DB_NAME
-            value: {{ tpl .Values.services.dinadb.environment.POSTGRES_DB . }}
-          - name : DB_USER
-            value: {{ tpl .Values.services.dinadb.environment.DB_USER . }}
           - name: DB_PASSWORD
             {{- if not .Values.global.environment.config.keycloak.db_password }}
             valueFrom:
@@ -61,8 +63,10 @@ spec:
                 name: keycloak-db-secret
                 key: password
             {{- else }}
-            value: {{ tpl .Values.services.dinadb.environment.DB_PASSWORD . }}
+            value: {{ tpl .Values.services.keycloak.environment.KC_DB_PASSWORD . }}
             {{- end }}
+          resources:
+            {{- toYaml .Values.resources.initcontainers | nindent 12 }}
       containers:
         - name: keycloak
           {{- with .Values.keycloak.image }}
@@ -99,6 +103,8 @@ spec:
               value: {{ tpl .Values.services.keycloak.environment.KC_DB_URL_DATABASE . }}
             - name: KC_DB_URL_HOST
               value: {{ tpl .Values.services.keycloak.environment.KC_DB_URL_HOST . }}
+            - name: KC_DB_SCHEMA
+              value: {{ .Values.services.keycloak.environment.KC_DB_SCHEMA }}
             - name: KC_DB_USERNAME
               value: {{ tpl .Values.services.keycloak.environment.KC_DB_USERNAME . }}
             - name: KC_HOSTNAME
