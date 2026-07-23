@@ -18,15 +18,8 @@ export DB_NAME="${3:-dina}"
 OUTPUT_DIR="./backups/${DB_CONTAINER}"
 mkdir -p "$OUTPUT_DIR"
 
-# Resolve password: check local vars first, otherwise inspect the target container's environment
-if [ -n "${DB_PASSWORD:-}" ]; then
-    DB_PASSWORD="$DB_PASSWORD"
-elif [ -n "${POSTGRES_PASSWORD:-}" ]; then
-    DB_PASSWORD="$POSTGRES_PASSWORD"
-else
-    # Fetch POSTGRES_PASSWORD (or KEYCLOAK_DATABASE_PW) directly from the target container
-    DB_PASSWORD=$(docker exec "$DB_CONTAINER" sh -c 'echo "${POSTGRES_PASSWORD:-$KEYCLOAK_DATABASE_PW}"')
-fi
+# Fetch POSTGRES_PASSWORD (or KEYCLOAK_DATABASE_PW) directly from the target container
+DB_PASSWORD=$(docker exec "$DB_CONTAINER" sh -c 'echo "${POSTGRES_PASSWORD:-$KEYCLOAK_DATABASE_PW}"')
 
 if [ -n "$DB_PASSWORD" ]; then
     PG_ENV="-e PGPASSWORD=$DB_PASSWORD"
