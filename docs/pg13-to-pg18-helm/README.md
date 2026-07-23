@@ -5,6 +5,7 @@
 **Notes:**
 
 - This guide assumes the user is migrating from a release using the `postgis/postgis:13-3.2` image for the dina-helm-dina-db statefulset to a `postgis/postgis:18-3.6` image.
+- This guide assumes the user is migrating from a release using Keycloak 25. If you are migrating from a release that uses a newer Keycloak version, you may have to update the `table_list` in `keycloak_migration.sql`.
 - This guide assumes the name of the existing release is `dina-helm`. If you're migrating a release with a different release name, you may have to account for name changes when following instructions and copying commands.
 
 ## Instructions
