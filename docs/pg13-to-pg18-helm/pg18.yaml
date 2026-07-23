@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pg-migration-pod
+spec:
+  containers:
+    - name: postgres-upgrade
+      image: postgres:18
+      env:
+        - name: POSTGRES_PASSWORD
+          value: password
