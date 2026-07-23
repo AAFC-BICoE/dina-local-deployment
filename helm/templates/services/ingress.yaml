@@ -15,7 +15,7 @@ spec:
     - host: {{ .Values.global.endpoints.ui }}
       http:
         paths:
-        - path: "/auth"
+        - path: {{ .Values.global.endpoints.keycloakPath }}
           pathType: Prefix
           backend:
             service:
@@ -25,7 +25,7 @@ spec:
     - host: {{ .Values.global.endpoints.keycloak }}
       http:
         paths:
-        - path: "/auth"
+        - path: {{ .Values.global.endpoints.keycloakPath }}
           pathType: Prefix
           backend:
             service:

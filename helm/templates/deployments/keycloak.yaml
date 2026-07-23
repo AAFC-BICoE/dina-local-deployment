@@ -78,7 +78,7 @@ spec:
           - -ce
           args:
           - |
-            /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path=/auth
+            /opt/keycloak/bin/kc.sh build --db=postgres --http-relative-path={{ .Values.global.endpoints.keycloakPath }}
             /opt/keycloak/bin/kc.sh start --import-realm --optimized
           env:
             - name: KC_DB_PASSWORD
@@ -111,8 +111,12 @@ spec:
               value: {{ tpl .Values.services.keycloak.environment.KC_HOSTNAME . }}
             - name: KC_HOSTNAME_ADMIN
               value: {{ tpl .Values.services.keycloak.environment.KC_HOSTNAME_ADMIN . }}
-            - name: KC_PROXY
-              value: {{ .Values.services.keycloak.environment.KC_PROXY }}
+            - name: KC_HTTP_RELATIVE_PATH
+              value: {{ tpl .Values.services.keycloak.environment.KC_HTTP_RELATIVE_PATH . }}
+            - name: KC_PROXY_HEADERS
+              value: {{ tpl .Values.services.keycloak.environment.KC_PROXY_HEADERS . }}
+            - name: KC_HTTP_ENABLED
+              value: {{ tpl .Values.services.keycloak.environment.KC_HTTP_ENABLED . | quote }}
             - name: KEYCLOAK_ADMIN
               value: {{ tpl .Values.services.keycloak.environment.KEYCLOAK_ADMIN . }}
           ports:
