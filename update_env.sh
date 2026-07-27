@@ -17,6 +17,12 @@ if [ ! -f "$INPUT_FILE" ]; then
     exit 1
 fi
 
+# Check if output file exists
+if [ -f "$OUTPUT_FILE" ]; then
+    echo "Output file '$OUTPUT_FILE' already exists. Skipping secret generation."
+    exit 0
+fi
+
 # Function to generate a random 16-character string
 generate_random_value() {
     openssl rand -base64 18 | tr -dc 'a-zA-Z0-9' | head -c 16
