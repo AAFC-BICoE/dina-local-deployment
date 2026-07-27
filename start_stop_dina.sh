@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+set -e
+
 # DINA Modules to activate
 DINA_MODULES=()
 DINA_MODULES+=('user_api')
-#DINA_MODULES+=('collection_api') 
+#DINA_MODULES+=('collection_api')
 #DINA_MODULES+=('object_store_api')
 #DINA_MODULES+=('agent_api')
 #DINA_MODULES+=('search_api')
@@ -55,6 +57,8 @@ echo -e "${YELLOW_COLOR_CODE}Using the following config(s):${WHITE_COLOR_CODE} $
 for i in "${!DINA_CONFIGS[@]}"; do
   DINA_CONFIGS[$i]="-f ${DINA_CONFIGS[$i]}"
 done
+
+./update_env.sh .env.example
 
 # Run docker-compose with the profiles and configs
 docker compose ${DINA_CONFIGS[@]} $@
