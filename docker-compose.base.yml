@@ -36,6 +36,7 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PW}
       KC_DB_URL_HOST: keycloak-db
       KC_DB_URL_DATABASE: keycloak_db
+      KC_DB_SCHEMA: ${KEYCLOAK_DB_SCHEMA:-keycloak}
       KC_DB_USERNAME: keycloak_user
       KC_DB_PASSWORD: ${KEYCLOAK_DATABASE_PW}
       KC_HOSTNAME: ${KEYCLOAK_EXTERNAL_URL}
@@ -56,21 +57,29 @@ services:
       - "traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_HOSTNAME}`, `${KEYCLOAK_ADMIN_HOSTNAME}`) && PathPrefix(`${KEYCLOAK_HOSTNAME_PATH}`)"
       - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
     depends_on:
-      - keycloak-db
+      keycloak-db:
+        condition: service_healthy
 
   keycloak-db:
-    image: "postgres:12"
+    image: "postgres:18"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "keycloak_db", "-U", "keycloak_user" ]
+      timeout: 5s
+      interval: 10s
+      retries: 10
     environment:
       POSTGRES_DB: keycloak_db
       POSTGRES_PASSWORD: ${KEYCLOAK_DATABASE_PW}
       POSTGRES_USER: keycloak_user
+      KEYCLOAK_DB_SCHEMA: ${KEYCLOAK_DB_SCHEMA:-keycloak}
     networks:
       - dina
     volumes:
-      - ./keycloak-data:/var/lib/postgresql/data
+      - ./keycloak-data:/var/lib/postgresql
+      - ./keycloak/init-keycloak-schema.sh:/docker-entrypoint-initdb.d/20-init-keycloak-schema.sh:ro
 
   dina-db:
-    image: "postgis/postgis:12-3.1-alpine"
+    image: "postgis/postgis:18-3.6-alpine"
     healthcheck:
       test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
       timeout: 5s
