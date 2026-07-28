@@ -2,6 +2,9 @@
 
 set -e
 
+# Suffixes of environment variables whose values are replaced with auto-generated secrets
+SECRET_SUFFIXES=("_PW" "_PASS" "_PASSWORD")
+
 # Check for input file argument
 if [ $# -ne 1 ]; then
     echo "Usage: $0 <input_env_file>"
@@ -39,9 +42,14 @@ generate_random_value() {
             # Clean up whitespace from value
             var_value="${var_value#"${var_value%%[![:space:]]*}"}"
 
-            # Replace empty or quote-only values with random string
-            if [ -z "$var_value" ] || [[ "$var_value" =~ ^\"[[:space:]]*$ ]] || [[ "$var_value" =~ ^\'[[:space:]]*$ ]]; then
-                var_value="$(generate_random_value)"
+            # Check if value is empty AND name ends with one of the allowed suffixes
+            if [ -z "$var_value" ]; then
+                for suffix in "${SECRET_SUFFIXES[@]}"; do
+                    if [[ "$var_name" == *"$suffix" ]]; then
+                        var_value="$(generate_random_value)"
+                        break
+                    fi
+                done
             fi
 
             echo "${var_name}=${var_value}"
