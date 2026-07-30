@@ -199,7 +199,7 @@ services:
       - "traefik.http.routers.objectstoreapi.middlewares=stripobjectstore@docker"
       - "traefik.docker.network=dina-local-deployment_dina"
     volumes:
-      - object-store-data:/object-store-storage
+      - ./object-store-data:/object-store-storage
     depends_on:
       init-db:
         condition: service_completed_successfully
@@ -443,8 +443,6 @@ volumes:
   elastic-configurator-settings:
     driver: local
   export-data:
-    driver: local
-  object-store-data:
     driver: local
 
 networks:

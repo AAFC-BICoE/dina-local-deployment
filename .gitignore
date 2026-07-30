@@ -2,6 +2,8 @@
 
 # Minio data folder
 minio-data/*
+# Object-store FS mode storage (bind mount)
+object-store-data
 certs/*.pem
 keycloak-data
 rabbitmq-data
