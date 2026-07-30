@@ -53,6 +53,24 @@ echo -e "${WHITE_COLOR_CODE}"
 echo -e "${YELLOW_COLOR_CODE}Using the following profile(s):${WHITE_COLOR_CODE} $COMPOSE_PROFILES"
 echo -e "${YELLOW_COLOR_CODE}Using the following config(s):${WHITE_COLOR_CODE} $COMPOSE_CONFIGS"
 
+# Minio has been removed: the object-store-api now runs in filesystem (FS) mode and
+# stores objects on a Docker named volume instead of Minio. If the leftover Minio
+# data folder still contains objects, they are NOT migrated automatically and will
+# no longer be reachable. Warn the user so they can back them up / migrate manually.
+# (The folder is typically root-owned, so detection is best-effort: permission
+# errors are suppressed and simply result in no files being found.)
+RED_COLOR_CODE="\033[31m"
+MINIO_DATA_DIR="./minio-data"
+if [ -d "${MINIO_DATA_DIR}" ]; then
+  # Count real bucket objects, skipping Minio's internal .minio.sys metadata dir.
+  MINIO_FILE_COUNT=$(find "${MINIO_DATA_DIR}" -path '*/.minio.sys' -prune -o -type f -print 2>/dev/null | wc -l)
+  if [ "${MINIO_FILE_COUNT}" -gt 0 ]; then
+    echo -e "${RED_COLOR_CODE}WARNING:${WHITE_COLOR_CODE} ${MINIO_FILE_COUNT} object(s) found in ${MINIO_DATA_DIR}."
+    echo -e "${RED_COLOR_CODE}Minio is no longer used${WHITE_COLOR_CODE} — the object-store-api now runs in filesystem mode and these objects were NOT migrated."
+    echo "To keep them, back up or migrate the contents manually before relying on the object-store-api."
+  fi
+fi
+
 # Append -f to each config for use in docker-compose
 for i in "${!DINA_CONFIGS[@]}"; do
   DINA_CONFIGS[$i]="-f ${DINA_CONFIGS[$i]}"
