@@ -9,7 +9,7 @@
   "mappings": {
     "_meta" : {
       "version" : {
-        "number" : "2.10"
+        "number" : "2.11"
       }
     },
     "date_detection": true,
@@ -275,6 +275,15 @@
                     "type": "integer"
                   }
                 }
+              },
+              "targetOrganismPrimaryTypeStatus": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
               }
             }
           },
@@ -469,6 +478,15 @@
                 "type": "geo_point"
               },
               "lifeStage": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "sex": {
                 "type": "text",
                 "fields": {
                   "keyword": {
