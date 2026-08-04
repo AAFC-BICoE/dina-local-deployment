@@ -17,7 +17,7 @@ collectionapi:
   image:
     registry: docker.io
     repository: aafcbicoe/natural-history-collection-api
-    tag: 0.125
+    tag: 0.126
     pullPolicy: IfNotPresent
 dinaexportapi:
   image:
@@ -77,13 +77,13 @@ searchcli:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-search-cli
-    tag: 0.55
+    tag: 0.56
     pullPolicy: IfNotPresent
 searchws:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-search-ws
-    tag: 0.55
+    tag: 0.56
     pullPolicy: IfNotPresent
 seqdbapi:
   image:

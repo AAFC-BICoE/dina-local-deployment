@@ -85,7 +85,7 @@ services:
         condition: service_completed_successfully
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.125
+    image: aafcbicoe/natural-history-collection-api:0.126
     profiles: ["collection_api"]
     environment:
       keycloak.enabled: "true"
@@ -362,7 +362,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.55
+    image: aafcbicoe/dina-search-ws:0.56
     mem_limit: 512m
     profiles: ["search_api"]
     environment:
@@ -386,7 +386,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.55
+    image: aafcbicoe/dina-search-cli:0.56
     profiles: ["search_api"]
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
