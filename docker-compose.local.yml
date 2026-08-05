@@ -1,6 +1,6 @@
 services:
   dina-ui:
-    image: aafcbicoe/dina-ui:0.224.1
+    image: aafcbicoe/dina-ui:0.226.0
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
