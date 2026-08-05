@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+set -e
+
 # DINA Modules to activate
 DINA_MODULES=()
 DINA_MODULES+=('user_api')
-#DINA_MODULES+=('collection_api') 
+#DINA_MODULES+=('collection_api')
 #DINA_MODULES+=('object_store_api')
 #DINA_MODULES+=('agent_api')
 #DINA_MODULES+=('search_api')
@@ -51,10 +53,47 @@ echo -e "${WHITE_COLOR_CODE}"
 echo -e "${YELLOW_COLOR_CODE}Using the following profile(s):${WHITE_COLOR_CODE} $COMPOSE_PROFILES"
 echo -e "${YELLOW_COLOR_CODE}Using the following config(s):${WHITE_COLOR_CODE} $COMPOSE_CONFIGS"
 
+# Minio has been removed: the object-store-api now runs in filesystem (FS) mode and
+# stores objects on the ./object-store-data bind mount instead of Minio. If the
+# leftover Minio data folder still contains objects, they are NOT migrated
+# automatically and will no longer be reachable. Warn the user so they can back
+# them up / migrate manually. (The folder is typically root-owned, so detection
+# is best-effort: permission errors are suppressed and simply result in no files
+# being found.)
+RED_COLOR_CODE="\033[31m"
+MINIO_DATA_DIR="./minio-data"
+if [ -d "${MINIO_DATA_DIR}" ]; then
+  # Count real bucket objects, skipping Minio's internal .minio.sys metadata dir.
+  MINIO_FILE_COUNT=$(find "${MINIO_DATA_DIR}" -path '*/.minio.sys' -prune -o -type f -print 2>/dev/null | wc -l)
+  if [ "${MINIO_FILE_COUNT}" -gt 0 ]; then
+    echo -e "${RED_COLOR_CODE}WARNING:${WHITE_COLOR_CODE} ${MINIO_FILE_COUNT} object(s) found in ${MINIO_DATA_DIR}."
+    echo -e "${RED_COLOR_CODE}Minio is no longer used${WHITE_COLOR_CODE} — the object-store-api now runs in filesystem mode and these objects were NOT migrated."
+    echo "To keep them, back up or migrate the contents manually before relying on the object-store-api."
+  fi
+fi
+
+# Ensure the object-store FS storage bind mount exists and is writable by the
+# object-store-api, which runs as a non-root user (uid 1000). Docker creates a
+# bind-mount source as root:root 0755 if it has to create the directory itself,
+# which the uid-1000 process cannot write to. Pre-create it as 0777 so any uid
+# can write, regardless of the host user's uid. Idempotent; chmod failures
+# (e.g. a previously root-owned dir) are surfaced as a warning.
+OBJECT_STORE_DATA_DIR="./object-store-data"
+if [[ "${COMPOSE_PROFILES}" =~ "object_store_api" ]]; then
+  mkdir -p "${OBJECT_STORE_DATA_DIR}" 2>/dev/null
+  if ! chmod 0777 "${OBJECT_STORE_DATA_DIR}" 2>/dev/null; then
+    echo -e "${RED_COLOR_CODE}WARNING:${WHITE_COLOR_CODE} could not make ${OBJECT_STORE_DATA_DIR} world-writable (uid-1000 object-store-api may be unable to upload files)."
+    echo "If it is root-owned, run: sudo chown -R \$(id -u):\$(id -g) ${OBJECT_STORE_DATA_DIR} && sudo chmod 0777 ${OBJECT_STORE_DATA_DIR}"
+  fi
+fi
+
+
 # Append -f to each config for use in docker-compose
 for i in "${!DINA_CONFIGS[@]}"; do
   DINA_CONFIGS[$i]="-f ${DINA_CONFIGS[$i]}"
 done
+
+./update_env.sh .env.example
 
 # Run docker-compose with the profiles and configs
 docker compose ${DINA_CONFIGS[@]} $@
