@@ -256,7 +256,7 @@ services:
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch-dina:
     # we need a plugin so a custom image is built (to ensure an immutable Docker image)
-    image: elasticsearch_icu:8.11.1
+    image: elasticsearch_icu:8.18.8
     build: elasticsearch/
     profiles: [ "search_api" ]
     environment:
@@ -302,21 +302,6 @@ services:
     labels:
       - "traefik.http.routers.elasticsearch.rule=Host(`elasticsearch-dina.localhost`)"
       - "traefik.http.routers.elasticsearch.tls=true"
-
-  # Addition of Kibana, for development purpose or browsing through the dina indices.
-  kibana-dina:
-    image: docker.elastic.co/kibana/kibana:7.16.2
-    profiles: ["kibana"]
-    environment:
-      - ELASTICSEARCH_HOSTS=${ELASTIC_SERVER_URL}
-    extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
-    networks:
-      - dina
-    ports:
-      - 5601:5601
-    depends_on:
-      - elasticsearch-dina
 
   prometheus:
     image: prom/prometheus

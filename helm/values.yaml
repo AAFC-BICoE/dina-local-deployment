@@ -59,7 +59,7 @@ elasticsearchdina:
   image:
     registry: docker.elastic.co
     repository: elasticsearch/elasticsearch
-    tag: 8.11.1
+    tag: 8.18.8
     pullPolicy: IfNotPresent
 elasticconfigurator:
   image:
