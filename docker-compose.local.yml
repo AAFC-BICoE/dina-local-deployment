@@ -1,6 +1,6 @@
 services:
   dina-ui:
-    image: aafcbicoe/dina-ui:0.224.1
+    image: aafcbicoe/dina-ui:0.226.0
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
@@ -85,7 +85,7 @@ services:
         condition: service_completed_successfully
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.125
+    image: aafcbicoe/natural-history-collection-api:0.126
     profiles: ["collection_api"]
     environment:
       keycloak.enabled: "true"
@@ -171,7 +171,7 @@ services:
         condition: service_completed_successfully
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.34
+    image: aafcbicoe/object-store-api:1.35
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
@@ -205,7 +205,7 @@ services:
         condition: service_completed_successfully
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.24
+    image: aafcbicoe/dina-export-api:0.25
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
@@ -256,7 +256,7 @@ services:
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch-dina:
     # we need a plugin so a custom image is built (to ensure an immutable Docker image)
-    image: elasticsearch_icu:8.11.1
+    image: elasticsearch_icu:8.18.8
     build: elasticsearch/
     profiles: [ "search_api" ]
     environment:
@@ -303,21 +303,6 @@ services:
       - "traefik.http.routers.elasticsearch.rule=Host(`elasticsearch-dina.localhost`)"
       - "traefik.http.routers.elasticsearch.tls=true"
 
-  # Addition of Kibana, for development purpose or browsing through the dina indices.
-  kibana-dina:
-    image: docker.elastic.co/kibana/kibana:7.16.2
-    profiles: ["kibana"]
-    environment:
-      - ELASTICSEARCH_HOSTS=${ELASTIC_SERVER_URL}
-    extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
-    networks:
-      - dina
-    ports:
-      - 5601:5601
-    depends_on:
-      - elasticsearch-dina
-
   prometheus:
     image: prom/prometheus
     profiles: ["prometheus"]
@@ -362,7 +347,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.55
+    image: aafcbicoe/dina-search-ws:0.56
     mem_limit: 512m
     profiles: ["search_api"]
     environment:
@@ -386,7 +371,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.55
+    image: aafcbicoe/dina-search-cli:0.56
     profiles: ["search_api"]
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/

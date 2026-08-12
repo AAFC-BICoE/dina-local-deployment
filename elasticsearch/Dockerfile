@@ -1,4 +1,4 @@
-FROM docker.elastic.co/elasticsearch/elasticsearch:8.11.1
+FROM docker.elastic.co/elasticsearch/elasticsearch:8.18.8
 
 RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
 RUN mkdir /usr/share/elasticsearch/config/certs
