@@ -122,6 +122,7 @@ app:
   name: dina-helm
 global:
   environment:
+    isOpenShift: false
     git:
       host:
       repo:
