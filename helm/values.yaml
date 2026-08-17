@@ -11,31 +11,31 @@ agentapi:
   image:
     registry: docker.io
     repository: aafcbicoe/agent-api
-    tag: 0.34
+    tag: 0.35
     pullPolicy: IfNotPresent
 collectionapi:
   image:
     registry: docker.io
     repository: aafcbicoe/natural-history-collection-api
-    tag: 0.126
+    tag: 0.127
     pullPolicy: IfNotPresent
 dinaexportapi:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-export-api
-    tag: 0.24
+    tag: 0.26
     pullPolicy: IfNotPresent
 dinaui:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-ui
-    tag: 0.226.0
+    tag: 0.227.0
     pullPolicy: IfNotPresent
 dinauserapi:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-user-api
-    tag: 0.29
+    tag: 0.30
     pullPolicy: IfNotPresent
 loantransactionapi:
   image:
@@ -47,7 +47,7 @@ objectstoreapi:
   image:
     registry: docker.io
     repository: aafcbicoe/object-store-api
-    tag: 1.34
+    tag: 1.36
     pullPolicy: IfNotPresent
 keycloak:
   image:
@@ -77,13 +77,13 @@ searchcli:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-search-cli
-    tag: 0.56
+    tag: 0.57
     pullPolicy: IfNotPresent
 searchws:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-search-ws
-    tag: 0.56
+    tag: 0.57
     pullPolicy: IfNotPresent
 seqdbapi:
   image:
