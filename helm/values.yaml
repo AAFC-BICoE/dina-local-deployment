@@ -29,7 +29,7 @@ dinaui:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-ui
-    tag: "0.227.0"
+    tag: "0.227.1"
     pullPolicy: IfNotPresent
 dinauserapi:
   image:
