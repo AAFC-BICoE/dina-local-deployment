@@ -58,7 +58,7 @@ EOF
 sudo apt update
 ----
 
-Using this command, you will retrieve the specific version of docker for your Ubuntu version:
+Using this command, you will retrieve the specific package of Docker (version {var_docker_version}) for your Ubuntu version:
 
 [source, bash, subs="attributes"]
 ----
@@ -74,16 +74,8 @@ sudo apt-get install docker-ce=5:25.0.1-1~ubuntu.22.04~jammy docker-ce-cli=5:25.
 
 More info: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 
-=== Docker Compose (Install on Linux)
-
-This step requires the Docker repository to be setup from the above steps.
-
-[source, bash]
-----
-sudo apt-get install docker-compose-plugin
-----
-
-More info: https://docs.docker.com/compose/install/linux/#install-using-the-repository
+=== Docker Post-installation
+Follow Post-installation steps to Manage Docker as a non-root user https://docs.docker.com/engine/install/linux-postinstall/
 
 === Node.js
 
@@ -189,7 +181,6 @@ Once you have VSCode downloaded, you can run this command to install the recomme
 code --install-extension vscjava.vscode-java-pack
 code --install-extension msjsdiag.debugger-for-chrome
 code --install-extension ms-azuretools.vscode-containers
-code --install-extension gabrielbb.vscode-lombok
 code --install-extension esbenp.prettier-vscode
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension firsttris.vscode-jest-runner
