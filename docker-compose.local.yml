@@ -186,10 +186,8 @@ services:
       spring.datasource.password: ${OBJ_STORE_WEB_USER_PW}
       spring.servlet.multipart.max-file-size: 1GB
       spring.servlet.multipart.max-request-size: 1GB
-      dina.fileStorage.implementation: S3
-      s3.endpoint: http://minio
-      s3.accessKey: ${MINIO_ACCESS_KEY}
-      s3.secretKey: ${MINIO_SECRET_KEY}
+      dina.fileStorage.implementation: FS
+      dina.fileStorage.root: /object-store-storage
     networks:
       - dina
     extra_hosts:
@@ -200,6 +198,8 @@ services:
       - "traefik.http.routers.objectstoreapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${OBJECT_STORE_API_PREFIX}/`)"
       - "traefik.http.routers.objectstoreapi.middlewares=stripobjectstore@docker"
       - "traefik.docker.network=dina-local-deployment_dina"
+    volumes:
+      - ./object-store-data:/object-store-storage
     depends_on:
       init-db:
         condition: service_completed_successfully
@@ -240,18 +240,6 @@ services:
     depends_on:
       init-db:
         condition: service_completed_successfully
-
-  minio:
-    image: minio/minio:RELEASE.2022-10-05T14-58-27Z
-    profiles: ["object_store_api"]
-    volumes:
-      - ./minio-data:/data
-    environment:
-      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
-      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
-    command: server /data
-    networks:
-      - dina
 
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch-dina:
