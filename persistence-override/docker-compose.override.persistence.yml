@@ -1,4 +1,4 @@
 services:
   dina-db:
     volumes:
-      - ./dina-db-data:/var/lib/postgresql/data
+      - ./dina-db-data:/var/lib/postgresql
