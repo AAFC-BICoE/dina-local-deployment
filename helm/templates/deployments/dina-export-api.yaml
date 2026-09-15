@@ -90,7 +90,7 @@ spec:
             - name: OBJECTSTORE_API_URL
               value: {{ tpl .Values.services.dinaexportapi.environment.export.objectStore.apiUrl . }}
             - name: AGENT_API_URL
-              value: {{ tpl .Values.services.dinaexportapi.environment.export.agentApiUrl . }}
+              value: {{ tpl .Values.services.dinaexportapi.environment.export.agent.apiUrl . }}
           readinessProbe:
             tcpSocket:
               port: 8080
