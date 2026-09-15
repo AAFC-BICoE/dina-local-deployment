@@ -87,6 +87,10 @@ spec:
               {{- end }}
             - name: ELASTICSEARCH_CERTPATH
               value: {{ tpl .Values.services.dinaexportapi.environment.elasticsearch.certPath . }}
+            - name: OBJECTSTORE_API_URL
+              value: {{ tpl .Values.services.dinaexportapi.environment.export.objectStore.apiUrl . }}
+            - name: AGENT_API_URL
+              value: {{ tpl .Values.services.dinaexportapi.environment.export.agentApiUrl . }}
           readinessProbe:
             tcpSocket:
               port: 8080

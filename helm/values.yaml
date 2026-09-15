@@ -23,7 +23,7 @@ dinaexportapi:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-export-api
-    tag: "0.26"
+    tag: "0.27"
     pullPolicy: IfNotPresent
 dinaui:
   image:
@@ -320,6 +320,10 @@ services:
           user:
             queue: "{{ .Values.global.environment.config.rabbitmq.user.queue }}"
         export:
+          objectStore:
+            apiUrl: "{{ .Values.global.environment.config.objectstore_api.service }}:8080"
+          agentApi:
+            apiUrl: "{{ .Values.global.environment.config.agent_api.service }}:8080"
           objectStoreDownloadUrl: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1/toa
           workingFolder: /tmp/dina-data-export
       http_client:
