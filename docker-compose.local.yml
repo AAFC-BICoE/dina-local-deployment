@@ -1,6 +1,6 @@
 services:
   dina-ui:
-    image: aafcbicoe/dina-ui:0.228.0
+    image: aafcbicoe/dina-ui:0.229.0
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
@@ -33,7 +33,7 @@ services:
       - "${UI_CUSTOMIZATION_FOLDER_PATH}:/srv/public"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.26.0
+    image: aafcbicoe/seqdb-api:2.27.0
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
@@ -113,7 +113,7 @@ services:
         condition: service_completed_successfully
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.16
+    image: aafcbicoe/loan-transaction-api:0.17
     profiles: ["loan_transaction_api"]
     mem_limit: 512m
     environment:
