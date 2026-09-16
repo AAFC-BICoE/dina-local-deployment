@@ -321,9 +321,9 @@ services:
             queue: "{{ .Values.global.environment.config.rabbitmq.user.queue }}"
         export:
           objectStore:
-            apiUrl: "{{ .Values.global.environment.config.objectstore_api.service }}:8080"
+            host: "http://{{ .Values.global.environment.config.objectstore_api.service }}:8080"
           agent:
-            apiUrl: "{{ .Values.global.environment.config.agent_api.service }}:8080"
+            host: "http://{{ .Values.global.environment.config.agent_api.service }}:8080"
           objectStoreDownloadUrl: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1/toa
           workingFolder: /tmp/dina-data-export
       http_client:
