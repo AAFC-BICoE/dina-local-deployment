@@ -43,7 +43,6 @@ services:
       dina.messaging.isProducer: "true"
       dina.messaging.export.queue: dina.export.queue
       dina.messaging.user.queue: dina.user.queue
-      dina.export.objectStoreDownloadUrl: http://object-store-api:8080/api/v1/toa
       rabbitmq.host: rabbitmq-dina
       rabbitmq.username: ${RABBITMQ_DEFAULT_USER}
       rabbitmq.password: ${RABBITMQ_DEFAULT_PASS}
