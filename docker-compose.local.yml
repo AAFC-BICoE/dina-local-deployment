@@ -220,6 +220,7 @@ services:
       dina.export.workingFolder: /data/exports
       dina.export.objectStore.apiUrl: http://object-store-api:8080/api/v1
       dina.export.agent.apiUrl: http://agent-api:8080/api/v1
+      dina.export.objectStoreDownloadUrl: http://object-store-api:8080/api/v1/toa
       dina.report.templateFolder: /data/templates
       elasticsearch.host: elasticsearch-dina
       elasticsearch.username: elastic
