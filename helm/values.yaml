@@ -17,19 +17,19 @@ collectionapi:
   image:
     registry: docker.io
     repository: aafcbicoe/natural-history-collection-api
-    tag: "0.127"
+    tag: "0.128"
     pullPolicy: IfNotPresent
 dinaexportapi:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-export-api
-    tag: "0.26"
+    tag: "0.27"
     pullPolicy: IfNotPresent
 dinaui:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-ui
-    tag: "0.227.1"
+    tag: "0.229.0"
     pullPolicy: IfNotPresent
 dinauserapi:
   image:
@@ -41,13 +41,13 @@ loantransactionapi:
   image:
     registry: docker.io
     repository: aafcbicoe/loan-transaction-api
-    tag: "0.16"
+    tag: "0.17"
     pullPolicy: IfNotPresent
 objectstoreapi:
   image:
     registry: docker.io
     repository: aafcbicoe/object-store-api
-    tag: "1.36"
+    tag: "1.37"
     pullPolicy: IfNotPresent
 keycloak:
   image:
@@ -77,19 +77,19 @@ searchcli:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-search-cli
-    tag: "0.57"
+    tag: "0.58"
     pullPolicy: IfNotPresent
 searchws:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-search-ws
-    tag: "0.57"
+    tag: "0.58"
     pullPolicy: IfNotPresent
 seqdbapi:
   image:
     registry: docker.io
     repository: aafcbicoe/seqdb-api
-    tag: "2.26.0"
+    tag: "2.27.0"
     pullPolicy: IfNotPresent
 rabbitmq:
   image:
@@ -320,6 +320,10 @@ services:
           user:
             queue: "{{ .Values.global.environment.config.rabbitmq.user.queue }}"
         export:
+          objectStore:
+            host: "http://{{ .Values.global.environment.config.objectstore_api.service }}:8080"
+          agent:
+            host: "http://{{ .Values.global.environment.config.agent_api.service }}:8080"
           objectStoreDownloadUrl: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1/toa
           workingFolder: /tmp/dina-data-export
       http_client:

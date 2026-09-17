@@ -1,6 +1,6 @@
 services:
   dina-ui:
-    image: aafcbicoe/dina-ui:0.227.1
+    image: aafcbicoe/dina-ui:0.229.0
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
@@ -33,7 +33,7 @@ services:
       - "${UI_CUSTOMIZATION_FOLDER_PATH}:/srv/public"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.26.0
+    image: aafcbicoe/seqdb-api:2.27.0
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
@@ -85,7 +85,7 @@ services:
         condition: service_completed_successfully
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.127
+    image: aafcbicoe/natural-history-collection-api:0.128
     profiles: ["collection_api"]
     environment:
       keycloak.enabled: "true"
@@ -113,7 +113,7 @@ services:
         condition: service_completed_successfully
 
   loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.16
+    image: aafcbicoe/loan-transaction-api:0.17
     profiles: ["loan_transaction_api"]
     mem_limit: 512m
     environment:
@@ -171,7 +171,7 @@ services:
         condition: service_completed_successfully
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.36
+    image: aafcbicoe/object-store-api:1.37
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
@@ -205,7 +205,7 @@ services:
         condition: service_completed_successfully
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.26
+    image: aafcbicoe/dina-export-api:0.27
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
@@ -218,6 +218,9 @@ services:
       spring.datasource.password: ${EXPORT_WEB_USER_PW}
       spring.freemarker.template-loader-path: classpath:/templates/,file:/data/templates/
       dina.export.workingFolder: /data/exports
+      dina.export.objectStore.apiUrl: http://object-store-api:8080/api/v1
+      dina.export.agent.apiUrl: http://agent-api:8080/api/v1
+      dina.export.objectStoreDownloadUrl: http://object-store-api:8080/api/v1/toa
       dina.report.templateFolder: /data/templates
       elasticsearch.host: elasticsearch-dina
       elasticsearch.username: elastic
@@ -335,7 +338,7 @@ services:
       - dina
 
   search-ws:
-    image: aafcbicoe/dina-search-ws:0.57
+    image: aafcbicoe/dina-search-ws:0.58
     mem_limit: 512m
     profiles: ["search_api"]
     environment:
@@ -359,7 +362,7 @@ services:
       - "traefik.http.routers.searchws.middlewares=stripsearchws@docker"
 
   search-cli:
-    image: aafcbicoe/dina-search-cli:0.57
+    image: aafcbicoe/dina-search-cli:0.58
     profiles: ["search_api"]
     environment:
       http-client.openIdConnectBaseUrl: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/
