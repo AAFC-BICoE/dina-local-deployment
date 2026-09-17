@@ -40,6 +40,7 @@ COMPOSE_CONFIGS=$(echo ${config_arr%,})
 # Print the ascii-art, profiles and configs being used.
 GREEN_COLOR_CODE="\033[32m"
 YELLOW_COLOR_CODE="\033[33m"
+RED_COLOR_CODE="\033[31m"
 WHITE_COLOR_CODE="\033[0m"
 echo -e "${GREEN_COLOR_CODE}"
 echo "*%%%%%%%%%=    .%%%.  #%%%#    :%%%       %%%%%      "
@@ -60,7 +61,6 @@ echo -e "${YELLOW_COLOR_CODE}Using the following config(s):${WHITE_COLOR_CODE} $
 # them up / migrate manually. (The folder is typically root-owned, so detection
 # is best-effort: permission errors are suppressed and simply result in no files
 # being found.)
-RED_COLOR_CODE="\033[31m"
 MINIO_DATA_DIR="./minio-data"
 if [ -d "${MINIO_DATA_DIR}" ]; then
   # Count real bucket objects, skipping Minio's internal .minio.sys metadata dir.
