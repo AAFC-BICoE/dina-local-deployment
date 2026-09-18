@@ -187,12 +187,13 @@ In order to use local images with MiniKube you will need to run the following co
 
 `minikube image load object-store-api:dev`
 
-Then it can be changed in the values.yaml file:
+Then it can be changed in the values.yaml file (images are top-level keys, one per module):
 
 ```yaml
-services:
-  objectstoreapi:
-    image: dina-db-init-container:dev
+objectstoreapi:
+  image:
+    repository: dina-db-init-container
+    tag: dev
 ```
 
 ### Mounting Directories
@@ -222,6 +223,30 @@ minikube mount ./sql-dump:/opt/pgrestore/data/
         - name: sql-dump-volume
           hostPath:
             path: "/opt/pgrestore/data/"
+```
+
+### Persistent storage / GPSC shared storage (OpenShift)
+
+By default the chart creates and owns all of its own storage. Set `persistence.enabled: false` in 
+`values.yaml` to instead mount one existing PVC (`persistence.pvcName`) for every volume, isolated 
+from each other by `subPath`.
+
+The GPSC also requires a specific service account (`serviceAccountName`) and a UID for the run as 
+user security context (`securityContextRunAsUser`).
+
+An override file should be provided that supplies the following:
+
+```yaml
+global:
+  environment:
+    isOpenShift: true
+
+serviceAccountName: REPLACE_ME
+securityContextRunAsUser: REPLACE_ME
+
+persistence:
+  enabled: false
+  pvcName: REPLACE_ME
 ```
 
 ### Helm Deployment particularities

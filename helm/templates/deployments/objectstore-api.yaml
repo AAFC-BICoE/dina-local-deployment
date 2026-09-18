@@ -38,6 +38,11 @@ spec:
       labels:
         app: {{ .Values.app.name }}-{{ .Values.global.environment.config.objectstore_api.label }}
     spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      {{- if .Values.securityContextRunAsUser }}
+      securityContext:
+        runAsUser: {{ .Values.securityContextRunAsUser }}
+      {{- end }}
       initContainers:
         {{- include "dina-helm.initContainer.checkDb" . | nindent 8 }}
         {{- include "dina-helm.initContainer.initDb" (dict "root" . "serviceKey" "objectstoreapi" "environmentKey" "objectstore_api" "shortName" "object_store") | nindent 8 }}
