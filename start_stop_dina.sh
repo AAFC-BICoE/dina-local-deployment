@@ -40,6 +40,7 @@ COMPOSE_CONFIGS=$(echo ${config_arr%,})
 # Print the ascii-art, profiles and configs being used.
 GREEN_COLOR_CODE="\033[32m"
 YELLOW_COLOR_CODE="\033[33m"
+RED_COLOR_CODE="\033[31m"
 WHITE_COLOR_CODE="\033[0m"
 echo -e "${GREEN_COLOR_CODE}"
 echo "*%%%%%%%%%=    .%%%.  #%%%#    :%%%       %%%%%      "
@@ -52,6 +53,30 @@ echo "=######+.       ###.  +##+     .###  *##*       +### "
 echo -e "${WHITE_COLOR_CODE}"
 echo -e "${YELLOW_COLOR_CODE}Using the following profile(s):${WHITE_COLOR_CODE} $COMPOSE_PROFILES"
 echo -e "${YELLOW_COLOR_CODE}Using the following config(s):${WHITE_COLOR_CODE} $COMPOSE_CONFIGS"
+
+# Warn if the old Minio data folder still has objects, since they are not
+# migrated to the object-store-api's new filesystem-mode storage.
+MINIO_DATA_DIR="./minio-data"
+if [ -d "${MINIO_DATA_DIR}" ]; then
+  MINIO_FILE_COUNT=$(find "${MINIO_DATA_DIR}" -path '*/.minio.sys' -prune -o -type f -print 2>/dev/null | wc -l)
+  if [ "${MINIO_FILE_COUNT}" -gt 0 ]; then
+    echo -e "${RED_COLOR_CODE}WARNING:${WHITE_COLOR_CODE} ${MINIO_FILE_COUNT} object(s) found in ${MINIO_DATA_DIR}."
+    echo -e "${RED_COLOR_CODE}Minio is no longer used${WHITE_COLOR_CODE} — the object-store-api now runs in filesystem mode and these objects were NOT migrated."
+    echo "To keep them, back up or migrate the contents manually before relying on the object-store-api."
+  fi
+fi
+
+# Pre-create the object-store FS storage bind mount as world-writable, since
+# Docker would otherwise create it as root:root and the uid-1000 object-store-api
+# user couldn't write to it.
+OBJECT_STORE_DATA_DIR="./object-store-data"
+if [[ "${COMPOSE_PROFILES}" =~ "object_store_api" ]]; then
+  mkdir -p "${OBJECT_STORE_DATA_DIR}" 2>/dev/null
+  if ! chmod 0777 "${OBJECT_STORE_DATA_DIR}" 2>/dev/null; then
+    echo -e "${RED_COLOR_CODE}WARNING:${WHITE_COLOR_CODE} could not make ${OBJECT_STORE_DATA_DIR} world-writable (uid-1000 object-store-api may be unable to upload files)."
+    echo "If it is root-owned, run: sudo chown -R \$(id -u):\$(id -g) ${OBJECT_STORE_DATA_DIR} && sudo chmod 0777 ${OBJECT_STORE_DATA_DIR}"
+  fi
+fi
 
 # Append -f to each config for use in docker-compose
 for i in "${!DINA_CONFIGS[@]}"; do
