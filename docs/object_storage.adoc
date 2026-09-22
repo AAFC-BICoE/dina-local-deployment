@@ -1,0 +1,40 @@
+= Object Storage
+
+The object-store-api can store uploaded files on the file system (`FS` mode). With Docker Compose, files are written to the `object-store-data` folder, mounted as `/object-store-storage` in the container.
+
+`start_stop_dina.sh` creates this folder with the permissions required by the object-store-api container. When using `docker compose` directly, create it first, otherwise Docker creates it owned by `root` and uploads fail:
+
+[source,bash]
+----
+mkdir -m 777 object-store-data
+----
+
+The folder is not removed by `docker compose down`. When resetting the databases, delete its content too.
+
+With Helm, files are stored on a persistent volume mounted at `/object-store-storage`, which is kept when the release is uninstalled.
+
+== Upgrading from MinIO
+
+Previous versions stored files in MinIO (`minio-data` folder). These files are not migrated and are only useful if the database was also kept (see `persistence-override` in <<_dina_configs,DINA Configs>>).
+
+Depending on the MinIO version that created it, `minio-data` contains the files as they were uploaded, or MinIO's internal format (a folder with an `xl.meta` file per object) that the object-store-api can't read. To check, run `find minio-data -name xl.meta -print -quit`:
+
+* If nothing is printed, copy each bucket (every folder except `.minio.sys`), e.g. `cp -r minio-data/<bucket> object-store-data/`.
+* Otherwise, export each bucket with an S3 client from a running MinIO, using the `MINIO_ACCESS_KEY` and `MINIO_SECRET_KEY` of your previous `.env` (`minio` and `minio123` by default). The MinIO image is no longer on Docker Hub, but is still available on quay.io:
++
+[source,bash]
+----
+docker network create minio-export
+docker run -d --name minio-export --network minio-export -v "$PWD/minio-data":/data \
+  -e MINIO_ACCESS_KEY=minio -e MINIO_SECRET_KEY=minio123 \
+  quay.io/minio/minio:RELEASE.2022-10-05T14-58-27Z server /data
+docker run --rm --network minio-export -u "$(id -u):$(id -g)" -e HOME=/tmp \
+  -e AWS_ACCESS_KEY_ID=minio -e AWS_SECRET_ACCESS_KEY=minio123 -e AWS_DEFAULT_REGION=us-east-1 \
+  -v "$PWD/object-store-data":/data amazon/aws-cli \
+  --endpoint-url http://minio-export:9000 s3 sync s3://<bucket> /data/<bucket>
+docker rm -f minio-export && docker network rm minio-export
+----
+
+The object-store-api container runs as uid `1000` and must be able to write in the copied folders: if your user id is different, run `sudo chown -R 1000:1000 object-store-data` afterwards.
+
+The `minio-data` files are owned by `root`: once done (or if the files are not needed), delete the folder with `sudo rm -rf minio-data`.

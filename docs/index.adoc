@@ -24,6 +24,8 @@ include::wiremock.adoc[]
 
 include::postgres.adoc[]
 
+include::object_storage.adoc[]
+
 include::messaging.adoc[]
 
 include::keycloak.adoc[]
