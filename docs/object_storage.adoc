@@ -1,6 +1,6 @@
 = Object Storage
 
-The object-store-api stores uploaded files on the file system (`FS` mode). With Docker Compose, files are written to the `object-store-data` folder, mounted as `/object-store-storage` in the container.
+The object-store-api can store uploaded files on the file system (`FS` mode). With Docker Compose, files are written to the `object-store-data` folder, mounted as `/object-store-storage` in the container.
 
 `start_stop_dina.sh` creates this folder with the permissions required by the object-store-api container. When using `docker compose` directly, create it first, otherwise Docker creates it owned by `root` and uploads fail:
 
