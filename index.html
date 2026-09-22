@@ -527,58 +527,63 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#_postgresql">9. PostgreSQL</a></li>
-<li><a href="#_messaging">10. Messaging</a></li>
-<li><a href="#_keycloak">11. Keycloak</a>
+<li><a href="#_object_storage">10. Object Storage</a>
 <ul class="sectlevel2">
-<li><a href="#_dev_user">11.1. Dev User</a></li>
-<li><a href="#_settings">11.2. Settings</a></li>
+<li><a href="#_upgrading_from_minio">10.1. Upgrading from MinIO</a></li>
 </ul>
 </li>
-<li><a href="#_local_certificates_2">12. Local certificates</a>
+<li><a href="#_messaging">11. Messaging</a></li>
+<li><a href="#_keycloak">12. Keycloak</a>
 <ul class="sectlevel2">
-<li><a href="#_installation_ubuntu_22_24">12.1. Installation (Ubuntu 22-24)</a></li>
+<li><a href="#_dev_user">12.1. Dev User</a></li>
+<li><a href="#_settings">12.2. Settings</a></li>
 </ul>
 </li>
-<li><a href="#_minikube">13. Minikube</a>
+<li><a href="#_local_certificates_2">13. Local certificates</a>
 <ul class="sectlevel2">
-<li><a href="#_installing_minikube">13.1. Installing minikube</a></li>
-<li><a href="#_starting_minikube">13.2. Starting minikube</a></li>
-<li><a href="#_push_local_image">13.3. Push local image</a></li>
+<li><a href="#_installation_ubuntu_22_24">13.1. Installation (Ubuntu 22-24)</a></li>
 </ul>
 </li>
-<li><a href="#_helm">14. Helm</a>
+<li><a href="#_minikube">14. Minikube</a>
 <ul class="sectlevel2">
-<li><a href="#_installing_helm">14.1. Installing Helm</a></li>
+<li><a href="#_installing_minikube">14.1. Installing minikube</a></li>
+<li><a href="#_starting_minikube">14.2. Starting minikube</a></li>
+<li><a href="#_push_local_image">14.3. Push local image</a></li>
 </ul>
 </li>
-<li><a href="#_how_to_update_elasticsearch_mapping">15. How to Update ElasticSearch Mapping</a></li>
-<li><a href="#_rabbitmq">16. RabbitMQ</a>
+<li><a href="#_helm">15. Helm</a>
 <ul class="sectlevel2">
-<li><a href="#_retry_messages_in_deadletter_queue">16.1. Retry messages in DeadLetter Queue</a></li>
+<li><a href="#_installing_helm">15.1. Installing Helm</a></li>
 </ul>
 </li>
-<li><a href="#_jmeter">17. JMeter</a>
+<li><a href="#_how_to_update_elasticsearch_mapping">16. How to Update ElasticSearch Mapping</a></li>
+<li><a href="#_rabbitmq">17. RabbitMQ</a>
 <ul class="sectlevel2">
-<li><a href="#_installation">17.1. Installation</a></li>
-<li><a href="#_how_to_run">17.2. How to run</a></li>
-<li><a href="#_module_structure">17.3. Module Structure</a>
+<li><a href="#_retry_messages_in_deadletter_queue">17.1. Retry messages in DeadLetter Queue</a></li>
+</ul>
+</li>
+<li><a href="#_jmeter">18. JMeter</a>
+<ul class="sectlevel2">
+<li><a href="#_installation">18.1. Installation</a></li>
+<li><a href="#_how_to_run">18.2. How to run</a></li>
+<li><a href="#_module_structure">18.3. Module Structure</a>
 <ul class="sectlevel3">
-<li><a href="#_setup_thread_group">17.3.1. setUp Thread Group</a></li>
-<li><a href="#_endpoint_thread_groups">17.3.2. Endpoint Thread Group(s)</a></li>
-<li><a href="#_teardown_thread_group">17.3.3. tearDown Thread Group</a></li>
+<li><a href="#_setup_thread_group">18.3.1. setUp Thread Group</a></li>
+<li><a href="#_endpoint_thread_groups">18.3.2. Endpoint Thread Group(s)</a></li>
+<li><a href="#_teardown_thread_group">18.3.3. tearDown Thread Group</a></li>
 </ul>
 </li>
-<li><a href="#_crud_controllers">17.4. CRUD Controllers</a>
+<li><a href="#_crud_controllers">18.4. CRUD Controllers</a>
 <ul class="sectlevel3">
-<li><a href="#_create">17.4.1. Create</a></li>
-<li><a href="#_update">17.4.2. Update</a></li>
-<li><a href="#_delete">17.4.3. Delete</a></li>
-<li><a href="#_assertions">17.4.4. Assertions</a></li>
+<li><a href="#_create">18.4.1. Create</a></li>
+<li><a href="#_update">18.4.2. Update</a></li>
+<li><a href="#_delete">18.4.3. Delete</a></li>
+<li><a href="#_assertions">18.4.4. Assertions</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#_change_default_docker_address_pool">18. Change default Docker address pool</a></li>
+<li><a href="#_change_default_docker_address_pool">19. Change default Docker address pool</a></li>
 </ul>
 </div>
 </div>
@@ -2045,7 +2050,67 @@ DINA_MODULES+=('wiremock')          # Enable this.</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_messaging">10. Messaging</h2>
+<h2 id="_object_storage">10. Object Storage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The object-store-api can store uploaded files on the file system (<code>FS</code> mode). With Docker Compose, files are written to the <code>object-store-data</code> folder, mounted as <code>/object-store-storage</code> in the container.</p>
+</div>
+<div class="paragraph">
+<p><code>start_stop_dina.sh</code> creates this folder with the permissions required by the object-store-api container. When using <code>docker compose</code> directly, create it first, otherwise Docker creates it owned by <code>root</code> and uploads fail:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -m 777 object-store-data</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The folder is not removed by <code>docker compose down</code>. When resetting the databases, delete its content too.</p>
+</div>
+<div class="paragraph">
+<p>With Helm, files are stored on a persistent volume mounted at <code>/object-store-storage</code>, which is kept when the release is uninstalled.</p>
+</div>
+<div class="sect2">
+<h3 id="_upgrading_from_minio">10.1. Upgrading from MinIO</h3>
+<div class="paragraph">
+<p>Previous versions stored files in MinIO (<code>minio-data</code> folder). These files are not migrated and are only useful if the database was also kept (see <code>persistence-override</code> in <a href="#_dina_configs">DINA Configs</a>).</p>
+</div>
+<div class="paragraph">
+<p>Depending on the MinIO version that created it, <code>minio-data</code> contains the files as they were uploaded, or MinIO&#8217;s internal format (a folder with an <code>xl.meta</code> file per object) that the object-store-api can&#8217;t read. To check, run <code>find minio-data -name xl.meta -print -quit</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If nothing is printed, copy each bucket (every folder except <code>.minio.sys</code>), e.g. <code>cp -r minio-data/&lt;bucket&gt; object-store-data/</code>.</p>
+</li>
+<li>
+<p>Otherwise, export each bucket with an S3 client from a running MinIO, using the <code>MINIO_ACCESS_KEY</code> and <code>MINIO_SECRET_KEY</code> of your previous <code>.env</code> (<code>minio</code> and <code>minio123</code> by default). The MinIO image is no longer on Docker Hub, but is still available on quay.io:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker network create minio-export
+docker run -d --name minio-export --network minio-export -v "$PWD/minio-data":/data \
+  -e MINIO_ACCESS_KEY=minio -e MINIO_SECRET_KEY=minio123 \
+  quay.io/minio/minio:RELEASE.2022-10-05T14-58-27Z server /data
+docker run --rm --network minio-export -u "$(id -u):$(id -g)" -e HOME=/tmp \
+  -e AWS_ACCESS_KEY_ID=minio -e AWS_SECRET_ACCESS_KEY=minio123 -e AWS_DEFAULT_REGION=us-east-1 \
+  -v "$PWD/object-store-data":/data amazon/aws-cli \
+  --endpoint-url http://minio-export:9000 s3 sync s3://&lt;bucket&gt; /data/&lt;bucket&gt;
+docker rm -f minio-export &amp;&amp; docker network rm minio-export</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The object-store-api container runs as uid <code>1000</code> and must be able to write in the copied folders: if your user id is different, run <code>sudo chown -R 1000:1000 object-store-data</code> afterwards.</p>
+</div>
+<div class="paragraph">
+<p>The <code>minio-data</code> files are owned by <code>root</code>: once done (or if the files are not needed), delete the folder with <code>sudo rm -rf minio-data</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_messaging">11. Messaging</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To enable Messaging based on RabbitMQ, combine the <code>--profile search_api</code> with the override file <code>message-producing-override/docker-compose.override.messageProducer.yml</code>.</p>
@@ -2063,10 +2128,10 @@ up -d</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_keycloak">11. Keycloak</h2>
+<h2 id="_keycloak">12. Keycloak</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_dev_user">11.1. Dev User</h3>
+<h3 id="_dev_user">12.1. Dev User</h3>
 <div class="paragraph">
 <p>This option will allow the APIs to start without Keycloak but still function with a dev user.</p>
 </div>
@@ -2116,7 +2181,7 @@ the settings are applied, by default it is applied to all.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_settings">11.2. Settings</h3>
+<h3 id="_settings">12.2. Settings</h3>
 <div class="paragraph">
 <p>Traefik is responsible for TLS termination so Keycloak is configured with <code>KC_PROXY: edge</code>.</p>
 </div>
@@ -2130,13 +2195,13 @@ the settings are applied, by default it is applied to all.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_local_certificates_2">12. Local certificates</h2>
+<h2 id="_local_certificates_2">13. Local certificates</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In order to generate development certificates <a href="https://github.com/FiloSottile/mkcert">mkcert</a> will be used.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation_ubuntu_22_24">12.1. Installation (Ubuntu 22-24)</h3>
+<h3 id="_installation_ubuntu_22_24">13.1. Installation (Ubuntu 22-24)</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">sudo apt-get install wget libnss3-tools -y
@@ -2167,13 +2232,13 @@ sudo mv mkcert-v1.4.4-linux-amd64 /usr/bin/mkcert</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_minikube">13. Minikube</h2>
+<h2 id="_minikube">14. Minikube</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>It is possible to use minikube to deploy DINA locally using the helm chart.</p>
 </div>
 <div class="sect2">
-<h3 id="_installing_minikube">13.1. Installing minikube</h3>
+<h3 id="_installing_minikube">14.1. Installing minikube</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
@@ -2182,7 +2247,7 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_starting_minikube">13.2. Starting minikube</h3>
+<h3 id="_starting_minikube">14.2. Starting minikube</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube start --addons=ingress --cpus=4 --cni=flannel --install-addons=true --kubernetes-version=stable --memory=6g</code></pre>
@@ -2207,7 +2272,7 @@ Useful alias for running kubectl commands: <code>alias k="minikube kubectl --"</
 </div>
 </div>
 <div class="sect2">
-<h3 id="_push_local_image">13.3. Push local image</h3>
+<h3 id="_push_local_image">14.3. Push local image</h3>
 <div class="paragraph">
 <p>To push local (images that are built locally) to minikube :</p>
 </div>
@@ -2221,10 +2286,10 @@ Useful alias for running kubectl commands: <code>alias k="minikube kubectl --"</
 </div>
 </div>
 <div class="sect1">
-<h2 id="_helm">14. Helm</h2>
+<h2 id="_helm">15. Helm</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_installing_helm">14.1. Installing Helm</h3>
+<h3 id="_installing_helm">15.1. Installing Helm</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
@@ -2236,7 +2301,7 @@ chmod 700 get_helm.sh
 </div>
 </div>
 <div class="sect1">
-<h2 id="_how_to_update_elasticsearch_mapping">15. How to Update ElasticSearch Mapping</h2>
+<h2 id="_how_to_update_elasticsearch_mapping">16. How to Update ElasticSearch Mapping</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Mapping settings are stored under <code>elastic-configurator-settings</code> folder.</p>
@@ -2265,10 +2330,10 @@ Insert your new field definition with its type (ElasticSearch type).</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_rabbitmq">16. RabbitMQ</h2>
+<h2 id="_rabbitmq">17. RabbitMQ</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_retry_messages_in_deadletter_queue">16.1. Retry messages in DeadLetter Queue</h3>
+<h3 id="_retry_messages_in_deadletter_queue">17.1. Retry messages in DeadLetter Queue</h3>
 <div class="paragraph">
 <p><strong>From the RabbitMQ Container</strong></p>
 </div>
@@ -2284,13 +2349,13 @@ rabbitmqctl set_parameter shovel dlq-to-q-shovel '{"src-uri": "amqp://guest:gues
 </div>
 </div>
 <div class="sect1">
-<h2 id="_jmeter">17. JMeter</h2>
+<h2 id="_jmeter">18. JMeter</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://jmeter.apache.org/index.html">Apache JMeter</a> is used to execute performance/stress test plan.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation">17.1. Installation</h3>
+<h3 id="_installation">18.1. Installation</h3>
 <div class="paragraph">
 <p>You will need to have java installed on your system. Insure it&#8217;s installed using:</p>
 </div>
@@ -2321,7 +2386,7 @@ $ ./jmeter</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_how_to_run">17.2. How to run</h3>
+<h3 id="_how_to_run">18.2. How to run</h3>
 <div class="paragraph">
 <p>You can start JMeter in GUI mode (default) and open the test plan to visualize it.</p>
 </div>
@@ -2335,7 +2400,7 @@ $ ./jmeter</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_module_structure">17.3. Module Structure</h3>
+<h3 id="_module_structure">18.3. Module Structure</h3>
 <div class="paragraph">
 <p>The JMeter test plan is constructed as follows</p>
 </div>
@@ -2360,7 +2425,7 @@ $ ./jmeter</code></pre>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_setup_thread_group">17.3.1. setUp Thread Group</h4>
+<h4 id="_setup_thread_group">18.3.1. setUp Thread Group</h4>
 <div class="paragraph">
 <p>The setUp Thread Group will be executed prior to any regular thread groups, allowing us to setup
 access privileges as well as create any records that may be required by regular thread groups.</p>
@@ -2370,7 +2435,7 @@ access privileges as well as create any records that may be required by regular 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_endpoint_thread_groups">17.3.2. Endpoint Thread Group(s)</h4>
+<h4 id="_endpoint_thread_groups">18.3.2. Endpoint Thread Group(s)</h4>
 <div class="paragraph">
 <p>Each endpoint within the corresponding module will contain a corresponding endpoint thread group.
 A thread group will be responsible for setting up and testing the respective endpoint&#8217;s CRUD operations.</p>
@@ -2443,7 +2508,7 @@ that offer no unique functionality, being used primarily for organizational purp
 </div>
 </div>
 <div class="sect3">
-<h4 id="_teardown_thread_group">17.3.3. tearDown Thread Group</h4>
+<h4 id="_teardown_thread_group">18.3.3. tearDown Thread Group</h4>
 <div class="paragraph">
 <p>The tearDown Thread Group is executed after all of the other thread groups have terminated. This allows
 us to remove the records created within the setUp Thread Group without causing any conflicts with the
@@ -2455,12 +2520,12 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_crud_controllers">17.4. CRUD Controllers</h3>
+<h3 id="_crud_controllers">18.4. CRUD Controllers</h3>
 <div class="paragraph">
 <p>The CRUD Controllers are the thread group Create, Update, and Delete Controllers.</p>
 </div>
 <div class="sect3">
-<h4 id="_create">17.4.1. Create</h4>
+<h4 id="_create">18.4.1. Create</h4>
 <div class="paragraph">
 <p>This controller contains all JMeter elements required for testing record creation for the respective endpoint.</p>
 </div>
@@ -2555,7 +2620,7 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_update">17.4.2. Update</h4>
+<h4 id="_update">18.4.2. Update</h4>
 <div class="paragraph">
 <p>This controller contains all JMeter elements required for testing updating of records for the respective endpoint.</p>
 </div>
@@ -2616,7 +2681,7 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_delete">17.4.3. Delete</h4>
+<h4 id="_delete">18.4.3. Delete</h4>
 <div class="paragraph">
 <p>This controller contains all JMeter elements required for testing removal of records for the respective endpoint.</p>
 </div>
@@ -2670,7 +2735,7 @@ thread group that user these records.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_assertions">17.4.4. Assertions</h4>
+<h4 id="_assertions">18.4.4. Assertions</h4>
 <div class="paragraph">
 <p>In all of the CRUD controllers, assertions are being made to ensure that the correct results are produced
 by each operation.</p>
@@ -2713,7 +2778,7 @@ to be true.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_change_default_docker_address_pool">18. Change default Docker address pool</h2>
+<h2 id="_change_default_docker_address_pool">19. Change default Docker address pool</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The default Docker network addess pool may overlap with other networks (e.g. VPN).</p>
@@ -2742,7 +2807,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-21 14:50:49 UTC
+Last updated 2026-09-22 20:15:11 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
