@@ -76,6 +76,11 @@ if [[ "${COMPOSE_PROFILES}" =~ "object_store_api" ]]; then
     echo -e "${RED_COLOR_CODE}WARNING:${WHITE_COLOR_CODE} could not make ${OBJECT_STORE_DATA_DIR} world-writable (uid-1000 object-store-api may be unable to upload files)."
     echo "If it is root-owned, run: sudo chown -R \$(id -u):\$(id -g) ${OBJECT_STORE_DATA_DIR} && sudo chmod 0777 ${OBJECT_STORE_DATA_DIR}"
   fi
+  # One-time migration: sub-folders created by older uid-1000 images aren't writable by uid 10001.
+  # This can be removed in the future since fresh installs will always create the folder with the correct permissions.
+  if [[ -n "$(find "${OBJECT_STORE_DATA_DIR}" -mindepth 1 -maxdepth 1 -type d -user "$(id -u)" ! -perm -0777)" ]]; then
+    chmod -R a+rwX "${OBJECT_STORE_DATA_DIR}" 2>/dev/null || true
+  fi
 fi
 
 # Append -f to each config for use in docker-compose
