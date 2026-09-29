@@ -85,7 +85,7 @@ services:
         condition: service_completed_successfully
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:0.128
+    image: aafcbicoe/natural-history-collection-api:0.130
     profiles: ["collection_api"]
     environment:
       keycloak.enabled: "true"
