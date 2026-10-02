@@ -98,10 +98,10 @@ This will start all the selected configuration and follow the logs in your termi
 
 After all the components have finished initializing, the UI will be available at `http://dina.local/`. By default, the following users are included:
 
-* `cnc-su`: `super-user` in the `cnc` group
-* `cnc-user`: a `user` in the `cnc` group
-* `cnc-guest`: a `guest` in the `cnc` group
-* `cnc-ro`: a `read-only` user in the `cnc` group
+* `dina-su`: `super-user` in the `dina` group
+* `dina-user`: a `user` in the `dina` group
+* `dina-guest`: a `guest` in the `dina` group
+* `dina-ro`: a `read-only` user in the `dina` group
 * `dina-admin`: a `dina-admin` in the `aafc` group
 
 The password is the same as the username for all users.
