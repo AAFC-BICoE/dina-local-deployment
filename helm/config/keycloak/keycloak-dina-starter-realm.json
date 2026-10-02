@@ -82,14 +82,14 @@
     },
     {
       "id": "2b4549e9-9a95-489f-8e30-74c2d877d8a8",
-      "name": "cnc",
-      "path": "/cnc",
-      "attributes": { "groupLabel-en": ["CNC"] },
+      "name": "dina",
+      "path": "/dina",
+      "attributes": { "groupLabel-en": ["DINA"] },
       "subGroups": [
-        { "id": "feca1d5e-7327-4535-847a-c6befe675c8e", "name": "super-user", "path": "/cnc/super-user", "realmRoles": ["super-user"] },
-        { "id": "014583bc-fb15-46d8-9bfd-2f29f0505927", "name": "user",       "path": "/cnc/user",       "realmRoles": ["user"] },
-        { "id": "8db27f00-a98b-4ff9-b630-9540f5188e3b", "name": "guest",      "path": "/cnc/guest",      "realmRoles": ["guest"] },
-        { "id": "ecb7228f-4463-41f1-9bcc-ac3ca6cb7464", "name": "read-only",  "path": "/cnc/read-only",  "realmRoles": ["read-only"] }
+        { "id": "feca1d5e-7327-4535-847a-c6befe675c8e", "name": "super-user", "path": "/dina/super-user", "realmRoles": ["super-user"] },
+        { "id": "014583bc-fb15-46d8-9bfd-2f29f0505927", "name": "user",       "path": "/dina/user",       "realmRoles": ["user"] },
+        { "id": "8db27f00-a98b-4ff9-b630-9540f5188e3b", "name": "guest",      "path": "/dina/guest",      "realmRoles": ["guest"] },
+        { "id": "ecb7228f-4463-41f1-9bcc-ac3ca6cb7464", "name": "read-only",  "path": "/dina/read-only",  "realmRoles": ["read-only"] }
       ]
     },
     {
@@ -384,35 +384,35 @@
       "attributes": { "agentId": [ "3c47203f-9833-4945-b673-ece4e3bd4f9a" ] }
     },
     {
-      "username": "cnc-su",
+      "username": "dina-su",
       "enabled": true,
       "realmRoles": ["dina-realm-user"],
-      "groups": ["cnc/super-user"],
-      "credentials": [{ "type": "password", "value": "cnc-su", "temporary": false }],
+      "groups": ["dina/super-user"],
+      "credentials": [{ "type": "password", "value": "dina-su", "temporary": false }],
       "attributes": { "agentId": ["ba05d46b-6c75-4c92-82d6-e72237d9982f"] }
     },
     {
-      "username": "cnc-user",
+      "username": "dina-user",
       "enabled": true,
       "realmRoles": ["dina-realm-user"],
-      "groups": ["cnc/user"],
-      "credentials": [{ "type": "password", "value": "cnc-user", "temporary": false }],
+      "groups": ["dina/user"],
+      "credentials": [{ "type": "password", "value": "dina-user", "temporary": false }],
       "attributes": { "agentId": ["34e1de96-cc79-4ce1-8cf6-d0be70ec7bed"] }
     },
     {
-      "username": "cnc-guest",
+      "username": "dina-guest",
       "enabled": true,
       "realmRoles": ["dina-realm-user"],
-      "groups": ["cnc/guest"],
-      "credentials": [{ "type": "password", "value": "cnc-guest", "temporary": false }],
+      "groups": ["dina/guest"],
+      "credentials": [{ "type": "password", "value": "dina-guest", "temporary": false }],
       "attributes": { "agentId": ["21d4f7ef-98b8-4f46-9963-d843f2fdf65a"] }
     },
     {
-      "username": "cnc-ro",
+      "username": "dina-ro",
       "enabled": true,
       "realmRoles": ["dina-realm-user"],
-      "groups": ["cnc/read-only"],
-      "credentials": [{ "type": "password", "value": "cnc-ro", "temporary": false }],
+      "groups": ["dina/read-only"],
+      "credentials": [{ "type": "password", "value": "dina-ro", "temporary": false }],
       "attributes": { "agentId": ["06e6df16-c47a-4aab-b26b-66a8baf73e86"] }
     },
     {
