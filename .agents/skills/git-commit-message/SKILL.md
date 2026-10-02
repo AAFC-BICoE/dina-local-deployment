@@ -1,6 +1,6 @@
 ---
 name: git-commit-message
-description: Generates a git commit message from the user's staged changes (or unstaged changes if nothing is staged), with a header derived from the current branch name and a bullet list of what was done. Use this whenever the user asks for a commit message, git message, "what should I commit this as", wants a summary of their current changes for a commit, or says things like "write my commit", "commit message please", or "message for my changes", even if they don't mention staged or unstaged. This skill ONLY returns text. It never runs git commit, git push, or any command that modifies the repo.
+description: Generates a git commit message from the user's staged changes (or unstaged changes if nothing is staged), with a header derived from the current branch name and a bullet list of what was done. Use this whenever the user asks for a commit message, git message, "what should I commit this as", wants a summary of their current changes for a commit, or says things like "write my commit", "commit message please", or "message for my changes", even if they don't mention staged or unstaged. It appends a disclosure line saying the content includes AI-generated code by default (asking the user first when they're available, and omitting it only if they explicitly say no AI was involved). This skill ONLY returns text. It never runs git commit, git push, or any command that modifies the repo.
 ---
 
 # Git Commit Message
@@ -50,9 +50,26 @@ Below the header, leave a blank line, then one bullet per logical change. The go
 - Skip trivia like whitespace, import reordering, or formatting unless that's the whole change.
 - Match the size of the change: a one-line fix gets one bullet; a broad change gets three to five. Don't pad.
 
+## Step 4: AI-generated code disclosure (included by default)
+
+Whether code was AI-generated or AI-assisted is something only the user knows, and a diff can't reveal it. The safe default is to **always include** the disclosure line, because a missing disclosure is worse than an unnecessary one. Only leave it out when the user has explicitly said the changes contain no AI-generated or AI-assisted code.
+
+Add this as the last line of the message, separated from the bullets by a blank line, worded exactly:
+
+`Content of the commit includes AI generated code`
+
+Keep the wording exactly as written, since it may be matched by team tooling or conventions.
+
+Decide how to handle it like this:
+
+- **The user is available to respond:** After reading the changes (Steps 1-3), ask one short question before the final message: "Does this commit include AI-generated or AI-assisted code?" Use a tappable-options tool (such as `ask_user_input_v0`) with "Yes" and "No" when one is available; otherwise ask in plain text. Include the line for "Yes" or "partly". Omit it only for a clear "No".
+- **The user already said in their request:** If they stated it up front ("Claude wrote most of this", "all handwritten"), skip the question and follow what they said.
+- **The user is not available to respond:** This includes autonomous or autopilot runs, such as a message saying the user is unavailable, will review later, or that you should work autonomously. Don't ask and don't wait. Include the line, and mention in the note above the code block that it was added by default because the user couldn't be asked.
+- **No answer, or an unclear answer:** Include the line.
+
 ## Output format
 
-Return the message inside a single fenced code block so it can be copied cleanly, with a one-line note above it about which changes were used. No extra commentary after the block unless something needs flagging (such as a branch with no ticket, or a diff that seems to mix unrelated work that might deserve separate commits).
+Return the message inside a single fenced code block so it can be copied cleanly, with a one-line note above it about which changes were used. The AI disclosure line (included by default) goes at the very bottom inside the block. No extra commentary after the block unless something needs flagging (such as a branch with no ticket, or a diff that seems to mix unrelated work that might deserve separate commits).
 
 ## Examples
 
@@ -83,4 +100,14 @@ Task #81499 - Upgrade Dependencies
 - Bumped next and eslint-config-next from 16.2.12 to 16.3.5
 - Added resolutions for shell-quote and flattened
 - Bumped immutable via scoped resolutions (5.1.9 for sass, 4.3.9 for react-awesome-query-builder).
+```
+
+**Example 4** (default, or the user said the changes include AI-assisted code; also used in autonomous runs):
+
+```
+Feature #81538 - Visualizing Empty Fields on View Pages
+
+- Applied dim logic to String Array field.
+
+Content of the commit includes AI generated code
 ```
