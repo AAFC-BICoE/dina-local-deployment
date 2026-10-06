@@ -1539,21 +1539,27 @@ DINA_CONFIGS+=('docker-compose.dev.yml')
 <div class="sect2">
 <h3 id="_accessing_the_application">4.3. Accessing the Application</h3>
 <div class="paragraph">
-<p>After all the components have finished initializing, the UI will be available at <code><a href="http://dina.local/" class="bare">http://dina.local/</a></code>. By default, the following users are included:</p>
+<p>After all the components have finished initializing, the UI will be available at <code><a href="https://dina.local/" class="bare">https://dina.local/</a></code>. By default, the following users are included:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>cnc-su</code>: <code>super-user</code> in the <code>cnc</code> group</p>
+<p><code>dina-su</code>: <code>super-user</code> in the <code>dina</code> group</p>
 </li>
 <li>
-<p><code>cnc-user</code>: a <code>user</code> in the <code>cnc</code> group</p>
+<p><code>dina-user</code>: a <code>user</code> in the <code>dina</code> group</p>
 </li>
 <li>
-<p><code>cnc-guest</code>: a <code>guest</code> in the <code>cnc</code> group</p>
+<p><code>dina-guest</code>: a <code>guest</code> in the <code>dina</code> group</p>
 </li>
 <li>
-<p><code>cnc-ro</code>: a <code>read-only</code> user in the <code>cnc</code> group</p>
+<p><code>dina-ro</code>: a <code>read-only</code> user in the <code>dina</code> group</p>
+</li>
+<li>
+<p><code>ccfc-su</code>: <code>super-user</code> in the <code>ccfc</code> group</p>
+</li>
+<li>
+<p><code>dao-su</code>: <code>super-user</code> in the <code>dao</code> group</p>
 </li>
 <li>
 <p><code>dina-admin</code>: a <code>dina-admin</code> in the <code>aafc</code> group</p>
@@ -1562,6 +1568,12 @@ DINA_CONFIGS+=('docker-compose.dev.yml')
 </div>
 <div class="paragraph">
 <p>The password is the same as the username for all users.</p>
+</div>
+<div class="paragraph">
+<p>Note: Keycloak only imports these users when the <code>keycloak-data</code> folder is empty, and <code>.env</code> is only created when it doesn&#8217;t exist.</p>
+</div>
+<div class="paragraph">
+<p>If you started the stack before the <code>cnc-<strong></code> users were renamed to <code>dina-</strong></code>, stop it, delete <code>keycloak-data</code> (<code>sudo rm -rf keycloak-data</code>, which also deletes users added in Keycloak) and set <code>DINA_HTTP_DEFAULT_SU_USERNAME</code> and <code>DINA_HTTP_DEFAULT_SU_PASSWORD</code> to <code>dina-su</code> in <code>.env</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2807,7 +2819,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-02 18:30:32 UTC
+Last updated 2026-10-06 16:24:27 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
