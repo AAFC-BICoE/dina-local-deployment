@@ -38,6 +38,43 @@ Then each of the API's that you wish to use also need to be configured with the 
 }
 ```
 
+== Reset Users and Groups
+
+Keycloak only imports `keycloak/keycloak-dina-starter-realm.json` when its database (`keycloak-data`) is empty,
+so changes to that file (e.g. new or renamed users) are not picked up by an existing setup.
+A reset deletes Keycloak's database, including any users added through the Keycloak admin console.
+
+Uncomment the following line inside `start_stop_dina.sh`, then start the stack:
+
+```sh
+RESET_KEYCLOAK=true
+```
+
+```sh
+./start_stop_dina.sh up -d
+```
+
+The reset only runs on `up`. Comment the line out again afterwards, otherwise every `up` resets Keycloak.
+
+The reset script can also be run on its own before starting the stack:
+
+```sh
+./keycloak/reset-keycloak.sh
+./start_stop_dina.sh up -d
+```
+
+To confirm the import, check the Keycloak logs:
+
+```sh
+./start_stop_dina.sh logs keycloak | grep "Realm 'dina'"
+```
+
+`Realm 'dina' imported` means the users were imported. `Realm 'dina' already exists. Import skipped` means
+Keycloak's database was not reset.
+
+The reset doesn't change `.env`. If the default super-user changed, also update `DINA_HTTP_DEFAULT_SU_USERNAME`
+and `DINA_HTTP_DEFAULT_SU_PASSWORD` there.
+
 == Settings
 
 Traefik is responsible for TLS termination so Keycloak is configured with `KC_PROXY: edge`.
