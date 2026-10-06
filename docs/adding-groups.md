@@ -2,7 +2,7 @@
 
 ## Using the Keycloak Console
 
-Select "Groups" from the side bar menu. This will show the current list of groups and let you manage them. Adding a new group is simple - click the "New" button and enter the group's name. After that you can add attributes, associate roles, change the group name or view membership from the appropriate tabs. Sub-groups can be added from the main groups menu by selecting an existing group and adding a new group. In DINA, we use sub-groups to automatically apply roles (e.g. "/cnc/staff" members will have the "staff" role), which is done under the Role Mappings tab when editing a group.
+Select "Groups" from the side bar menu. This will show the current list of groups and let you manage them. Adding a new group is simple - click the "New" button and enter the group's name. After that you can add attributes, associate roles, change the group name or view membership from the appropriate tabs. Sub-groups can be added from the main groups menu by selecting an existing group and adding a new group. In DINA, we use sub-groups to automatically apply roles (e.g. "/dina/user" members will have the "user" role), which is done under the Role Mappings tab when editing a group.
 
 In order to permanently add a group to our deployment image, it must be added in the `keycloak-dina-starter-realm.json` file. This can be done by exporting the realm (Export in the side bar menu), ensuring that the "Export groups and roles" checkbox is on. The groups can then be copied to the starter realm from the exported json. Note: The starter realm json **must not** be overwritten with the exported realm, because Keycloak omits some necessary items from the exported json.
 
