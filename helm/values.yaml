@@ -144,8 +144,8 @@ global:
         label: dina-export-api
         service: dina-export-api-service
         http_client:
-          username: cnc-su
-          password: cnc-su
+          username: dina-su
+          password: dina-su
       keycloak: 
         label: keycloak
         service: keycloak-service
@@ -179,8 +179,8 @@ global:
       search_cli:
         label: search-cli
         http_client:
-          username: cnc-su
-          password: cnc-su
+          username: dina-su
+          password: dina-su
       search_ws:
         label: search-ws
         service: searchws-service

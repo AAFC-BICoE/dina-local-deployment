@@ -7,13 +7,13 @@
 #   dina-token.sh --force  ignore the cache and log in again
 #   dina-token.sh --clear  delete the cached token
 #
-# Credentials default to the local dev account cnc-su; override with DINA_USERNAME / DINA_PASSWORD.
+# Credentials default to the local dev account dina-su; override with DINA_USERNAME / DINA_PASSWORD.
 set -euo pipefail
 
 TOKEN_URL="https://dina.local/auth/realms/dina/protocol/openid-connect/token"
 CLIENT_ID="dina-public"
-USERNAME="${DINA_USERNAME:-cnc-su}"
-PASSWORD="${DINA_PASSWORD:-cnc-su}"
+USERNAME="${DINA_USERNAME:-dina-su}"
+PASSWORD="${DINA_PASSWORD:-dina-su}"
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/dina-api"
 CACHE_FILE="$CACHE_DIR/token-$USERNAME.json"
 

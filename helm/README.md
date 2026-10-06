@@ -58,6 +58,10 @@ To redeploy the chart:
 
 `helm upgrade dina-helm ./helm -f helm/values.yaml`
 
+Note that Keycloak skips the starter realm import when the `dina` realm already exists, so an upgrade doesn't change existing users. 
+
+If your realm still has the former `cnc-su` user instead of `dina-su`, set the `http_client` username and password under `global.environment.config.search_cli` and `global.environment.config.dina_export_api` to `cnc-su` in your values file.
+
 To remove the chart: 
 
 `helm uninstall dina-helm`
