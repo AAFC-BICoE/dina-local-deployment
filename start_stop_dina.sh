@@ -27,6 +27,10 @@ DINA_CONFIGS+=('docker-compose.local.yml')
 #DINA_CONFIGS+=('persistence-override/docker-compose.override.persistence.yml')
 #DINA_CONFIGS+=('keycloak/docker-compose.enable-dev-user.yml')
 
+# Uncomment to reset Keycloak's users and groups on the next "up" (see keycloak/reset-keycloak.sh).
+# Comment it out again afterwards.
+#RESET_KEYCLOAK=true
+
 # Convert arrays to comma-separated strings
 printf -v module_arr '%s,' "${DINA_MODULES[@]}"
 printf -v config_arr '%s,' "${DINA_CONFIGS[@]}"
@@ -89,6 +93,10 @@ for i in "${!DINA_CONFIGS[@]}"; do
 done
 
 ./update_env.sh .env.example
+
+if [[ "${RESET_KEYCLOAK:-}" == "true" && "$1" == "up" ]]; then
+  ./keycloak/reset-keycloak.sh ${DINA_CONFIGS[@]}
+fi
 
 # Run docker-compose with the profiles and configs
 docker compose ${DINA_CONFIGS[@]} $@
