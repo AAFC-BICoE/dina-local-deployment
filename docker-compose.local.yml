@@ -33,7 +33,7 @@ services:
       - "${UI_CUSTOMIZATION_FOLDER_PATH}:/srv/public"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.27.0
+    image: aafcbicoe/seqdb-api:2.28.0
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
