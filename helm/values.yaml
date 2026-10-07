@@ -5,19 +5,19 @@ initdb:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-db-init-container
-    tag: "0.8"
+    tag: "0.9"
     pullPolicy: IfNotPresent
 agentapi:
   image:
     registry: docker.io
     repository: aafcbicoe/agent-api
-    tag: "0.35"
+    tag: "0.36"
     pullPolicy: IfNotPresent
 collectionapi:
   image:
     registry: docker.io
     repository: aafcbicoe/natural-history-collection-api
-    tag: "0.128"
+    tag: "0.130"
     pullPolicy: IfNotPresent
 dinaexportapi:
   image:
@@ -29,7 +29,7 @@ dinaui:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-ui
-    tag: "0.229.0"
+    tag: "0.231.0"
     pullPolicy: IfNotPresent
 dinauserapi:
   image:
@@ -77,13 +77,13 @@ searchcli:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-search-cli
-    tag: "0.58"
+    tag: "0.59"
     pullPolicy: IfNotPresent
 searchws:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-search-ws
-    tag: "0.58"
+    tag: "0.59"
     pullPolicy: IfNotPresent
 seqdbapi:
   image:
