@@ -6,7 +6,7 @@ The `dina-local-deployment` project contains a `start_stop_dina.sh` script that 
 
 == Configuration
 
-To configure your local stack, open `start_stop_dina.sh` in your text editor. There are two sections that you can modify.
+To configure your local stack, open `start_stop_dina.sh` in your text editor. There are three sections that you can modify.
 
 Each line can be commented or uncommented to include or exclude that specific module or configuration.
 
@@ -78,6 +78,10 @@ The `DINA_CONFIGS` section defines which docker-compose configuration files to i
 |Optional. Disables keycloak and automatically logs in a development user for easier testing without going through the login process.
 |===
 
+=== Keycloak Reset
+
+Uncomment `RESET_KEYCLOAK=true` to make the next `./start_stop_dina.sh up` re-import the users and groups from `keycloak/keycloak-dina-starter-realm.json`. See <<_reset_users_and_groups,Reset Users and Groups>>.
+
 == Starting the Stack
 
 To start the DINA application stack, run the following command from the root of the `dina-local-deployment` project:
@@ -110,7 +114,7 @@ The password is the same as the username for all users.
 
 Note: Keycloak only imports these users when the `keycloak-data` folder is empty, and `.env` is only created when it doesn't exist. 
 
-If you started the stack before the `cnc-*` users were renamed to `dina-*`, stop it, delete `keycloak-data` (`sudo rm -rf keycloak-data`, which also deletes users added in Keycloak) and set `DINA_HTTP_DEFAULT_SU_USERNAME` and `DINA_HTTP_DEFAULT_SU_PASSWORD` to `dina-su` in `.env`.
+If you started the stack before the `cnc-*` users were renamed to `dina-*`, run the <<_reset_users_and_groups,Keycloak reset>> once and set `DINA_HTTP_DEFAULT_SU_USERNAME` and `DINA_HTTP_DEFAULT_SU_PASSWORD` to `dina-su` in `.env`.
 
 == Stopping the Stack
 
