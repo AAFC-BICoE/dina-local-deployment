@@ -120,6 +120,61 @@ messageProducerOverride:
 replicaCount: 1
 app:
   name: dina-helm
+
+# Primarily used if mounting GPSC storage volumes
+serviceAccountName: ""
+securityContextRunAsUser:
+
+# Persistence configures the PVCs and mount paths used by the web application.
+# Storage class or access mode changes usually require migration.
+persistence:
+  # true -> Created and managed by the chart
+  # false -> Existing storage (all volumes below share the one PVC named by
+  # pvcName on OpenShift/GPSC, isolated from each other via subPath).
+  enabled: true
+  # Existing PVC to mount for every volume below when enabled: false.
+  pvcName: ""
+
+  # object-store-api (/object-store-storage)
+  objectstore:
+    subPath: object-store-storage
+    accessMode: ReadWriteOnce
+    storageClassName: ""
+    size: 2Gi
+
+  # dina-db (/postgres-data)
+  postgres:
+    subPath: postgres-data
+    accessMode: ReadWriteOnce
+    storageClassName: ""
+    size: 2Gi
+
+  # elasticsearch (/elasticsearch-data)
+  esData:
+    subPath: elasticsearch-data
+    accessMode: ReadWriteOnce
+    storageClassName: ""
+    size: 1Gi
+
+  # elasticsearch (/elasticsearch-certs)
+  esCerts:
+    subPath: elasticsearch-certs
+    accessMode: ReadWriteMany
+    storageClassName: ""
+    size: 10Mi
+
+  # dina-export-api (/dina-export-templates)
+  exportTemplates:
+    subPath: dina-export-templates
+
+  # rabbitmq (/rabbitmq-data)
+  rabbitmqData:
+    subPath: rabbitmq-data
+
+  # rabbitmq (/rabbitmq-logs)
+  rabbitmqLogs:
+    subPath: rabbitmq-logs
+
 global:
   environment:
     isOpenShift: false
@@ -557,10 +612,6 @@ ingress:
 
 podAnnotations: {}
 podLabels: {}
-
-podSecurityContext: {}
-
-securityContext: {}
 
 resources:
   general:

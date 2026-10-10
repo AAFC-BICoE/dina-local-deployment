@@ -21,6 +21,11 @@ spec:
       labels:
         app: {{ .Values.app.name }}-search-ws
     spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      {{- if .Values.securityContextRunAsUser }}
+      securityContext:
+        runAsUser: {{ .Values.securityContextRunAsUser }}
+      {{- end }}
       containers:
         - name: search-ws
           {{- with .Values.searchws.image }}

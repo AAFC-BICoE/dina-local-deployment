@@ -15,6 +15,11 @@ spec:
       labels:
         app: {{ .Values.app.name }}-elasticsearch-dina
     spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      {{- if .Values.securityContextRunAsUser }}
+      securityContext:
+        runAsUser: {{ .Values.securityContextRunAsUser }}
+      {{- end }}
       containers:
         - name: elasticsearch-dina
           {{- with .Values.elasticsearchdina.image }}

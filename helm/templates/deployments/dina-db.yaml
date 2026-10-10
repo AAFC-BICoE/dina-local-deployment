@@ -20,6 +20,11 @@ spec:
       labels:
         app: {{ .Values.app.name }}-dina-db
     spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      {{- if .Values.securityContextRunAsUser }}
+      securityContext:
+        runAsUser: {{ .Values.securityContextRunAsUser }}
+      {{- end }}
       terminationGracePeriodSeconds: 10
       {{- if .Values.global.environment.isOpenShift }}
       {{- include "nss-wrapper-init-postgres" . | nindent 6 }}

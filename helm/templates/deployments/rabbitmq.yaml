@@ -21,6 +21,11 @@ spec:
       labels:
         app: {{ .Values.app.name }}-rabbitmq-dina
     spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      {{- if .Values.securityContextRunAsUser }}
+      securityContext:
+        runAsUser: {{ .Values.securityContextRunAsUser }}
+      {{- end }}
       hostname: rabbit-dina-node-1
       containers:
         - name: rabbitmq-dina

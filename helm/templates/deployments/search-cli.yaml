@@ -21,6 +21,11 @@ spec:
       labels:
         app: {{ .Values.app.name }}-search-cli
     spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      {{- if .Values.securityContextRunAsUser }}
+      securityContext:
+        runAsUser: {{ .Values.securityContextRunAsUser }}
+      {{- end }}
       initContainers:
         - name: elastic-configurator
           {{- with .Values.elasticconfigurator.image }}
