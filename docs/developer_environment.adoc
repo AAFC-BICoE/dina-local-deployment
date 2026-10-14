@@ -189,6 +189,40 @@ code --install-extension firefox-devtools.vscode-firefox-debug
 code --install-extension bruno-api-client.bruno
 ----
 
+=== GitHub Copilot Agent Skills (Optional)
+
+This repository includes agent skills in `.agents/skills/`. Copilot only loads them when `dina-local-deployment` is the open workspace. To use them in any workspace, link them into your personal skills folder by running this from the root of your `dina-local-deployment` checkout:
+
+[source, bash]
+----
+mkdir -p ~/.agents/skills && ln -sfn "$PWD"/.agents/skills/* ~/.agents/skills/
+----
+
+The links point to your checkout, so a `git pull` keeps the skills up to date. Rerun the command if new skills are added.
+
+Copilot picks a skill automatically when your request matches its description. You can also call one directly by typing `/` followed by the skill name in Copilot Chat.
+
+==== Available skills
+
+`build-dina-images`::
+Builds a Docker image from your local API source (e.g. `collection-api`, `object-store-api`, `dina-search-api`), points `docker-compose.local.yml` at it and restarts that container, so you can test API changes in the local deployment. It also handles `dina-base-api` changes (builds a `-SNAPSHOT` and wires it into the consuming API) and reverting back to the Docker Hub images. It only builds or deploys when you ask it to.
++
+Example: `Build a local image of collection-api with my changes and deploy it`, `Revert collection-api back to the Docker Hub image`.
++
+Requires the API repositories cloned locally.
+
+`dina-api`::
+Runs authenticated requests against the local deployment at `https://dina.local/api` (agent, collection, object store, seqdb, search, user, export and loan transaction APIs). It gets and refreshes the Keycloak token for you and uses the Bruno collection in `api-client/` as its endpoint reference. Use it to query records, seed test data, or debug the backend behind a UI feature. Local deployment only; it refuses dev2, test and prod.
++
+Example: `Create a test collection called TEST Herbarium`, `Show me material sample <uuid> with its organisms`, `Help me test this feature by creating the necessary records using /dina-api`
++
+Requires the local deployment to be running.
+
+`git-commit-message`::
+Writes a ready-to-paste commit message from your staged changes (or unstaged changes if nothing is staged), with a header taken from the branch name and a bullet list of what changed. It adds a line disclosing AI-generated code unless you say no AI was involved. It only returns text; it never commits or pushes.
++
+Example: `Write a commit message for my changes`.
+
 === VSCode Remote (Optional)
 
 You can avoid running a slow IDE inside your virtual machine by running VS Code on your host machine instead and connecting to the dev environment using VS Code Remote.
