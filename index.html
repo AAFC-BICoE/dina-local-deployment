@@ -461,10 +461,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_visual_studio_code">1.7. Visual Studio Code</a>
 <ul class="sectlevel3">
 <li><a href="#_recommended_extensions">1.7.1. Recommended Extensions</a></li>
-<li><a href="#_vscode_remote_optional">1.7.2. VSCode Remote (Optional)</a></li>
-<li><a href="#_api_debugging_optional">1.7.3. API Debugging (Optional)</a></li>
-<li><a href="#_ui_debugging_optional">1.7.4. UI Debugging (Optional)</a></li>
-<li><a href="#_vscode_launch_configurations_optional">1.7.5. VSCode Launch Configurations (Optional)</a></li>
+<li><a href="#_github_copilot_agent_skills_optional">1.7.2. GitHub Copilot Agent Skills (Optional)</a></li>
+<li><a href="#_vscode_remote_optional">1.7.3. VSCode Remote (Optional)</a></li>
+<li><a href="#_api_debugging_optional">1.7.4. API Debugging (Optional)</a></li>
+<li><a href="#_ui_debugging_optional">1.7.5. UI Debugging (Optional)</a></li>
+<li><a href="#_vscode_launch_configurations_optional">1.7.6. VSCode Launch Configurations (Optional)</a></li>
 </ul>
 </li>
 </ul>
@@ -842,7 +843,58 @@ code --install-extension bruno-api-client.bruno</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_vscode_remote_optional">1.7.2. VSCode Remote (Optional)</h4>
+<h4 id="_github_copilot_agent_skills_optional">1.7.2. GitHub Copilot Agent Skills (Optional)</h4>
+<div class="paragraph">
+<p>This repository includes agent skills in <code>.agents/skills/</code>. Copilot only loads them when <code>dina-local-deployment</code> is the open workspace. To use them in any workspace, link them into your personal skills folder by running this from the root of your <code>dina-local-deployment</code> checkout:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p ~/.agents/skills &amp;&amp; ln -sfn "$PWD"/.agents/skills/* ~/.agents/skills/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The links point to your checkout, so a <code>git pull</code> keeps the skills up to date. Rerun the command if new skills are added.</p>
+</div>
+<div class="paragraph">
+<p>Copilot picks a skill automatically when your request matches its description. You can also call one directly by typing <code>/</code> followed by the skill name in Copilot Chat.</p>
+</div>
+<div class="sect4">
+<h5 id="_available_skills">Available skills</h5>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>build-dina-images</code></dt>
+<dd>
+<p>Builds a Docker image from your local API source (e.g. <code>collection-api</code>, <code>object-store-api</code>, <code>dina-search-api</code>), points <code>docker-compose.local.yml</code> at it and restarts that container, so you can test API changes in the local deployment. It also handles <code>dina-base-api</code> changes (builds a <code>-SNAPSHOT</code> and wires it into the consuming API) and reverting back to the Docker Hub images. It only builds or deploys when you ask it to.</p>
+<div class="paragraph">
+<p>Example: <code>Build a local image of collection-api with my changes and deploy it</code>, <code>Revert collection-api back to the Docker Hub image</code>.</p>
+</div>
+<div class="paragraph">
+<p>Requires the API repositories cloned locally.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>dina-api</code></dt>
+<dd>
+<p>Runs authenticated requests against the local deployment at <code><a href="https://dina.local/api" class="bare">https://dina.local/api</a></code> (agent, collection, object store, seqdb, search, user, export and loan transaction APIs). It gets and refreshes the Keycloak token for you and uses the Bruno collection in <code>api-client/</code> as its endpoint reference. Use it to query records, seed test data, or debug the backend behind a UI feature. Local deployment only; it refuses dev2, test and prod.</p>
+<div class="paragraph">
+<p>Example: <code>Create a test collection called TEST Herbarium</code>, <code>Show me material sample &lt;uuid&gt; with its organisms</code>, <code>Help me test this feature by creating the necessary records using /dina-api</code></p>
+</div>
+<div class="paragraph">
+<p>Requires the local deployment to be running.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>git-commit-message</code></dt>
+<dd>
+<p>Writes a ready-to-paste commit message from your staged changes (or unstaged changes if nothing is staged), with a header taken from the branch name and a bullet list of what changed. It adds a line disclosing AI-generated code unless you say no AI was involved. It only returns text; it never commits or pushes.</p>
+<div class="paragraph">
+<p>Example: <code>Write a commit message for my changes</code>.</p>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_vscode_remote_optional">1.7.3. VSCode Remote (Optional)</h4>
 <div class="paragraph">
 <p>You can avoid running a slow IDE inside your virtual machine by running VS Code on your host machine instead and connecting to the dev environment using VS Code Remote.</p>
 </div>
@@ -936,7 +988,7 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_api_debugging_optional">1.7.3. API Debugging (Optional)</h4>
+<h4 id="_api_debugging_optional">1.7.4. API Debugging (Optional)</h4>
 <div class="paragraph">
 <p>To debug an API while using the local deployment, you can use the <code>docker-compose.debug.yml</code> config which can be enabled from the <code>start_stop_dina.sh</code> script.</p>
 </div>
@@ -970,7 +1022,7 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_ui_debugging_optional">1.7.4. UI Debugging (Optional)</h4>
+<h4 id="_ui_debugging_optional">1.7.5. UI Debugging (Optional)</h4>
 <div class="paragraph">
 <p>You will need the <code>firefox-devtools.vscode-firefox-debug</code> extension installed in order to debug the UI. This extension allows you to debug the UI using the Firefox browser.</p>
 </div>
@@ -1070,7 +1122,7 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_vscode_launch_configurations_optional">1.7.5. VSCode Launch Configurations (Optional)</h4>
+<h4 id="_vscode_launch_configurations_optional">1.7.6. VSCode Launch Configurations (Optional)</h4>
 <div class="paragraph">
 <p>Here is the complete launch configuration for the DINA API projects using the default ports. This can be edited by going to the "Run and debug" tab in VSCode and clicking the gear icon to edit the <code>launch.json</code> file.</p>
 </div>
@@ -2819,7 +2871,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-09 13:04:47 UTC
+Last updated 2026-10-14 15:30:32 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
