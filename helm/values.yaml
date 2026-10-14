@@ -23,7 +23,7 @@ dinaexportapi:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-export-api
-    tag: "0.27"
+    tag: "0.28"
     pullPolicy: IfNotPresent
 dinaui:
   image:
