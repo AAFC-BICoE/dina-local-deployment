@@ -1,3 +1,8 @@
+# Caps the Tomcat request threads of the api modules (Spring Boot default is 200)
+# This should not be used in production environments.
+x-tomcat-threads: &tomcat-threads
+  server.tomcat.threads.max: 5
+
 services:
   # Nextjs's dev-mode server that hot-reloads the UI source code.
   dina-ui-dev-server:
@@ -23,3 +28,27 @@ services:
       - "${DINA_UI_REPO_DIRECTORY}/packages/dina-ui/dev.Caddyfile:/etc/caddy/Caddyfile"
     environment:
       UI_DEV_SERVER_ADDRESS: dina-ui-dev-server:3000
+
+  agent-api:
+    environment: *tomcat-threads
+
+  collection-api:
+    environment: *tomcat-threads
+
+  seqdb-api:
+    environment: *tomcat-threads
+
+  loan-transaction-api:
+    environment: *tomcat-threads
+
+  dina-user-api:
+    environment: *tomcat-threads
+
+  object-store-api:
+    environment: *tomcat-threads
+
+  dina-export-api:
+    environment: *tomcat-threads
+
+  search-ws:
+    environment: *tomcat-threads
