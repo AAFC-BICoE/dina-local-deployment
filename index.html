@@ -1547,7 +1547,7 @@ DINA_CONFIGS+=('docker-compose.dev.yml')
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">docker-compose.dev.yml</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Enables hot-reloading for the dina-ui service. Useful for frontend development.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Enables hot-reloading for the dina-ui service. Useful for frontend development. Also limits the api modules to 5 Tomcat request threads instead of the Spring Boot default of 200. Change the value in <code>x-tomcat-threads</code> at the top of the file.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">docker-compose.debug.yml</p></td>
@@ -2871,7 +2871,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-16 19:41:34 UTC
+Last updated 2026-10-20 20:00:00 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
