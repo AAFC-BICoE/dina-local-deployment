@@ -813,7 +813,6 @@ git clone --branch dev https://github.com/AAFC-BICoE/seqdb-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/agent-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/dina-user-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/natural-history-collection-api.git
-git clone --branch dev https://github.com/AAFC-BICoE/loan-transaction-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/dina-search-api.git</code></pre>
 </div>
 </div>
@@ -874,7 +873,7 @@ code --install-extension bruno-api-client.bruno</code></pre>
 </dd>
 <dt class="hdlist1"><code>dina-api</code></dt>
 <dd>
-<p>Runs authenticated requests against the local deployment at <code><a href="https://dina.local/api" class="bare">https://dina.local/api</a></code> (agent, collection, object store, seqdb, search, user, export and loan transaction APIs). It gets and refreshes the Keycloak token for you and uses the Bruno collection in <code>api-client/</code> as its endpoint reference. Use it to query records, seed test data, or debug the backend behind a UI feature. Local deployment only; it refuses dev2, test and prod.</p>
+<p>Runs authenticated requests against the local deployment at <code><a href="https://dina.local/api" class="bare">https://dina.local/api</a></code> (agent, collection, object store, seqdb, search, user and export APIs). It gets and refreshes the Keycloak token for you and uses the Bruno collection in <code>api-client/</code> as its endpoint reference. Use it to query records, seed test data, or debug the backend behind a UI feature. Local deployment only; it refuses dev2, test and prod.</p>
 <div class="paragraph">
 <p>Example: <code>Create a test collection called TEST Herbarium</code>, <code>Show me material sample &lt;uuid&gt; with its organisms</code>, <code>Help me test this feature by creating the necessary records using /dina-api</code></p>
 </div>
@@ -2871,7 +2870,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-20 20:00:00 UTC
+Last updated 2026-10-22 20:04:37 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
