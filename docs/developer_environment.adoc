@@ -164,7 +164,6 @@ git clone --branch dev https://github.com/AAFC-BICoE/seqdb-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/agent-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/dina-user-api.git
 git clone --branch dev https://github.com/AAFC-BICoE/natural-history-collection-api.git
-git clone --branch dev https://github.com/AAFC-BICoE/loan-transaction-api.git 
 git clone --branch dev https://github.com/AAFC-BICoE/dina-search-api.git 
 ----
 
@@ -212,7 +211,7 @@ Example: `Build a local image of collection-api with my changes and deploy it`, 
 Requires the API repositories cloned locally.
 
 `dina-api`::
-Runs authenticated requests against the local deployment at `https://dina.local/api` (agent, collection, object store, seqdb, search, user, export and loan transaction APIs). It gets and refreshes the Keycloak token for you and uses the Bruno collection in `api-client/` as its endpoint reference. Use it to query records, seed test data, or debug the backend behind a UI feature. Local deployment only; it refuses dev2, test and prod.
+Runs authenticated requests against the local deployment at `https://dina.local/api` (agent, collection, object store, seqdb, search, user and export APIs). It gets and refreshes the Keycloak token for you and uses the Bruno collection in `api-client/` as its endpoint reference. Use it to query records, seed test data, or debug the backend behind a UI feature. Local deployment only; it refuses dev2, test and prod.
 +
 Example: `Create a test collection called TEST Herbarium`, `Show me material sample <uuid> with its organisms`, `Help me test this feature by creating the necessary records using /dina-api`
 +
