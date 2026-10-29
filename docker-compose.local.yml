@@ -205,7 +205,7 @@ services:
         condition: service_completed_successfully
 
   dina-export-api:
-    image: aafcbicoe/dina-export-api:0.27
+    image: aafcbicoe/dina-export-api:0.29
     profiles: ["export_api"]
     mem_limit: 512m
     environment:
@@ -228,6 +228,8 @@ services:
       elasticsearch.certPath: /app/certs/ca/ca.crt
       spring.security.oauth2.resourceserver.jwt.issuer-uri: ${KEYCLOAK_EXTERNAL_URL}/realms/dina
       spring.security.oauth2.resourceserver.jwt.jwk-set-uri: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/certs
+      http-client.allowed-hosts[0]: "object-store-api"
+      http-client.allowed-hosts[1]: "agent-api"
     labels:
       # Opens http://api.dina.local/export/api/v1 module endpoint
       - "traefik.http.middlewares.stripreportlabel.stripprefix.prefixes=${EXPORT_API_PREFIX}"
