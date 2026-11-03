@@ -24,7 +24,7 @@ variables:
 steps:
 
  - script: |
-
+    set -e
     docker build -f okd/Dockerfile-dinaui -t dina-ui-okd:$(imageTag) .
 
     docker save dina-ui-okd:$(imageTag) -o $(System.DefaultWorkingDirectory)/image.tar
@@ -38,8 +38,6 @@ steps:
       --ignore-unfixed \
       --exit-code 1
 
-    echo "Exit code = $?"
-    
     docker tag \
       dina-ui-okd:$(imageTag) \
       $(imageTagFQP)
