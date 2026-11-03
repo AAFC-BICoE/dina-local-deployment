@@ -63,7 +63,7 @@ The `DINA_CONFIGS` section defines which docker-compose configuration files to i
 |Required. Defines the core services, networks and volumes for a local development environment. This is where you can see each specific version of services used for local deployment.
 
 |docker-compose.dev.yml
-|Optional. Enables hot-reloading for the dina-ui service. Useful for frontend development.
+|Optional. Enables hot-reloading for the dina-ui service. Useful for frontend development. Also limits the api modules to 5 Tomcat request threads instead of the Spring Boot default of 200. Change the value in `x-tomcat-threads` at the top of the file.
 
 |docker-compose.debug.yml
 |Optional. Opens remote debugging ports on the Java containers. Enable this to attach a debugger from your IDE.
