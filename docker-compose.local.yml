@@ -58,7 +58,7 @@ services:
         condition: service_completed_successfully
 
   agent-api:
-    image: aafcbicoe/agent-api:0.36
+    image: aafcbicoe/agent-api:1.0
     profiles: ["agent_api"]
     mem_limit: 512m
     environment:
