@@ -80,7 +80,7 @@ The `DINA_CONFIGS` section defines which docker-compose configuration files to i
 
 === Keycloak Reset
 
-Uncomment `RESET_KEYCLOAK=true` to make the next `./start_stop_dina.sh up` re-import the users and groups from `keycloak/keycloak-dina-starter-realm.json`. See <<_reset_users_and_groups,Reset Users and Groups>>.
+Uncomment `RESET_KEYCLOAK=true` to make the next `./start_stop_dina.sh up` re-import the users and groups from `keycloak/keycloak-dina-starter-realm.json`. Comment it out again afterwards. See <<_reset_users_and_groups,Reset Users and Groups>> for what a reset deletes.
 
 == Starting the Stack
 
@@ -112,9 +112,9 @@ After all the components have finished initializing, the UI will be available at
 
 The password is the same as the username for all users.
 
-Note: Keycloak only imports these users when the `keycloak-data` folder is empty, and `.env` is only created when it doesn't exist. 
+Note: Keycloak only imports these users when the `keycloak-data` folder is empty, and `.env` is only created when it doesn't exist. To import the users again, see <<_reset_users_and_groups,Reset Users and Groups>>.
 
-If you started the stack before the `cnc-*` users were renamed to `dina-*`, run the <<_reset_users_and_groups,Keycloak reset>> once and set `DINA_HTTP_DEFAULT_SU_USERNAME` and `DINA_HTTP_DEFAULT_SU_PASSWORD` to `dina-su` in `.env`.
+If you started the stack before the `+cnc-*+` users were renamed to `+dina-*+`, set `DINA_HTTP_DEFAULT_SU_USERNAME` and `DINA_HTTP_DEFAULT_SU_PASSWORD` to `dina-su` in `.env`. Then run the <<_reset_users_and_groups,Keycloak reset>> once.
 
 == Stopping the Stack
 
