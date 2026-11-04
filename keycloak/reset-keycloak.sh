@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Empties Keycloak's database (the keycloak-data folder) so that Keycloak imports
-# keycloak/keycloak-dina-starter-realm.json again on its next start. Users added in Keycloak are lost.
+# keycloak/keycloak-dina-starter-realm.json again on its next start. 
+# Everything stored in Keycloak is lost, and the users are recreated with new IDs.
 #
 # start_stop_dina.sh calls it on "up" when RESET_KEYCLOAK=true, passing its docker compose -f options.
 # It can also be run on its own (defaults to docker-compose.base.yml), followed by ./start_stop_dina.sh up.
@@ -20,4 +21,7 @@ docker compose "$@" rm --stop --force keycloak keycloak-db
 
 # The files belong to the container's postgres user, so delete them from inside the keycloak-db image
 # (as root) instead of needing sudo on the host.
-docker compose "$@" run --rm --no-deps --entrypoint find keycloak-db /var/lib/postgresql -mindepth 1 -delete
+# Run on its own, only docker-compose.base.yml is loaded, so don't report the other DINA containers as orphans.
+COMPOSE_IGNORE_ORPHANS=true docker compose "$@" run --rm --no-deps --entrypoint find keycloak-db /var/lib/postgresql -mindepth 1 -delete
+
+echo "Keycloak's database is empty. Keycloak imports keycloak/keycloak-dina-starter-realm.json on its next start (./start_stop_dina.sh up)."
