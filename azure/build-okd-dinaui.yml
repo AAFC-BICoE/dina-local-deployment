@@ -22,14 +22,26 @@ variables:
   AZ_ACR: $(ContainerRegistry)
   
 steps:
- - task: Docker@2
-   displayName: Build an image
-   inputs:
-     repository: $(ContainerRegistry).azurecr.io/okd/dina-ui-okd
-     tags: $(imageTag)
-     command: build
-     Dockerfile: okd/Dockerfile-dinaui
 
+ - script: |
+    set -e
+    docker build -f okd/Dockerfile-dinaui -t dina-ui-okd:$(imageTag) .
+
+    docker save dina-ui-okd:$(imageTag) -o $(System.DefaultWorkingDirectory)/image.tar
+
+    docker run --rm \
+      -v $(System.DefaultWorkingDirectory):/work \
+      aquasec/trivy:0.76.1 image \
+      --input /work/image.tar \
+      --pkg-types os \
+      --severity HIGH,CRITICAL \
+      --ignore-unfixed \
+      --exit-code 1
+
+    docker tag \
+      dina-ui-okd:$(imageTag) \
+      $(imageTagFQP)
+   displayName: Build and Scan Image
  - task: AzureCLI@2
    displayName: Login and push to Azure Container Registry
    condition: ${{ eq(parameters.pushACR, true) }}
