@@ -40,49 +40,36 @@ Then each of the API's that you wish to use also need to be configured with the 
 
 == Reset Users and Groups
 
-Keycloak only imports `keycloak/keycloak-dina-starter-realm.json` when its database (`keycloak-data`) is empty,
-so changes to that file (e.g. new or renamed users) are not picked up by an existing setup.
+Keycloak only imports the users and groups from `keycloak/keycloak-dina-starter-realm.json` when its database (`keycloak-data`) is empty. 
+To pick up changes to that file, reset the database.
 
-A reset deletes Keycloak's database, so everything stored in Keycloak is lost. This includes users added in Keycloak
-and changes to existing users, such as their passwords, groups, roles or linked agent. Changes made in the DINA UI
-are lost too, not only those made in the Keycloak admin console. The users are also recreated with new IDs, so the
-saved searches and UI preferences that DINA stored for them no longer show up.
+Warning: A reset deletes everything stored in Keycloak. This includes users you added and any changes to passwords,
+groups or roles, whether they were made in the Keycloak admin console or the DINA UI. 
+The users are recreated with new IDs, so their saved searches and UI preferences no longer show up.
 
-The reset doesn't change `.env`. A change to the realm file can rename the user set in
-`DINA_HTTP_DEFAULT_SU_USERNAME`, for example from `cnc-su` to `dina-su`. If it does, update
-`DINA_HTTP_DEFAULT_SU_USERNAME` and `DINA_HTTP_DEFAULT_SU_PASSWORD` in `.env` before the reset. That way, the `up`
-that runs the reset also applies the new values.
+The reset doesn't change `.env`. If the realm file renames the user set in `DINA_HTTP_DEFAULT_SU_USERNAME`
+(for example from `cnc-su` to `dina-su`), update `DINA_HTTP_DEFAULT_SU_USERNAME` and `DINA_HTTP_DEFAULT_SU_PASSWORD`
+in `.env` first.
 
-Uncomment the following line inside `start_stop_dina.sh`, then start the stack.
-
-```sh
-RESET_KEYCLOAK=true
-```
-
-```sh
-./start_stop_dina.sh up -d
-```
-
-The reset only runs on `up`. Comment the line out again afterwards, otherwise every `up` resets Keycloak.
-Don't add service names to that `up` command. The reset removes the Keycloak containers, and an `up` that only
-names other services doesn't start them again.
-
-The reset script can also be run on its own before starting the stack.
+Run the reset script, then start the stack:
 
 ```sh
 ./keycloak/reset-keycloak.sh
 ./start_stop_dina.sh up -d
 ```
 
-To confirm the import, wait a minute or two for Keycloak to start. Then check the last import message in its logs.
+Don't add service names to that `up` command. The reset removes the Keycloak containers, and an `up` that only names
+other services doesn't start them again.
+
+To confirm the import, wait for Keycloak to start, then run:
 
 ```sh
 ./start_stop_dina.sh logs keycloak | grep "Realm 'dina'" | tail -n 1
 ```
 
-`Realm 'dina' imported` means the users were imported. `Realm 'dina' already exists. Import skipped` means
-Keycloak's database was not reset. No output means Keycloak hasn't finished starting yet. In that case, wait a
-little longer and run the command again.
+* `Realm 'dina' imported`: the users and groups were imported.
+* `Realm 'dina' already exists. Import skipped`: the database wasn't reset.
+* No output: Keycloak is still starting. Wait a little longer and run the command again.
 
 == Settings
 
