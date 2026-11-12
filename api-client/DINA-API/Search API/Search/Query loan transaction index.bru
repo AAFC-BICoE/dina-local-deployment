@@ -1,0 +1,27 @@
+meta {
+  name: Query loan transaction index
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/search-api/search-ws/search?indexName=dina_loan_transaction_index
+  body: json
+  auth: inherit
+}
+
+query {
+  indexName: dina_loan_transaction_index
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "query": {
+      "match_all": {}
+    }
+  }
+}

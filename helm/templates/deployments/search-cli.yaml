@@ -63,6 +63,10 @@ spec:
               value: {{ .Values.services.elasticconfigurator.environment.DINA_OBJECT_STORE_INDEX_SETTINGS_FILE }}
             - name: DINA_OBJECT_STORE_OPTIONAL_INDEX_SETTINGS_FILE
               value: {{ .Values.services.elasticconfigurator.environment.DINA_OBJECT_STORE_OPTIONAL_INDEX_SETTINGS_FILE }}
+            - name: DINA_TRANSACTION_INDEX_NAME
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_TRANSACTION_INDEX_NAME }}
+            - name: DINA_TRANSACTION_INDEX_SETTINGS_FILE
+              value: {{ .Values.services.elasticconfigurator.environment.DINA_TRANSACTION_INDEX_SETTINGS_FILE }}
             - name: DINA_PROJECT_INDEX_NAME
               value: {{ .Values.services.elasticconfigurator.environment.DINA_PROJECT_INDEX_NAME }}
             - name: DINA_PROJECT_INDEX_SETTINGS_FILE
@@ -146,6 +150,8 @@ spec:
             items:
             - key: dina_project_index_settings.json
               path: dina_project_index_settings.json
+            - key: dina_loan_transaction_index_settings.json
+              path: dina_loan_transaction_index_settings.json
             - key: dina_storage_index_settings.json
               path: storage-index/dina_storage_index_settings.json
             - key: object_store_index_settings.json

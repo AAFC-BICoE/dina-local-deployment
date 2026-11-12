@@ -443,7 +443,7 @@ services:
     environment:
       ELASTIC_SERVER_URL: https://elasticsearch-service:9200
       ES_CA_FILE: /usr/share/elastic-configurator/certs/ca/ca.crt
-      DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE PROJECT COLLECTING_EVENT
+      DINA_INDEX_DECLARATIONS: AGENT MATERIAL_SAMPLE STORAGE OBJECT_STORE TRANSACTION PROJECT COLLECTING_EVENT
       DINA_AGENT_INDEX_NAME: dina_agent_index
       DINA_AGENT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/agent-index/dina_agent_index_settings.json
       DINA_MATERIAL_SAMPLE_INDEX_NAME: dina_material_sample_index
@@ -454,6 +454,8 @@ services:
       DINA_OBJECT_STORE_INDEX_NAME: dina_object_store_index
       DINA_OBJECT_STORE_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/object-store-index/object_store_index_settings.json
       DINA_OBJECT_STORE_OPTIONAL_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/object-store-index/object_store_update_index.json
+      DINA_TRANSACTION_INDEX_NAME: dina_loan_transaction_index
+      DINA_TRANSACTION_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_loan_transaction_index_settings.json
       DINA_PROJECT_INDEX_NAME: dina_project_index
       DINA_PROJECT_INDEX_SETTINGS_FILE: /usr/share/elastic-configurator/settings/dina_project_index_settings.json
       DINA_COLLECTING_EVENT_INDEX_NAME: dina_collecting_event_index
