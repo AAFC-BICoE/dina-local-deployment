@@ -210,6 +210,13 @@ Example: `Build a local image of collection-api with my changes and deploy it`, 
 +
 Requires the API repositories cloned locally.
 
+`copilot-credit-pacing`::
+Calculates where your Copilot credit usage should be this month. It counts Monday-to-Friday working days minus Canada federal statutory holidays, spreads the 1900-credit monthly allowance across them, and reports expected usage up to today. It does not fetch your actual usage.
++
+Example: `How many Copilot credits should I have used this month?`
++
+Runs `scripts/pacing.py` with Python 3. It needs no other setup.
+
 `dina-api`::
 Runs authenticated requests against the local deployment at `https://dina.local/api` (agent, collection, object store, seqdb, search, user and export APIs). It gets and refreshes the Keycloak token for you and uses the Bruno collection in `api-client/` as its endpoint reference. Use it to query records, seed test data, or debug the backend behind a UI feature. Local deployment only; it refuses dev2, test and prod.
 +
@@ -221,6 +228,20 @@ Requires the local deployment to be running.
 Writes a ready-to-paste commit message from your staged changes (or unstaged changes if nothing is staged), with a header taken from the branch name and a bullet list of what changed. It adds a line disclosing AI-generated code unless you say no AI was involved. It only returns text; it never commits or pushes.
 +
 Example: `Write a commit message for my changes`.
+
+`test-dina-ticket`::
+Tests a ticket's changes end to end against the local deployment. It reads the ticket and the branch diff to derive test scenarios, drives `dina-ui` in headless Chromium with Playwright, checks or seeds data through `dina-api`, and reports what passed and failed, with screenshots and any page or HTTP errors.
++
+Example: `Test the changes on this branch end to end`.
++
+Requires `dina-ui` cloned in your home folder, Playwright installed, and the local deployment and `dina-ui` running.
+
+`update-dina-user-docs`::
+Maintains the DINA User Guide against the local deployment. It refreshes outdated screenshots and the step text around them, captures French screenshots and syncs the French guide, or documents a new feature in English and French.
++
+Example: `Refresh the screenshots in the user guide`.
++
+Requires `dina-documentation` and `dina-ui` cloned in your home folder, Playwright installed, and the local deployment running.
 
 === VSCode Remote (Optional)
 
