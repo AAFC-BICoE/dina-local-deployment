@@ -11,8 +11,9 @@ Local only: `https://dina.local`. Refuse other hosts. Don't commit or push anyth
 
 ## Tools (reuse, don't rebuild)
 
-- **API**: the `dina-api` skill (`~/.claude/skills/dina-api/scripts/dina-curl.sh`). Follow its safety rules (TEST prefix on seeded data, group `dina`, verify after write, only delete what you created).
-- **Browser**: `scripts/session.mjs` in this skill. It wraps the login/language helpers of `update-dina-user-docs/scripts/shot.mjs` (`go`, `field`, `pick`, `querySearch`, `save`, ...) and collects page errors, console errors and HTTP >= 400 responses in `problems`. Playwright resolves from `update-dina-user-docs/scripts/node_modules`; if missing run `npm ci` there once.
+- **API**: the `dina-api` skill (`.agents/skills/dina-api/scripts/dina-curl.sh` in this repo). Follow its safety rules (TEST prefix on seeded data, group `dina`, verify after write, only delete what you created).
+- **Browser**: `scripts/session.mjs` in this skill. `start({ lang })` logs in to `https://dina.local` through the Keycloak form (default `dina-su` / `dina-su`, overridable with `DINA_USERNAME` / `DINA_PASSWORD`) and collects page errors, console errors and HTTP >= 400 responses in `problems`. `go(page, path)` navigates and refuses any host other than `dina.local`; `snap(page, file)` takes a full-page screenshot. Setup once: `npm install` in `scripts/`, then `npx playwright install chromium`.
+- Known noise: `HTTP 404 .../dev-user.json` appears on every page load in dev. Ignore it unless the ticket touches it.
 - Write throwaway scripts to the scratchpad dir (not the repo) as `.mjs` and import by absolute path. Run with `node`.
 
 ## Workflow
@@ -25,7 +26,7 @@ Local only: `https://dina.local`. Refuse other hosts. Don't commit or push anyth
    - both languages when labels/intl changed (`lang: "fr"`),
    - for UI that reads API data: compare what's shown with the API (GET the record) so you check data, not just rendering.
 4. **Seed data** via dina-api when the scenario needs it (e.g. a material sample with 3 organisms). Name it `TEST ...`; keep a list of created UUIDs.
-5. **Drive the UI.** For each scenario: navigate, act, assert on visible text/state with Playwright, snapshot key states, and read `problems` after each step. Prefer role/label locators; fall back to the app's `label.<name>-field` pattern (`field()`). Take a screenshot at each failure and for the main success state. View them with Read.
+5. **Drive the UI.** For each scenario: navigate, act, assert on visible text/state with Playwright, snapshot key states, and read `problems` after each step. Prefer role/label locators; fall back to the app's `label.<name>-field` pattern (for example `page.locator("label.<name>-field")`). Take a screenshot at each failure and for the main success state. View them with Read.
 6. **Verify persistence through the API**, not the UI: GET the saved record and compare attributes/relationships to what you entered.
 7. **Look at it.** Open the screenshots and judge layout, alignment, truncated text, missing labels/translations (raw intl keys), console noise unrelated to the ticket (note, don't chase).
 8. **Clean up.** Offer to delete the TEST records you created (list UUIDs). Delete only after confirmation.
