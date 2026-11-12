@@ -59,11 +59,11 @@ Once connected, you can use the VS Code integrated terminal to install tools and
 
 == Browser Installation
 
-To access `dina.local`, you must install a browser directly within the WSL2 environment *or* use the VS Code integrated browser (see below).
+To access `dina.local`, you must install a browser directly within the WSL environment *or* use the VS Code integrated browser (see below).
 
 === Using VS Code Integrated Browser (Experimental)
 
-Instead of installing a browser inside WSL2, you can use the VS Code integrated browser while connected to a WSL2 remote session.
+Instead of installing a browser inside WSL, you can use the VS Code integrated browser while connected to a WSL remote session.
 
 To enable this:
 
@@ -93,7 +93,7 @@ link:https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefo
 
 === Google Chrome
 
-Run the following commands in your WSL2 terminal:
+Run the following commands in your WSL terminal:
 
 [source,bash]
 ----
