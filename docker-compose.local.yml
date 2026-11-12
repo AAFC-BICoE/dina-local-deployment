@@ -171,7 +171,7 @@ services:
         condition: service_completed_successfully
 
   object-store-api:
-    image: aafcbicoe/object-store-api:1.38
+    image: aafcbicoe/object-store-api:2.0
     mem_limit: 1024m
     profiles: ["object_store_api"]
     environment:
