@@ -12,7 +12,6 @@ services:
       COLLECTION_API_ADDRESS: collection-api:8080
       USER_API_ADDRESS: dina-user-api:8080
       SEARCH_API_ADDRESS: search-ws:8085
-      LOAN_TRANSACTION_API_ADDRESS: loan-transaction-api:8080
       REPORT_LABEL_API_ADDRESS: dina-export-api:8080
       INSTANCE_MODE: ${INSTANCE_MODE}
       INSTANCE_NAME: ${INSTANCE_NAME}
@@ -107,35 +106,6 @@ services:
       - "traefik.http.middlewares.stripcollection.stripprefix.prefixes=${COLLECTION_API_PREFIX}"
       - "traefik.http.routers.collectionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${COLLECTION_API_PREFIX}/`)"
       - "traefik.http.routers.collectionapi.middlewares=stripcollection@docker"
-      - "traefik.docker.network=dina-local-deployment_dina"
-    depends_on:
-      init-db:
-        condition: service_completed_successfully
-
-  loan-transaction-api:
-    image: aafcbicoe/loan-transaction-api:0.17
-    profiles: ["loan_transaction_api"]
-    mem_limit: 512m
-    environment:
-      keycloak.enabled: "true"
-      keycloak.auth-server-url: ${KEYCLOAK_INTERNAL_URL}
-      spring.datasource.url: jdbc:postgresql://dina-db/loan_transaction?currentSchema=loan_transaction
-      spring.liquibase.user: ${LOAN_TRANSACTION_MIGRATION_USER}
-      spring.liquibase.password: ${LOAN_TRANSACTION_MIGRATION_USER_PW}
-      spring.liquibase.contexts: schema-change, initial-data, data-migration
-      spring.datasource.username: ${LOAN_TRANSACTION_WEB_USER}
-      spring.datasource.password: ${LOAN_TRANSACTION_WEB_USER_PW}
-      spring.security.oauth2.resourceserver.jwt.issuer-uri: ${KEYCLOAK_EXTERNAL_URL}/realms/dina
-      spring.security.oauth2.resourceserver.jwt.jwk-set-uri: ${KEYCLOAK_INTERNAL_URL}/realms/dina/protocol/openid-connect/certs
-    networks:
-      - dina
-    extra_hosts:
-      - ${KEYCLOAK_HOSTNAME}:${TRAEFIK_IP}
-    labels:
-      # Opens http://api.dina.local/transaction/api/v1 module endpoint
-      - "traefik.http.middlewares.striploantransaction.stripprefix.prefixes=${LOAN_TRANSACTION_API_PREFIX}"
-      - "traefik.http.routers.loantransactionapi.rule=Host(`${API_HOSTNAME}`) && PathPrefix(`${LOAN_TRANSACTION_API_PREFIX}/`)"
-      - "traefik.http.routers.loantransactionapi.middlewares=striploantransaction@docker"
       - "traefik.docker.network=dina-local-deployment_dina"
     depends_on:
       init-db:
@@ -378,7 +348,6 @@ services:
       COLLECTION_API_URL: http://collection-api:8080/api/v1
       OBJECT_STORE_API_URL: http://object-store-api:8080/api/v1
       AGENT_API_URL: http://agent-api:8080/api/v1
-      LOAN_TRANSACTION_API_URL: http://loan-transaction-api:8080/api/v1
       SEQDB_API_URL: http://seqdb-api:8080/api
       RABBITMQ_HOSTNAME: rabbitmq-dina
       IS_MESSAGE_CONSUMER: "true"

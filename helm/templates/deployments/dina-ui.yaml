@@ -46,8 +46,6 @@ spec:
               value: {{ tpl .Values.services.dinaui.environment.USER_API_ADDRESS . }}
             - name: SEARCH_API_ADDRESS
               value: {{ tpl .Values.services.dinaui.environment.SEARCH_API_ADDRESS . }}
-            - name: LOAN_TRANSACTION_API_ADDRESS
-              value: {{ tpl .Values.services.dinaui.environment.LOAN_TRANSACTION_API_ADDRESS . }}
             - name: REPORT_LABEL_API_ADDRESS
               value: {{ tpl .Values.services.dinaui.environment.REPORT_LABEL_API_ADDRESS . }}
             - name: INSTANCE_MODE

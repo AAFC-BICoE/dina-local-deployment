@@ -123,8 +123,6 @@ spec:
               value: {{ tpl .Values.services.searchcli.environment.AGENT_API_URL . }}
             - name: OBJECT_STORE_API_URL
               value: {{ tpl .Values.services.searchcli.environment.OBJECT_STORE_API_URL . }}
-            - name: LOAN_TRANSACTION_API_URL
-              value: {{ tpl .Values.services.searchcli.environment.LOAN_TRANSACTION_API_URL . }}
             - name: SEQDB_API_URL
               value: {{ tpl .Values.services.searchcli.environment.SEQDB_API_URL . }}
             - name: RABBITMQ_HOSTNAME
