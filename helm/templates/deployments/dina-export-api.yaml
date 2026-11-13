@@ -103,11 +103,11 @@ spec:
               mountPath: /app/certs
           resources:
             requests:
-              memory: {{ .Values.resources.apis.requests.memory }}
-              cpu: {{ .Values.resources.apis.requests.cpu }}            
+              memory: {{ .Values.resources.dinaexportapi.requests.memory }}
+              cpu: {{ .Values.resources.dinaexportapi.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.apis.limits.memory }} 
-              cpu: {{ .Values.resources.apis.limits.cpu }}
+              memory: {{ .Values.resources.dinaexportapi.limits.memory }} 
+              cpu: {{ .Values.resources.dinaexportapi.limits.cpu }}
       volumes:
         - name: dina-export-pv
           emptyDir: {}

@@ -61,11 +61,11 @@ spec:
               containerPort: 80
           resources:
             requests:
-              memory: {{ .Values.resources.apis.requests.memory }}
-              cpu: {{ .Values.resources.apis.requests.cpu }}            
+              memory: {{ .Values.resources.dinaui.requests.memory }}
+              cpu: {{ .Values.resources.dinaui.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.apis.limits.memory }} 
-              cpu: {{ .Values.resources.apis.limits.cpu }} 
+              memory: {{ .Values.resources.dinaui.limits.memory }} 
+              cpu: {{ .Values.resources.dinaui.limits.cpu }} 
           volumeMounts:
             - name: ui-welcome-volume
               mountPath: /srv/public
