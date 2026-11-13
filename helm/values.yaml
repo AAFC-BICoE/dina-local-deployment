@@ -47,7 +47,7 @@ keycloak:
   image:
     registry: quay.io
     repository: keycloak/keycloak
-    tag: "25.0.6"
+    tag: "26.8.2"
     pullPolicy: IfNotPresent
 elasticsearchdina:
   image:
