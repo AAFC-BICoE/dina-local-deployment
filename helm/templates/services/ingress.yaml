@@ -75,13 +75,6 @@ spec:
               name: {{ .Values.global.environment.config.dina_export_api.service }}
               port:
                 number: 8080
-        - path: "/transaction/(.*)"
-          pathType: ImplementationSpecific
-          backend:
-            service:
-              name: {{ .Values.global.environment.config.loan_transaction_api.service }}
-              port:
-                number: 8080
         - path: "/search/(.*)"
           pathType: ImplementationSpecific
           backend:

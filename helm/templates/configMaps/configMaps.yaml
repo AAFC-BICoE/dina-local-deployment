@@ -94,14 +94,6 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: message-producer-override-loantransaction
-data:
-  DINA_MESSAGING_ISPRODUCER: {{ .Values.services.loantransactionapi.environment.dina.messaging.isProducer | quote }}
-  RABBITMQ_HOST: {{ tpl .Values.services.loantransactionapi.environment.rabbitmq.host . }}
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
   name: message-producer-override-agentapi
 data:
   DINA_MESSAGING_ISPRODUCER: {{ .Values.services.agentapi.environment.dina.messaging.isProducer | quote }}
