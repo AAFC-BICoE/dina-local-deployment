@@ -19,3 +19,6 @@ GRDI Test.bru
 
 # DINA DB Data
 dina-db-data/*
+
+# Agent Scripts node_modules
+**/node_modules/*
