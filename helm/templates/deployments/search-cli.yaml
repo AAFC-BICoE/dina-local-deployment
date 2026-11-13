@@ -77,11 +77,11 @@ spec:
               value: {{ .Values.services.elasticconfigurator.environment.DINA_COLLECTING_EVENT_INDEX_SETTINGS_FILE }}
           resources:
             requests:
-              memory: {{ .Values.resources.apis.requests.memory }}
-              cpu: {{ .Values.resources.apis.requests.cpu }}            
+              memory: {{ .Values.resources.searchcli.requests.memory }}
+              cpu: {{ .Values.resources.searchcli.requests.cpu }}
             limits:
-              memory: {{ .Values.resources.apis.limits.memory }} 
-              cpu: {{ .Values.resources.apis.limits.cpu }}
+              memory: {{ .Values.resources.searchcli.limits.memory }}
+              cpu: {{ .Values.resources.searchcli.limits.cpu }}
           volumeMounts:
             - name: elastic-pv
               mountPath: /usr/share/elastic-configurator/settings
@@ -135,11 +135,11 @@ spec:
           tty: true
           resources:
             requests:
-              memory: {{ .Values.resources.apis.requests.memory }}
-              cpu: {{ .Values.resources.apis.requests.cpu }}            
+              memory: {{ .Values.resources.searchcli.requests.memory }}
+              cpu: {{ .Values.resources.searchcli.requests.cpu }}
             limits:
-              memory: {{ .Values.resources.apis.limits.memory }} 
-              cpu: {{ .Values.resources.apis.limits.cpu }}
+              memory: {{ .Values.resources.searchcli.limits.memory }}
+              cpu: {{ .Values.resources.searchcli.limits.cpu }}
           volumeMounts:
             - name: es-certs
               mountPath: /app/certs

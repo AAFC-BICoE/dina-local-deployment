@@ -529,30 +529,98 @@ podSecurityContext: {}
 securityContext: {}
 
 resources:
-  general:
-    limits:
-      memory: 2Gi
-      cpu: 1
-    requests:
-      cpu: 400m
-      memory: 1Gi
-  apis:
-    limits:
-      memory: 768Mi
-      cpu: 400m
+  dinaui:
     requests:
       cpu: 80m
       memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  agentapi:
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
   collectionapi:
-    memory_limit_mb: 1024
-    cpu_limit_m: 500
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 1024M
   objectstoreapi:
-    memory_limit_mb: 1024
-    cpu_limit_m: 500
     storage_limit_gb: 2
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 1024M
   seqdbapi:
-    memory_limit_mb: 1024
-    cpu_limit_m: 500
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 1024M
+  dinauserapi:
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  dinaexportapi:
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  searchws:
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  searchcli:
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  dinadb:
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  keycloak:
+    requests:
+      cpu: 400m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 2Gi
+  rabbitmq:
+    requests:
+      cpu: 400m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 2Gi
+  elasticsearchdina:
+    requests:
+      cpu: 400m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 2Gi
   initcontainers:
     limits:
       memory: 256Mi
