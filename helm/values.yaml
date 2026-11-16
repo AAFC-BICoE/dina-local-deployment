@@ -11,37 +11,37 @@ agentapi:
   image:
     registry: docker.io
     repository: aafcbicoe/agent-api
-    tag: "0.36"
+    tag: "1.0"
     pullPolicy: IfNotPresent
 collectionapi:
   image:
     registry: docker.io
     repository: aafcbicoe/natural-history-collection-api
-    tag: "0.131"
+    tag: "1.1"
     pullPolicy: IfNotPresent
 dinaexportapi:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-export-api
-    tag: "0.28"
+    tag: "0.29"
     pullPolicy: IfNotPresent
 dinaui:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-ui
-    tag: "0.232.0"
+    tag: "0.235.0"
     pullPolicy: IfNotPresent
 dinauserapi:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-user-api
-    tag: "0.30"
+    tag: "1.0"
     pullPolicy: IfNotPresent
 objectstoreapi:
   image:
     registry: docker.io
     repository: aafcbicoe/object-store-api
-    tag: "1.38"
+    tag: "2.0"
     pullPolicy: IfNotPresent
 keycloak:
   image:
@@ -83,7 +83,7 @@ seqdbapi:
   image:
     registry: docker.io
     repository: aafcbicoe/seqdb-api
-    tag: "2.28.0"
+    tag: "3.0"
     pullPolicy: IfNotPresent
 rabbitmq:
   image:
