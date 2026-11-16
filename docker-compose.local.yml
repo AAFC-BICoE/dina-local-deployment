@@ -1,6 +1,6 @@
 services:
   dina-ui:
-    image: aafcbicoe/dina-ui:0.232.0
+    image: aafcbicoe/dina-ui:0.235.0
     environment:
       KEYCLOAK_ENABLED: true
       KEYCLOAK_CLIENTID: dina-public
@@ -32,7 +32,7 @@ services:
       - "${UI_CUSTOMIZATION_FOLDER_PATH}:/srv/public"
 
   seqdb-api:
-    image: aafcbicoe/seqdb-api:2.28.0
+    image: aafcbicoe/seqdb-api:3.0
     profiles: ["seqdb_api"]
     environment:
       keycloak.enabled: "true"
@@ -84,7 +84,7 @@ services:
         condition: service_completed_successfully
 
   collection-api:
-    image: aafcbicoe/natural-history-collection-api:1.0
+    image: aafcbicoe/natural-history-collection-api:1.1
     profiles: ["collection_api"]
     environment:
       keycloak.enabled: "true"
@@ -112,7 +112,7 @@ services:
         condition: service_completed_successfully
 
   dina-user-api:
-    image: aafcbicoe/dina-user-api:0.30
+    image: aafcbicoe/dina-user-api:1.0
     profiles: ["user_api"]
     mem_limit: 512m
     environment:
