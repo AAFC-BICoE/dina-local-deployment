@@ -130,7 +130,7 @@ global:
     config:
       db_init:
         reset_users: true
-        dina_db: agent collection dina_user object_store seqdb loan_transaction export
+        dina_db: agent collection dina_user object_store seqdb export
 ```
 
 The `dina_db` environment variable contains all of the modules that will be reset.

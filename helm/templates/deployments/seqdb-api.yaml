@@ -70,9 +70,9 @@ spec:
             periodSeconds: 1
           resources:
             requests:
-              memory: {{ .Values.resources.apis.requests.memory }}
-              cpu: {{ .Values.resources.apis.requests.cpu }}            
+              memory: {{ .Values.resources.seqdbapi.requests.memory }}
+              cpu: {{ .Values.resources.seqdbapi.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.seqdbapi.memory_limit_mb }}M
-              cpu: {{ .Values.resources.seqdbapi.cpu_limit_m }}m
+              memory: {{ .Values.resources.seqdbapi.limits.memory }}
+              cpu: {{ .Values.resources.seqdbapi.limits.cpu }}
 status: {}

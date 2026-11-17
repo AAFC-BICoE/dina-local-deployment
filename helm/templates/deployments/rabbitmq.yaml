@@ -40,11 +40,11 @@ spec:
             periodSeconds: 1
           resources:
             requests:
-              memory: {{ .Values.resources.general.requests.memory }}
-              cpu: {{ .Values.resources.general.requests.cpu }}            
+              memory: {{ .Values.resources.rabbitmq.requests.memory }}
+              cpu: {{ .Values.resources.rabbitmq.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.general.limits.memory }} 
-              cpu: {{ .Values.resources.general.limits.cpu }}
+              memory: {{ .Values.resources.rabbitmq.limits.memory }} 
+              cpu: {{ .Values.resources.rabbitmq.limits.cpu }}
           volumeMounts:
             - name: rabbit-data-pv-1
               mountPath: /var/lib/rabbitmq

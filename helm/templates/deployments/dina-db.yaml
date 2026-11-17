@@ -58,11 +58,11 @@ spec:
           name: dina-db
           resources:
             requests:
-              memory: {{ .Values.resources.apis.requests.memory }}
-              cpu: {{ .Values.resources.apis.requests.cpu }}            
+              memory: {{ .Values.resources.dinadb.requests.memory }}
+              cpu: {{ .Values.resources.dinadb.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.apis.limits.memory }} 
-              cpu: {{ .Values.resources.apis.limits.cpu }}
+              memory: {{ .Values.resources.dinadb.limits.memory }} 
+              cpu: {{ .Values.resources.dinadb.limits.cpu }}
       volumes:
         - emptyDir:
             sizeLimit: 16Mi
