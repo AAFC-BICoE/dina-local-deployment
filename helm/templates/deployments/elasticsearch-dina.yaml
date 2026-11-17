@@ -81,11 +81,11 @@ spec:
             periodSeconds: 1
           resources:
             requests:
-              memory: {{ .Values.resources.general.requests.memory }}
-              cpu: {{ .Values.resources.general.requests.cpu }}            
+              memory: {{ .Values.resources.elasticsearchdina.requests.memory }}
+              cpu: {{ .Values.resources.elasticsearchdina.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.general.limits.memory }} 
-              cpu: {{ .Values.resources.general.limits.cpu }}
+              memory: {{ .Values.resources.elasticsearchdina.limits.memory }} 
+              cpu: {{ .Values.resources.elasticsearchdina.limits.cpu }}
           volumeMounts:
             - name: es-data
               mountPath: /usr/share/elasticsearch/data

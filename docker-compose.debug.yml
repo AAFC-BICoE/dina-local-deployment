@@ -21,17 +21,6 @@ services:
     ports:
       - ${COLLECTION_DEBUG_PORT}:${COLLECTION_DEBUG_PORT}
 
-  loan-transaction-api:
-    environment:
-      spring.jpa.show-sql: true
-      spring.jpa.properties.hibernate.format_sql: true
-      logging.level.org.hibernate.SQL: DEBUG
-      logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-      logging.level.ca.gc.aafc.dina: DEBUG
-      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${LOAN_TRANSACTION_DEBUG_PORT}
-    ports:
-      - ${LOAN_TRANSACTION_DEBUG_PORT}:${LOAN_TRANSACTION_DEBUG_PORT}
-
   dina-user-api:
     environment:
       spring.jpa.show-sql: true

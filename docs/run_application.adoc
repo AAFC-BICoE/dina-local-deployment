@@ -36,9 +36,6 @@ The `DINA_MODULES` section defines which containers you wish to run.
 |export_api
 |Starts the Export API service, which handles data export requests and generation.
 
-|loan_transaction_api
-|Starts the Loan Transaction API service, which manages loans and transactions of specimens.
-
 |kibana
 |Starts the Kibana dashboard. useful for visualizing data in Elasticsearch.
 

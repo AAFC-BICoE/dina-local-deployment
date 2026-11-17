@@ -135,11 +135,11 @@ spec:
             timeoutSeconds: 2
           resources:
             requests:
-              memory: {{ .Values.resources.general.requests.memory }}
-              cpu: {{ .Values.resources.general.requests.cpu }}            
+              memory: {{ .Values.resources.keycloak.requests.memory }}
+              cpu: {{ .Values.resources.keycloak.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.general.limits.memory }} 
-              cpu: {{ .Values.resources.general.limits.cpu }}
+              memory: {{ .Values.resources.keycloak.limits.memory }} 
+              cpu: {{ .Values.resources.keycloak.limits.cpu }}
           volumeMounts:
             - name: keycloak-dina-starter-volume
               mountPath: /opt/keycloak/data/import

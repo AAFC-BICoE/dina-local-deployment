@@ -179,30 +179,6 @@ spec:
                 key: password
             {{- end }}
 
-          # Loan and Transaction API (Defined in Values.services.initdb.config.loantransactionapi)
-          - name: MIGRATION_USER_loan_transaction
-            value: {{ .Values.services.loantransactionapi.environment.spring.liquibase.username }}
-          - name: MIGRATION_USER_PW_loan_transaction
-            {{- if .Values.services.loantransactionapi.environment.spring.liquibase.password }}
-            value: {{ .Values.services.loantransactionapi.environment.spring.liquibase.password }}
-            {{- else }}
-            valueFrom:
-              secretKeyRef:
-                name: loantransactionapi-liquibase-secret
-                key: password
-            {{- end }}
-          - name: WEB_USER_loan_transaction
-            value: {{ .Values.services.loantransactionapi.environment.spring.datasource.username }}
-          - name: WEB_USER_PW_loan_transaction
-            {{- if .Values.services.loantransactionapi.environment.spring.datasource.password }}
-            value: {{ .Values.services.loantransactionapi.environment.spring.datasource.password }}
-            {{- else }}
-            valueFrom:
-              secretKeyRef:
-                name: loantransactionapi-datasource-secret
-                key: password
-            {{- end }}
-
           # Object Store API (Defined in Values.services.initdb.config.objectstoreapi)
           - name: MIGRATION_USER_object_store
             value: {{ .Values.services.objectstoreapi.environment.spring.liquibase.username }}

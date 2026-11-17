@@ -79,9 +79,9 @@ spec:
             - containerPort: 8080
           resources:
             requests:
-              memory: {{ .Values.resources.apis.requests.memory }}
-              cpu: {{ .Values.resources.apis.requests.cpu }}            
+              memory: {{ .Values.resources.collectionapi.requests.memory }}
+              cpu: {{ .Values.resources.collectionapi.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.collectionapi.memory_limit_mb }}M
-              cpu: {{ .Values.resources.collectionapi.cpu_limit_m }}m
+              memory: {{ .Values.resources.collectionapi.limits.memory }}
+              cpu: {{ .Values.resources.collectionapi.limits.cpu }}
 status: {}

@@ -59,11 +59,11 @@ spec:
             periodSeconds: 1
           resources:
             requests:
-              memory: {{ .Values.resources.apis.requests.memory }}
-              cpu: {{ .Values.resources.apis.requests.cpu }}            
+              memory: {{ .Values.resources.searchws.requests.memory }}
+              cpu: {{ .Values.resources.searchws.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.apis.limits.memory }} 
-              cpu: {{ .Values.resources.apis.limits.cpu }}
+              memory: {{ .Values.resources.searchws.limits.memory }} 
+              cpu: {{ .Values.resources.searchws.limits.cpu }}
           volumeMounts:
             - name: es-certs
               mountPath: /app/certs
