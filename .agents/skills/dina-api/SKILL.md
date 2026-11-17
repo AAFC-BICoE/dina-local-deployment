@@ -1,6 +1,6 @@
 ---
 name: dina-api
-description: Run authenticated curl requests against the LOCAL DINA deployment at https://dina.local/api (agent-api, collection-api, objectstore-api, seqdb-api, search-api, user-api, dina-export-api, loan-transaction-api) via a wrapper that handles the Keycloak token. Use to query, create, update, or delete local DINA records, inspect API responses, seed test data, or debug the backend behind a UI feature. Local only: do not use for dev2, test, or prod.
+description: Run authenticated curl requests against the LOCAL DINA deployment at https://dina.local/api (agent-api, collection-api, objectstore-api, seqdb-api, search-api, user-api, dina-export-api) via a wrapper that handles the Keycloak token. Use to query, create, update, or delete local DINA records, inspect API responses, seed test data, or debug the backend behind a UI feature. Local only: do not use for dev2, test, or prod.
 ---
 
 # DINA local API

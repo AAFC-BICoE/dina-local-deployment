@@ -11,43 +11,37 @@ agentapi:
   image:
     registry: docker.io
     repository: aafcbicoe/agent-api
-    tag: "0.36"
+    tag: "1.0"
     pullPolicy: IfNotPresent
 collectionapi:
   image:
     registry: docker.io
     repository: aafcbicoe/natural-history-collection-api
-    tag: "0.131"
+    tag: "1.1"
     pullPolicy: IfNotPresent
 dinaexportapi:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-export-api
-    tag: "0.28"
+    tag: "0.29"
     pullPolicy: IfNotPresent
 dinaui:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-ui
-    tag: "0.232.0"
+    tag: "0.235.0"
     pullPolicy: IfNotPresent
 dinauserapi:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-user-api
-    tag: "0.30"
-    pullPolicy: IfNotPresent
-loantransactionapi:
-  image:
-    registry: docker.io
-    repository: aafcbicoe/loan-transaction-api
-    tag: "0.17"
+    tag: "1.0"
     pullPolicy: IfNotPresent
 objectstoreapi:
   image:
     registry: docker.io
     repository: aafcbicoe/object-store-api
-    tag: "1.38"
+    tag: "2.0"
     pullPolicy: IfNotPresent
 keycloak:
   image:
@@ -89,7 +83,7 @@ seqdbapi:
   image:
     registry: docker.io
     repository: aafcbicoe/seqdb-api
-    tag: "2.28.0"
+    tag: "3.0"
     pullPolicy: IfNotPresent
 rabbitmq:
   image:
@@ -104,8 +98,6 @@ profiles:
   collection_api:
     enabled: true
   export_api:
-    enabled: true
-  loan_transaction_api:
     enabled: true
   object_store_api:
     enabled: true
@@ -162,10 +154,6 @@ global:
       dina_user_api:
         label: dina-user-api
         service: dina-user-api-service
-      loan_transaction_api:
-        label: loan-transaction-api
-        service: loan-transaction-api-service
-        contexts: schema-change, initial-data, data-migration
       objectstore_api:
         DINA_DB: object_store
         label: objectstore-api
@@ -255,11 +243,6 @@ services:
         DINA_DB: export
       dinauserapi:
         DINA_DB: dina_user
-      loantransactionapi:
-        DINA_DB: loan_transaction
-        spring:
-          liquibase:
-            contexts: "{{ .Values.global.environment.config.loan_transaction_api.contexts }}"
       objectstoreapi:
         DINA_DB: object_store
       seqdbapi:
@@ -351,7 +334,6 @@ services:
       COLLECTION_API_ADDRESS: "{{ .Values.global.environment.config.collection_api.service }}:8080"
       USER_API_ADDRESS: "{{ .Values.global.environment.config.dina_user_api.service }}:8080"
       SEARCH_API_ADDRESS: "{{ .Values.global.environment.config.search_ws.service }}:8085"
-      LOAN_TRANSACTION_API_ADDRESS: "{{ .Values.global.environment.config.loan_transaction_api.service }}:8080"
       REPORT_LABEL_API_ADDRESS: "{{ .Values.global.environment.config.dina_export_api.service }}:8080"
       INSTANCE_MODE: "{{ .Values.global.environment.config.dina_ui.instance_mode }}"
       INSTANCE_NAME: "{{ .Values.global.environment.config.dina_ui.instance_name }}"
@@ -375,21 +357,6 @@ services:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
         username: "{{ .Values.global.environment.config.rabbitmq.username }}"
         password: "{{ .Values.global.environment.config.rabbitmq.password }}"
-  loantransactionapi:
-    environment:
-      rabbitmq:
-        host: "{{ .Values.global.environment.config.rabbitmq.service }}"
-      dina:
-        messaging:
-          isProducer: true
-      spring:
-        datasource:
-          url: jdbc:postgresql://{{ .Values.global.environment.config.dina_db.service }}/loan_transaction?currentSchema=loan_transaction
-          username: web_user_lt
-          password:
-        liquibase:
-          username: migration_user_lt
-          password:
   objectstoreapi:
     config:
       java_opts: "-XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError"
@@ -512,7 +479,6 @@ services:
       COLLECTION_API_URL: http://{{ .Values.global.environment.config.collection_api.service }}:8080/api/v1
       AGENT_API_URL: http://{{ .Values.global.environment.config.agent_api.service }}:8080/api/v1
       OBJECT_STORE_API_URL: http://{{ .Values.global.environment.config.objectstore_api.service }}:8080/api/v1
-      LOAN_TRANSACTION_API_URL: http://{{ .Values.global.environment.config.loan_transaction_api.service }}:8080/api/v1
       SEQDB_API_URL: http://{{ .Values.global.environment.config.seqdb_api.service }}:8080/api
       RABBITMQ_HOSTNAME: "{{ .Values.global.environment.config.rabbitmq.service }}"
       IS_MESSAGE_CONSUMER: true
@@ -563,30 +529,98 @@ podSecurityContext: {}
 securityContext: {}
 
 resources:
-  general:
-    limits:
-      memory: 2Gi
-      cpu: 1
-    requests:
-      cpu: 400m
-      memory: 1Gi
-  apis:
-    limits:
-      memory: 768Mi
-      cpu: 400m
+  dinaui:
     requests:
       cpu: 80m
       memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  agentapi:
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
   collectionapi:
-    memory_limit_mb: 1024
-    cpu_limit_m: 500
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 1024M
   objectstoreapi:
-    memory_limit_mb: 1024
-    cpu_limit_m: 500
     storage_limit_gb: 2
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 1024M
   seqdbapi:
-    memory_limit_mb: 1024
-    cpu_limit_m: 500
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 1024M
+  dinauserapi:
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  dinaexportapi:
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  searchws:
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  searchcli:
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  dinadb:
+    requests:
+      cpu: 80m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 768Mi
+  keycloak:
+    requests:
+      cpu: 400m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 2Gi
+  rabbitmq:
+    requests:
+      cpu: 400m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 2Gi
+  elasticsearchdina:
+    requests:
+      cpu: 400m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 2Gi
   initcontainers:
     limits:
       memory: 256Mi

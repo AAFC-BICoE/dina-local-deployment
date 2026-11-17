@@ -77,9 +77,9 @@ spec:
             periodSeconds: 1
           resources:
             requests:
-              memory: {{ .Values.resources.apis.requests.memory }}
-              cpu: {{ .Values.resources.apis.requests.cpu }}            
+              memory: {{ .Values.resources.dinauserapi.requests.memory }}
+              cpu: {{ .Values.resources.dinauserapi.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.apis.limits.memory }} 
-              cpu: {{ .Values.resources.apis.limits.cpu }}
+              memory: {{ .Values.resources.dinauserapi.limits.memory }} 
+              cpu: {{ .Values.resources.dinauserapi.limits.cpu }}
 status: {}

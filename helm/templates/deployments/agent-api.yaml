@@ -73,9 +73,9 @@ spec:
             periodSeconds: 1
           resources:
             requests:
-              memory: {{ .Values.resources.apis.requests.memory }}
-              cpu: {{ .Values.resources.apis.requests.cpu }}            
+              memory: {{ .Values.resources.agentapi.requests.memory }}
+              cpu: {{ .Values.resources.agentapi.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.apis.limits.memory }} 
-              cpu: {{ .Values.resources.apis.limits.cpu }}
+              memory: {{ .Values.resources.agentapi.limits.memory }} 
+              cpu: {{ .Values.resources.agentapi.limits.cpu }}
 status: {}

@@ -106,7 +106,7 @@ services:
       RESTORE_DB: false
       RESET_USERS: false
 
-      DINA_DB: agent collection dina_user object_store seqdb loan_transaction export
+      DINA_DB: agent collection dina_user object_store seqdb export
 
       MIGRATION_USER_agent: ${AGENT_MIGRATION_USER}
       MIGRATION_USER_PW_agent: ${AGENT_MIGRATION_USER_PW}
@@ -134,11 +134,6 @@ services:
       WEB_USER_seqdb: ${SEQDB_WEB_USER}
       WEB_USER_PW_seqdb: ${SEQDB_WEB_USER_PW}
       PG_EXTENSION_seqdb: pgcrypto
-
-      MIGRATION_USER_loan_transaction: ${LOAN_TRANSACTION_MIGRATION_USER}
-      MIGRATION_USER_PW_loan_transaction: ${LOAN_TRANSACTION_MIGRATION_USER_PW}
-      WEB_USER_loan_transaction: ${LOAN_TRANSACTION_WEB_USER}
-      WEB_USER_PW_loan_transaction: ${LOAN_TRANSACTION_WEB_USER_PW}
 
       MIGRATION_USER_export: ${EXPORT_MIGRATION_USER}
       MIGRATION_USER_PW_export: ${EXPORT_MIGRATION_USER_PW}

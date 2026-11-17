@@ -108,11 +108,11 @@ spec:
             periodSeconds: 1
           resources:
             requests:
-              memory: {{ .Values.resources.apis.requests.memory }}
-              cpu: {{ .Values.resources.apis.requests.cpu }}            
+              memory: {{ .Values.resources.objectstoreapi.requests.memory }}
+              cpu: {{ .Values.resources.objectstoreapi.requests.cpu }}            
             limits:
-              memory: {{ .Values.resources.objectstoreapi.memory_limit_mb }}M
-              cpu: {{ .Values.resources.objectstoreapi.cpu_limit_m }}m
+              memory: {{ .Values.resources.objectstoreapi.limits.memory }}
+              cpu: {{ .Values.resources.objectstoreapi.limits.cpu }}
 
           volumeMounts:
             - name: {{.Values.services.objectstoreapi.storage.volumeName}}
