@@ -561,7 +561,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_how_to_update_elasticsearch_mapping">16. How to Update ElasticSearch Mapping</a></li>
 <li><a href="#_rabbitmq">17. RabbitMQ</a>
 <ul class="sectlevel2">
-<li><a href="#_retry_messages_in_deadletter_queue">17.1. Retry messages in DeadLetter Queue</a></li>
+<li><a href="#_check_the_number_of_messages_in_each_queue">17.1. Check the number of messages in each queue</a></li>
+<li><a href="#_retry_messages_in_deadletter_queue">17.2. Retry messages in DeadLetter Queue</a></li>
 </ul>
 </li>
 <li><a href="#_jmeter">18. JMeter</a>
@@ -2385,18 +2386,62 @@ Insert your new field definition with its type (ElasticSearch type).</p>
 <div class="sect1">
 <h2 id="_rabbitmq">17. RabbitMQ</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_retry_messages_in_deadletter_queue">17.1. Retry messages in DeadLetter Queue</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The commands below must be run from within the network of the stack (the machine running the DINA containers). They target <code>localhost:15672</code>, so they can&#8217;t be run from outside that network.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p><strong>From the RabbitMQ Container</strong></p>
+<p>Credentials are <code>RABBITMQ_DEFAULT_USER</code> / <code>RABBITMQ_DEFAULT_PASS</code> from <code>.env</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_check_the_number_of_messages_in_each_queue">17.1. Check the number of messages in each queue</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -s -u username:password 'http://localhost:15672/api/queues/%2f?columns=name,messages'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example output:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">rabbitmq-plugins enable rabbitmq_shovel
-rabbitmq-plugins enable rabbitmq_shovel_management
-
-rabbitmqctl set_parameter shovel dlq-to-q-shovel '{"src-uri": "amqp://guest:guest@localhost:5672/%2F", "src-queue": "dina.search.queue.dlq", "dest-uri": "amqp://guest:guest@localhost:5672/%2F", "dest-queue": "dina.search.queue"}'</code></pre>
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[{"messages":0,"name":"dina.search.queue"},{"messages":3,"name":"dina.search.queue.dlq"}]</code></pre>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_retry_messages_in_deadletter_queue">17.2. Retry messages in DeadLetter Queue</h3>
+<div class="paragraph">
+<p>Publishes a <code>DeadLetterQueueReplayRequest</code> to <code>dina.search.queue</code>, which tells the search-api to replay the messages from <code>dina.search.queue.dlq</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -s -u username:password \
+  -H 'content-type: application/json' \
+  -X POST 'http://localhost:15672/api/exchanges/%2f/amq.default/publish' \
+  -d '{
+    "properties": {
+      "content_type": "application/json",
+      "headers": {
+        "__TypeId__": "ca.gc.aafc.dina.messaging.message.DeadLetterQueueReplayRequest"
+      }
+    },
+    "routing_key": "dina.search.queue",
+    "payload": "{\"type\":\"DeadLetterQueueReplayRequest\"}",
+    "payload_encoding": "string"
+  }'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A response of <code>{"routed":true}</code> means the request reached the queue.</p>
 </div>
 </div>
 </div>
@@ -2860,7 +2905,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-16 21:44:29 UTC
+Last updated 2026-11-18 16:08:43 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
