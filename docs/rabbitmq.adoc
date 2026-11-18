@@ -1,13 +1,43 @@
 = RabbitMQ
 
-== Retry messages in DeadLetter Queue
+NOTE: The commands below must be run from within the network of the stack (the machine running the DINA containers). They target `localhost:15672`, so they can't be run from outside that network.
 
-**From the RabbitMQ Container**
+Credentials are `RABBITMQ_DEFAULT_USER` / `RABBITMQ_DEFAULT_PASS` from `.env`.
+
+== Check the number of messages in each queue
+
 [source,bash]
 ----
-rabbitmq-plugins enable rabbitmq_shovel
-rabbitmq-plugins enable rabbitmq_shovel_management
-
-rabbitmqctl set_parameter shovel dlq-to-q-shovel '{"src-uri": "amqp://guest:guest@localhost:5672/%2F", "src-queue": "dina.search.queue.dlq", "dest-uri": "amqp://guest:guest@localhost:5672/%2F", "dest-queue": "dina.search.queue"}'
-
+curl -s -u username:password 'http://localhost:15672/api/queues/%2f?columns=name,messages'
 ----
+
+Example output:
+
+[source,json]
+----
+[{"messages":0,"name":"dina.search.queue"},{"messages":3,"name":"dina.search.queue.dlq"}]
+----
+
+== Retry messages in DeadLetter Queue
+
+Publishes a `DeadLetterQueueReplayRequest` to `dina.search.queue`, which tells the search-api to replay the messages from `dina.search.queue.dlq`.
+
+[source,bash]
+----
+curl -s -u username:password \
+  -H 'content-type: application/json' \
+  -X POST 'http://localhost:15672/api/exchanges/%2f/amq.default/publish' \
+  -d '{
+    "properties": {
+      "content_type": "application/json",
+      "headers": {
+        "__TypeId__": "ca.gc.aafc.dina.messaging.message.DeadLetterQueueReplayRequest"
+      }
+    },
+    "routing_key": "dina.search.queue",
+    "payload": "{\"type\":\"DeadLetterQueueReplayRequest\"}",
+    "payload_encoding": "string"
+  }'
+----
+
+A response of `{"routed":true}` means the request reached the queue.
