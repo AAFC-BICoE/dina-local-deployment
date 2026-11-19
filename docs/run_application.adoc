@@ -105,9 +105,9 @@ After all the components have finished initializing, the UI will be available at
 
 The password is the same as the username for all users.
 
-Note: Keycloak only imports these users when the `keycloak-data` folder is empty, and `.env` is only created when it doesn't exist. 
+Note: Keycloak only imports these users when the `keycloak-data` folder is empty, and `.env` is only created when it doesn't exist. To import the users again, see <<_reset_users_and_groups,Reset Users and Groups>>.
 
-If you started the stack before the `cnc-*` users were renamed to `dina-*`, stop it, delete `keycloak-data` (`sudo rm -rf keycloak-data`, which also deletes users added in Keycloak) and set `DINA_HTTP_DEFAULT_SU_USERNAME` and `DINA_HTTP_DEFAULT_SU_PASSWORD` to `dina-su` in `.env`.
+If you started the stack before the `+cnc-*+` users were renamed to `+dina-*+`, set `DINA_HTTP_DEFAULT_SU_USERNAME` and `DINA_HTTP_DEFAULT_SU_PASSWORD` to `dina-su` in `.env`. Then run the <<_reset_users_and_groups,Keycloak reset>> once.
 
 == Stopping the Stack
 

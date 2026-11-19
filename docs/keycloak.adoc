@@ -38,6 +38,52 @@ Then each of the API's that you wish to use also need to be configured with the 
 }
 ```
 
+== Reset Users and Groups
+
+Keycloak only imports the users and groups from `keycloak/keycloak-dina-starter-realm.json` when its database (`keycloak-data`) is empty.
+The reset script empties that database. Use it to:
+
+* pick up changes to the realm file.
+* undo changes made to users and groups while testing.
+* start Keycloak again after switching to a branch that uses an older Keycloak version. Keycloak can't open a database
+written by a newer version, and its logs show `Validation Failed` followed by `changesets check sum`.
+
+Warning: A reset deletes everything stored in Keycloak. This includes users you added and any changes to passwords,
+groups, roles, group labels or the agent linked to a user, whether they were made in the Keycloak admin console or the DINA UI.
+They go back to what the realm file defines.
+The users are recreated with new IDs, so their saved searches and UI preferences no longer show up.
+Data stored by the DINA modules (for example records in `dina-db` and files in `object-store-data`) is not changed.
+
+The reset doesn't change `.env`. If the realm file renames the user set in `DINA_HTTP_DEFAULT_SU_USERNAME`
+(for example from `cnc-su` to `dina-su`), update `DINA_HTTP_DEFAULT_SU_USERNAME` and `DINA_HTTP_DEFAULT_SU_PASSWORD`
+in `.env` first.
+
+Run the reset script, then start the stack:
+
+```sh
+./keycloak/reset-keycloak.sh
+./start_stop_dina.sh up -d
+```
+
+The script asks for confirmation before it deletes anything. Add `-y` to skip the question.
+It works whether the stack is running or stopped, and only removes the `keycloak` and `keycloak-db` containers.
+
+Don't add service names to that `up` command. The reset removes the Keycloak containers, and an `up` that only names
+other services doesn't start them again.
+
+If the DINA UI is open in your browser, reload the page and log in again.
+
+To confirm the import, wait for Keycloak to start, then run:
+
+```sh
+./start_stop_dina.sh logs keycloak | grep "Realm 'dina'" | tail -n 1
+```
+
+* `Realm 'dina' imported`: the users and groups were imported.
+* `Realm 'dina' already exists. Import skipped`: the database wasn't reset.
+* No output: Keycloak is still starting. Wait a little longer and run the command again.
+If there's still no output, Keycloak failed to start. Look for `ERROR` in `./start_stop_dina.sh logs keycloak`.
+
 == Settings
 
 Traefik is responsible for TLS termination so Keycloak is configured with `KC_PROXY: edge`.
