@@ -1,8 +1,8 @@
-= WSL2
+= WSL
 
-WSL2 (Windows Subsystem for Linux 2) is a compatibility layer that enables you to run a full Linux kernel natively on Windows 10/11.
+WSL {var_wsl_version} (Windows Subsystem for Linux 3) is a compatibility layer that enables you to run a full Linux kernel natively on Windows 10/11.
 
-On Windows, WSL2 should be used in replacement of the Ubuntu Virtual Machine mentioned above.
+On Windows, WSL {var_wsl_version} should be used in replacement of the Ubuntu Virtual Machine mentioned above.
 
 == Setup
 
@@ -27,7 +27,7 @@ In WSL the content of `/etc/hosts` should be changed to:
 
 == VPN
 
-On VPN the WSL2 networking can be affected.
+On VPN the WSL {var_wsl_version} networking can be affected.
 
 You can change WSL Network mode:
 
@@ -59,11 +59,11 @@ Once connected, you can use the VS Code integrated terminal to install tools and
 
 == Browser Installation
 
-To access `dina.local`, you must install a browser directly within the WSL2 environment *or* use the VS Code integrated browser (see below).
+To access `dina.local`, you must install a browser directly within the WSL environment *or* use the VS Code integrated browser (see below).
 
 === Using VS Code Integrated Browser (Experimental)
 
-Instead of installing a browser inside WSL2, you can use the VS Code integrated browser while connected to a WSL2 remote session.
+Instead of installing a browser inside WSL, you can use the VS Code integrated browser while connected to a WSL remote session.
 
 To enable this:
 
@@ -93,7 +93,7 @@ link:https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefo
 
 === Google Chrome
 
-Run the following commands in your WSL2 terminal:
+Run the following commands in your WSL terminal:
 
 [source,bash]
 ----

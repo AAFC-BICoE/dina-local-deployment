@@ -1,0 +1,8 @@
+{
+  "name": "test-dina-ticket-scripts",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "playwright": "1.57.0"
+  }
+}
