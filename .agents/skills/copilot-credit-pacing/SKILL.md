@@ -12,7 +12,7 @@ Work out the expected Copilot credit usage for the current month. Do not retriev
 1. Run the bundled script from any directory:
 
    ```bash
-   python3 /home/brandon/.agents/skills/copilot-credit-pacing/scripts/pacing.py
+   python3 ~/.agents/skills/copilot-credit-pacing/scripts/pacing.py
    ```
 
    To evaluate a different date, add `--date YYYY-MM-DD`. To change the allowance, add `--budget <credits>` (default 1900).
