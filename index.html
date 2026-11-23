@@ -471,7 +471,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_wsl2">2. WSL2</a>
+<li><a href="#_wsl">2. WSL</a>
 <ul class="sectlevel2">
 <li><a href="#_setup">2.1. Setup</a></li>
 <li><a href="#_vpn">2.2. VPN</a></li>
@@ -609,6 +609,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WSL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.0.5</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Linux</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ubuntu 22.04</p></td>
 </tr>
@@ -647,7 +651,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>WSL2 running Ubuntu (recommended)</p>
+<p>WSL 3.0.5 running Ubuntu (recommended)</p>
 </li>
 <li>
 <p>A Linux Virtual Machine (tested with Ubuntu 22.04)</p>
@@ -655,7 +659,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 <div class="paragraph">
-<p>For WSL2 setup, please refer to the WSL2 instructions to get started.</p>
+<p>For WSL 3.0.5 setup, please refer to the WSL instructions to get started.</p>
 </div>
 </div>
 <div class="sect2">
@@ -873,6 +877,16 @@ code --install-extension bruno-api-client.bruno</code></pre>
 <p>Requires the API repositories cloned locally.</p>
 </div>
 </dd>
+<dt class="hdlist1"><code>copilot-credit-pacing</code></dt>
+<dd>
+<p>Calculates where your Copilot credit usage should be this month. It counts Monday-to-Friday working days minus Canada federal statutory holidays, spreads the 1900-credit monthly allowance across them, and reports expected usage up to today. It does not fetch your actual usage.</p>
+<div class="paragraph">
+<p>Example: <code>How many Copilot credits should I have used this month?</code></p>
+</div>
+<div class="paragraph">
+<p>Runs <code>scripts/pacing.py</code> with Python 3. It needs no other setup.</p>
+</div>
+</dd>
 <dt class="hdlist1"><code>dina-api</code></dt>
 <dd>
 <p>Runs authenticated requests against the local deployment at <code><a href="https://dina.local/api" class="bare">https://dina.local/api</a></code> (agent, collection, object store, seqdb, search, user and export APIs). It gets and refreshes the Keycloak token for you and uses the Bruno collection in <code>api-client/</code> as its endpoint reference. Use it to query records, seed test data, or debug the backend behind a UI feature. Local deployment only; it refuses dev2, test and prod.</p>
@@ -888,6 +902,26 @@ code --install-extension bruno-api-client.bruno</code></pre>
 <p>Writes a ready-to-paste commit message from your staged changes (or unstaged changes if nothing is staged), with a header taken from the branch name and a bullet list of what changed. It adds a line disclosing AI-generated code unless you say no AI was involved. It only returns text; it never commits or pushes.</p>
 <div class="paragraph">
 <p>Example: <code>Write a commit message for my changes</code>.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>test-dina-ticket</code></dt>
+<dd>
+<p>Tests a ticket&#8217;s changes end to end against the local deployment. It reads the ticket and the branch diff to derive test scenarios, drives <code>dina-ui</code> in headless Chromium with Playwright, checks or seeds data through <code>dina-api</code>, and reports what passed and failed, with screenshots and any page or HTTP errors.</p>
+<div class="paragraph">
+<p>Example: <code>Test the changes on this branch end to end</code>.</p>
+</div>
+<div class="paragraph">
+<p>Requires <code>dina-ui</code> cloned in your home folder, the local deployment and <code>dina-ui</code> running, and a one-time setup in <code>.agents/skills/test-dina-ticket/scripts</code>: <code>npm install</code> followed by <code>npx playwright install chromium</code>.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>update-dina-user-docs</code></dt>
+<dd>
+<p>Maintains the DINA User Guide against the local deployment. It refreshes outdated screenshots and the step text around them, captures French screenshots and syncs the French guide, or documents a new feature in English and French.</p>
+<div class="paragraph">
+<p>Example: <code>Refresh the screenshots in the user guide</code>.</p>
+</div>
+<div class="paragraph">
+<p>Requires <code>dina-documentation</code> and <code>dina-ui</code> cloned in your home folder, Playwright installed, and the local deployment running.</p>
 </div>
 </dd>
 </dl>
@@ -1216,13 +1250,13 @@ sudo systemctl start ssh</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_wsl2">2. WSL2</h2>
+<h2 id="_wsl">2. WSL</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>WSL2 (Windows Subsystem for Linux 2) is a compatibility layer that enables you to run a full Linux kernel natively on Windows 10/11.</p>
+<p>WSL 3.0.5 (Windows Subsystem for Linux 3) is a compatibility layer that enables you to run a full Linux kernel natively on Windows 10/11.</p>
 </div>
 <div class="paragraph">
-<p>On Windows, WSL2 should be used in replacement of the Ubuntu Virtual Machine mentioned above.</p>
+<p>On Windows, WSL 3.0.5 should be used in replacement of the Ubuntu Virtual Machine mentioned above.</p>
 </div>
 <div class="sect2">
 <h3 id="_setup">2.1. Setup</h3>
@@ -1252,7 +1286,7 @@ generateHosts = false</code></pre>
 <div class="sect2">
 <h3 id="_vpn">2.2. VPN</h3>
 <div class="paragraph">
-<p>On VPN the WSL2 networking can be affected.</p>
+<p>On VPN the WSL 3.0.5 networking can be affected.</p>
 </div>
 <div class="paragraph">
 <p>You can change WSL Network mode:</p>
@@ -1317,12 +1351,12 @@ generateHosts = false</code></pre>
 <div class="sect2">
 <h3 id="_browser_installation">2.4. Browser Installation</h3>
 <div class="paragraph">
-<p>To access <code>dina.local</code>, you must install a browser directly within the WSL2 environment <strong>or</strong> use the VS Code integrated browser (see below).</p>
+<p>To access <code>dina.local</code>, you must install a browser directly within the WSL environment <strong>or</strong> use the VS Code integrated browser (see below).</p>
 </div>
 <div class="sect3">
 <h4 id="_using_vs_code_integrated_browser_experimental">2.4.1. Using VS Code Integrated Browser (Experimental)</h4>
 <div class="paragraph">
-<p>Instead of installing a browser inside WSL2, you can use the VS Code integrated browser while connected to a WSL2 remote session.</p>
+<p>Instead of installing a browser inside WSL, you can use the VS Code integrated browser while connected to a WSL remote session.</p>
 </div>
 <div class="paragraph">
 <p>To enable this:</p>
@@ -1380,7 +1414,7 @@ generateHosts = false</code></pre>
 <div class="sect3">
 <h4 id="_google_chrome">2.4.3. Google Chrome</h4>
 <div class="paragraph">
-<p>Run the following commands in your WSL2 terminal:</p>
+<p>Run the following commands in your WSL terminal:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2905,7 +2939,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-23 19:45:20 UTC
+Last updated 2026-11-23 23:10:02 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
