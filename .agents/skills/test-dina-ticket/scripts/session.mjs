@@ -25,6 +25,7 @@ export async function start({ lang = "en", headless = true } = {}) {
     // dina-ui keeps the language in localStorage as JSON (@rehooks/local-storage).
     await page.evaluate(([key, value]) => localStorage.setItem(key, JSON.stringify(value)), ["locale", lang]);
     await page.reload({ waitUntil: "domcontentloaded" });
+    await page.waitForSelector(`html[lang=${lang}]`);
   }
   return { browser, page, problems };
 }
