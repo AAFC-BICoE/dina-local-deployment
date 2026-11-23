@@ -1,5 +1,5 @@
 // Self-contained browser session for the LOCAL DINA deployment. Logs in through Keycloak and records problems while you drive the page.
-// Setup once: `npm install` in this scripts/ folder, then `npx playwright install chromium`.
+// Setup once: `npm install` in this scripts/ folder, then `npx playwright install --with-deps chromium`.
 // import { start, go, snap } from "/home/<user>/dina-local-deployment/.agents/skills/test-dina-ticket/scripts/session.mjs";
 //   const { browser, page, problems } = await start({ lang: "en" });
 import { chromium } from "playwright";

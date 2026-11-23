@@ -12,7 +12,7 @@ Local only: `https://dina.local`. Refuse other hosts. Don't commit or push anyth
 ## Tools (reuse, don't rebuild)
 
 - **API**: the `dina-api` skill (`.agents/skills/dina-api/scripts/dina-curl.sh` in this repo). Follow its safety rules (TEST prefix on seeded data, group `dina`, verify after write, only delete what you created).
-- **Browser**: `scripts/session.mjs` in this skill. `start({ lang })` logs in to `https://dina.local` through the Keycloak form (default `dina-su` / `dina-su`, overridable with `DINA_USERNAME` / `DINA_PASSWORD`) and collects page errors, console errors and HTTP >= 400 responses in `problems`. `go(page, path)` navigates and refuses any host other than `dina.local`; `snap(page, file)` takes a full-page screenshot. Setup once: `npm install` in `scripts/`, then `npx playwright install chromium`.
+- **Browser**: `scripts/session.mjs` in this skill. `start({ lang })` logs in to `https://dina.local` through the Keycloak form (default `dina-su` / `dina-su`, overridable with `DINA_USERNAME` / `DINA_PASSWORD`) and collects page errors, console errors and HTTP >= 400 responses in `problems`. `go(page, path)` navigates and refuses any host other than `dina.local`; `snap(page, file)` takes a full-page screenshot. Setup once: `npm install` in `scripts/`, then `npx playwright install --with-deps chromium` (`--with-deps` installs the system libraries Chromium needs and asks for sudo).
 - Known noise: `HTTP 404 .../dev-user.json` appears on every page load in dev. Ignore it unless the ticket touches it.
 - Write throwaway scripts to the scratchpad dir (not the repo) as `.mjs` and import by absolute path. Run with `node`.
 
