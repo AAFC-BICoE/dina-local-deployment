@@ -29,7 +29,7 @@ dinaui:
   image:
     registry: docker.io
     repository: aafcbicoe/dina-ui
-    tag: "0.235.0"
+    tag: "0.235.1"
     pullPolicy: IfNotPresent
 dinauserapi:
   image:
@@ -47,7 +47,7 @@ keycloak:
   image:
     registry: quay.io
     repository: keycloak/keycloak
-    tag: "25.0.6"
+    tag: "26.8.2"
     pullPolicy: IfNotPresent
 elasticsearchdina:
   image:
@@ -314,6 +314,9 @@ services:
         client_id: "{{ .Values.global.environment.keycloak.client_id }}"
         username: "{{ .Values.global.environment.config.dina_export_api.http_client.username }}"
         password: "{{ .Values.global.environment.config.dina_export_api.http_client.password }}"
+        allowed_hosts:
+          - "{{ .Values.global.environment.config.objectstore_api.service }}"
+          - "{{ .Values.global.environment.config.agent_api.service }}"
       rabbitmq:
         host: "{{ .Values.global.environment.config.rabbitmq.service }}"
         username: "{{ .Values.global.environment.config.rabbitmq.username }}"

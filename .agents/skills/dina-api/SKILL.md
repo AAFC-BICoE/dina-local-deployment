@@ -12,7 +12,7 @@ Only the local deployment `https://dina.local` is in scope. If asked to hit dev2
 Run from the repo root. The wrapper gets a Keycloak token (password grant, client `dina-public`, realm `dina`, user `dina-su`), caches it in `~/.cache/dina-api/`, refreshes it when it expires, and retries once on a 401:
 
 ```bash
-S=.claude/skills/dina-api/scripts
+S=.agents/skills/dina-api/scripts
 
 $S/dina-curl.sh GET  '/agent-api/person?page[limit]=5&sort=-createdOn'
 $S/dina-curl.sh GET  '/collection-api/material-sample/<uuid>?include=organism,collection'

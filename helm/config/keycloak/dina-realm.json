@@ -158,8 +158,8 @@
       "publicClient": false,
       "redirectUris": ["*"],
       "protocol": "openid-connect",
-      "fullScopeAllowed": true,
-      "defaultClientScopes": ["roles"],
+      "fullScopeAllowed": false,
+      "defaultClientScopes": ["roles", "kc-admin-api"],
       "optionalClientScopes": ["offline_access"],
       "protocolMappers": [
         {
@@ -216,7 +216,7 @@
       "redirectUris": ["*"],
       "webOrigins": ["*"],
       "protocol": "openid-connect",
-      "fullScopeAllowed": true,
+      "fullScopeAllowed": false,
       "defaultClientScopes": [
         "web-origins",
         "dina-attributes",
@@ -229,6 +229,28 @@
     }
   ],
   "clientScopes": [
+    {
+      "name": "kc-admin-api",
+      "description": "Grants access to the Keycloak Admin REST API by adding its required audience to the token",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "name": "admin-api-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-admin-api-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "lightweight.claim": "true",
+            "introspection.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
     {
       "id": "5b3d37dd-6615-44ea-851e-0f52111a50da",
       "name": "dina-attributes",
@@ -358,8 +380,24 @@
     {
       "clientScope": "dina-attributes",
       "roles": ["dina-realm-user"]
+    },
+    {
+      "client": "dina-public",
+      "roles": [
+        "dina-realm-user",
+        "dina-admin",
+        "read-only-admin"
+      ]
     }
   ],
+  "clientScopeMappings": {
+    "realm-management": [
+      {
+        "client": "user-svc",
+        "roles": ["view-users", "manage-users", "query-users", "query-groups"]
+      }
+    ]
+  },
   "components": {
     "org.keycloak.userprofile.UserProfileProvider": [
       {

@@ -38,17 +38,14 @@ Keep the title faithful to the branch. Light polish for readability is fine (for
 
 If the branch doesn't follow this pattern (`main`, `develop`, no ticket number), don't guess a ticket. Write a short descriptive header from the changes themselves and add a one-line note telling the user the branch had no ticket to derive it from.
 
-## Step 3: Write the bullets
+## Step 3: Write a simplified message
 
-Below the header, leave a blank line, then one bullet per logical change. The goal is for a teammate to understand what the commit did without opening the diff.
+Keep the message short. Always use this format:
 
-- Group by purpose, not by file. Three files changed for one reason is one bullet.
-- Use past tense and start with a verb ("Added", "Fixed", "Bumped", "Applied", "Dimmed").
-- Name the specific components, packages, or functions involved when that makes the bullet more useful, and say why when the reason isn't obvious (for example "...since they were bypassing it").
-- For dependency changes, include the old and new versions.
-- Mention test coverage if tests were added or changed ("Added test coverage.").
-- Skip trivia like whitespace, import reordering, or formatting unless that's the whole change.
-- Match the size of the change: a one-line fix gets one bullet; a broad change gets three to five. Don't pad.
+- Use one bullet for most changes. Use at most three bullets, and only when the commit has clearly separate purposes.
+- Each bullet is one short sentence in past tense, starting with a verb. Aim for under 12 words.
+- Don't list file names, function names, reasons, or test and formatting notes unless they are the whole change.
+- For dependency bumps, name the package and the old and new versions.
 
 ## Step 4: AI-generated code disclosure (included by default)
 
@@ -78,10 +75,7 @@ Return the message inside a single fenced code block so it can be copied cleanly
 ```
 Feature #81538 - Visualizing Empty Fields on View Pages
 
-- Show a muted dash for empty fields on view pages, centralized in FieldWrapper/FieldView so it applies everywhere.
-- Fixed ResourceSelectField, NumberRangeFields, and MaterialSampleStateWarning to actually pick this up since they were bypassing it.
-- Dimmed the tooltip icon on empty fields too.
-- Added test coverage.
+- Showed a muted dash for empty fields on view pages.
 ```
 
 **Example 2** (small follow-up on the same branch):
@@ -97,9 +91,7 @@ Feature #81538 - Visualizing Empty Fields on View Pages
 ```
 Task #81499 - Upgrade Dependencies
 
-- Bumped next and eslint-config-next from 16.2.12 to 16.3.5
-- Added resolutions for shell-quote and flattened
-- Bumped immutable via scoped resolutions (5.1.9 for sass, 4.3.9 for react-awesome-query-builder).
+- Bumped next and eslint-config-next from 16.2.12 to 16.3.5.
 ```
 
 **Example 4** (default, or the user said the changes include AI-assisted code; also used in autonomous runs):
