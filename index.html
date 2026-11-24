@@ -911,7 +911,7 @@ code --install-extension bruno-api-client.bruno</code></pre>
 <p>Example: <code>Test the changes on this branch end to end</code>.</p>
 </div>
 <div class="paragraph">
-<p>Requires <code>dina-ui</code> cloned in your home folder, the local deployment and <code>dina-ui</code> running, and a one-time setup in <code>.agents/skills/test-dina-ticket/scripts</code>: <code>npm install</code> followed by <code>npx playwright install chromium</code>.</p>
+<p>Requires <code>dina-ui</code> cloned in your home folder, the local deployment and <code>dina-ui</code> running, and a one-time setup in <code>.agents/skills/test-dina-ticket/scripts</code>: <code>npm install</code> followed by <code>npx playwright install --with-deps chromium</code>. The <code>--with-deps</code> part installs the system libraries Chromium needs and asks for your sudo password.</p>
 </div>
 </dd>
 <dt class="hdlist1"><code>update-dina-user-docs</code></dt>
@@ -2939,7 +2939,7 @@ to be true.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-24 15:45:51 UTC
+Last updated 2026-11-24 15:56:02 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
