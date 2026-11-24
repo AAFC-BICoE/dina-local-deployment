@@ -9,11 +9,13 @@
 :var_node_version: 22
 :var_yarn_version: 1.22.21
 :var_maven_version: 3.9.8
+:var_wsl_version: 3.0.5
 
 [cols="2,1", subs="attributes"]
 |===
 | Component | Tested version
 
+| WSL | {var_wsl_version}
 | Linux | Ubuntu {var_ubuntu_version}
 | Docker | {var_docker_version}
 | Docker Compose CLI plugin | v{var_docker_compose_version}
@@ -27,10 +29,10 @@
 
 A Linux environment with approximately 100 GB of disk space is required. This can be set up using one of the following options:
 
-- WSL2 running Ubuntu (recommended)
+- WSL {var_wsl_version} running Ubuntu (recommended)
 - A Linux Virtual Machine (tested with Ubuntu {var_ubuntu_version})
 
-For WSL2 setup, please refer to the WSL2 instructions to get started.
+For WSL {var_wsl_version} setup, please refer to the WSL instructions to get started.
 
 == Packages
 
@@ -210,6 +212,13 @@ Example: `Build a local image of collection-api with my changes and deploy it`, 
 +
 Requires the API repositories cloned locally.
 
+`copilot-credit-pacing`::
+Calculates where your Copilot credit usage should be this month. It counts Monday-to-Friday working days minus Canada federal statutory holidays, spreads the 1900-credit monthly allowance across them, and reports expected usage up to today. It does not fetch your actual usage.
++
+Example: `How many Copilot credits should I have used this month?`
++
+Runs `scripts/pacing.py` with Python 3. It needs no other setup.
+
 `dina-api`::
 Runs authenticated requests against the local deployment at `https://dina.local/api` (agent, collection, object store, seqdb, search, user and export APIs). It gets and refreshes the Keycloak token for you and uses the Bruno collection in `api-client/` as its endpoint reference. Use it to query records, seed test data, or debug the backend behind a UI feature. Local deployment only; it refuses dev2, test and prod.
 +
@@ -221,6 +230,20 @@ Requires the local deployment to be running.
 Writes a ready-to-paste commit message from your staged changes (or unstaged changes if nothing is staged), with a header taken from the branch name and a bullet list of what changed. It adds a line disclosing AI-generated code unless you say no AI was involved. It only returns text; it never commits or pushes.
 +
 Example: `Write a commit message for my changes`.
+
+`test-dina-ticket`::
+Tests a ticket's changes end to end against the local deployment. It reads the ticket and the branch diff to derive test scenarios, drives `dina-ui` in headless Chromium with Playwright, checks or seeds data through `dina-api`, and reports what passed and failed, with screenshots and any page or HTTP errors.
++
+Example: `Test the changes on this branch end to end`.
++
+Requires `dina-ui` cloned in your home folder, the local deployment and `dina-ui` running, and a one-time setup in `.agents/skills/test-dina-ticket/scripts`: `npm install` followed by `npx playwright install chromium`.
+
+`update-dina-user-docs`::
+Maintains the DINA User Guide against the local deployment. It refreshes outdated screenshots and the step text around them, captures French screenshots and syncs the French guide, or documents a new feature in English and French.
++
+Example: `Refresh the screenshots in the user guide`.
++
+Requires `dina-documentation` and `dina-ui` cloned in your home folder, Playwright installed, and the local deployment running.
 
 === VSCode Remote (Optional)
 
