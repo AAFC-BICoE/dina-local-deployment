@@ -1,5 +1,5 @@
 // Self-contained browser session for the LOCAL DINA deployment. Logs in through Keycloak and records problems while you drive the page.
-// Setup once: `npm install` in this scripts/ folder, then `npx playwright install chromium`.
+// Setup once: `npm install` in this scripts/ folder, then `npx playwright install --with-deps chromium`.
 // import { start, go, snap } from "/home/<user>/dina-local-deployment/.agents/skills/test-dina-ticket/scripts/session.mjs";
 //   const { browser, page, problems } = await start({ lang: "en" });
 import { chromium } from "playwright";
@@ -25,6 +25,7 @@ export async function start({ lang = "en", headless = true } = {}) {
     // dina-ui keeps the language in localStorage as JSON (@rehooks/local-storage).
     await page.evaluate(([key, value]) => localStorage.setItem(key, JSON.stringify(value)), ["locale", lang]);
     await page.reload({ waitUntil: "domcontentloaded" });
+    await page.waitForSelector(`html[lang=${lang}]`);
   }
   return { browser, page, problems };
 }
