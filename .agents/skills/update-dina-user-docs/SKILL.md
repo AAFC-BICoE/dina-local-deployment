@@ -11,7 +11,7 @@ Keep the **DINA User Guide** in line with the current UI:
 - **French**: capture French screenshots and keep `fr/*.adoc` in sync with the English guide.
 - **New feature**: write new steps, screenshots and text (English and French).
 
-Screenshots come from the **local** deployment (`https://dina.local`) using headless Chromium (Playwright). Write throwaway `.mjs` scripts in the scratchpad (never in the repos). If Playwright isn't installed there, run `npm i playwright && npx playwright install chromium`.
+Screenshots come from the **local** deployment (`https://dina.local`) using headless Chromium (Playwright). Write throwaway `.mjs` scripts in the scratchpad (never in the repos). If Playwright isn't installed there, run `npm i playwright && npx playwright install --with-deps chromium`.
 
 ## Where things are
 

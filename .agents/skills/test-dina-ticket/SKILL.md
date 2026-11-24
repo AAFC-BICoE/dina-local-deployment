@@ -12,13 +12,13 @@ Local only: `https://dina.local`. Refuse other hosts. Don't commit or push anyth
 ## Tools (reuse, don't rebuild)
 
 - **API**: the `dina-api` skill (`.agents/skills/dina-api/scripts/dina-curl.sh` in this repo). Follow its safety rules (TEST prefix on seeded data, group `dina`, verify after write, only delete what you created).
-- **Browser**: `scripts/session.mjs` in this skill. `start({ lang })` logs in to `https://dina.local` through the Keycloak form (default `dina-su` / `dina-su`, overridable with `DINA_USERNAME` / `DINA_PASSWORD`) and collects page errors, console errors and HTTP >= 400 responses in `problems`. `go(page, path)` navigates and refuses any host other than `dina.local`; `snap(page, file)` takes a full-page screenshot. Setup once: `npm install` in `scripts/`, then `npx playwright install chromium`.
+- **Browser**: `scripts/session.mjs` in this skill. `start({ lang })` logs in to `https://dina.local` through the Keycloak form (default `dina-su` / `dina-su`, overridable with `DINA_USERNAME` / `DINA_PASSWORD`) and collects page errors, console errors and HTTP >= 400 responses in `problems`. `go(page, path)` navigates and refuses any host other than `dina.local`; `snap(page, file)` takes a full-page screenshot. Setup once: `npm install` in `scripts/`, then `npx playwright install --with-deps chromium` (`--with-deps` installs the system libraries Chromium needs and asks for sudo).
 - Known noise: `HTTP 404 .../dev-user.json` appears on every page load in dev. Ignore it unless the ticket touches it.
 - Write throwaway scripts to the scratchpad dir (not the repo) as `.mjs` and import by absolute path. Run with `node`.
 
 ## Workflow
 
-1. **Understand the change.** Use the ticket text the user gave. Then read the actual change: `git -C ~/dina-ui log master..HEAD --oneline` and `diff master...HEAD --stat` (if the stat is hundreds of files the branch is stale against master: use `git show <branch commits> --stat` instead), plus the branch name/commit messages. The diff is the source of truth for what to test; the ticket is the intent.
+1. **Understand the change.** Use the ticket text the user gave. Then read the actual change against the branch the PR targets, which is `dev` for dina-ui: `git -C ~/dina-ui fetch origin dev`, then `git -C ~/dina-ui log origin/dev..HEAD --oneline` and `git -C ~/dina-ui diff origin/dev...HEAD --stat`, plus the branch name/commit messages. If the PR targets another branch, use that instead of `dev`. The diff is the source of truth for what to test; the ticket is the intent.
 2. **Check the stack.** `dina-curl.sh GET /agent-api/person '' ` style probe (page[limit]=1). The UI should respond at `https://dina.local`; dina-ui runs with live reload. If it's down, tell the user and stop.
 3. **Write a test plan** (short list, show the user): for each changed page/component list
    - the happy path from the ticket,
