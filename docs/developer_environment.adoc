@@ -236,7 +236,7 @@ Tests a ticket's changes end to end against the local deployment. It reads the t
 +
 Example: `Test the changes on this branch end to end`.
 +
-Requires `dina-ui` cloned in your home folder, the local deployment and `dina-ui` running, and a one-time setup in `.agents/skills/test-dina-ticket/scripts`: `npm install` followed by `npx playwright install chromium`.
+Requires `dina-ui` cloned in your home folder, the local deployment and `dina-ui` running, and a one-time setup in `.agents/skills/test-dina-ticket/scripts`: `npm install` followed by `npx playwright install --with-deps chromium`. The `--with-deps` part installs the system libraries Chromium needs and asks for your sudo password.
 
 `update-dina-user-docs`::
 Maintains the DINA User Guide against the local deployment. It refreshes outdated screenshots and the step text around them, captures French screenshots and syncs the French guide, or documents a new feature in English and French.
