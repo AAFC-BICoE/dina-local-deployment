@@ -46,3 +46,15 @@ Keycloak Admin console is available at `https://keycloak.dina.local/auth`.
 
 The main reason for having the admin console on a different hostname is to simplify the rules for not exposing it.
 
+== Upgrading an existing install to Keycloak 26
+
+New installs get the Keycloak 26 realm settings from the realm import. An existing realm is not re-imported, so until the migration script runs, user-api `/user` and `/group` return 500 and the Users and Groups pages show an error.
+
+Back up the Keycloak database, then run the script once against the running Keycloak container:
+
+[source,shell]
+----
+docker exec -i dina-local-deployment-keycloak-1 bash -s -- dina < keycloak/migrate-realm-keycloak-26.sh
+----
+
+See `docs/keycloak-26-upgrade.md` for what the script changes and the Helm command.
