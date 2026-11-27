@@ -20,4 +20,15 @@ New installs get this from the realm import. Existing realms are not re-imported
 ```shell
 docker exec -i <keycloak-container> bash -s -- dina < keycloak/migrate-realm-keycloak-26.sh
 kubectl exec -i <keycloak-pod> -- bash -s -- dina < keycloak/migrate-realm-keycloak-26.sh
+oc exec -i <keycloak-pod> -- bash -s -- dina < keycloak/migrate-realm-keycloak-26.sh   # pod name: oc get pods | grep keycloak
+```
+
+Or from a terminal in the Keycloak pod (OKD console Terminal tab, or `oc rsh <keycloak-pod>`), paste the script into a file and run it:
+
+```shell
+cat > /tmp/migrate.sh <<'EOF'
+# paste the contents of keycloak/migrate-realm-keycloak-26.sh here
+EOF
+bash /tmp/migrate.sh dina
+rm /tmp/migrate.sh
 ```

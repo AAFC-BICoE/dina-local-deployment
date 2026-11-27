@@ -5,7 +5,12 @@
 # Usage, from dina-local-deployment:
 #   docker exec -i <keycloak-container> bash -s -- dina < keycloak/migrate-realm-keycloak-26.sh
 #   kubectl exec -i <keycloak-pod> -- bash -s -- dina < keycloak/migrate-realm-keycloak-26.sh
+#   oc exec -i <keycloak-pod> -- bash -s -- dina < keycloak/migrate-realm-keycloak-26.sh
 set -euo pipefail
+
+# kcadm saves its login under $HOME, which isn't writable when OKD runs the pod as a random user
+export HOME=/tmp
+trap 'rm -rf /tmp/.keycloak' EXIT  # don't leave the admin login behind
 
 REALM="${1:-dina}"
 KCADM=/opt/keycloak/bin/kcadm.sh
