@@ -8,7 +8,7 @@ spec:
     spec:
       initContainers:
         - name: check-db
-          image: {{ .Values.services.initdb.image }}
+          image: {{ include "dina-helm.build-image-name" .Values.initdb.image | quote }}
           command:
             - sh
             - -c
@@ -46,7 +46,7 @@ spec:
         {{- end}}
       containers:
         - name: restore-db
-          image: {{ .Values.services.initdb.image }}
+          image: {{ include "dina-helm.build-image-name" .Values.initdb.image | quote }}
           env:
           # Database Connection:
           - name: POSTGRES_HOST

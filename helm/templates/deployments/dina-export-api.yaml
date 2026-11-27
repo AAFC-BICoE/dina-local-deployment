@@ -21,6 +21,11 @@ spec:
       labels:
         app: {{ .Values.app.name }}-{{ .Values.global.environment.config.dina_export_api.label }}
     spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      {{- if .Values.securityContextRunAsUser }}
+      securityContext:
+        runAsUser: {{ .Values.securityContextRunAsUser }}
+      {{- end }}
       initContainers:
         {{- include "dina-helm.initContainer.checkDb" . | nindent 8 }}
         {{- include "dina-helm.initContainer.initDb" (dict "root" . "serviceKey" "dinaexportapi" "environmentKey" "dina_export_api" "shortName" "export") | nindent 8 }}
